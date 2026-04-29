@@ -16,6 +16,7 @@ const required = [
   'apps/web/app/settings/page.tsx',
   'apps/web/app/studio/page.tsx',
   'apps/web/lib/local-store.ts',
+  'apps/web/lib/local-backup.ts',
   'apps/web/lib/use-bookmarks.ts',
   'apps/web/lib/use-reading-progress.ts',
   'apps/web/lib/use-journey-progress.ts',
@@ -25,6 +26,7 @@ const required = [
   'apps/web/components/ContinueJourneyCard.tsx',
   'apps/web/components/ReadingProgressPanel.tsx',
   'apps/web/components/ReaderPreferencesPanel.tsx',
+  'apps/web/components/LocalBackupCard.tsx',
   'apps/web/components/JourneyList.tsx',
   'apps/web/components/JourneyStepCard.tsx',
   'apps/web/components/JourneyProgressSummary.tsx',
@@ -54,7 +56,8 @@ const required = [
   'docs/SPRINT_6_SCOPE.md',
   'docs/SPRINT_7_SCOPE.md',
   'docs/SPRINT_8_SCOPE.md',
-  'docs/SPRINT_9_SCOPE.md'
+  'docs/SPRINT_9_SCOPE.md',
+  'docs/SPRINT_10_SCOPE.md'
 ];
 
 const missing = required.filter((file) => !existsSync(file));
@@ -77,9 +80,15 @@ if (!webPkg.scripts?.dev?.includes('-p 3200')) {
 }
 
 const appVersion = readFileSync('apps/web/lib/app-version.ts', 'utf8');
-if (!appVersion.includes("NOOR_APP_VERSION = '0.9.0'")) {
-  console.error('Sprint 9 must update NOOR app version to 0.9.0.');
+if (!appVersion.includes("NOOR_APP_VERSION = '0.10.0'")) {
+  console.error('Sprint 10 must update NOOR app version to 0.10.0.');
   process.exit(1);
 }
 
-console.log('NOOR Sprint 0-9 pack check passed.');
+const localBackup = readFileSync('apps/web/lib/local-backup.ts', 'utf8');
+if (!localBackup.includes('noor.local-backup.v1')) {
+  console.error('Sprint 10 must include local backup schema v1.');
+  process.exit(1);
+}
+
+console.log('NOOR Sprint 0-10 pack check passed.');
