@@ -1,16 +1,44 @@
 {
+  "id": "/today",
   "name": "NOOR — Daily Islamic Companion",
   "short_name": "NOOR",
-  "description": "Read Quran, understand Tafseer, discover Hadith, and continue your daily journey.",
+  "description": "Read Quran, understand Tafseer, discover Hadith, continue guided journeys, and share reminders.",
   "start_url": "/today",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#071014",
   "theme_color": "#071014",
+  "categories": ["education", "books", "lifestyle"],
   "icons": [
     {
       "src": "/icons/noor-mark.svg",
       "sizes": "any",
-      "type": "image/svg+xml"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Today",
+      "short_name": "Today",
+      "description": "Open your daily NOOR companion screen.",
+      "url": "/today",
+      "icons": [{ "src": "/icons/noor-mark.svg", "sizes": "any", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "Explore",
+      "short_name": "Explore",
+      "description": "Search Quran, Tafseer, Hadith and journeys.",
+      "url": "/explore",
+      "icons": [{ "src": "/icons/noor-mark.svg", "sizes": "any", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "Journeys",
+      "short_name": "Journeys",
+      "description": "Continue guided Islamic learning journeys.",
+      "url": "/journeys",
+      "icons": [{ "src": "/icons/noor-mark.svg", "sizes": "any", "type": "image/svg+xml" }]
     }
   ]
 }
