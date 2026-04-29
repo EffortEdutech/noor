@@ -15,6 +15,7 @@ const required = [
   'apps/web/app/library/page.tsx',
   'apps/web/app/settings/page.tsx',
   'apps/web/app/studio/page.tsx',
+  'apps/web/app/changelog/page.tsx',
   'apps/web/lib/local-store.ts',
   'apps/web/lib/local-backup.ts',
   'apps/web/lib/use-bookmarks.ts',
@@ -22,11 +23,13 @@ const required = [
   'apps/web/lib/use-journey-progress.ts',
   'apps/web/lib/app-version.ts',
   'apps/web/lib/reader-preferences.ts',
+  'apps/web/lib/release-notes.ts',
   'apps/web/components/ContinueReadingCard.tsx',
   'apps/web/components/ContinueJourneyCard.tsx',
   'apps/web/components/ReadingProgressPanel.tsx',
   'apps/web/components/ReaderPreferencesPanel.tsx',
   'apps/web/components/LocalBackupCard.tsx',
+  'apps/web/components/ReleaseNotesCard.tsx',
   'apps/web/components/JourneyList.tsx',
   'apps/web/components/JourneyStepCard.tsx',
   'apps/web/components/JourneyProgressSummary.tsx',
@@ -49,6 +52,10 @@ const required = [
   'packages/noor-content/src/demo/content-manifest.ts',
   'packages/noor-content/src/demo/content-health.ts',
   'packages/noor-search/src/index.ts',
+  '.github/workflows/noor-ci.yml',
+  '.github/workflows/noor-release.yml',
+  'CHANGELOG.md',
+  'RELEASE_NOTES.md',
   'docs/DATA_CONTRACTS.md',
   'docs/SPRINT_3_SCOPE.md',
   'docs/SPRINT_4_SCOPE.md',
@@ -57,7 +64,8 @@ const required = [
   'docs/SPRINT_7_SCOPE.md',
   'docs/SPRINT_8_SCOPE.md',
   'docs/SPRINT_9_SCOPE.md',
-  'docs/SPRINT_10_SCOPE.md'
+  'docs/SPRINT_10_SCOPE.md',
+  'docs/SPRINT_11_SCOPE.md'
 ];
 
 const missing = required.filter((file) => !existsSync(file));
@@ -73,6 +81,11 @@ if (!rootPkg.scripts?.['check:content']) {
   process.exit(1);
 }
 
+if (!rootPkg.scripts?.['check:release']) {
+  console.error('Root package.json must include check:release script.');
+  process.exit(1);
+}
+
 const webPkg = JSON.parse(readFileSync('apps/web/package.json', 'utf8'));
 if (!webPkg.scripts?.dev?.includes('-p 3200')) {
   console.error('apps/web dev script must use port 3200.');
@@ -80,15 +93,21 @@ if (!webPkg.scripts?.dev?.includes('-p 3200')) {
 }
 
 const appVersion = readFileSync('apps/web/lib/app-version.ts', 'utf8');
-if (!appVersion.includes("NOOR_APP_VERSION = '0.10.0'")) {
-  console.error('Sprint 10 must update NOOR app version to 0.10.0.');
+if (!appVersion.includes("NOOR_APP_VERSION = '0.11.0'")) {
+  console.error('Sprint 11 must update NOOR app version to 0.11.0.');
   process.exit(1);
 }
 
-const localBackup = readFileSync('apps/web/lib/local-backup.ts', 'utf8');
-if (!localBackup.includes('noor.local-backup.v1')) {
-  console.error('Sprint 10 must include local backup schema v1.');
+const versionJson = JSON.parse(readFileSync('apps/web/public/version.json', 'utf8'));
+if (versionJson.version !== '0.11.0') {
+  console.error('version.json must be updated to 0.11.0.');
   process.exit(1);
 }
 
-console.log('NOOR Sprint 0-10 pack check passed.');
+const releaseWorkflow = readFileSync('.github/workflows/noor-release.yml', 'utf8');
+if (!releaseWorkflow.includes('gh release create')) {
+  console.error('Sprint 11 release workflow must create a GitHub Release.');
+  process.exit(1);
+}
+
+console.log('NOOR Sprint 0-11 pack check passed.');

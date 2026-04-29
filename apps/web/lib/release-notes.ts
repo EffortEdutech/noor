@@ -1,0 +1,64 @@
+export type NoorReleaseNote = {
+  version: string;
+  date: string;
+  title: string;
+  summary: string;
+  highlights: string[];
+};
+
+export const NOOR_RELEASE_NOTES: NoorReleaseNote[] = [
+  {
+    version: '0.11.0',
+    date: '2026-04-30',
+    title: 'Sprint 11 — Release automation and changelog center',
+    summary:
+      'Adds CI checks, GitHub release automation, local release validation, visible changelog and a repeatable version bump command.',
+    highlights: [
+      'GitHub Actions CI for pack, content, release, typecheck and build checks',
+      'Automatic GitHub release creation when a new version is pushed to main',
+      'Changelog page and Settings release card',
+      'Local check:release command to verify version metadata before push',
+      'release:bump helper for future version updates'
+    ]
+  },
+  {
+    version: '0.10.0',
+    date: '2026-04-29',
+    title: 'Sprint 10 — Local backup restore and reset center',
+    summary:
+      'Added export, copy, import and clear-local-data tools so local progress can be preserved before testing or deployment.',
+    highlights: [
+      'Backup and restore card in Settings',
+      'JSON export and clipboard copy',
+      'Local reset flow for bookmarks, progress, preferences and search history'
+    ]
+  },
+  {
+    version: '0.9.0',
+    date: '2026-04-29',
+    title: 'Sprint 9 — Reader preferences and Quran study controls',
+    summary:
+      'Added reader preferences for translation mode, Arabic size, transliteration, tafseer notes and focus mode.',
+    highlights: [
+      'Reader preference panel in Quran reader and Settings',
+      'Local persistence of study controls',
+      'English/Malay translation display modes'
+    ]
+  },
+  {
+    version: '0.8.0',
+    date: '2026-04-29',
+    title: 'Sprint 8 — Content integrity and expanded demo content',
+    summary:
+      'Added content manifest, integrity checks, Settings health card and expanded demo Quran content.',
+    highlights: [
+      'Content health report',
+      'check:content command',
+      'Demo content for Al-Fatihah, Al-Ikhlas, Al-Falaq and An-Nas'
+    ]
+  }
+];
+
+export function getCurrentReleaseNote() {
+  return NOOR_RELEASE_NOTES[0];
+}
