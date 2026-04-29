@@ -1,0 +1,17 @@
+{
+  "name": "noor",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.30.3",
+  "engines": {
+    "node": ">=20.11.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm -C apps/web dev",
+    "build": "pnpm -C apps/web build",
+    "start": "pnpm -C apps/web start",
+    "typecheck": "pnpm -C apps/web typecheck",
+    "check:pack": "node scripts/check-noor-pack.mjs"
+  }
+}

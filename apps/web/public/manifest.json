@@ -1,0 +1,16 @@
+{
+  "name": "NOOR — Daily Islamic Companion",
+  "short_name": "NOOR",
+  "description": "Read Quran, understand Tafseer, discover Hadith, and continue your daily journey.",
+  "start_url": "/today",
+  "display": "standalone",
+  "background_color": "#071014",
+  "theme_color": "#071014",
+  "icons": [
+    {
+      "src": "/icons/noor-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
