@@ -4,6 +4,7 @@ import type { BookmarkItem } from '@noor/content';
 import { useEffect, useState } from 'react';
 
 const STORAGE_KEY = 'noor.bookmarks.v1';
+const BOOKMARK_EVENT = 'noor:bookmarks-updated';
 
 function readBookmarks(): BookmarkItem[] {
   try {
@@ -16,13 +17,25 @@ function readBookmarks(): BookmarkItem[] {
 
 function writeBookmarks(items: BookmarkItem[]) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  window.dispatchEvent(new CustomEvent(BOOKMARK_EVENT));
 }
 
 export function BookmarkButton({ item }: { item: Omit<BookmarkItem, 'createdAt'> }) {
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    setSaved(readBookmarks().some((bookmark) => bookmark.id === item.id));
+    function refresh() {
+      setSaved(readBookmarks().some((bookmark) => bookmark.id === item.id));
+    }
+
+    refresh();
+    window.addEventListener(BOOKMARK_EVENT, refresh);
+    window.addEventListener('storage', refresh);
+
+    return () => {
+      window.removeEventListener(BOOKMARK_EVENT, refresh);
+      window.removeEventListener('storage', refresh);
+    };
   }, [item.id]);
 
   function toggle() {

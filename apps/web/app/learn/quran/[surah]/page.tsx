@@ -1,6 +1,8 @@
 import { getSurahContent, getTafseerEntries } from '@noor/data';
-import { AyahCard, NoorCard, PageHeader } from '@noor/ui';
+import { NoorCard, PageHeader } from '@noor/ui';
 import { notFound } from 'next/navigation';
+import { AyahStudyCard } from '../../../../components/AyahStudyCard';
+import { ReadingProgressPanel } from '../../../../components/ReadingProgressPanel';
 
 export default async function SurahReaderPage({ params }: { params: Promise<{ surah: string }> }) {
   const { surah: surahParam } = await params;
@@ -19,23 +21,34 @@ export default async function SurahReaderPage({ params }: { params: Promise<{ su
         subtitle={`${content.surah.nameEnglish} · ${content.surah.revelation} · ${content.surah.ayahCount} ayat`}
       />
 
-      <NoorCard variant="soft">
-        <div className="noor-row">
-          <span className="noor-badge emerald">Arabic</span>
-          <span className="noor-badge gold">English + Malay</span>
-          <span className="noor-badge">Transliteration</span>
-        </div>
-        <p className="noor-subtitle" style={{ marginTop: 12 }}>
-          This page is powered by <code>@noor/data</code>, not hardcoded page content.
-        </p>
-      </NoorCard>
+      <section className="noor-grid">
+        <NoorCard variant="soft">
+          <div className="noor-row">
+            <span className="noor-badge emerald">Arabic</span>
+            <span className="noor-badge gold">English + Malay</span>
+            <span className="noor-badge">Transliteration</span>
+          </div>
+          <p className="noor-subtitle" style={{ marginTop: 12 }}>
+            Tap <strong>Mark current</strong> on any ayah. NOOR will remember that exact reading point locally on this device.
+          </p>
+        </NoorCard>
+
+        <ReadingProgressPanel />
+      </section>
 
       <section className="noor-stack">
         {content.ayahs.map((ayah) => {
           const tafseerForAyah = tafseer.find(
             (entry) => ayah.ayah >= entry.fromAyah && ayah.ayah <= entry.toAyah
           );
-          return <AyahCard key={ayah.key} ayah={ayah} tafseer={tafseerForAyah} />;
+          return (
+            <AyahStudyCard
+              key={ayah.key}
+              ayah={ayah}
+              tafseer={tafseerForAyah}
+              surahTitle={content.surah.nameTransliteration}
+            />
+          );
         })}
       </section>
     </main>

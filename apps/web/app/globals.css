@@ -90,3 +90,16 @@ code { color: #ffe8a6; }
   .noor-app-frame { padding: 24px 28px 112px; }
   .noor-topbar { margin: -24px -28px 24px; padding: 16px 28px; }
 }
+
+/* Sprint 3: local progress + bookmark library */
+.noor-mini-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.noor-stat { display: grid; gap: 3px; min-height: 86px; border: 1px solid var(--noor-line); border-radius: 18px; padding: 12px; background: rgba(255, 255, 255, 0.045); }
+.noor-stat strong { color: var(--noor-gold); font-size: 24px; line-height: 1.1; }
+.noor-stat span { color: var(--noor-muted); font-size: 13px; line-height: 1.35; }
+.noor-card-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.noor-small { font-size: 13px; }
+.noor-anchor-wrap { scroll-margin-top: 92px; }
+.noor-history-item { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--noor-line); }
+.noor-history-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.noor-history-item span { display: grid; gap: 4px; }
+.noor-history-item small { color: var(--noor-muted); line-height: 1.35; }
