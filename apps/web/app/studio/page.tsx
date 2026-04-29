@@ -1,20 +1,16 @@
-import { NoorCard, PageHeader } from '@noor/ui';
+import { PageHeader } from '@noor/ui';
+import { StudioShareComposer } from '../../components/StudioShareComposer';
 
 export default function StudioPage() {
   return (
     <main className="noor-page">
       <PageHeader
         kicker="Studio"
-        title="Share beautiful reminders."
-        subtitle="Studio is reserved for the share card/export system. Sprint 0–2 only places the route and shell."
+        title="Create shareable reminders."
+        subtitle="Turn an ayah, hadith, bookmark or manual reminder into a beautiful NOOR share card and caption. Everything runs locally in the browser."
       />
-      <NoorCard>
-        <span className="noor-badge gold">Coming next</span>
-        <h2>Export Studio</h2>
-        <p className="noor-subtitle">
-          Future flow: choose ayah or hadith → select template → generate caption → preview → share to WhatsApp, Instagram, Telegram, TikTok or Facebook.
-        </p>
-      </NoorCard>
+
+      <StudioShareComposer />
     </main>
   );
 }
