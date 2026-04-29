@@ -2,6 +2,7 @@ import { getContentHealthReport, getNoorDataConfig } from '@noor/data';
 import { NoorCard, PageHeader } from '@noor/ui';
 import { ContentHealthCard } from '../../components/ContentHealthCard';
 import { PwaStatusCard } from '../../components/PwaStatusCard';
+import { ReaderPreferencesPanel } from '../../components/ReaderPreferencesPanel';
 import { NOOR_APP_BUILD_LABEL, NOOR_APP_VERSION } from '../../lib/app-version';
 
 export default async function SettingsPage() {
@@ -13,7 +14,7 @@ export default async function SettingsPage() {
       <PageHeader
         kicker="Settings"
         title="NOOR foundation settings"
-        subtitle="Review data configuration, app version, install status, offline readiness and content integrity."
+        subtitle="Review data configuration, reader preferences, app version, install status, offline readiness and content integrity."
       />
 
       <NoorCard>
@@ -21,6 +22,8 @@ export default async function SettingsPage() {
         <h2>NOOR v{NOOR_APP_VERSION}</h2>
         <p className="noor-subtitle">{NOOR_APP_BUILD_LABEL}</p>
       </NoorCard>
+
+      <ReaderPreferencesPanel />
 
       <PwaStatusCard />
 

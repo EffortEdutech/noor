@@ -2,6 +2,7 @@ import { getSurahContent, getTafseerEntries } from '@noor/data';
 import { NoorCard, PageHeader } from '@noor/ui';
 import { notFound } from 'next/navigation';
 import { AyahStudyCard } from '../../../../components/AyahStudyCard';
+import { ReaderPreferencesPanel } from '../../../../components/ReaderPreferencesPanel';
 import { ReadingProgressPanel } from '../../../../components/ReadingProgressPanel';
 
 export default async function SurahReaderPage({ params }: { params: Promise<{ surah: string }> }) {
@@ -26,7 +27,7 @@ export default async function SurahReaderPage({ params }: { params: Promise<{ su
           <div className="noor-row">
             <span className="noor-badge emerald">Arabic</span>
             <span className="noor-badge gold">English + Malay</span>
-            <span className="noor-badge">Transliteration</span>
+            <span className="noor-badge">Reader preferences</span>
           </div>
           <p className="noor-subtitle" style={{ marginTop: 12 }}>
             Tap <strong>Mark current</strong> on any ayah. NOOR will remember that exact reading point locally on this device.
@@ -35,6 +36,8 @@ export default async function SurahReaderPage({ params }: { params: Promise<{ su
 
         <ReadingProgressPanel />
       </section>
+
+      <ReaderPreferencesPanel compact />
 
       <section className="noor-stack">
         {content.ayahs.map((ayah) => {

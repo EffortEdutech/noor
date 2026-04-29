@@ -20,9 +20,11 @@ const required = [
   'apps/web/lib/use-reading-progress.ts',
   'apps/web/lib/use-journey-progress.ts',
   'apps/web/lib/app-version.ts',
+  'apps/web/lib/reader-preferences.ts',
   'apps/web/components/ContinueReadingCard.tsx',
   'apps/web/components/ContinueJourneyCard.tsx',
   'apps/web/components/ReadingProgressPanel.tsx',
+  'apps/web/components/ReaderPreferencesPanel.tsx',
   'apps/web/components/JourneyList.tsx',
   'apps/web/components/JourneyStepCard.tsx',
   'apps/web/components/JourneyProgressSummary.tsx',
@@ -51,7 +53,8 @@ const required = [
   'docs/SPRINT_5_SCOPE.md',
   'docs/SPRINT_6_SCOPE.md',
   'docs/SPRINT_7_SCOPE.md',
-  'docs/SPRINT_8_SCOPE.md'
+  'docs/SPRINT_8_SCOPE.md',
+  'docs/SPRINT_9_SCOPE.md'
 ];
 
 const missing = required.filter((file) => !existsSync(file));
@@ -73,4 +76,10 @@ if (!webPkg.scripts?.dev?.includes('-p 3200')) {
   process.exit(1);
 }
 
-console.log('NOOR Sprint 0-8 pack check passed.');
+const appVersion = readFileSync('apps/web/lib/app-version.ts', 'utf8');
+if (!appVersion.includes("NOOR_APP_VERSION = '0.9.0'")) {
+  console.error('Sprint 9 must update NOOR app version to 0.9.0.');
+  process.exit(1);
+}
+
+console.log('NOOR Sprint 0-9 pack check passed.');

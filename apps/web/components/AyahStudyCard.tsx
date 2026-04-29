@@ -1,5 +1,8 @@
+'use client';
+
 import type { QuranAyah, TafseerEntry } from '@noor/content';
 import { BookmarkButton, NoorCard } from '@noor/ui';
+import { getArabicFontSize, useReaderPreferences } from '../lib/reader-preferences';
 import { MarkReadingProgressButton } from './MarkReadingProgressButton';
 
 export function AyahStudyCard({
@@ -11,24 +14,44 @@ export function AyahStudyCard({
   tafseer?: TafseerEntry;
   surahTitle: string;
 }) {
+  const { preferences } = useReaderPreferences();
   const href = `/learn/quran/${ayah.surah}#ayah-${ayah.ayah}`;
+  const showEnglish = preferences.languageMode === 'both' || preferences.languageMode === 'en';
+  const showMalay = preferences.languageMode === 'both' || preferences.languageMode === 'ms';
 
   return (
     <div id={`ayah-${ayah.ayah}`} className="noor-anchor-wrap">
-      <NoorCard>
+      <NoorCard variant={preferences.focusMode ? 'gold' : 'default'}>
         <div className="noor-row">
           <span className="noor-badge emerald">Ayah {ayah.ayah}</span>
           <span className="noor-reference">{ayah.key}</span>
         </div>
 
-        <div className="noor-arabic">{ayah.arabic}</div>
+        <div
+          className="noor-arabic"
+          style={{
+            fontSize: getArabicFontSize(preferences.arabicSize),
+            lineHeight: preferences.arabicSize === 'large' ? 2.25 : 2.05
+          }}
+        >
+          {ayah.arabic}
+        </div>
 
-        {ayah.transliteration ? <p className="noor-muted">{ayah.transliteration}</p> : null}
+        {preferences.showTransliteration && ayah.transliteration ? <p className="noor-muted">{ayah.transliteration}</p> : null}
 
-        <p className="noor-translation"><strong>EN:</strong> {ayah.translations.en}</p>
-        <p className="noor-translation"><strong>MS:</strong> {ayah.translations.ms}</p>
+        {showEnglish ? (
+          <p className="noor-translation">
+            <strong>EN:</strong> {ayah.translations.en}
+          </p>
+        ) : null}
 
-        {tafseer ? (
+        {showMalay ? (
+          <p className="noor-translation">
+            <strong>MS:</strong> {ayah.translations.ms}
+          </p>
+        ) : null}
+
+        {preferences.showTafseer && tafseer ? (
           <div className="noor-card is-soft" style={{ marginTop: 14 }}>
             <span className="noor-badge gold">Tafseer</span>
             <h3>{tafseer.title}</h3>
