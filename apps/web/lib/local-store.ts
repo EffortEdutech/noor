@@ -3,9 +3,11 @@ import type { BookmarkItem } from '@noor/content';
 export const NOOR_BOOKMARKS_KEY = 'noor.bookmarks.v1';
 export const NOOR_READING_PROGRESS_KEY = 'noor.readingProgress.v1';
 export const NOOR_READING_HISTORY_KEY = 'noor.readingHistory.v1';
+export const NOOR_JOURNEY_PROGRESS_KEY = 'noor.journeyProgress.v1';
 
 export const NOOR_BOOKMARKS_EVENT = 'noor:bookmarks-updated';
 export const NOOR_READING_PROGRESS_EVENT = 'noor:reading-progress-updated';
+export const NOOR_JOURNEY_PROGRESS_EVENT = 'noor:journey-progress-updated';
 
 export type ReadingProgress = {
   surah: number;
@@ -22,9 +24,30 @@ export type ReadingHistoryItem = ReadingProgress & {
   sessionId: string;
 };
 
+export type JourneyProgress = {
+  journeyId: string;
+  journeyTitle: string;
+  href: string;
+  completedStepIds: string[];
+  currentStepId?: string;
+  totalSteps: number;
+  updatedAt: string;
+};
+
+export type ToggleJourneyStepInput = {
+  journeyId: string;
+  journeyTitle: string;
+  href: string;
+  stepId: string;
+  stepIds: string[];
+  totalSteps: number;
+};
+
 export type NoorLightStats = {
   bookmarkCount: number;
   readingSessions: number;
+  journeyCount: number;
+  journeyStepsCompleted: number;
   lastReadAt?: string;
 };
 
@@ -110,14 +133,81 @@ export function recordReadingProgress(input: Omit<ReadingProgress, 'updatedAt' |
   return next;
 }
 
+export function readJourneyProgressMap(): Record<string, JourneyProgress> {
+  return safeReadJson<Record<string, JourneyProgress>>(NOOR_JOURNEY_PROGRESS_KEY, {});
+}
+
+export function writeJourneyProgressMap(items: Record<string, JourneyProgress>) {
+  safeWriteJson(NOOR_JOURNEY_PROGRESS_KEY, items);
+  emitNoorEvent(NOOR_JOURNEY_PROGRESS_EVENT);
+}
+
+export function getJourneyCompletionPercent(progress?: JourneyProgress | null) {
+  if (!progress || progress.totalSteps <= 0) return 0;
+  return Math.round((progress.completedStepIds.length / progress.totalSteps) * 100);
+}
+
+export function toggleJourneyStep(input: ToggleJourneyStepInput) {
+  const map = readJourneyProgressMap();
+  const current = map[input.journeyId];
+  const completed = new Set(current?.completedStepIds ?? []);
+
+  if (completed.has(input.stepId)) {
+    completed.delete(input.stepId);
+  } else {
+    completed.add(input.stepId);
+  }
+
+  const completedStepIds = input.stepIds.filter((stepId) => completed.has(stepId));
+  const currentStepId =
+    input.stepIds.find((stepId) => !completedStepIds.includes(stepId)) ??
+    input.stepIds[input.stepIds.length - 1] ??
+    input.stepId;
+
+  const next: JourneyProgress = {
+    journeyId: input.journeyId,
+    journeyTitle: input.journeyTitle,
+    href: input.href,
+    completedStepIds,
+    currentStepId,
+    totalSteps: input.totalSteps,
+    updatedAt: new Date().toISOString()
+  };
+
+  const nextMap = {
+    ...map,
+    [input.journeyId]: next
+  };
+
+  writeJourneyProgressMap(nextMap);
+  return next;
+}
+
+export function resetJourneyProgress(journeyId: string) {
+  const map = readJourneyProgressMap();
+  const next = { ...map };
+  delete next[journeyId];
+  writeJourneyProgressMap(next);
+  return next;
+}
+
+export function getJourneyProgressItems() {
+  return Object.values(readJourneyProgressMap()).sort(
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+  );
+}
+
 export function getNoorLightStats(): NoorLightStats {
   const bookmarks = readBookmarks();
   const history = readReadingHistory();
   const progress = readReadingProgress();
+  const journeyItems = getJourneyProgressItems();
 
   return {
     bookmarkCount: bookmarks.length,
     readingSessions: history.length,
+    journeyCount: journeyItems.length,
+    journeyStepsCompleted: journeyItems.reduce((total, item) => total + item.completedStepIds.length, 0),
     lastReadAt: progress?.updatedAt
   };
 }

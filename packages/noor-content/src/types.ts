@@ -66,3 +66,36 @@ export type BookmarkItem = {
   href?: string;
   createdAt: string;
 };
+
+export type JourneyDifficulty = 'beginner' | 'basic' | 'intermediate';
+
+export type JourneyStepContentType = 'ayah' | 'hadith' | 'tafseer' | 'reflection' | 'action';
+
+export type JourneyStep = {
+  id: string;
+  title: string;
+  body: string;
+  contentType: JourneyStepContentType;
+  reference?: string;
+  href?: string;
+  minutes: number;
+  prompt?: string;
+  tags: string[];
+};
+
+export type Journey = {
+  id: string;
+  slug: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  difficulty: JourneyDifficulty;
+  estimatedMinutes: number;
+  stepCount: number;
+  theme: string;
+  icon: string;
+  tags: string[];
+  steps: JourneyStep[];
+};
+
+export type JourneySummary = Omit<Journey, 'steps'>;

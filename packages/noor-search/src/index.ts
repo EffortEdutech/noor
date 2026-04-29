@@ -1,10 +1,11 @@
 import {
   DEMO_HADITH_ITEMS,
+  DEMO_JOURNEYS,
   DEMO_SURAH_CONTENT,
   DEMO_TAFSEER_ENTRIES
 } from '@noor/content';
 
-export type NoorSearchType = 'quran' | 'tafseer' | 'hadith';
+export type NoorSearchType = 'quran' | 'tafseer' | 'hadith' | 'journey';
 
 export type NoorSearchTopic = {
   id: string;
@@ -41,42 +42,43 @@ type SearchCandidate = Omit<NoorSearchResult, 'matchedFields' | 'score'> & {
 export const NOOR_SEARCH_TYPES: { id: NoorSearchType; label: string; description: string }[] = [
   { id: 'quran', label: 'Quran', description: 'Ayah text, translation, transliteration and surah names.' },
   { id: 'tafseer', label: 'Tafseer', description: 'Explanation entries and tags.' },
-  { id: 'hadith', label: 'Hadith', description: 'Hadith translations, narrator, source and tags.' }
+  { id: 'hadith', label: 'Hadith', description: 'Hadith translations, narrator, source and tags.' },
+  { id: 'journey', label: 'Journey', description: 'Guided learning paths, steps and reflection prompts.' }
 ];
 
 export const NOOR_SEARCH_TOPICS: NoorSearchTopic[] = [
   {
     id: 'mercy',
     label: 'Mercy',
-    query: 'mercy rahman rahim pemurah mengasihani',
+    query: 'mercy rahman rahim pemurah mengasihani compassion',
     description: 'Allah’s mercy and compassion.',
     tags: ['mercy', 'rahman', 'rahim']
   },
   {
     id: 'guidance',
     label: 'Guidance',
-    query: 'guide straight path jalan lurus hidayah',
+    query: 'guide straight path jalan lurus hidayah prayer',
     description: 'Seeking guidance and the straight path.',
     tags: ['guidance', 'straight-path']
   },
   {
     id: 'tawhid',
     label: 'Tawhid',
-    query: 'one eternal refuge esa ikhlas',
+    query: 'one eternal refuge esa ikhlas foundations',
     description: 'Oneness of Allah and sincerity of faith.',
     tags: ['tawhid', 'ikhlas']
   },
   {
     id: 'intention',
     label: 'Intention',
-    query: 'intention niat actions deeds',
+    query: 'intention niat actions deeds journey',
     description: 'The heart behind every action.',
     tags: ['intention', 'niyyah']
   },
   {
     id: 'protection',
     label: 'Protection',
-    query: 'protection refuge falaq nas evil',
+    query: 'protection refuge falaq nas evil remembrance',
     description: 'Seeking refuge and protection.',
     tags: ['protection', 'refuge']
   }
@@ -187,6 +189,29 @@ function buildCandidates(): SearchCandidate[] {
     }
   }
 
+  for (const journey of DEMO_JOURNEYS) {
+    candidates.push({
+      id: journey.id,
+      type: 'journey',
+      title: journey.title,
+      excerpt: journey.description,
+      reference: `${journey.stepCount} steps · ${journey.estimatedMinutes} min`,
+      href: `/journeys/${journey.slug}`,
+      sourceLabel: journey.theme,
+      tags: journey.tags,
+      priority: 3,
+      searchText: {
+        title: `${journey.title} ${journey.subtitle}`,
+        body: journey.description,
+        tags: journey.tags.join(' '),
+        source: journey.theme,
+        steps: journey.steps
+          .map((step) => [step.title, step.body, step.reference, step.prompt, step.tags.join(' ')].join(' '))
+          .join(' ')
+      }
+    });
+  }
+
   return candidates;
 }
 
@@ -199,6 +224,7 @@ function scoreCandidate(candidate: SearchCandidate, queryTokens: string[]) {
     ['malay', candidate.searchText.malay, 5],
     ['transliteration', candidate.searchText.transliteration, 4],
     ['body', candidate.searchText.body, 4],
+    ['steps', candidate.searchText.steps, 4],
     ['source', candidate.searchText.source, 3],
     ['narrator', candidate.searchText.narrator, 3],
     ['arabic', candidate.searchText.arabic, 2]

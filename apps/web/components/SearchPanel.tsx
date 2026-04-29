@@ -57,7 +57,9 @@ function SearchTypeToggle({
 
 export function SearchPanel() {
   const [query, setQuery] = useState('mercy');
-  const [selectedTypes, setSelectedTypes] = useState<NoorSearchType[]>(['quran', 'tafseer', 'hadith']);
+  const [selectedTypes, setSelectedTypes] = useState<NoorSearchType[]>(
+    NOOR_SEARCH_TYPES.map((item) => item.id)
+  );
   const [selectedTopic, setSelectedTopic] = useState<string | undefined>('mercy');
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
 
@@ -179,7 +181,7 @@ export function SearchPanel() {
           <span className="noor-kicker">Results</span>
           <p className="noor-subtitle">
             {results.length > 0
-              ? `${results.length} ranked result${results.length === 1 ? '' : 's'} from Quran, Tafseer and Hadith demo content.`
+              ? `${results.length} ranked result${results.length === 1 ? '' : 's'} from Quran, Tafseer, Hadith and Journeys demo content.`
               : 'No result found for the current search and filters.'}
           </p>
         </div>
@@ -208,7 +210,7 @@ export function SearchPanel() {
             <div className="noor-row" style={{ justifyContent: 'flex-start', gap: 6 }}>
               <span className="noor-badge">Score {result.score}</span>
               {result.matchedFields.slice(0, 3).map((field) => (
-                <span className="noor-badge" key={field}>
+                <span className="noor-badge" key={`${result.type}-${result.id}-${field}`}>
                   {field}
                 </span>
               ))}
@@ -216,11 +218,11 @@ export function SearchPanel() {
 
             {result.tags.length > 0 ? (
               <div className="noor-row" style={{ justifyContent: 'flex-start', gap: 6 }}>
-                  {Array.from(new Set(result.tags)).slice(0, 4).map((tag) => (
-                    <span className="noor-badge" key={`${result.type}-${result.id}-${tag}`}>
-                      #{tag}
-                    </span>
-                  ))}
+                {Array.from(new Set(result.tags)).slice(0, 4).map((tag) => (
+                  <span className="noor-badge" key={`${result.type}-${result.id}-${tag}`}>
+                    #{tag}
+                  </span>
+                ))}
               </div>
             ) : null}
 
@@ -238,8 +240,9 @@ export function SearchPanel() {
           <h3 style={{ marginTop: 0 }}>No matching demo content yet</h3>
           <p className="noor-subtitle">
             Try a broader search such as mercy, guidance, ikhlas, intention, refuge, straight path,
-            Allah, or Al-Fatihah. When the full CDN index is connected, this same search interface
-            can search the wider Quran, Tafseer and Hadith dataset.
+            Allah, Al-Fatihah, foundations, prayer, protection, or journey. When the full CDN index is
+            connected, this same search interface can search the wider Quran, Tafseer, Hadith and
+            journey dataset.
           </p>
         </NoorCard>
       ) : null}

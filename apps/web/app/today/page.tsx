@@ -1,20 +1,27 @@
 import { DailyAyahCard, DailyHadithCard, NoorCard, PageHeader } from '@noor/ui';
-import { getDailyNoorContent } from '@noor/data';
+import { getDailyNoorContent, getFeaturedJourney } from '@noor/data';
+import { ContinueJourneyCard } from '../../components/ContinueJourneyCard';
 import { ContinueReadingCard } from '../../components/ContinueReadingCard';
 import { ReadingProgressPanel } from '../../components/ReadingProgressPanel';
 
 export default async function TodayPage() {
-  const daily = await getDailyNoorContent();
+  const [daily, featuredJourney] = await Promise.all([
+    getDailyNoorContent(),
+    getFeaturedJourney()
+  ]);
 
   return (
     <main className="noor-page">
       <PageHeader
         kicker="Today with NOOR"
         title="Assalamualaikum 🌙"
-        subtitle="A gentle daily path: continue reading, save one light, and carry one reminder into your day."
+        subtitle="A gentle daily path: continue reading, continue a guided journey, save one light, and carry one reminder into your day."
       />
 
-      <ContinueReadingCard />
+      <section className="noor-grid">
+        <ContinueReadingCard />
+        <ContinueJourneyCard fallbackJourney={featuredJourney} />
+      </section>
 
       <section className="noor-grid">
         <NoorCard variant="gold">
@@ -23,10 +30,10 @@ export default async function TodayPage() {
               <span className="noor-kicker">Your light today</span>
               <h2 style={{ margin: '8px 0 0' }}>3 small steps</h2>
             </div>
-            <span className="noor-badge emerald">Sprint 3</span>
+            <span className="noor-badge emerald">Sprint 5</span>
           </div>
           <p className="noor-subtitle" style={{ marginTop: 12 }}>
-            Read one ayah, reflect on one hadith, and mark your reading point so NOOR can guide your next visit.
+            Read one ayah, continue one journey step, and save one reminder so NOOR can guide your next visit.
           </p>
         </NoorCard>
 
@@ -45,9 +52,16 @@ export default async function TodayPage() {
         </NoorCard>
 
         <NoorCard className="noor-link-card">
+          <span className="noor-badge gold">Journey</span>
+          <h3>Open guided paths</h3>
+          <p className="noor-subtitle">Follow small structured steps for Quran, Hadith and reflection.</p>
+          <a className="noor-button secondary" href="/journeys">Open Journeys</a>
+        </NoorCard>
+
+        <NoorCard className="noor-link-card">
           <span className="noor-badge gold">Library</span>
           <h3>Review saved light</h3>
-          <p className="noor-subtitle">Open your locally saved bookmarks and reading history.</p>
+          <p className="noor-subtitle">Open your locally saved bookmarks, journey progress and reading history.</p>
           <a className="noor-button secondary" href="/library">Open Library</a>
         </NoorCard>
       </section>

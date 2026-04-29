@@ -16,7 +16,12 @@ import {
 export function useReadingProgress() {
   const [progress, setProgress] = useState<ReadingProgress | null>(null);
   const [history, setHistory] = useState<ReadingHistoryItem[]>([]);
-  const [stats, setStats] = useState<NoorLightStats>({ bookmarkCount: 0, readingSessions: 0 });
+  const [stats, setStats] = useState<NoorLightStats>({
+    bookmarkCount: 0,
+    readingSessions: 0,
+    journeyCount: 0,
+    journeyStepsCompleted: 0
+  });
 
   const refresh = useCallback(() => {
     setProgress(readReadingProgress());

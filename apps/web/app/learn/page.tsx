@@ -18,6 +18,12 @@ const modules = [
     badge: 'Sunnah',
     href: '/learn/hadith',
     body: 'Collection and item resolver with sample Hadith for Sprint 2 testing.'
+  },
+  {
+    title: 'Journeys',
+    badge: 'Guided Path',
+    href: '/journeys',
+    body: 'Small structured learning paths that combine Quran, Hadith, reflection and action.'
   }
 ];
 
@@ -27,7 +33,7 @@ export default function LearnPage() {
       <PageHeader
         kicker="Learn"
         title="Read with understanding."
-        subtitle="NOOR separates user experience from content delivery so Quran, Tafseer, and Hadith can grow without making the app heavy."
+        subtitle="NOOR separates user experience from content delivery so Quran, Tafseer, Hadith and guided journeys can grow without making the app heavy."
       />
       <section className="noor-grid">
         {modules.map((module) => (

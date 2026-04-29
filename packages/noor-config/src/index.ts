@@ -10,6 +10,6 @@ export const NOOR_NAV_ITEMS = [
   { label: 'Today', href: '/today', icon: '🌙' },
   { label: 'Learn', href: '/learn', icon: '📖' },
   { label: 'Explore', href: '/explore', icon: '🔎' },
-  { label: 'Studio', href: '/studio', icon: '✨' },
+  { label: 'Journeys', href: '/journeys', icon: '🧭' },
   { label: 'Library', href: '/library', icon: '🔖' }
 ] as const;

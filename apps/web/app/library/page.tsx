@@ -1,5 +1,6 @@
 import { PageHeader } from '@noor/ui';
 import { BookmarksPanel } from '../../components/BookmarksPanel';
+import { JourneyProgressPanel } from '../../components/JourneyProgressPanel';
 import { ReadingProgressPanel } from '../../components/ReadingProgressPanel';
 
 export default function LibraryPage() {
@@ -8,9 +9,10 @@ export default function LibraryPage() {
       <PageHeader
         kicker="Library"
         title="Your saved light."
-        subtitle="Bookmarks and reading progress are stored locally on this device for the zero-budget starter phase."
+        subtitle="Bookmarks, reading progress and journey progress are stored locally on this device for the zero-budget starter phase."
       />
       <ReadingProgressPanel />
+      <JourneyProgressPanel />
       <BookmarksPanel />
     </main>
   );
