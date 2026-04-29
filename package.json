@@ -12,7 +12,8 @@
     "build": "pnpm -C apps/web build",
     "start": "pnpm -C apps/web start",
     "typecheck": "pnpm -C apps/web typecheck",
-    "check:pack": "node scripts/check-noor-pack.mjs"
+    "check:pack": "node scripts/check-noor-pack.mjs",
+    "check:content": "node scripts/check-noor-content.mjs"
   },
   "devDependencies": {
     "@types/react": "19.0.10",

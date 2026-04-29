@@ -4,3 +4,4 @@ export * from './resolvers/tafseer';
 export * from './resolvers/hadith';
 export * from './resolvers/daily';
 export * from './resolvers/journeys';
+export * from './resolvers/content-health';

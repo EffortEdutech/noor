@@ -1,17 +1,19 @@
-import { getNoorDataConfig } from '@noor/data';
+import { getContentHealthReport, getNoorDataConfig } from '@noor/data';
 import { NoorCard, PageHeader } from '@noor/ui';
+import { ContentHealthCard } from '../../components/ContentHealthCard';
 import { PwaStatusCard } from '../../components/PwaStatusCard';
 import { NOOR_APP_BUILD_LABEL, NOOR_APP_VERSION } from '../../lib/app-version';
 
-export default function SettingsPage() {
+export default async function SettingsPage() {
   const config = getNoorDataConfig();
+  const contentHealth = await getContentHealthReport();
 
   return (
     <main className="noor-page">
       <PageHeader
         kicker="Settings"
         title="NOOR foundation settings"
-        subtitle="Review data configuration, app version, install status and offline readiness."
+        subtitle="Review data configuration, app version, install status, offline readiness and content integrity."
       />
 
       <NoorCard>
@@ -21,6 +23,8 @@ export default function SettingsPage() {
       </NoorCard>
 
       <PwaStatusCard />
+
+      <ContentHealthCard report={contentHealth} />
 
       <NoorCard>
         <h2>Data mode</h2>

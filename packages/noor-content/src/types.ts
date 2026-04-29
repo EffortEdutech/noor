@@ -99,3 +99,52 @@ export type Journey = {
 };
 
 export type JourneySummary = Omit<Journey, 'steps'>;
+
+export type ContentDatasetStatus = 'demo' | 'partial' | 'ready' | 'missing';
+
+export type ContentDatasetInfo = {
+  id: string;
+  label: string;
+  status: ContentDatasetStatus;
+  sourceLabel: string;
+  languages: LanguageCode[];
+  itemCount: number;
+  updatedAt: string;
+  notes: string;
+};
+
+export type ContentDatasetManifest = {
+  id: string;
+  version: string;
+  label: string;
+  releasedAt: string;
+  mode: 'demo' | 'cdn-ready' | 'production';
+  datasets: {
+    quran: ContentDatasetInfo;
+    tafseer: ContentDatasetInfo;
+    hadith: ContentDatasetInfo;
+  };
+};
+
+export type ContentHealthIssue = {
+  severity: 'info' | 'warning' | 'error';
+  area: 'quran' | 'tafseer' | 'hadith' | 'manifest';
+  message: string;
+  reference?: string;
+};
+
+export type ContentHealthReport = {
+  manifest: ContentDatasetManifest;
+  generatedAt: string;
+  isHealthy: boolean;
+  summary: {
+    surahIndexedCount: number;
+    surahContentCount: number;
+    ayahContentCount: number;
+    tafseerEntryCount: number;
+    tafseerCoveredSurahCount: number;
+    hadithCollectionCount: number;
+    hadithItemCount: number;
+  };
+  issues: ContentHealthIssue[];
+};
