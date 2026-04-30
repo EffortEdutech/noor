@@ -8,6 +8,20 @@ export type NoorReleaseNote = {
 
 export const NOOR_RELEASE_NOTES: NoorReleaseNote[] = [
   {
+    version: '0.15.0',
+    date: '2026-04-30',
+    title: 'Sprint 15 — CDN smoke testing and promotion gate',
+    summary:
+      'Adds local and remote CDN smoke testing so NOOR content can be verified before switching runtime mode to an external CDN.',
+    highlights: [
+      'cdn:smoke command to verify the generated local publish pack',
+      'Remote URL smoke testing for GitHub Pages or jsDelivr CDN bases',
+      'Settings CDN smoke testing card with required resolver paths',
+      'CI check for CDN smoke validation after cdn:pack and cdn:verify',
+      'Documentation for the external CDN promotion gate'
+    ]
+  },
+  {
     version: '0.14.0',
     date: '2026-04-30',
     title: 'Sprint 14 — Zero-budget CDN publish pack',

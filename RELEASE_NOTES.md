@@ -1,47 +1,25 @@
-# NOOR v0.14.0
+# NOOR Release Notes
 
-Sprint 14 — Zero-budget CDN publish pack.
+## v0.15.0 — Sprint 15 CDN smoke testing and promotion gate
 
-Released: 2026-04-30
+Sprint 15 adds the missing safety gate between "we generated a CDN publish pack" and "we trust this URL as a runtime data source".
 
-## Highlights
+### Highlights
 
-- Added `pnpm cdn:pack` to generate a clean CDN publish folder.
-- Added `pnpm cdn:verify` to verify resolver files and SHA-256 checksums.
-- Added `pnpm check:cdn-publish` for local and CI validation.
-- Added a Settings CDN publishing card.
-- Added documentation for GitHub Pages and jsDelivr zero-budget hosting.
+- `pnpm cdn:smoke` checks required resolver files from the local publish pack by default.
+- `pnpm cdn:smoke <url>` checks the same files from GitHub Pages or jsDelivr.
+- `pnpm check:cdn-smoke` is added for CI/local validation.
+- Settings now shows the CDN Smoke Test card.
+- NOOR now has a clearer promotion gate before switching to external CDN mode.
 
-## Local publish flow
+## v0.14.0 — Sprint 14 Zero-budget CDN publish pack
 
-1. Run `pnpm content:validate`.
-2. Run `pnpm content:prepare`.
-3. Run `pnpm cdn:pack`.
-4. Run `pnpm cdn:verify`.
-5. Copy `content-pipeline/publish/noor-cdn-gh-pages` into a separate data repository such as `EffortEdutech/noor-cdn`.
+Added a repeatable publish folder for GitHub Pages and jsDelivr.
 
-## External CDN mode
+## v0.13.0 — Sprint 13 Runtime CDN mode and source switching
 
-After publishing the pack, configure one of these bases in `.env.local`:
+Added runtime source switching for mock, local CDN and external CDN modes.
 
-```env
-NEXT_PUBLIC_NOOR_DATA_MODE=cdn
-NEXT_PUBLIC_NOOR_MANIFEST_CDN_BASE=https://effortedutech.github.io/noor-cdn/noor-cdn
-NEXT_PUBLIC_NOOR_QURAN_CDN_BASE=https://effortedutech.github.io/noor-cdn/noor-cdn
-NEXT_PUBLIC_NOOR_TAFSEER_CDN_BASE=https://effortedutech.github.io/noor-cdn/noor-cdn
-NEXT_PUBLIC_NOOR_HADITH_CDN_BASE=https://effortedutech.github.io/noor-cdn/noor-cdn
-```
+## v0.12.0 — Sprint 12 Production content pipeline and CDN source preparation
 
-or:
-
-```env
-NEXT_PUBLIC_NOOR_DATA_MODE=cdn
-NEXT_PUBLIC_NOOR_MANIFEST_CDN_BASE=https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn
-NEXT_PUBLIC_NOOR_QURAN_CDN_BASE=https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn
-NEXT_PUBLIC_NOOR_TAFSEER_CDN_BASE=https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn
-NEXT_PUBLIC_NOOR_HADITH_CDN_BASE=https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn
-```
-
-## Important production note
-
-This sprint only prepares the zero-budget publishing mechanism. Real Quran, tafseer and hadith datasets must still pass licensing, attribution, checksum and scholarly review gates before they are promoted to production.
+Added content preparation and validation pipeline.

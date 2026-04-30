@@ -1,5 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 
+const MIN_CDN_PUBLISH_VERSION = '0.14.0';
+
 const required = [
   'scripts/build-noor-cdn-publish-pack.mjs',
   'scripts/verify-noor-cdn-publish-pack.mjs',
@@ -10,6 +12,38 @@ const required = [
   'docs/SPRINT_14_SCOPE.md',
   'docs/LOCAL_TESTING_SPRINT_14.md'
 ];
+
+function parseVersion(value) {
+  return String(value)
+    .split('.')
+    .map((part) => Number.parseInt(part, 10))
+    .map((part) => (Number.isFinite(part) ? part : 0));
+}
+
+function compareVersions(left, right) {
+  const a = parseVersion(left);
+  const b = parseVersion(right);
+  const max = Math.max(a.length, b.length);
+
+  for (let index = 0; index < max; index += 1) {
+    const diff = (a[index] ?? 0) - (b[index] ?? 0);
+    if (diff !== 0) return diff;
+  }
+
+  return 0;
+}
+
+function readNoorAppVersion() {
+  const appVersion = readFileSync('apps/web/lib/app-version.ts', 'utf8');
+  const match = appVersion.match(/NOOR_APP_VERSION\s*=\s*['\"]([^'\"]+)['\"]/);
+
+  if (!match?.[1]) {
+    console.error('Unable to read NOOR_APP_VERSION from apps/web/lib/app-version.ts.');
+    process.exit(1);
+  }
+
+  return match[1];
+}
 
 const missing = required.filter((file) => !existsSync(file));
 if (missing.length > 0) {
@@ -26,15 +60,20 @@ for (const script of ['cdn:pack', 'cdn:verify', 'check:cdn-publish']) {
   }
 }
 
-const appVersion = readFileSync('apps/web/lib/app-version.ts', 'utf8');
-if (!appVersion.includes("NOOR_APP_VERSION = '0.14.0'")) {
-  console.error('Sprint 14 must update NOOR app version to 0.14.0.');
+const noorAppVersion = readNoorAppVersion();
+if (compareVersions(noorAppVersion, MIN_CDN_PUBLISH_VERSION) < 0) {
+  console.error(`CDN publish support requires NOOR app version ${MIN_CDN_PUBLISH_VERSION} or newer. Found ${noorAppVersion}.`);
   process.exit(1);
 }
 
 const versionJson = JSON.parse(readFileSync('apps/web/public/version.json', 'utf8'));
-if (versionJson.version !== '0.14.0') {
-  console.error('version.json must be updated to 0.14.0.');
+if (versionJson.version !== noorAppVersion) {
+  console.error(`version.json (${versionJson.version}) must match NOOR_APP_VERSION (${noorAppVersion}).`);
+  process.exit(1);
+}
+
+if (compareVersions(versionJson.version, MIN_CDN_PUBLISH_VERSION) < 0) {
+  console.error(`version.json must be ${MIN_CDN_PUBLISH_VERSION} or newer for CDN publishing.`);
   process.exit(1);
 }
 
@@ -57,4 +96,4 @@ if (!changelog.includes('v0.14.0') || !releaseNotes.includes('v0.14.0')) {
   process.exit(1);
 }
 
-console.log('NOOR Sprint 14 CDN publish check passed.');
+console.log(`NOOR Sprint 14+ CDN publish check passed for v${noorAppVersion}.`);

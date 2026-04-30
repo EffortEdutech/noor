@@ -17,10 +17,12 @@
     "check:release": "node scripts/check-noor-release.mjs",
     "check:runtime": "node scripts/check-noor-runtime.mjs",
     "check:cdn-publish": "node scripts/check-noor-cdn-publish.mjs",
+    "check:cdn-smoke": "node scripts/smoke-noor-cdn.mjs",
     "content:validate": "node scripts/validate-noor-cdn.mjs",
     "content:prepare": "node scripts/prepare-noor-cdn.mjs",
     "cdn:pack": "node scripts/build-noor-cdn-publish-pack.mjs",
     "cdn:verify": "node scripts/verify-noor-cdn-publish-pack.mjs",
+    "cdn:smoke": "node scripts/smoke-noor-cdn.mjs",
     "release:bump": "node scripts/bump-noor-version.mjs"
   },
   "devDependencies": {

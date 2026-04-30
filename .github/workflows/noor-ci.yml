@@ -50,6 +50,9 @@ jobs:
       - name: Verify CDN publish pack
         run: pnpm cdn:verify
 
+      - name: Smoke test CDN publish pack
+        run: pnpm check:cdn-smoke
+
       - name: Typecheck
         run: pnpm typecheck
 
