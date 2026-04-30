@@ -1,23 +1,23 @@
 # Changelog
 
-## v0.20.0 — Sprint 20 Quran importer adapter v1
+## v0.21.0 — Sprint 21 Quran Production Source Selection Gate
 
-- Added `pnpm quran:import` to normalize a Quran fixture into NOOR CDN-style surah index and per-surah JSON routes.
-- Added `pnpm check:quran-import` to validate import output, count integrity, ayah keys and production gate status.
-- Added Settings Quran Import card.
-- Added Quran importer schema, fixture, generated import report and audit Markdown.
-- Kept production Quran import blocked until a real source candidate has approved license, attribution and reviewer sign-off.
+Quran production source selection gate.
 
-## v0.19.0 — Sprint 19 Production source intake templates
+- Added Quran source selection decision record.
+- Added `quran:gate` validator and generated source gate audit output.
+- Added `check:quran-source-gate` local/CI check.
+- Added Settings Quran Source Gate card.
+- Updated roadmap to mark Sprint 21 current and Sprint 22 next.
+- Kept production Quran import blocked by default until source, license, attribution, checksum and reviewer sign-off are complete.
 
-- Added Quran, tafseer and hadith source candidate templates.
-- Added source candidate registry and intake validation.
-- Added Settings Source Intake card and source:intake checks.
+## v0.20.0 — Sprint 20 Quran Importer Adapter v1
 
-## v0.18.0 — Sprint 18 Master roadmap and release control center
+- Added Quran importer adapter v1 using a non-production fixture.
+- Added generated imported Quran CDN-style output.
+- Added Quran import report and audit markdown.
 
-- Added roadmap data model, Settings Roadmap Control card and generated roadmap status output.
+## v0.19.0 — Sprint 19 Production Source Intake Templates
 
-## v0.17.0 — Sprint 17 Source governance and production approval gate
-
-- Added source governance audits and production gate command.
+- Added source intake templates for Quran, tafseer and hadith.
+- Added source candidate registry and intake validation command.

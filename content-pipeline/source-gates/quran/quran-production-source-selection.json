@@ -1,0 +1,33 @@
+{
+  "id": "noor-quran-production-source-selection-v0.21",
+  "version": "0.21.0",
+  "sprint": "Sprint 21",
+  "domain": "quran",
+  "title": "Quran production source selection gate",
+  "selectedCandidateId": "quran-production-candidate-placeholder",
+  "selectionStatus": "blocked",
+  "productionDecision": "do-not-promote",
+  "approvedForProductionImport": false,
+  "manualReviewRequired": true,
+  "decisionDate": "2026-04-30",
+  "decisionOwner": "NOOR content governance",
+  "gateRequirements": [
+    "Real Quran source URL or source file path recorded",
+    "License approved for redistribution",
+    "Attribution wording approved",
+    "Checksum/import plan recorded",
+    "Reviewer role assigned",
+    "Scholar/reviewer sign-off recorded",
+    "Candidate approvalStatus set to production-approved only after manual review",
+    "Quran importer output passes count, key and route validation"
+  ],
+  "decisionReasons": [
+    "Current Quran candidate is still a placeholder record.",
+    "Source URL is not recorded.",
+    "License is not approved for redistribution.",
+    "Attribution wording is still TBD.",
+    "Checksum/import plan is still TBD.",
+    "Reviewer sign-off has not been recorded."
+  ],
+  "nextAction": "Replace the placeholder candidate with a real Quran source candidate, complete license/attribution/checksum/reviewer evidence, then rerun pnpm quran:gate."
+}

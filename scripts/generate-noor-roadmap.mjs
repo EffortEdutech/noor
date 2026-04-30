@@ -2,26 +2,26 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 
 const roadmap = {
-  version: '0.20.0',
+  version: '0.21.0',
   generatedAt: new Date().toISOString(),
   currentPhase: 'Phase 3 — Production content pipeline and source governance',
   currentSprint: {
-    sprint: 'Sprint 20',
-    title: 'Quran importer adapter v1',
+    sprint: 'Sprint 21',
+    title: 'Quran production source selection gate',
     status: 'current',
-    objective: 'Normalize a vetted Quran-like source fixture into NOOR CDN-style surah index and per-surah JSON while keeping production release blocked until source approval is complete.'
+    objective: 'Create a Quran-specific source selection gate that keeps production import blocked until a real source, license, attribution, checksum plan and reviewer sign-off are complete.'
   },
   completedSprints: [
-    'Sprint 0','Sprint 1','Sprint 2','Sprint 3','Sprint 4','Sprint 5','Sprint 6','Sprint 7','Sprint 8','Sprint 9','Sprint 10','Sprint 11','Sprint 11.5','Sprint 12','Sprint 13','Sprint 14','Sprint 15','Sprint 16','Sprint 17','Sprint 18','Sprint 19'
+    'Sprint 0','Sprint 1','Sprint 2','Sprint 3','Sprint 4','Sprint 5','Sprint 6','Sprint 7','Sprint 8','Sprint 9','Sprint 10','Sprint 11','Sprint 11.5','Sprint 12','Sprint 13','Sprint 14','Sprint 15','Sprint 16','Sprint 17','Sprint 18','Sprint 19','Sprint 20'
   ],
   futureSprints: [
-    { sprint: 'Sprint 21', title: 'Quran production source selection gate', status: 'next' },
-    { sprint: 'Sprint 22', title: 'Tafseer importer adapter v1', status: 'future' },
+    { sprint: 'Sprint 22', title: 'Tafseer importer adapter v1', status: 'next' },
     { sprint: 'Sprint 23', title: 'Hadith importer adapter v1', status: 'future' },
     { sprint: 'Sprint 24', title: 'Scholarly review console', status: 'future' },
-    { sprint: 'Sprint 25', title: 'Production CDN v1 promotion', status: 'future' }
+    { sprint: 'Sprint 25', title: 'Production CDN v1 promotion', status: 'future' },
+    { sprint: 'Sprint 26', title: 'Search index from production content', status: 'future' }
   ],
-  commands: ['pnpm roadmap:status', 'pnpm quran:import', 'pnpm check:quran-import', 'pnpm check:roadmap', 'pnpm check:pack']
+  commands: ['pnpm roadmap:status', 'pnpm quran:gate', 'pnpm check:quran-source-gate', 'pnpm quran:import', 'pnpm check:quran-import', 'pnpm check:roadmap', 'pnpm check:pack']
 };
 
 const outputRoot = 'content-pipeline/roadmap';
@@ -55,4 +55,4 @@ ${roadmap.futureSprints.map((sprint) => `- ${sprint.sprint} — ${sprint.title} 
 ${roadmap.commands.map((command) => `- \`${command}\``).join('\n')}
 `;
 writeFileSync(path.join(outputRoot, 'noor-roadmap-status.md'), markdown, 'utf8');
-console.log('NOOR Sprint 20 roadmap status generated.');
+console.log('NOOR Sprint 21 roadmap status generated.');

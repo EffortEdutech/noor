@@ -62,6 +62,12 @@ jobs:
       - name: Check source intake
         run: pnpm check:source-intake
 
+      - name: Validate Quran source gate
+        run: pnpm quran:gate
+
+      - name: Check Quran source gate
+        run: pnpm check:quran-source-gate
+
       - name: Import Quran sample source
         run: pnpm quran:import
 

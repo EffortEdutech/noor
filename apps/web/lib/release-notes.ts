@@ -8,6 +8,20 @@ export type NoorReleaseNote = {
 
 export const NOOR_RELEASE_NOTES: NoorReleaseNote[] = [
   {
+    version: '0.21.0',
+    date: '2026-04-30',
+    title: 'Sprint 21 — Quran production source selection gate',
+    summary:
+      'Adds a Quran-specific production source decision gate so real Quran import remains blocked until a verified source, redistribution permission, attribution, checksum plan and reviewer sign-off are complete.',
+    highlights: [
+      'quran:gate command to evaluate the selected Quran source candidate and write audit reports',
+      'check:quran-source-gate command for local and CI validation',
+      'Quran source selection JSON record under content-pipeline/source-gates/quran',
+      'Settings Quran Source Gate card showing the blocked production decision',
+      'Roadmap updated: Sprint 21 current, Sprint 22 next for tafseer importer adapter v1'
+    ]
+  },
+  {
     version: '0.20.0',
     date: '2026-04-30',
     title: 'Sprint 20 — Quran importer adapter v1',

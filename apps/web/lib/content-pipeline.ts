@@ -11,6 +11,7 @@ export type NoorCdnPromotionStep = NoorContentPipelineStep;
 export type NoorSourceGovernanceStep = NoorContentPipelineStep;
 export type NoorSourceIntakeStep = NoorContentPipelineStep;
 export type NoorQuranImporterStep = NoorContentPipelineStep;
+export type NoorQuranSourceGateStep = NoorContentPipelineStep;
 
 export const NOOR_CONTENT_PIPELINE = {
   version: '0.12.0',
@@ -142,4 +143,27 @@ export const NOOR_QURAN_IMPORTER = {
     { id: 'source-gate', label: 'Source governance gate', status: 'manual-gate', note: 'Output report remains blocked from production because the Quran source candidate is still not approved.' },
     { id: 'production-quran-source', label: 'Production Quran source', status: 'future', note: 'Replace the fixture with a verified Quran source only after license, attribution and reviewer sign-off are complete.' }
   ] satisfies NoorQuranImporterStep[]
+};
+
+export const NOOR_QURAN_SOURCE_GATE = {
+  version: '0.21.0',
+  label: 'Sprint 21 — Quran production source selection gate',
+  selectedCandidateId: 'quran-production-candidate-placeholder',
+  selectionRecord: 'content-pipeline/source-gates/quran/quran-production-source-selection.json',
+  candidateRegistry: NOOR_SOURCE_INTAKE.candidateRegistry,
+  generatedAuditFile: 'content-pipeline/source-gates/quran/audit/noor-quran-source-gate-audit.json',
+  generatedAuditMarkdown: 'content-pipeline/source-gates/quran/audit/noor-quran-source-gate-audit.md',
+  commands: ['pnpm quran:gate', 'pnpm check:quran-source-gate', 'pnpm quran:import'],
+  gateRequirements: ['Real Quran source URL or source file path recorded', 'License approved for redistribution', 'Attribution wording approved', 'Checksum/import plan recorded', 'Scholar/reviewer sign-off recorded', 'Candidate approvalStatus set to production-approved only after manual review'],
+  decision: {
+    status: 'blocked',
+    approvedForProductionImport: false,
+    note: 'The current Quran candidate remains a placeholder. Production import stays blocked until a real source is selected and signed off.'
+  },
+  steps: [
+    { id: 'selection-record', label: 'Selection record', status: 'ready', note: 'A Quran-specific source selection JSON now records the selected candidate, decision and manual gate requirements.' },
+    { id: 'gate-validator', label: 'Gate validator', status: 'ready', note: 'quran:gate evaluates the selected Quran candidate and writes JSON/Markdown audit reports.' },
+    { id: 'production-block', label: 'Production block', status: 'manual-gate', note: 'The default candidate is intentionally blocked because source URL, license, attribution, checksum and reviewer sign-off are not complete.' },
+    { id: 'approved-source-import', label: 'Approved source import', status: 'future', note: 'After a real Quran source is approved, the importer can be pointed to that source and promoted through CDN checks.' }
+  ] satisfies NoorQuranSourceGateStep[]
 };

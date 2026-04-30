@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 
-const EXPECTED_VERSION = '0.20.0';
+const EXPECTED_VERSION = '0.21.0';
+const QURAN_IMPORT_VERSION = '0.20.0';
 
 const requiredFiles = [
   'package.json',
@@ -12,6 +13,7 @@ const requiredFiles = [
   'apps/web/app/page.tsx',
   'apps/web/app/settings/page.tsx',
   'apps/web/components/QuranImportCard.tsx',
+  'apps/web/components/QuranSourceGateCard.tsx',
   'apps/web/components/SourceIntakeCard.tsx',
   'apps/web/components/RoadmapControlCard.tsx',
   'apps/web/lib/app-version.ts',
@@ -34,12 +36,17 @@ const requiredFiles = [
   'scripts/check-noor-source-audit.mjs',
   'scripts/import-noor-quran.mjs',
   'scripts/check-noor-quran-import.mjs',
+  'scripts/validate-noor-quran-source-gate.mjs',
+  'scripts/check-noor-quran-source-gate.mjs',
   'content-pipeline/schemas/noor-source-intake.schema.json',
   'content-pipeline/schemas/noor-quran-import-source.schema.json',
   'content-pipeline/source-intake/templates/quran-source-intake.template.json',
   'content-pipeline/source-intake/templates/tafseer-source-intake.template.json',
   'content-pipeline/source-intake/templates/hadith-source-intake.template.json',
   'content-pipeline/source-intake/noor-source-candidates.json',
+  'content-pipeline/source-gates/quran/quran-production-source-selection.json',
+  'content-pipeline/source-gates/quran/audit/noor-quran-source-gate-audit.json',
+  'content-pipeline/source-gates/quran/audit/noor-quran-source-gate-audit.md',
   'content-pipeline/importers/quran/README.md',
   'content-pipeline/importers/quran/samples/quran-import-sample.json',
   'content-pipeline/imported/quran-v0.20/noor-cdn/manifest/noor-quran-import-report.json',
@@ -48,10 +55,13 @@ const requiredFiles = [
   'docs/NOOR_MASTER_ROADMAP.md',
   'docs/NOOR_SOURCE_INTAKE.md',
   'docs/NOOR_QURAN_IMPORTER.md',
+  'docs/NOOR_QURAN_SOURCE_GATE.md',
   'docs/SPRINT_19_SCOPE.md',
   'docs/SPRINT_20_SCOPE.md',
+  'docs/SPRINT_21_SCOPE.md',
   'docs/LOCAL_TESTING_SPRINT_19.md',
   'docs/LOCAL_TESTING_SPRINT_20.md',
+  'docs/LOCAL_TESTING_SPRINT_21.md',
   'content-pipeline/roadmap/noor-roadmap-status.json',
   'content-pipeline/roadmap/noor-roadmap-status.md',
   '.github/workflows/noor-ci.yml'
@@ -77,7 +87,7 @@ function appVersion() {
 
 const missing = requiredFiles.filter((file) => !existsSync(file));
 if (missing.length > 0) {
-  console.error('Missing required NOOR Sprint 0-20 files:');
+  console.error('Missing required NOOR Sprint 0-21 files:');
   for (const file of missing) console.error(`- ${file}`);
   process.exit(1);
 }
@@ -94,6 +104,7 @@ for (const script of [
   'check:source-audit',
   'check:source-intake',
   'check:quran-import',
+  'check:quran-source-gate',
   'check:roadmap',
   'content:validate',
   'content:prepare',
@@ -105,6 +116,7 @@ for (const script of [
   'source:gate',
   'source:intake',
   'quran:import',
+  'quran:gate',
   'roadmap:status'
 ]) {
   if (!pkg.scripts?.[script]) fail(`package.json missing script: ${script}`);
@@ -117,16 +129,18 @@ const pipeline = read('apps/web/lib/content-pipeline.ts');
 for (const expected of [
   'NOOR_SOURCE_INTAKE',
   'NOOR_QURAN_IMPORTER',
+  'NOOR_QURAN_SOURCE_GATE',
   'noor-quran-importer-v1',
   'source:intake',
   'quran:import',
-  'check:quran-import'
+  'quran:gate',
+  'check:quran-source-gate'
 ]) {
   if (!pipeline.includes(expected)) fail(`content-pipeline.ts missing ${expected}`);
 }
 
 const settings = read('apps/web/app/settings/page.tsx');
-for (const expected of ['RoadmapControlCard', 'QuranImportCard', 'SourceIntakeCard', 'RuntimeContentSourceCard']) {
+for (const expected of ['RoadmapControlCard', 'QuranSourceGateCard', 'QuranImportCard', 'SourceIntakeCard', 'RuntimeContentSourceCard']) {
   if (!settings.includes(expected)) fail(`settings page must render ${expected}`);
 }
 
@@ -141,14 +155,23 @@ for (const domain of ['quran', 'tafseer', 'hadith']) {
   if (!candidateDomains.has(domain)) fail(`Sprint 19 source intake must include a ${domain} candidate source.`);
 }
 
+const sourceGate = readJson('content-pipeline/source-gates/quran/quran-production-source-selection.json');
+if (sourceGate.version !== EXPECTED_VERSION || sourceGate.selectionStatus !== 'blocked' || sourceGate.approvedForProductionImport !== false) {
+  fail('Sprint 21 Quran source gate must be blocked and not production approved.');
+}
+const sourceGateAudit = readJson('content-pipeline/source-gates/quran/audit/noor-quran-source-gate-audit.json');
+if (sourceGateAudit.version !== EXPECTED_VERSION || sourceGateAudit.gateStatus !== 'blocked') {
+  fail('Sprint 21 Quran source gate audit must be blocked. Run pnpm quran:gate.');
+}
+
 const report = readJson('content-pipeline/imported/quran-v0.20/noor-cdn/manifest/noor-quran-import-report.json');
-if (report.version !== EXPECTED_VERSION || report.importedSurahCount !== 4 || report.importedAyahCount !== 22) {
+if (report.version !== QURAN_IMPORT_VERSION || report.importedSurahCount !== 4 || report.importedAyahCount !== 22) {
   fail('Sprint 20 Quran import report has unexpected version/count values. Run pnpm quran:import.');
 }
 if (report.productionGate?.status !== 'blocked') fail('Sprint 20 Quran import production gate must be blocked.');
 
 const roadmap = read('apps/web/lib/roadmap.ts');
-for (const expected of ['currentSprint', 'Sprint 20', 'Sprint 21', 'Quran importer adapter v1']) {
+for (const expected of ['currentSprint', 'Sprint 21', 'Sprint 22', 'Quran production source selection gate']) {
   if (!roadmap.includes(expected)) fail(`roadmap.ts missing ${expected}`);
 }
 
@@ -164,6 +187,8 @@ for (const expected of [
   'pnpm check:source-audit',
   'pnpm source:intake',
   'pnpm check:source-intake',
+  'pnpm quran:gate',
+  'pnpm check:quran-source-gate',
   'pnpm quran:import',
   'pnpm check:quran-import',
   'pnpm roadmap:status',
@@ -173,8 +198,8 @@ for (const expected of [
 }
 
 const releaseNotes = read('RELEASE_NOTES.md') + read('CHANGELOG.md');
-if (!releaseNotes.includes('v0.20.0') || !releaseNotes.includes('Quran importer adapter')) {
-  fail('Release notes/changelog must include v0.20.0 Quran importer adapter entry.');
+if (!releaseNotes.includes('v0.21.0') || !releaseNotes.includes('Quran production source selection gate')) {
+  fail('Release notes/changelog must include v0.21.0 Quran production source selection gate entry.');
 }
 
-console.log('NOOR Sprint 0-20 pack check passed.');
+console.log('NOOR Sprint 0-21 pack check passed.');

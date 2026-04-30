@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 
-const EXPECTED_VERSION = '0.20.0';
+const IMPORT_VERSION = '0.20.0';
+const MIN_APP_VERSION = '0.20.0';
 
 const required = [
   'scripts/import-noor-quran.mjs',
@@ -30,6 +31,18 @@ function readJson(file) {
   return JSON.parse(readFileSync(file, 'utf8'));
 }
 
+function compareSemver(a, b) {
+  const pa = a.split('.').map((part) => Number.parseInt(part, 10));
+  const pb = b.split('.').map((part) => Number.parseInt(part, 10));
+  for (let i = 0; i < Math.max(pa.length, pb.length); i += 1) {
+    const av = pa[i] ?? 0;
+    const bv = pb[i] ?? 0;
+    if (av > bv) return 1;
+    if (av < bv) return -1;
+  }
+  return 0;
+}
+
 function parseVersionFromApp() {
   const source = readFileSync('apps/web/lib/app-version.ts', 'utf8');
   const match = source.match(/NOOR_APP_VERSION\s*=\s*['"]([^'"]+)['"]/);
@@ -49,13 +62,13 @@ for (const script of ['quran:import', 'check:quran-import']) {
 }
 
 const appVersion = parseVersionFromApp();
-if (appVersion !== EXPECTED_VERSION) {
-  fail(`Sprint 20 must update NOOR app version to ${EXPECTED_VERSION}. Current: ${appVersion}.`);
+if (!appVersion || compareSemver(appVersion, MIN_APP_VERSION) < 0) {
+  fail(`NOOR app version must be >= ${MIN_APP_VERSION} for Quran importer checks. Current: ${appVersion}.`);
 }
 
 const versionJson = readJson('apps/web/public/version.json');
-if (versionJson.version !== EXPECTED_VERSION) {
-  fail(`version.json must be ${EXPECTED_VERSION}. Current: ${versionJson.version}.`);
+if (versionJson.version !== appVersion) {
+  fail(`version.json must match app version ${appVersion}. Current: ${versionJson.version}.`);
 }
 
 const sample = readJson('content-pipeline/importers/quran/samples/quran-import-sample.json');
@@ -68,7 +81,7 @@ if (sample.sourceCandidateId !== 'quran-production-candidate-placeholder') {
 }
 
 const report = readJson('content-pipeline/imported/quran-v0.20/noor-cdn/manifest/noor-quran-import-report.json');
-if (report.version !== EXPECTED_VERSION) fail(`Quran import report must be v${EXPECTED_VERSION}.`);
+if (report.version !== IMPORT_VERSION) fail(`Quran import report must be v${IMPORT_VERSION}.`);
 if (report.adapterId !== 'noor-quran-importer-v1') fail('Quran import report adapterId mismatch.');
 if (report.importedSurahCount !== 4) fail(`Expected 4 imported surahs, got ${report.importedSurahCount}.`);
 if (report.importedAyahCount !== 22) fail(`Expected 22 imported ayat, got ${report.importedAyahCount}.`);
@@ -106,4 +119,4 @@ if (!ciWorkflow.includes('pnpm quran:import') || !ciWorkflow.includes('pnpm chec
   fail('NOOR CI must run Quran import commands.');
 }
 
-console.log(`NOOR Sprint 20 Quran importer check passed for v${EXPECTED_VERSION}.`);
+console.log(`NOOR Quran importer check passed for import adapter v${IMPORT_VERSION} under NOOR v${appVersion}.`);
