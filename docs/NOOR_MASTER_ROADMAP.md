@@ -1,18 +1,15 @@
 # NOOR Master Blueprint & Roadmap
 
-Version: v0.21.0
-
-## Current Phase
-
-Phase 3 — Production content pipeline and source governance.
+Version: v0.22.0  
+Current phase: Phase 3 — Production content pipeline and source governance
 
 ## Current Sprint
 
-### Sprint 21 — Quran production source selection gate
+### Sprint 22 — Tafseer importer adapter v1
 
-Create a Quran-specific source selection gate that keeps production import blocked until a real source, license, attribution, checksum plan and reviewer sign-off are complete.
+Create the first tafseer import adapter that normalizes a structured tafseer fixture into NOOR CDN-style tafseer routes while keeping production tafseer blocked until source approval is complete.
 
-## Completed Foundation
+## Completed Sprints
 
 - Sprint 0 — Repo foundation + data contracts
 - Sprint 1 — Design system + app shell
@@ -36,16 +33,13 @@ Create a Quran-specific source selection gate that keeps production import block
 - Sprint 18 — Roadmap control center
 - Sprint 19 — Production source intake templates
 - Sprint 20 — Quran importer adapter v1
+- Sprint 21 — Quran production source selection gate
 
-## Near-Term Roadmap
-
-### Sprint 22 — Tafseer importer adapter v1
-
-Normalize approved tafseer book data into NOOR CDN tafseer routes after source intake and approval gates are in place.
+## Next Sprints
 
 ### Sprint 23 — Hadith importer adapter v1
 
-Normalize approved hadith collection data into NOOR CDN hadith routes.
+Normalize approved hadith collection data into NOOR CDN hadith routes using the same source governance rules.
 
 ### Sprint 24 — Scholarly review console
 
@@ -59,18 +53,6 @@ Publish approved content bundle to external CDN and switch runtime defaults care
 
 Generate a lightweight local search index from approved Quran, tafseer and hadith production content.
 
-## Sprint 21 Command Set
+## Core Rule
 
-```powershell
-pnpm roadmap:status
-pnpm quran:gate
-pnpm check:quran-source-gate
-pnpm quran:import
-pnpm check:quran-import
-pnpm check:roadmap
-pnpm check:pack
-```
-
-## Production Content Principle
-
-NOOR can support demo and fixture data during development, but production Islamic content must pass source, license, attribution, checksum and reviewer gates before promotion.
+NOOR may test import contracts with fixtures, but production religious content cannot be promoted until license, attribution, source checksum/import plan and scholarly review are complete.

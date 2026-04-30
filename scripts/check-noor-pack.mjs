@@ -1,7 +1,8 @@
 import { existsSync, readFileSync } from 'node:fs';
 
-const EXPECTED_VERSION = '0.21.0';
+const EXPECTED_VERSION = '0.22.0';
 const QURAN_IMPORT_VERSION = '0.20.0';
+const TAFSEER_IMPORT_VERSION = '0.22.0';
 
 const requiredFiles = [
   'package.json',
@@ -14,6 +15,7 @@ const requiredFiles = [
   'apps/web/app/settings/page.tsx',
   'apps/web/components/QuranImportCard.tsx',
   'apps/web/components/QuranSourceGateCard.tsx',
+  'apps/web/components/TafseerImportCard.tsx',
   'apps/web/components/SourceIntakeCard.tsx',
   'apps/web/components/RoadmapControlCard.tsx',
   'apps/web/lib/app-version.ts',
@@ -38,8 +40,11 @@ const requiredFiles = [
   'scripts/check-noor-quran-import.mjs',
   'scripts/validate-noor-quran-source-gate.mjs',
   'scripts/check-noor-quran-source-gate.mjs',
+  'scripts/import-noor-tafseer.mjs',
+  'scripts/check-noor-tafseer-import.mjs',
   'content-pipeline/schemas/noor-source-intake.schema.json',
   'content-pipeline/schemas/noor-quran-import-source.schema.json',
+  'content-pipeline/schemas/noor-tafseer-import-source.schema.json',
   'content-pipeline/source-intake/templates/quran-source-intake.template.json',
   'content-pipeline/source-intake/templates/tafseer-source-intake.template.json',
   'content-pipeline/source-intake/templates/hadith-source-intake.template.json',
@@ -52,16 +57,25 @@ const requiredFiles = [
   'content-pipeline/imported/quran-v0.20/noor-cdn/manifest/noor-quran-import-report.json',
   'content-pipeline/imported/quran-v0.20/noor-cdn/metadata/surah-index.json',
   'content-pipeline/imported/quran-v0.20/audit/noor-quran-import-audit.md',
+  'content-pipeline/importers/tafseer/README.md',
+  'content-pipeline/importers/tafseer/samples/tafseer-import-sample.json',
+  'content-pipeline/imported/tafseer-v0.22/noor-cdn/manifest/noor-tafseer-import-report.json',
+  'content-pipeline/imported/tafseer-v0.22/noor-cdn/metadata/tafseer-books.json',
+  'content-pipeline/imported/tafseer-v0.22/noor-cdn/tafseer/demo-tafseer-import/surahs/001.json',
+  'content-pipeline/imported/tafseer-v0.22/audit/noor-tafseer-import-audit.md',
   'docs/NOOR_MASTER_ROADMAP.md',
   'docs/NOOR_SOURCE_INTAKE.md',
   'docs/NOOR_QURAN_IMPORTER.md',
   'docs/NOOR_QURAN_SOURCE_GATE.md',
+  'docs/NOOR_TAFSEER_IMPORTER.md',
   'docs/SPRINT_19_SCOPE.md',
   'docs/SPRINT_20_SCOPE.md',
   'docs/SPRINT_21_SCOPE.md',
+  'docs/SPRINT_22_SCOPE.md',
   'docs/LOCAL_TESTING_SPRINT_19.md',
   'docs/LOCAL_TESTING_SPRINT_20.md',
   'docs/LOCAL_TESTING_SPRINT_21.md',
+  'docs/LOCAL_TESTING_SPRINT_22.md',
   'content-pipeline/roadmap/noor-roadmap-status.json',
   'content-pipeline/roadmap/noor-roadmap-status.md',
   '.github/workflows/noor-ci.yml'
@@ -87,7 +101,7 @@ function appVersion() {
 
 const missing = requiredFiles.filter((file) => !existsSync(file));
 if (missing.length > 0) {
-  console.error('Missing required NOOR Sprint 0-21 files:');
+  console.error('Missing required NOOR Sprint 0-22 files:');
   for (const file of missing) console.error(`- ${file}`);
   process.exit(1);
 }
@@ -105,6 +119,7 @@ for (const script of [
   'check:source-intake',
   'check:quran-import',
   'check:quran-source-gate',
+  'check:tafseer-import',
   'check:roadmap',
   'content:validate',
   'content:prepare',
@@ -117,6 +132,7 @@ for (const script of [
   'source:intake',
   'quran:import',
   'quran:gate',
+  'tafseer:import',
   'roadmap:status'
 ]) {
   if (!pkg.scripts?.[script]) fail(`package.json missing script: ${script}`);
@@ -130,17 +146,20 @@ for (const expected of [
   'NOOR_SOURCE_INTAKE',
   'NOOR_QURAN_IMPORTER',
   'NOOR_QURAN_SOURCE_GATE',
+  'NOOR_TAFSEER_IMPORTER',
   'noor-quran-importer-v1',
+  'noor-tafseer-importer-v1',
   'source:intake',
   'quran:import',
   'quran:gate',
-  'check:quran-source-gate'
+  'tafseer:import',
+  'check:tafseer-import'
 ]) {
   if (!pipeline.includes(expected)) fail(`content-pipeline.ts missing ${expected}`);
 }
 
 const settings = read('apps/web/app/settings/page.tsx');
-for (const expected of ['RoadmapControlCard', 'QuranSourceGateCard', 'QuranImportCard', 'SourceIntakeCard', 'RuntimeContentSourceCard']) {
+for (const expected of ['RoadmapControlCard', 'QuranSourceGateCard', 'QuranImportCard', 'TafseerImportCard', 'SourceIntakeCard', 'RuntimeContentSourceCard']) {
   if (!settings.includes(expected)) fail(`settings page must render ${expected}`);
 }
 
@@ -156,22 +175,28 @@ for (const domain of ['quran', 'tafseer', 'hadith']) {
 }
 
 const sourceGate = readJson('content-pipeline/source-gates/quran/quran-production-source-selection.json');
-if (sourceGate.version !== EXPECTED_VERSION || sourceGate.selectionStatus !== 'blocked' || sourceGate.approvedForProductionImport !== false) {
+if (sourceGate.version !== '0.21.0' || sourceGate.selectionStatus !== 'blocked' || sourceGate.approvedForProductionImport !== false) {
   fail('Sprint 21 Quran source gate must be blocked and not production approved.');
 }
 const sourceGateAudit = readJson('content-pipeline/source-gates/quran/audit/noor-quran-source-gate-audit.json');
-if (sourceGateAudit.version !== EXPECTED_VERSION || sourceGateAudit.gateStatus !== 'blocked') {
+if (sourceGateAudit.version !== '0.21.0' || sourceGateAudit.gateStatus !== 'blocked') {
   fail('Sprint 21 Quran source gate audit must be blocked. Run pnpm quran:gate.');
 }
 
-const report = readJson('content-pipeline/imported/quran-v0.20/noor-cdn/manifest/noor-quran-import-report.json');
-if (report.version !== QURAN_IMPORT_VERSION || report.importedSurahCount !== 4 || report.importedAyahCount !== 22) {
+const quranReport = readJson('content-pipeline/imported/quran-v0.20/noor-cdn/manifest/noor-quran-import-report.json');
+if (quranReport.version !== QURAN_IMPORT_VERSION || quranReport.importedSurahCount !== 4 || quranReport.importedAyahCount !== 22) {
   fail('Sprint 20 Quran import report has unexpected version/count values. Run pnpm quran:import.');
 }
-if (report.productionGate?.status !== 'blocked') fail('Sprint 20 Quran import production gate must be blocked.');
+if (quranReport.productionGate?.status !== 'blocked') fail('Sprint 20 Quran import production gate must be blocked.');
+
+const tafseerReport = readJson('content-pipeline/imported/tafseer-v0.22/noor-cdn/manifest/noor-tafseer-import-report.json');
+if (tafseerReport.version !== TAFSEER_IMPORT_VERSION || tafseerReport.importedBookCount !== 1 || tafseerReport.importedEntryCount !== 3) {
+  fail('Sprint 22 Tafseer import report has unexpected version/count values. Run pnpm tafseer:import.');
+}
+if (tafseerReport.productionGate?.status !== 'blocked') fail('Sprint 22 Tafseer import production gate must be blocked.');
 
 const roadmap = read('apps/web/lib/roadmap.ts');
-for (const expected of ['currentSprint', 'Sprint 21', 'Sprint 22', 'Quran production source selection gate']) {
+for (const expected of ['currentSprint', 'Sprint 22', 'Sprint 23', 'Tafseer importer adapter v1']) {
   if (!roadmap.includes(expected)) fail(`roadmap.ts missing ${expected}`);
 }
 
@@ -191,6 +216,8 @@ for (const expected of [
   'pnpm check:quran-source-gate',
   'pnpm quran:import',
   'pnpm check:quran-import',
+  'pnpm tafseer:import',
+  'pnpm check:tafseer-import',
   'pnpm roadmap:status',
   'pnpm check:roadmap'
 ]) {
@@ -198,8 +225,8 @@ for (const expected of [
 }
 
 const releaseNotes = read('RELEASE_NOTES.md') + read('CHANGELOG.md');
-if (!releaseNotes.includes('v0.21.0') || !releaseNotes.includes('Quran production source selection gate')) {
-  fail('Release notes/changelog must include v0.21.0 Quran production source selection gate entry.');
+if (!releaseNotes.includes('v0.22.0') || !releaseNotes.includes('Tafseer importer adapter v1')) {
+  fail('Release notes/changelog must include v0.22.0 Tafseer importer adapter v1 entry.');
 }
 
-console.log('NOOR Sprint 0-21 pack check passed.');
+console.log('NOOR Sprint 0-22 pack check passed.');

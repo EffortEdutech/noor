@@ -3,7 +3,11 @@
   "version": "0.19.0",
   "status": "intake-draft",
   "rule": "Candidate sources are not production sources. They must pass license, attribution, checksum/import planning and reviewer sign-off before importer work or production promotion.",
-  "requiredDomains": ["quran", "tafseer", "hadith"],
+  "requiredDomains": [
+    "quran",
+    "tafseer",
+    "hadith"
+  ],
   "candidateSources": [
     {
       "id": "quran-production-candidate-placeholder",
@@ -22,7 +26,7 @@
       "reviewerRole": "Quran text reviewer",
       "approvalStatus": "draft-not-approved",
       "importReadiness": "blocked-until-license-and-review-complete",
-      "importNotes": "Replace this placeholder with the selected verified Quran source before Sprint 20 importer work."
+      "importNotes": "Replace this placeholder with the selected verified Quran source before production importer work."
     },
     {
       "id": "tafseer-production-candidate-placeholder",
@@ -43,7 +47,7 @@
       "reviewerRole": "Tafseer reviewer",
       "approvalStatus": "draft-not-approved",
       "importReadiness": "blocked-until-license-and-review-complete",
-      "importNotes": "Replace this placeholder with the selected verified tafseer source before Sprint 21 importer work."
+      "importNotes": "Replace this placeholder with the selected verified tafseer source before Sprint 22 importer work."
     },
     {
       "id": "hadith-production-candidate-placeholder",
@@ -64,7 +68,7 @@
       "reviewerRole": "Hadith reviewer",
       "approvalStatus": "draft-not-approved",
       "importReadiness": "blocked-until-license-and-review-complete",
-      "importNotes": "Replace this placeholder with the selected verified hadith source before Sprint 22 importer work."
+      "importNotes": "Replace this placeholder with the selected verified hadith source before Sprint 23 importer work."
     }
   ],
   "productionGate": [

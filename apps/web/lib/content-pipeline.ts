@@ -12,6 +12,7 @@ export type NoorSourceGovernanceStep = NoorContentPipelineStep;
 export type NoorSourceIntakeStep = NoorContentPipelineStep;
 export type NoorQuranImporterStep = NoorContentPipelineStep;
 export type NoorQuranSourceGateStep = NoorContentPipelineStep;
+export type NoorTafseerImporterStep = NoorContentPipelineStep;
 
 export const NOOR_CONTENT_PIPELINE = {
   version: '0.12.0',
@@ -26,7 +27,7 @@ export const NOOR_CONTENT_PIPELINE = {
     { id: 'cdn-layout', label: 'CDN folder layout', status: 'ready', note: 'Matches existing resolver paths for metadata, surah files, tafseer book files and hadith collections.' },
     { id: 'validation', label: 'Local validation scripts', status: 'ready', note: 'Checks manifest, source registry, surah counts, ayah keys, tafseer routes and hadith routes.' },
     { id: 'scholarly-gate', label: 'Scholarly and licensing gate', status: 'manual-gate', note: 'Required before any real Quran, tafseer or hadith dataset is labelled production.' },
-    { id: 'production-importers', label: 'Production importers', status: 'future', note: 'Quran adapter is now started in Sprint 20; tafseer and hadith adapters remain next.' }
+    { id: 'production-importers', label: 'Production importers', status: 'future', note: 'Quran and tafseer adapters are now started; hadith importer remains next.' }
   ] satisfies NoorContentPipelineStep[]
 };
 
@@ -101,7 +102,7 @@ export const NOOR_SOURCE_GOVERNANCE = {
     { id: 'demo-block', label: 'Demo content production block', status: 'ready', note: 'Current demo sources remain explicitly marked demo-only and not-production-approved.' },
     { id: 'audit-report', label: 'Generated audit report', status: 'ready', note: 'source:audit writes JSON and Markdown reports under content-pipeline/audit for local review.' },
     { id: 'production-gate', label: 'Production gate command', status: 'manual-gate', note: 'source:gate intentionally fails until all source records are production-approved.' },
-    { id: 'real-source-import', label: 'Real source import adapters', status: 'future', note: 'Future sprint can add importer adapters after the selected Quran, tafseer and hadith sources are approved.' }
+    { id: 'real-source-import', label: 'Real source import adapters', status: 'future', note: 'Future sprints add importer adapters after selected Quran, tafseer and hadith sources are approved.' }
   ] satisfies NoorSourceGovernanceStep[]
 };
 
@@ -122,7 +123,7 @@ export const NOOR_SOURCE_INTAKE = {
     { id: 'hadith-template', label: 'Hadith intake template', status: 'ready', note: 'Captures collection, grading/source metadata, source route, license and reviewer requirements.' },
     { id: 'candidate-registry', label: 'Candidate source registry', status: 'ready', note: 'Keeps real source candidates separate from the demo CDN registry until approval.' },
     { id: 'production-approval', label: 'Production approval', status: 'manual-gate', note: 'No candidate can become production-approved without license, attribution, checksum/import plan and reviewer sign-off.' },
-    { id: 'import-adapters', label: 'Importer adapters', status: 'future', note: 'Sprint 20 begins Quran importer adapter work with a non-production fixture.' }
+    { id: 'import-adapters', label: 'Importer adapters', status: 'future', note: 'Quran and tafseer importer adapters are started with non-production fixtures; hadith remains next.' }
   ] satisfies NoorSourceIntakeStep[]
 };
 
@@ -166,4 +167,23 @@ export const NOOR_QURAN_SOURCE_GATE = {
     { id: 'production-block', label: 'Production block', status: 'manual-gate', note: 'The default candidate is intentionally blocked because source URL, license, attribution, checksum and reviewer sign-off are not complete.' },
     { id: 'approved-source-import', label: 'Approved source import', status: 'future', note: 'After a real Quran source is approved, the importer can be pointed to that source and promoted through CDN checks.' }
   ] satisfies NoorQuranSourceGateStep[]
+};
+
+export const NOOR_TAFSEER_IMPORTER = {
+  version: '0.22.0',
+  label: 'Sprint 22 — Tafseer importer adapter v1',
+  adapterId: 'noor-tafseer-importer-v1',
+  sampleSource: 'content-pipeline/importers/tafseer/samples/tafseer-import-sample.json',
+  outputRoot: 'content-pipeline/imported/tafseer-v0.22/noor-cdn',
+  generatedReport: 'content-pipeline/imported/tafseer-v0.22/noor-cdn/manifest/noor-tafseer-import-report.json',
+  generatedAuditMarkdown: 'content-pipeline/imported/tafseer-v0.22/audit/noor-tafseer-import-audit.md',
+  commands: ['pnpm tafseer:import', 'pnpm check:tafseer-import', 'pnpm check:pack'],
+  productionGate: ['Selected tafseer source candidate exists in source intake registry', 'License is approved for redistribution', 'Attribution wording is recorded', 'Author/translator metadata is recorded', 'Ayah range mapping is checked', 'Reviewer sign-off is recorded', 'Adapter output passes book, route and entry validation'],
+  steps: [
+    { id: 'adapter-contract', label: 'Importer contract', status: 'ready', note: 'Normalizes structured tafseer source entries into NOOR CDN-style tafseer book and per-surah route files.' },
+    { id: 'fixture-import', label: 'Fixture import', status: 'ready', note: 'Imports a small non-production tafseer fixture so the adapter contract can be tested before real source approval.' },
+    { id: 'range-validation', label: 'Ayah range validation', status: 'ready', note: 'Checks surah numbers, ayah ranges, unique entry IDs, required body text and source attribution before writing output.' },
+    { id: 'source-gate', label: 'Source governance gate', status: 'manual-gate', note: 'Output report remains blocked from production because the tafseer source candidate is still not approved.' },
+    { id: 'production-tafseer-source', label: 'Production tafseer source', status: 'future', note: 'Replace the fixture with a verified tafseer source only after license, attribution and reviewer sign-off are complete.' }
+  ] satisfies NoorTafseerImporterStep[]
 };

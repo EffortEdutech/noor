@@ -1,8 +1,16 @@
 # Changelog
 
-## v0.21.0 — Sprint 21 Quran Production Source Selection Gate
+## v0.22.0 — Sprint 22 Tafseer Importer Adapter v1
 
-Quran production source selection gate.
+- Added Tafseer importer adapter v1 using a non-production fixture.
+- Added `tafseer:import` generator for NOOR CDN-style tafseer routes.
+- Added `check:tafseer-import` local and CI validation.
+- Added generated tafseer import report, tafseer books metadata, per-surah route and audit markdown.
+- Added Settings Tafseer Import card.
+- Updated roadmap to mark Sprint 22 current and Sprint 23 next.
+- Kept production tafseer import blocked by default until source, license, attribution, metadata, checksum and reviewer sign-off are complete.
+
+## v0.21.0 — Sprint 21 Quran Production Source Selection Gate
 
 - Added Quran source selection decision record.
 - Added `quran:gate` validator and generated source gate audit output.

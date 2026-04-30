@@ -1,0 +1,61 @@
+{
+  "id": "noor-tafseer-fixture-v0.22",
+  "version": "0.22.0",
+  "adapter": "noor-tafseer-importer-v1",
+  "status": "fixture-only",
+  "sourceCandidateId": "tafseer-production-candidate-placeholder",
+  "sourceLabel": "NOOR Demo Tafseer Import Fixture",
+  "licenseStatus": "needs-review",
+  "productionApproved": false,
+  "reviewerSignoff": false,
+  "attributionText": "Demo tafseer fixture for adapter testing only. Not for production scholarly use.",
+  "book": {
+    "bookId": "demo-tafseer-import",
+    "title": "NOOR Demo Tafseer Import Fixture",
+    "language": "en",
+    "author": "NOOR demo content team",
+    "translator": "Not applicable",
+    "description": "A small non-production tafseer fixture used to test the NOOR tafseer importer contract."
+  },
+  "entries": [
+    {
+      "id": "demo-tafseer-import-1-1-1",
+      "surah": 1,
+      "fromAyah": 1,
+      "toAyah": 1,
+      "title": "Beginning with mercy",
+      "body": "This demo entry shows how a tafseer passage can be mapped to a single ayah. It is fixture text for importer testing only.",
+      "tags": [
+        "mercy",
+        "beginning",
+        "bismillah"
+      ]
+    },
+    {
+      "id": "demo-tafseer-import-1-2-4",
+      "surah": 1,
+      "fromAyah": 2,
+      "toAyah": 4,
+      "title": "Praise, mercy, and accountability",
+      "body": "This demo entry shows how one tafseer passage can be mapped to a range of ayat. It is not approved production tafseer.",
+      "tags": [
+        "gratitude",
+        "mercy",
+        "accountability"
+      ]
+    },
+    {
+      "id": "demo-tafseer-import-1-5-7",
+      "surah": 1,
+      "fromAyah": 5,
+      "toAyah": 7,
+      "title": "Worship and guidance",
+      "body": "This demo entry keeps the route contract visible for future long-form tafseer imports and review workflows.",
+      "tags": [
+        "worship",
+        "guidance",
+        "dua"
+      ]
+    }
+  ]
+}

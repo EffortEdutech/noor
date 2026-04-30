@@ -1,0 +1,71 @@
+[
+  {
+    "id": "demo-tafseer-import-1-1-1",
+    "bookId": "demo-tafseer-import",
+    "language": "en",
+    "surah": 1,
+    "fromAyah": 1,
+    "toAyah": 1,
+    "title": "Beginning with mercy",
+    "body": "This demo entry shows how a tafseer passage can be mapped to a single ayah. It is fixture text for importer testing only.",
+    "sourceLabel": "NOOR Demo Tafseer Import Fixture",
+    "tags": [
+      "mercy",
+      "beginning",
+      "bismillah"
+    ],
+    "source": {
+      "candidateId": "tafseer-production-candidate-placeholder",
+      "label": "NOOR Demo Tafseer Import Fixture",
+      "licenseStatus": "needs-review",
+      "productionApproved": false,
+      "attributionText": "Demo tafseer fixture for adapter testing only. Not for production scholarly use."
+    }
+  },
+  {
+    "id": "demo-tafseer-import-1-2-4",
+    "bookId": "demo-tafseer-import",
+    "language": "en",
+    "surah": 1,
+    "fromAyah": 2,
+    "toAyah": 4,
+    "title": "Praise, mercy, and accountability",
+    "body": "This demo entry shows how one tafseer passage can be mapped to a range of ayat. It is not approved production tafseer.",
+    "sourceLabel": "NOOR Demo Tafseer Import Fixture",
+    "tags": [
+      "gratitude",
+      "mercy",
+      "accountability"
+    ],
+    "source": {
+      "candidateId": "tafseer-production-candidate-placeholder",
+      "label": "NOOR Demo Tafseer Import Fixture",
+      "licenseStatus": "needs-review",
+      "productionApproved": false,
+      "attributionText": "Demo tafseer fixture for adapter testing only. Not for production scholarly use."
+    }
+  },
+  {
+    "id": "demo-tafseer-import-1-5-7",
+    "bookId": "demo-tafseer-import",
+    "language": "en",
+    "surah": 1,
+    "fromAyah": 5,
+    "toAyah": 7,
+    "title": "Worship and guidance",
+    "body": "This demo entry keeps the route contract visible for future long-form tafseer imports and review workflows.",
+    "sourceLabel": "NOOR Demo Tafseer Import Fixture",
+    "tags": [
+      "worship",
+      "guidance",
+      "dua"
+    ],
+    "source": {
+      "candidateId": "tafseer-production-candidate-placeholder",
+      "label": "NOOR Demo Tafseer Import Fixture",
+      "licenseStatus": "needs-review",
+      "productionApproved": false,
+      "attributionText": "Demo tafseer fixture for adapter testing only. Not for production scholarly use."
+    }
+  }
+]

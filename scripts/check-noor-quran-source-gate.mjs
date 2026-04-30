@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 
-const EXPECTED_VERSION = '0.21.0';
+const GATE_VERSION = '0.21.0';
 const required = [
   'scripts/validate-noor-quran-source-gate.mjs',
   'scripts/check-noor-quran-source-gate.mjs',
@@ -33,6 +33,25 @@ function parseAppVersion() {
   return match?.[1] ?? null;
 }
 
+function parseSemver(version) {
+  const match = String(version ?? '').match(/^(\d+)\.(\d+)\.(\d+)$/);
+  if (!match) return null;
+  return match.slice(1).map(Number);
+}
+
+function isAtLeast(actual, minimum) {
+  const a = parseSemver(actual);
+  const m = parseSemver(minimum);
+  if (!a || !m) return false;
+
+  for (let index = 0; index < 3; index += 1) {
+    if (a[index] > m[index]) return true;
+    if (a[index] < m[index]) return false;
+  }
+
+  return true;
+}
+
 const missing = required.filter((file) => !existsSync(file));
 if (missing.length > 0) {
   console.error('Missing required NOOR Sprint 21 Quran source gate files:');
@@ -46,12 +65,17 @@ for (const script of ['quran:gate', 'check:quran-source-gate']) {
 }
 
 const appVersion = parseAppVersion();
-if (appVersion !== EXPECTED_VERSION) fail(`Sprint 21 must update NOOR app version to ${EXPECTED_VERSION}. Current: ${appVersion}.`);
+if (!isAtLeast(appVersion, GATE_VERSION)) {
+  fail(`NOOR app version must be ${GATE_VERSION} or newer for the Quran source gate. Current: ${appVersion}.`);
+}
+
 const versionJson = readJson('apps/web/public/version.json');
-if (versionJson.version !== EXPECTED_VERSION) fail(`version.json must be ${EXPECTED_VERSION}. Current: ${versionJson.version}.`);
+if (!isAtLeast(versionJson.version, GATE_VERSION)) {
+  fail(`version.json must be ${GATE_VERSION} or newer for the Quran source gate. Current: ${versionJson.version}.`);
+}
 
 const selection = readJson('content-pipeline/source-gates/quran/quran-production-source-selection.json');
-if (selection.version !== EXPECTED_VERSION) fail(`Quran source selection record must be v${EXPECTED_VERSION}.`);
+if (selection.version !== GATE_VERSION) fail(`Quran source selection record must remain v${GATE_VERSION}.`);
 if (selection.domain !== 'quran') fail('Quran source selection record must use domain quran.');
 if (selection.selectedCandidateId !== 'quran-production-candidate-placeholder') fail('Sprint 21 must still point to the Quran placeholder until a real source is manually selected.');
 if (selection.selectionStatus !== 'blocked') fail('Sprint 21 default Quran source selection must remain blocked.');
@@ -59,7 +83,7 @@ if (selection.approvedForProductionImport !== false) fail('Sprint 21 must not ap
 if (!Array.isArray(selection.gateRequirements) || selection.gateRequirements.length < 6) fail('Quran source selection must list gate requirements.');
 
 const audit = readJson('content-pipeline/source-gates/quran/audit/noor-quran-source-gate-audit.json');
-if (audit.version !== EXPECTED_VERSION) fail(`Quran source gate audit must be v${EXPECTED_VERSION}.`);
+if (audit.version !== GATE_VERSION) fail(`Quran source gate audit must remain v${GATE_VERSION}.`);
 if (audit.gateStatus !== 'blocked') fail('Sprint 21 Quran source gate must remain blocked until real source approval.');
 if (audit.approvedForProductionImport !== false) fail('Sprint 21 audit must not approve production import.');
 for (const reason of ['source-url-missing', 'license-not-approved', 'reviewer-signoff-missing', 'candidate-not-production-approved']) {
@@ -89,4 +113,4 @@ if (!releaseDocs.includes('v0.21.0') || !releaseDocs.includes('Quran production 
   fail('Release docs must include v0.21.0 Quran production source selection gate.');
 }
 
-console.log(`NOOR Sprint 21 Quran source gate check passed for v${EXPECTED_VERSION}.`);
+console.log(`NOOR Sprint 21 Quran source gate check passed for gate v${GATE_VERSION} under NOOR v${appVersion}.`);

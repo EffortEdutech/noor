@@ -8,6 +8,20 @@ export type NoorReleaseNote = {
 
 export const NOOR_RELEASE_NOTES: NoorReleaseNote[] = [
   {
+    version: '0.22.0',
+    date: '2026-04-30',
+    title: 'Sprint 22 — Tafseer importer adapter v1',
+    summary:
+      'Adds the first tafseer importer adapter path using a non-production fixture, generated NOOR CDN-style tafseer routes, audit report and production gate checks.',
+    highlights: [
+      'tafseer:import command to normalize tafseer fixture data into NOOR CDN-style book and per-surah routes',
+      'check:tafseer-import command for local and CI validation',
+      'Generated tafseer import report and audit markdown under content-pipeline/imported',
+      'Settings Tafseer Import card showing adapter status and production gate',
+      'Roadmap updated: Sprint 22 current, Sprint 23 next for hadith importer adapter v1'
+    ]
+  },
+  {
     version: '0.21.0',
     date: '2026-04-30',
     title: 'Sprint 21 — Quran production source selection gate',

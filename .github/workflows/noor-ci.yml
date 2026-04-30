@@ -74,6 +74,12 @@ jobs:
       - name: Check Quran importer
         run: pnpm check:quran-import
 
+      - name: Import Tafseer sample source
+        run: pnpm tafseer:import
+
+      - name: Check Tafseer importer
+        run: pnpm check:tafseer-import
+
       - name: Generate roadmap status
         run: pnpm roadmap:status
 

@@ -1,0 +1,21 @@
+{
+  "version": "0.22.0",
+  "generatedAt": "2026-04-30T15:09:54.584Z",
+  "sourceCandidateId": "tafseer-production-candidate-placeholder",
+  "sourceLabel": "NOOR Demo Tafseer Import Fixture",
+  "productionReady": false,
+  "books": [
+    {
+      "bookId": "demo-tafseer-import",
+      "title": "NOOR Demo Tafseer Import Fixture",
+      "language": "en",
+      "author": "NOOR demo content team",
+      "translator": "Not applicable",
+      "description": "A small non-production tafseer fixture used to test the NOOR tafseer importer contract.",
+      "routePattern": "tafseer/demo-tafseer-import/surahs/{surah}.json",
+      "surahs": [
+        1
+      ]
+    }
+  ]
+}
