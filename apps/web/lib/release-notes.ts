@@ -8,6 +8,20 @@ export type NoorReleaseNote = {
 
 export const NOOR_RELEASE_NOTES: NoorReleaseNote[] = [
   {
+    version: '0.19.0',
+    date: '2026-04-30',
+    title: 'Sprint 19 — Production source intake templates',
+    summary:
+      'Adds structured source intake templates and validation before NOOR begins real Quran, tafseer or hadith importer work.',
+    highlights: [
+      'Quran, tafseer and hadith source intake templates',
+      'Candidate source registry separated from the demo CDN registry',
+      'source:intake command to validate candidate records and generate an intake audit',
+      'check:source-intake command for local and CI validation',
+      'Settings Source Intake card and Sprint 19 documentation'
+    ]
+  },
+  {
     version: '0.18.0',
     date: '2026-04-30',
     title: 'Sprint 18 — Master roadmap and release control center',

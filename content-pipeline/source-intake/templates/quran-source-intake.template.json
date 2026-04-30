@@ -1,0 +1,20 @@
+{
+  "id": "quran-source-candidate-template",
+  "domain": "quran",
+  "title": "<Canonical Quran text source candidate>",
+  "language": "arabic",
+  "sourceType": "canonical-text",
+  "sourceUrl": "<source URL or internal file path>",
+  "publisher": "<publisher / maintainer>",
+  "maintainer": "<maintainer contact or project>",
+  "licenseStatus": "needs-review",
+  "licenseUrl": "<license URL or permission document path>",
+  "redistributionNotes": "<what NOOR is allowed to store and redistribute>",
+  "attributionText": "<required attribution wording>",
+  "checksumPlan": "Record checksum for every imported source file before normalization.",
+  "reviewerRequired": true,
+  "reviewerRole": "Quran text reviewer",
+  "approvalStatus": "draft-not-approved",
+  "importReadiness": "blocked-until-license-and-review-complete",
+  "importNotes": "Future importer must preserve surah/ayah numbering and verify counts against manifest."
+}

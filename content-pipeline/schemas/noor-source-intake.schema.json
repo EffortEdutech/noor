@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://noor.local/schemas/noor-source-intake.schema.json",
+  "title": "NOOR Source Intake Candidate",
+  "type": "object",
+  "required": [
+    "id",
+    "domain",
+    "title",
+    "language",
+    "sourceType",
+    "sourceUrl",
+    "licenseStatus",
+    "attributionText",
+    "reviewerRequired",
+    "approvalStatus",
+    "importReadiness"
+  ],
+  "properties": {
+    "id": { "type": "string", "minLength": 3 },
+    "domain": { "type": "string", "enum": ["quran", "tafseer", "hadith"] },
+    "title": { "type": "string", "minLength": 3 },
+    "language": { "type": "string", "minLength": 2 },
+    "sourceType": { "type": "string", "minLength": 3 },
+    "sourceUrl": { "type": "string", "minLength": 3 },
+    "licenseStatus": { "type": "string" },
+    "licenseUrl": { "type": "string" },
+    "redistributionNotes": { "type": "string" },
+    "attributionText": { "type": "string" },
+    "checksumPlan": { "type": "string" },
+    "reviewerRequired": { "type": "boolean" },
+    "reviewerRole": { "type": "string" },
+    "approvalStatus": { "type": "string" },
+    "importReadiness": { "type": "string" },
+    "importNotes": { "type": "string" }
+  },
+  "additionalProperties": true
+}

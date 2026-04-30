@@ -12,17 +12,17 @@ const roadmap = {
   generatedAt: new Date().toISOString(),
   currentVersion,
   buildLabel,
-  currentSprint: 'Sprint 18',
+  currentSprint: 'Sprint 19',
   currentPhase: 'Phase 3 — Production content readiness',
   completed: [
     'Sprint 0-2 — Repo foundation, data contracts, design system and app shell',
     'Sprint 3-8 — Core reader, search, journeys, studio, PWA and content integrity',
     'Sprint 9-11 — Reader preferences, local backup, release automation and changelog',
-    'Sprint 12-17 — Content pipeline, CDN runtime, publish/smoke/promotion and source governance'
+    'Sprint 12-17 — Content pipeline, CDN runtime, publish/smoke/promotion and source governance',
+    'Sprint 18 — Master roadmap and release control center'
   ],
-  next: 'Sprint 19 — Production source intake templates',
+  next: 'Sprint 20 — Quran importer adapter v1',
   future: [
-    'Sprint 20 — Quran importer adapter v1',
     'Sprint 21 — Tafseer importer adapter v1',
     'Sprint 22 — Hadith importer adapter v1',
     'Sprint 23 — Scholarly review workflow',
@@ -36,6 +36,8 @@ const roadmap = {
     'Every sprint updates version, release notes, docs and validation checks.'
   ],
   commands: [
+    'pnpm source:intake',
+    'pnpm check:source-intake',
     'pnpm roadmap:status',
     'pnpm check:roadmap',
     'pnpm check:pack',

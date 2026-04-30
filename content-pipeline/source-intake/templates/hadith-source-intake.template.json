@@ -1,0 +1,21 @@
+{
+  "id": "hadith-source-candidate-template",
+  "domain": "hadith",
+  "title": "<Hadith collection/source candidate>",
+  "language": "<source language>",
+  "sourceType": "hadith-collection",
+  "sourceUrl": "<source URL or internal file path>",
+  "compiler": "<collection compiler if applicable>",
+  "publisher": "<publisher / maintainer>",
+  "licenseStatus": "needs-review",
+  "licenseUrl": "<license URL or permission document path>",
+  "redistributionNotes": "<what NOOR is allowed to store and redistribute>",
+  "attributionText": "<required attribution wording>",
+  "gradingPolicy": "<how grades/status fields are sourced and displayed>",
+  "checksumPlan": "Record checksum for source and normalized collection files.",
+  "reviewerRequired": true,
+  "reviewerRole": "Hadith reviewer",
+  "approvalStatus": "draft-not-approved",
+  "importReadiness": "blocked-until-license-and-review-complete",
+  "importNotes": "Future importer must preserve collection, book/chapter, hadith number, narrator, grade and source references."
+}

@@ -33,6 +33,13 @@ export type NoorSourceGovernanceStep = {
   note: string;
 };
 
+export type NoorSourceIntakeStep = {
+  id: string;
+  label: string;
+  status: 'ready' | 'manual-gate' | 'future';
+  note: string;
+};
+
 export const NOOR_CONTENT_PIPELINE = {
   version: '0.12.0',
   label: 'Sprint 12 — Production content pipeline / CDN source preparation',
@@ -156,4 +163,37 @@ export const NOOR_SOURCE_GOVERNANCE = {
     { id: 'production-gate', label: 'Production gate command', status: 'manual-gate', note: 'source:gate intentionally fails until all source records are production-approved.' },
     { id: 'real-source-import', label: 'Real source import adapters', status: 'future', note: 'Future sprint can add importer adapters after the selected Quran, tafseer and hadith sources are approved.' }
   ] satisfies NoorSourceGovernanceStep[]
+};
+
+export const NOOR_SOURCE_INTAKE = {
+  version: '0.19.0',
+  label: 'Sprint 19 — Production source intake templates',
+  templateRoot: 'content-pipeline/source-intake/templates',
+  candidateRegistry: 'content-pipeline/source-intake/noor-source-candidates.json',
+  schemaFile: 'content-pipeline/schemas/noor-source-intake.schema.json',
+  generatedAuditFile: 'content-pipeline/source-intake/audit/noor-source-intake-audit.json',
+  generatedAuditMarkdown: 'content-pipeline/source-intake/audit/noor-source-intake-audit.md',
+  commands: ['pnpm source:intake', 'pnpm check:source-intake', 'pnpm source:gate'],
+  requiredDomains: ['quran', 'tafseer', 'hadith'],
+  requiredFields: [
+    'id',
+    'domain',
+    'title',
+    'language',
+    'sourceType',
+    'sourceUrl',
+    'licenseStatus',
+    'attributionText',
+    'reviewerRequired',
+    'approvalStatus',
+    'importReadiness'
+  ],
+  steps: [
+    { id: 'quran-template', label: 'Quran intake template', status: 'ready', note: 'Captures canonical text source, translation source, license notes, attribution and reviewer requirements before importer work.' },
+    { id: 'tafseer-template', label: 'Tafseer intake template', status: 'ready', note: 'Captures tafseer book, author/translator, source route, license and scholarly review requirements.' },
+    { id: 'hadith-template', label: 'Hadith intake template', status: 'ready', note: 'Captures collection, grading/source metadata, source route, license and reviewer requirements.' },
+    { id: 'candidate-registry', label: 'Candidate source registry', status: 'ready', note: 'Keeps real source candidates separate from the demo CDN registry until approval.' },
+    { id: 'production-approval', label: 'Production approval', status: 'manual-gate', note: 'No candidate can become production-approved without license, attribution, checksum/import plan and reviewer sign-off.' },
+    { id: 'import-adapters', label: 'Importer adapters', status: 'future', note: 'Sprint 20 can begin Quran importer adapter work after candidate records are complete.' }
+  ] satisfies NoorSourceIntakeStep[]
 };

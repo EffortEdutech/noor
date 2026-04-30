@@ -1,0 +1,21 @@
+{
+  "id": "tafseer-source-candidate-template",
+  "domain": "tafseer",
+  "title": "<Tafseer book/source candidate>",
+  "language": "<source language>",
+  "sourceType": "tafseer-book",
+  "sourceUrl": "<source URL or internal file path>",
+  "author": "<author / original scholar>",
+  "translator": "<translator if applicable>",
+  "publisher": "<publisher / maintainer>",
+  "licenseStatus": "needs-review",
+  "licenseUrl": "<license URL or permission document path>",
+  "redistributionNotes": "<what NOOR is allowed to store and redistribute>",
+  "attributionText": "<required attribution wording>",
+  "checksumPlan": "Record checksum for source and normalized surah files.",
+  "reviewerRequired": true,
+  "reviewerRole": "Tafseer reviewer",
+  "approvalStatus": "draft-not-approved",
+  "importReadiness": "blocked-until-license-and-review-complete",
+  "importNotes": "Future importer must map tafseer entries to surah/ayah references and preserve book attribution."
+}

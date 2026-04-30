@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from 'node:fs';
 const required = [
   'apps/web/lib/roadmap.ts',
   'apps/web/components/RoadmapControlCard.tsx',
+  'apps/web/components/SourceIntakeCard.tsx',
   'apps/web/app/settings/page.tsx',
   'apps/web/lib/app-version.ts',
   'apps/web/public/version.json',
@@ -10,8 +11,8 @@ const required = [
   'CHANGELOG.md',
   'RELEASE_NOTES.md',
   'docs/NOOR_MASTER_ROADMAP.md',
-  'docs/SPRINT_18_SCOPE.md',
-  'docs/LOCAL_TESTING_SPRINT_18.md',
+  'docs/SPRINT_19_SCOPE.md',
+  'docs/LOCAL_TESTING_SPRINT_19.md',
   'scripts/generate-noor-roadmap.mjs',
   'scripts/check-noor-roadmap.mjs',
   'content-pipeline/roadmap/noor-roadmap-status.json',
@@ -26,19 +27,19 @@ if (missing.length > 0) {
 }
 
 const appVersion = readFileSync('apps/web/lib/app-version.ts', 'utf8');
-if (!appVersion.includes("NOOR_APP_VERSION = '0.18.0'")) {
-  console.error('Sprint 18 must update NOOR app version to 0.18.0.');
+if (!appVersion.includes("NOOR_APP_VERSION = '0.19.0'")) {
+  console.error('Sprint 19 must update NOOR app version to 0.19.0.');
   process.exit(1);
 }
 
 const versionJson = JSON.parse(readFileSync('apps/web/public/version.json', 'utf8'));
-if (versionJson.version !== '0.18.0') {
-  console.error('version.json must be updated to 0.18.0.');
+if (versionJson.version !== '0.19.0') {
+  console.error('version.json must be updated to 0.19.0.');
   process.exit(1);
 }
 
 const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
-for (const script of ['roadmap:status', 'check:roadmap']) {
+for (const script of ['roadmap:status', 'check:roadmap', 'source:intake', 'check:source-intake']) {
   if (!packageJson.scripts?.[script]) {
     console.error(`package.json must include ${script}.`);
     process.exit(1);
@@ -46,7 +47,7 @@ for (const script of ['roadmap:status', 'check:roadmap']) {
 }
 
 const roadmapLib = readFileSync('apps/web/lib/roadmap.ts', 'utf8');
-for (const expected of ['NOOR_MASTER_ROADMAP', 'Sprint 19', 'Production source intake templates', 'Sprint 24', 'Production CDN release candidate']) {
+for (const expected of ['NOOR_MASTER_ROADMAP', 'Sprint 19', 'Production source intake templates', 'Sprint 20', 'Quran importer adapter v1', 'Sprint 24', 'Production CDN release candidate']) {
   if (!roadmapLib.includes(expected)) {
     console.error(`roadmap.ts must include ${expected}.`);
     process.exit(1);
@@ -54,29 +55,31 @@ for (const expected of ['NOOR_MASTER_ROADMAP', 'Sprint 19', 'Production source i
 }
 
 const settingsPage = readFileSync('apps/web/app/settings/page.tsx', 'utf8');
-if (!settingsPage.includes('RoadmapControlCard')) {
-  console.error('Settings page must render the Sprint 18 RoadmapControlCard.');
-  process.exit(1);
+for (const expected of ['RoadmapControlCard', 'SourceIntakeCard']) {
+  if (!settingsPage.includes(expected)) {
+    console.error(`Settings page must render ${expected}.`);
+    process.exit(1);
+  }
 }
 
 const releaseNotes = readFileSync('apps/web/lib/release-notes.ts', 'utf8');
 const changelog = readFileSync('CHANGELOG.md', 'utf8');
 const releaseNotesMd = readFileSync('RELEASE_NOTES.md', 'utf8');
 for (const [name, text] of [['release-notes.ts', releaseNotes], ['CHANGELOG.md', changelog], ['RELEASE_NOTES.md', releaseNotesMd]]) {
-  if (!text.includes('v0.18.0') && !text.includes("version: '0.18.0'")) {
-    console.error(`${name} must include v0.18.0.`);
+  if (!text.includes('v0.19.0') && !text.includes("version: '0.19.0'")) {
+    console.error(`${name} must include v0.19.0.`);
     process.exit(1);
   }
 }
 
 const roadmapStatus = JSON.parse(readFileSync('content-pipeline/roadmap/noor-roadmap-status.json', 'utf8'));
-if (roadmapStatus.currentVersion !== '0.18.0' || roadmapStatus.currentSprint !== 'Sprint 18') {
-  console.error('Generated roadmap status must identify Sprint 18 and v0.18.0.');
+if (roadmapStatus.currentVersion !== '0.19.0' || roadmapStatus.currentSprint !== 'Sprint 19') {
+  console.error('Generated roadmap status must identify Sprint 19 and v0.19.0.');
   process.exit(1);
 }
-if (!roadmapStatus.next?.includes('Sprint 19')) {
-  console.error('Generated roadmap status must identify Sprint 19 as next.');
+if (!roadmapStatus.next?.includes('Sprint 20')) {
+  console.error('Generated roadmap status must identify Sprint 20 as next.');
   process.exit(1);
 }
 
-console.log('NOOR Sprint 18 roadmap check passed.');
+console.log('NOOR Sprint 19 roadmap check passed.');

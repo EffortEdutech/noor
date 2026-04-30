@@ -40,6 +40,7 @@ const required = [
   'apps/web/components/CdnSmokeTestCard.tsx',
   'apps/web/components/CdnPromotionCard.tsx',
   'apps/web/components/SourceGovernanceCard.tsx',
+  'apps/web/components/SourceIntakeCard.tsx',
   'apps/web/components/RoadmapControlCard.tsx',
   'apps/web/components/JourneyList.tsx',
   'apps/web/components/JourneyStepCard.tsx',
@@ -53,6 +54,7 @@ const required = [
   'apps/web/public/offline.html',
   'apps/web/public/version.json',
   'apps/web/public/noor-cdn/manifest/noor-content-manifest.json',
+  'apps/web/public/noor-cdn/manifest/noor-content-health.json',
   'apps/web/public/noor-cdn/metadata/surah-index.json',
   'packages/noor-data/src/index.ts',
   'packages/noor-data/src/config.ts',
@@ -79,6 +81,7 @@ const required = [
   'docs/NOOR_CDN_SMOKE_TESTING.md',
   'docs/NOOR_CDN_PROMOTION.md',
   'docs/NOOR_SOURCE_GOVERNANCE.md',
+  'docs/NOOR_SOURCE_INTAKE.md',
   'docs/NOOR_MASTER_ROADMAP.md',
   'docs/SPRINT_3_SCOPE.md',
   'docs/SPRINT_4_SCOPE.md',
@@ -96,6 +99,7 @@ const required = [
   'docs/SPRINT_16_SCOPE.md',
   'docs/SPRINT_17_SCOPE.md',
   'docs/SPRINT_18_SCOPE.md',
+  'docs/SPRINT_19_SCOPE.md',
   'docs/LOCAL_TESTING_SPRINT_12.md',
   'docs/LOCAL_TESTING_SPRINT_13.md',
   'docs/LOCAL_TESTING_SPRINT_14.md',
@@ -103,11 +107,17 @@ const required = [
   'docs/LOCAL_TESTING_SPRINT_16.md',
   'docs/LOCAL_TESTING_SPRINT_17.md',
   'docs/LOCAL_TESTING_SPRINT_18.md',
+  'docs/LOCAL_TESTING_SPRINT_19.md',
   'content-pipeline/README.md',
   'content-pipeline/source/noor-demo-v0.12/manifest/noor-content-manifest.json',
   'content-pipeline/source/noor-demo-v0.12/manifest/noor-source-registry.json',
   'content-pipeline/source/noor-demo-v0.12/metadata/surah-index.json',
   'content-pipeline/schemas/noor-content-manifest.schema.json',
+  'content-pipeline/schemas/noor-source-intake.schema.json',
+  'content-pipeline/source-intake/templates/quran-source-intake.template.json',
+  'content-pipeline/source-intake/templates/tafseer-source-intake.template.json',
+  'content-pipeline/source-intake/templates/hadith-source-intake.template.json',
+  'content-pipeline/source-intake/noor-source-candidates.json',
   'scripts/validate-noor-cdn.mjs',
   'scripts/prepare-noor-cdn.mjs',
   'scripts/check-noor-runtime.mjs',
@@ -119,14 +129,17 @@ const required = [
   'scripts/check-noor-cdn-promotion.mjs',
   'scripts/audit-noor-sources.mjs',
   'scripts/check-noor-source-audit.mjs',
+  'scripts/validate-noor-source-intake.mjs',
+  'scripts/check-noor-source-intake.mjs',
   'scripts/generate-noor-roadmap.mjs',
   'scripts/check-noor-roadmap.mjs',
+  'scripts/check-noor-pack.mjs',
   '.env.example'
 ];
 
 const missing = required.filter((file) => !existsSync(file));
 if (missing.length > 0) {
-  console.error('Missing required files:');
+  console.error('Missing required NOOR Sprint 0-19 files:');
   for (const file of missing) console.error(`- ${file}`);
   process.exit(1);
 }
@@ -140,6 +153,7 @@ for (const script of [
   'check:cdn-smoke',
   'check:cdn-promotion',
   'check:source-audit',
+  'check:source-intake',
   'check:roadmap',
   'content:validate',
   'content:prepare',
@@ -149,6 +163,7 @@ for (const script of [
   'cdn:promote',
   'source:audit',
   'source:gate',
+  'source:intake',
   'roadmap:status'
 ]) {
   if (!rootPkg.scripts?.[script]) {
@@ -164,14 +179,14 @@ if (!webPkg.scripts?.dev?.includes('-p 3200')) {
 }
 
 const appVersion = readFileSync('apps/web/lib/app-version.ts', 'utf8');
-if (!appVersion.includes("NOOR_APP_VERSION = '0.18.0'")) {
-  console.error('Sprint 18 must update NOOR app version to 0.18.0.');
+if (!appVersion.includes("NOOR_APP_VERSION = '0.19.0'")) {
+  console.error('Sprint 19 must update NOOR app version to 0.19.0.');
   process.exit(1);
 }
 
 const versionJson = JSON.parse(readFileSync('apps/web/public/version.json', 'utf8'));
-if (versionJson.version !== '0.18.0') {
-  console.error('version.json must be updated to 0.18.0.');
+if (versionJson.version !== '0.19.0') {
+  console.error('version.json must be updated to 0.19.0.');
   process.exit(1);
 }
 
@@ -194,9 +209,11 @@ for (const expected of [
   'NOOR_CDN_SMOKE_TESTING',
   'NOOR_CDN_PROMOTION',
   'NOOR_SOURCE_GOVERNANCE',
+  'NOOR_SOURCE_INTAKE',
   'cdn:smoke',
   'cdn:promote',
-  'source:audit'
+  'source:audit',
+  'source:intake'
 ]) {
   if (!contentPipeline.includes(expected)) {
     console.error(`content-pipeline.ts must include ${expected}.`);
@@ -204,37 +221,34 @@ for (const expected of [
   }
 }
 
-const smokeScript = readFileSync('scripts/smoke-noor-cdn.mjs', 'utf8');
-if (!smokeScript.includes('REQUIRED_PATHS') || !smokeScript.includes('manifest/noor-content-health.json')) {
-  console.error('Sprint 15 CDN smoke script must verify required resolver paths.');
-  process.exit(1);
-}
-
-const promoteScript = readFileSync('scripts/promote-noor-cdn.mjs', 'utf8');
-if (!promoteScript.includes('noor-cdn.env.local') || !promoteScript.includes('NEXT_PUBLIC_NOOR_DATA_MODE')) {
-  console.error('Sprint 16 CDN promotion script must generate environment handoff files.');
-  process.exit(1);
-}
-
-const sourceAuditScript = readFileSync('scripts/audit-noor-sources.mjs', 'utf8');
-if (!sourceAuditScript.includes('noor-source-audit.json') || !sourceAuditScript.includes('--require-production')) {
-  console.error('Sprint 17 source governance script must generate audit reports and support a production gate.');
-  process.exit(1);
-}
-
 const settingsPage = readFileSync('apps/web/app/settings/page.tsx', 'utf8');
-if (!settingsPage.includes('SourceGovernanceCard')) {
-  console.error('Settings page must render the Sprint 17 source governance card.');
-  process.exit(1);
-}
-if (!settingsPage.includes('RoadmapControlCard')) {
-  console.error('Settings page must render the Sprint 18 roadmap control card.');
-  process.exit(1);
+for (const expected of [
+  'SourceGovernanceCard',
+  'SourceIntakeCard',
+  'RoadmapControlCard',
+  'RuntimeContentSourceCard'
+]) {
+  if (!settingsPage.includes(expected)) {
+    console.error(`Settings page must render ${expected}.`);
+    process.exit(1);
+  }
 }
 
 const roadmapLib = readFileSync('apps/web/lib/roadmap.ts', 'utf8');
-if (!roadmapLib.includes('NOOR_MASTER_ROADMAP') || !roadmapLib.includes('Sprint 19')) {
-  console.error('Sprint 18 roadmap library must define the master roadmap and Sprint 19 next step.');
+if (!roadmapLib.includes('NOOR_MASTER_ROADMAP') || !roadmapLib.includes('Sprint 20')) {
+  console.error('Sprint 19 roadmap library must define the master roadmap and Sprint 20 next step.');
+  process.exit(1);
+}
+
+const sourceIntakeScript = readFileSync('scripts/validate-noor-source-intake.mjs', 'utf8');
+if (!sourceIntakeScript.includes('noor-source-intake-audit.json') || !sourceIntakeScript.includes('noor-source-candidates.json')) {
+  console.error('Sprint 19 source intake validator must generate audit reports from candidate sources.');
+  process.exit(1);
+}
+
+const sourceIntakeCheck = readFileSync('scripts/check-noor-source-intake.mjs', 'utf8');
+if (!sourceIntakeCheck.includes('0.19.0') || !sourceIntakeCheck.includes('source intake check passed')) {
+  console.error('Sprint 19 source intake checker must validate v0.19.0 source intake.');
   process.exit(1);
 }
 
@@ -252,6 +266,8 @@ for (const expected of [
   'pnpm check:cdn-promotion',
   'pnpm source:audit',
   'pnpm check:source-audit',
+  'pnpm source:intake',
+  'pnpm check:source-intake',
   'pnpm roadmap:status',
   'pnpm check:roadmap'
 ]) {
@@ -273,4 +289,27 @@ if (!sourceRegistry.productionGate?.includes('Scholar/reviewer sign-off recorded
   process.exit(1);
 }
 
-console.log('NOOR Sprint 0-18 pack check passed.');
+const sourceCandidates = JSON.parse(readFileSync('content-pipeline/source-intake/noor-source-candidates.json', 'utf8'));
+const candidateList = Array.isArray(sourceCandidates.candidateSources)
+  ? sourceCandidates.candidateSources
+  : Array.isArray(sourceCandidates.candidates)
+    ? sourceCandidates.candidates
+    : [];
+const candidateDomains = new Set(candidateList.map((candidate) => candidate.domain));
+for (const requiredDomain of ['quran', 'tafseer', 'hadith']) {
+  if (!candidateDomains.has(requiredDomain)) {
+    console.error(`Sprint 19 source intake must include a ${requiredDomain} candidate source.`);
+    process.exit(1);
+  }
+}
+
+const changelog = readFileSync('CHANGELOG.md', 'utf8');
+const releaseNotes = readFileSync('RELEASE_NOTES.md', 'utf8');
+for (const [name, text] of [['CHANGELOG.md', changelog], ['RELEASE_NOTES.md', releaseNotes]]) {
+  if (!text.includes('v0.19.0')) {
+    console.error(`${name} must include v0.19.0.`);
+    process.exit(1);
+  }
+}
+
+console.log('NOOR Sprint 0-19 pack check passed.');

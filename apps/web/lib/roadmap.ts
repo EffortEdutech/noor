@@ -11,17 +11,19 @@ export type NoorRoadmapSprint = {
 };
 
 export const NOOR_MASTER_ROADMAP = {
-  version: '0.18.0',
-  label: 'Sprint 18 — Master roadmap and release control center',
+  version: '0.19.0',
+  label: 'Sprint 19 — Production source intake templates',
   currentPhase: 'Phase 3 — Production content readiness',
   commandRoot: 'scripts/generate-noor-roadmap.mjs',
   generatedRoot: 'content-pipeline/roadmap',
   docs: [
     'docs/NOOR_MASTER_ROADMAP.md',
-    'docs/SPRINT_18_SCOPE.md',
-    'docs/LOCAL_TESTING_SPRINT_18.md'
+    'docs/SPRINT_19_SCOPE.md',
+    'docs/LOCAL_TESTING_SPRINT_19.md'
   ],
   commands: [
+    'pnpm source:intake',
+    'pnpm check:source-intake',
     'pnpm roadmap:status',
     'pnpm check:roadmap',
     'pnpm check:pack',
@@ -65,39 +67,39 @@ export const NOOR_MASTER_ROADMAP = {
       status: 'complete',
       objective: 'Prepare repeatable CDN packaging, runtime source switching, promotion handoff and source approval gates.',
       acceptance: ['CDN pack, smoke and promotion scripts pass', 'Source audit passes', 'Demo content is blocked from production']
+    },
+    {
+      sprint: 'Sprint 18',
+      version: '0.18.0',
+      title: 'Master roadmap and release control center',
+      phase: 'Roadmap governance',
+      status: 'complete',
+      objective: 'Make the roadmap visible in code, docs, Settings and CI so future work is not lost between sprints.',
+      acceptance: ['Settings shows Roadmap Control', 'Master roadmap exists', 'Roadmap status checks pass']
     }
   ] satisfies NoorRoadmapSprint[],
   currentSprint: {
-    sprint: 'Sprint 18',
-    version: '0.18.0',
-    title: 'Master roadmap and release control center',
-    phase: 'Roadmap governance',
+    sprint: 'Sprint 19',
+    version: '0.19.0',
+    title: 'Production source intake templates',
+    phase: 'Content intake',
     status: 'current',
-    objective: 'Make the roadmap visible in code, docs, Settings and CI so future work is not lost between sprints.',
+    objective: 'Create structured source intake records for real Quran, tafseer and hadith candidates before importer work starts.',
     acceptance: [
-      'Settings shows Roadmap Control',
-      'docs/NOOR_MASTER_ROADMAP.md exists',
-      'pnpm roadmap:status generates roadmap JSON and Markdown',
-      'pnpm check:roadmap passes',
-      'NOOR shows v0.18.0'
+      'Source intake templates exist for Quran, tafseer and hadith',
+      'Candidate source registry validates',
+      'No source can be promoted without license, attribution and reviewer fields',
+      'Settings shows Source Intake card',
+      'NOOR shows v0.19.0'
     ]
   } satisfies NoorRoadmapSprint,
   futureSprints: [
-    {
-      sprint: 'Sprint 19',
-      version: '0.19.0',
-      title: 'Production source intake templates',
-      phase: 'Content intake',
-      status: 'next',
-      objective: 'Create structured source intake records for real Quran, tafseer and hadith candidates before importer work starts.',
-      acceptance: ['Source intake template exists', 'Candidate source registry validates', 'No source can be promoted without license and reviewer fields']
-    },
     {
       sprint: 'Sprint 20',
       version: '0.20.0',
       title: 'Quran importer adapter v1',
       phase: 'Content import',
-      status: 'future',
+      status: 'next',
       objective: 'Add the first production Quran importer adapter behind the source governance gate.',
       acceptance: ['Importer normalizes surah/ayah JSON', 'Counts match manifest', 'Source gate remains enforced']
     },

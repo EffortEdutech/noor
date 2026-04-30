@@ -1,5 +1,16 @@
 # NOOR Changelog
 
+## v0.19.0 — Sprint 19 Production source intake templates
+
+- Added Quran, tafseer and hadith source intake templates.
+- Added `content-pipeline/source-intake/noor-source-candidates.json` for real source candidate planning.
+- Added `content-pipeline/schemas/noor-source-intake.schema.json`.
+- Added `pnpm source:intake` to validate templates/candidates and generate an intake audit.
+- Added `pnpm check:source-intake` for local and CI validation.
+- Added Settings Source Intake card.
+- Updated master roadmap so Sprint 19 is current and Sprint 20 Quran importer adapter v1 is next.
+- Updated NOOR app version to v0.19.0.
+
 ## v0.18.0 — Sprint 18 Master roadmap and release control center
 
 - Added `apps/web/lib/roadmap.ts` as the code-level master roadmap.
