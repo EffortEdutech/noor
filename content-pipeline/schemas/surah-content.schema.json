@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NOOR Surah Content",
+  "type": "object",
+  "required": [
+    "surah",
+    "ayahs"
+  ],
+  "properties": {
+    "surah": {
+      "type": "object"
+    },
+    "ayahs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "surah",
+          "ayah",
+          "key",
+          "arabic",
+          "translations"
+        ]
+      }
+    }
+  }
+}

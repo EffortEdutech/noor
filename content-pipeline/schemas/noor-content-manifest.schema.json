@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NOOR Content Manifest",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "label",
+    "releasedAt",
+    "mode",
+    "datasets"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "releasedAt": {
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "demo",
+        "cdn-ready",
+        "production"
+      ]
+    },
+    "datasets": {
+      "type": "object"
+    }
+  }
+}

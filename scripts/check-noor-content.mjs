@@ -8,18 +8,26 @@ const requiredFiles = [
   'packages/noor-content/src/demo/content-manifest.ts',
   'packages/noor-content/src/demo/content-health.ts',
   'packages/noor-data/src/resolvers/content-health.ts',
-  'apps/web/components/ContentHealthCard.tsx'
+  'apps/web/components/ContentHealthCard.tsx',
+  'content-pipeline/source/noor-demo-v0.12/manifest/noor-content-manifest.json',
+  'content-pipeline/source/noor-demo-v0.12/manifest/noor-source-registry.json',
+  'content-pipeline/source/noor-demo-v0.12/metadata/surah-index.json',
+  'content-pipeline/source/noor-demo-v0.12/quran/surahs/001.json',
+  'content-pipeline/source/noor-demo-v0.12/quran/surahs/112.json',
+  'content-pipeline/source/noor-demo-v0.12/quran/surahs/113.json',
+  'content-pipeline/source/noor-demo-v0.12/quran/surahs/114.json',
+  'scripts/validate-noor-cdn.mjs',
+  'scripts/prepare-noor-cdn.mjs'
 ];
 
 const missing = requiredFiles.filter((file) => !existsSync(file));
 if (missing.length > 0) {
-  console.error('Missing Sprint 8 content integrity files:');
+  console.error('Missing content integrity / CDN preparation files:');
   for (const file of missing) console.error(`- ${file}`);
   process.exit(1);
 }
 
 const quran = readFileSync('packages/noor-content/src/demo/quran.ts', 'utf8');
-
 const requiredAyahKeys = [
   '1:1', '1:2', '1:3', '1:4', '1:5', '1:6', '1:7',
   '112:1', '112:2', '112:3', '112:4',
@@ -34,10 +42,22 @@ if (missingKeys.length > 0) {
   process.exit(1);
 }
 
-const manifest = readFileSync('packages/noor-content/src/demo/content-manifest.ts', 'utf8');
-if (!manifest.includes("version: '0.8.0'")) {
-  console.error('Content manifest must be updated to version 0.8.0.');
+const demoManifest = readFileSync('packages/noor-content/src/demo/content-manifest.ts', 'utf8');
+if (!demoManifest.includes("version: '0.8.0'")) {
+  console.error('Demo content manifest must remain version 0.8.0 until demo content itself changes.');
   process.exit(1);
 }
 
-console.log('NOOR Sprint 8 content integrity check passed.');
+const cdnManifest = JSON.parse(readFileSync('content-pipeline/source/noor-demo-v0.12/manifest/noor-content-manifest.json', 'utf8'));
+if (cdnManifest.version !== '0.12.0' || cdnManifest.mode !== 'cdn-ready') {
+  console.error('Sprint 12 CDN source manifest must be version 0.12.0 and mode cdn-ready.');
+  process.exit(1);
+}
+
+const sourceRegistry = JSON.parse(readFileSync('content-pipeline/source/noor-demo-v0.12/manifest/noor-source-registry.json', 'utf8'));
+if (!sourceRegistry.productionGate?.includes('Scholar/reviewer sign-off recorded')) {
+  console.error('Source registry must include scholarly/reviewer sign-off in production gate.');
+  process.exit(1);
+}
+
+console.log('NOOR Sprint 8 + Sprint 12 content checks passed.');

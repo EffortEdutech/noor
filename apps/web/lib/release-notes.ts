@@ -8,6 +8,20 @@ export type NoorReleaseNote = {
 
 export const NOOR_RELEASE_NOTES: NoorReleaseNote[] = [
   {
+    version: '0.12.0',
+    date: '2026-04-30',
+    title: 'Sprint 12 — Production content pipeline and CDN source preparation',
+    summary:
+      'Adds the first repeatable source-to-CDN content preparation path, with local validation, source registry, CDN-ready folder structure and Settings visibility.',
+    highlights: [
+      'CDN-ready content-pipeline/source folder using existing demo Quran, tafseer and hadith records',
+      'Source registry and production gate checklist for licensing and scholarly review',
+      'content:validate and content:prepare commands',
+      'Local /noor-cdn public output for resolver testing',
+      'Settings content pipeline card'
+    ]
+  },
+  {
     version: '0.11.0',
     date: '2026-04-30',
     title: 'Sprint 11 — Release automation and changelog center',
