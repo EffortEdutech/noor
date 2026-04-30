@@ -1,0 +1,8 @@
+[
+  {
+    "id": "demo-hadith-import",
+    "name": "NOOR Demo Hadith Import Fixture",
+    "language": "en",
+    "description": "A small non-production hadith fixture used to test the NOOR hadith importer contract."
+  }
+]

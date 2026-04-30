@@ -1,0 +1,24 @@
+{
+  "id": "noor-hadith-import-report-v0.23",
+  "version": "0.23.0",
+  "adapterId": "noor-hadith-importer-v1",
+  "generatedAt": "2026-04-30T15:40:38.066Z",
+  "sourceFile": "content-pipeline/importers/hadith/samples/hadith-import-sample.json",
+  "sourceCandidateId": "hadith-production-candidate-placeholder",
+  "importedCollectionCount": 1,
+  "importedItemCount": 3,
+  "routeFiles": [
+    "hadith/collections.json",
+    "hadith/demo-hadith-import/items.json"
+  ],
+  "productionReady": false,
+  "productionGate": {
+    "status": "blocked",
+    "reasons": [
+      "candidate-not-production-approved",
+      "reviewer-signoff-missing",
+      "source-intake-not-production-approved",
+      "license-not-approved"
+    ]
+  }
+}

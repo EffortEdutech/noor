@@ -5,6 +5,7 @@ import { CdnPublishCard } from '../../components/CdnPublishCard';
 import { CdnSmokeTestCard } from '../../components/CdnSmokeTestCard';
 import { ContentHealthCard } from '../../components/ContentHealthCard';
 import { ContentPipelineCard } from '../../components/ContentPipelineCard';
+import { HadithImportCard } from '../../components/HadithImportCard';
 import { LocalBackupCard } from '../../components/LocalBackupCard';
 import { PwaStatusCard } from '../../components/PwaStatusCard';
 import { QuranImportCard } from '../../components/QuranImportCard';
@@ -32,7 +33,7 @@ export default async function SettingsPage() {
       <PageHeader
         kicker="Settings"
         title="NOOR foundation settings"
-        subtitle="Review roadmap control, Quran source gate, Quran import adapter, tafseer import adapter, source intake, runtime content source, CDN publishing, CDN smoke testing, CDN promotion handoff, source governance, data configuration, reader preferences, local backup, release notes, app version, content pipeline, install status, offline readiness and content integrity."
+        subtitle="Review roadmap control, Quran source gate, Quran import adapter, tafseer import adapter, hadith import adapter, source intake, runtime content source, CDN publishing, CDN smoke testing, CDN promotion handoff, source governance, data configuration, reader preferences, local backup, release notes, app version, content pipeline, install status, offline readiness and content integrity."
       />
 
       <NoorCard>
@@ -45,6 +46,7 @@ export default async function SettingsPage() {
       <QuranSourceGateCard />
       <QuranImportCard />
       <TafseerImportCard />
+      <HadithImportCard />
       <SourceIntakeCard />
       <RuntimeContentSourceCard initialSource={contentSource} config={config} diagnostics={diagnostics} />
       <CdnPublishCard />

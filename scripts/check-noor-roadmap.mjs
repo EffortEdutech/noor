@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 
-const EXPECTED_VERSION = '0.22.0';
+const EXPECTED_VERSION = '0.23.0';
 
 function fail(message) {
   console.error(message);
@@ -23,22 +23,22 @@ for (const file of [
 }
 
 const roadmapTs = read('apps/web/lib/roadmap.ts');
-for (const expected of ['Sprint 22', 'Tafseer importer adapter v1', 'Sprint 23', 'Hadith importer adapter v1']) {
+for (const expected of ['Sprint 23', 'Hadith importer adapter v1', 'Sprint 24', 'Scholarly review console']) {
   if (!roadmapTs.includes(expected)) fail(`roadmap.ts missing ${expected}`);
 }
 
 const generated = JSON.parse(read('content-pipeline/roadmap/noor-roadmap-status.json'));
 if (generated.version !== EXPECTED_VERSION) fail(`Roadmap generated version must be ${EXPECTED_VERSION}.`);
-if (generated.currentSprint?.sprint !== 'Sprint 22') fail('Current roadmap sprint must be Sprint 22.');
-if (!generated.completedSprints?.includes('Sprint 21')) fail('Roadmap must mark Sprint 21 complete.');
-if (generated.futureSprints?.[0]?.sprint !== 'Sprint 23') fail('Roadmap next sprint must be Sprint 23.');
-for (const command of ['pnpm tafseer:import', 'pnpm check:tafseer-import', 'pnpm quran:gate']) {
+if (generated.currentSprint?.sprint !== 'Sprint 23') fail('Current roadmap sprint must be Sprint 23.');
+if (!generated.completedSprints?.includes('Sprint 22')) fail('Roadmap must mark Sprint 22 complete.');
+if (generated.futureSprints?.[0]?.sprint !== 'Sprint 24') fail('Roadmap next sprint must be Sprint 24.');
+for (const command of ['pnpm hadith:import', 'pnpm check:hadith-import', 'pnpm tafseer:import']) {
   if (!generated.commands?.includes(command)) fail(`Roadmap commands must include ${command}.`);
 }
 
 const docs = read('docs/NOOR_MASTER_ROADMAP.md');
-if (!docs.includes('Sprint 22') || !docs.includes('Sprint 23')) {
-  fail('NOOR_MASTER_ROADMAP.md must include Sprint 22 and Sprint 23.');
+if (!docs.includes('Sprint 23') || !docs.includes('Sprint 24')) {
+  fail('NOOR_MASTER_ROADMAP.md must include Sprint 23 and Sprint 24.');
 }
 
-console.log('NOOR Sprint 22 roadmap check passed.');
+console.log('NOOR Sprint 23 roadmap check passed.');

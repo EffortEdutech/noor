@@ -1,31 +1,24 @@
 # Changelog
 
-## v0.22.0 — Sprint 22 Tafseer Importer Adapter v1
+## v0.23.0 — Sprint 23 Hadith importer adapter v1
 
-- Added Tafseer importer adapter v1 using a non-production fixture.
-- Added `tafseer:import` generator for NOOR CDN-style tafseer routes.
-- Added `check:tafseer-import` local and CI validation.
-- Added generated tafseer import report, tafseer books metadata, per-surah route and audit markdown.
-- Added Settings Tafseer Import card.
-- Updated roadmap to mark Sprint 22 current and Sprint 23 next.
-- Kept production tafseer import blocked by default until source, license, attribution, metadata, checksum and reviewer sign-off are complete.
+- Added `hadith:import`.
+- Added `check:hadith-import`.
+- Added hadith import source schema and sample fixture.
+- Added generated NOOR CDN-style hadith collection and item routes.
+- Added hadith import report and audit markdown.
+- Added Settings Hadith Import card.
+- Updated app version, release notes, roadmap and CI for Sprint 23.
 
-## v0.21.0 — Sprint 21 Quran Production Source Selection Gate
+## v0.22.0 — Sprint 22 Tafseer importer adapter v1
 
-- Added Quran source selection decision record.
-- Added `quran:gate` validator and generated source gate audit output.
-- Added `check:quran-source-gate` local/CI check.
-- Added Settings Quran Source Gate card.
-- Updated roadmap to mark Sprint 21 current and Sprint 22 next.
-- Kept production Quran import blocked by default until source, license, attribution, checksum and reviewer sign-off are complete.
+- Added tafseer importer adapter v1.
+- Added tafseer import checks and Settings card.
 
-## v0.20.0 — Sprint 20 Quran Importer Adapter v1
+## v0.21.0 — Sprint 21 Quran production source selection gate
 
-- Added Quran importer adapter v1 using a non-production fixture.
-- Added generated imported Quran CDN-style output.
-- Added Quran import report and audit markdown.
+- Added Quran production source gate and audit checks.
 
-## v0.19.0 — Sprint 19 Production Source Intake Templates
+## v0.20.0 — Sprint 20 Quran importer adapter v1
 
-- Added source intake templates for Quran, tafseer and hadith.
-- Added source candidate registry and intake validation command.
+- Added Quran importer adapter v1 and checks.

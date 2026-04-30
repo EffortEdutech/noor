@@ -1,15 +1,15 @@
-# NOOR Master Blueprint & Roadmap
+# NOOR Master Roadmap
 
-Version: v0.22.0  
+Version: v0.23.0  
 Current phase: Phase 3 — Production content pipeline and source governance
 
 ## Current Sprint
 
-### Sprint 22 — Tafseer importer adapter v1
+Sprint 23 — Hadith importer adapter v1
 
-Create the first tafseer import adapter that normalizes a structured tafseer fixture into NOOR CDN-style tafseer routes while keeping production tafseer blocked until source approval is complete.
+Objective: Create the first hadith import adapter that normalizes a structured hadith fixture into NOOR CDN-style hadith collection routes while keeping production hadith blocked until source approval is complete.
 
-## Completed Sprints
+## Completed Foundation
 
 - Sprint 0 — Repo foundation + data contracts
 - Sprint 1 — Design system + app shell
@@ -34,12 +34,10 @@ Create the first tafseer import adapter that normalizes a structured tafseer fix
 - Sprint 19 — Production source intake templates
 - Sprint 20 — Quran importer adapter v1
 - Sprint 21 — Quran production source selection gate
+- Sprint 22 — Tafseer importer adapter v1
+- Sprint 23 — Hadith importer adapter v1
 
-## Next Sprints
-
-### Sprint 23 — Hadith importer adapter v1
-
-Normalize approved hadith collection data into NOOR CDN hadith routes using the same source governance rules.
+## Future Sprint Plan
 
 ### Sprint 24 — Scholarly review console
 
@@ -53,6 +51,6 @@ Publish approved content bundle to external CDN and switch runtime defaults care
 
 Generate a lightweight local search index from approved Quran, tafseer and hadith production content.
 
-## Core Rule
+### Sprint 27 — Reader experience from approved content
 
-NOOR may test import contracts with fixtures, but production religious content cannot be promoted until license, attribution, source checksum/import plan and scholarly review are complete.
+Connect imported approved content into richer reading, tafseer and hadith study journeys.

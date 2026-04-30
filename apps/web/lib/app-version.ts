@@ -1,5 +1,5 @@
-export const NOOR_APP_VERSION = '0.22.0';
-export const NOOR_APP_BUILD_LABEL = 'Sprint 22 — Tafseer importer adapter v1';
+export const NOOR_APP_VERSION = '0.23.0';
+export const NOOR_APP_BUILD_LABEL = 'Sprint 23 — Hadith importer adapter v1';
 export const NOOR_APP_RELEASE_DATE = '2026-04-30';
 
 export function getNoorVersionLabel() {

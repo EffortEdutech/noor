@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://noor.local/schemas/noor-hadith-import-source.schema.json",
+  "title": "NOOR Hadith Import Source",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "adapter",
+    "sourceCandidateId",
+    "collection",
+    "items"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "adapter": {
+      "const": "noor-hadith-importer-v1"
+    },
+    "status": {
+      "type": "string"
+    },
+    "sourceCandidateId": {
+      "type": "string"
+    },
+    "sourceLabel": {
+      "type": "string"
+    },
+    "licenseStatus": {
+      "type": "string"
+    },
+    "productionApproved": {
+      "type": "boolean"
+    },
+    "reviewerSignoff": {
+      "type": "boolean"
+    },
+    "attributionText": {
+      "type": "string"
+    },
+    "collection": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "language",
+        "description"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "number",
+          "translations",
+          "sourceLabel",
+          "tags"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "book": {
+            "type": "string"
+          },
+          "chapter": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          },
+          "narrator": {
+            "type": "string"
+          },
+          "arabic": {
+            "type": "string"
+          },
+          "translations": {
+            "type": "object"
+          },
+          "sourceLabel": {
+            "type": "string"
+          },
+          "grading": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

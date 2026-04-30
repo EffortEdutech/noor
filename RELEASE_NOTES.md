@@ -1,34 +1,25 @@
 # NOOR Release Notes
 
-## v0.22.0 — Sprint 22 Tafseer Importer Adapter v1
+## v0.23.0 — Sprint 23 Hadith importer adapter v1
 
-Sprint 22 adds the first tafseer importer adapter. It normalizes a structured tafseer fixture into NOOR CDN-style tafseer book metadata and per-surah route files while keeping production tafseer blocked until a real source is approved.
+Adds the first hadith importer adapter path using a non-production fixture, generated NOOR CDN-style hadith routes, audit report and production gate checks.
 
-### Added
+### Highlights
 
-- Tafseer importer adapter v1 release marker for Sprint 22 release validation.
-- `pnpm tafseer:import` to generate tafseer CDN-style output from a structured source JSON.
-- `pnpm check:tafseer-import` for local and CI validation.
-- `content-pipeline/importers/tafseer/samples/tafseer-import-sample.json` as a non-production fixture.
-- `content-pipeline/imported/tafseer-v0.22/noor-cdn/manifest/noor-tafseer-import-report.json`.
-- Generated tafseer books metadata, per-surah route and audit markdown.
-- Settings Tafseer Import card.
-- Roadmap update: Sprint 22 current, Sprint 23 hadith importer adapter v1 next.
+- `hadith:import` command to normalize hadith fixture data into NOOR CDN-style collection and item routes.
+- `check:hadith-import` command for local and CI validation.
+- Generated hadith import report and audit markdown under `content-pipeline/imported`.
+- Settings Hadith Import card showing adapter status and production gate.
+- Roadmap updated: Sprint 23 current, Sprint 24 next for scholarly review console.
 
-### Production rule
+## v0.22.0 — Sprint 22 Tafseer importer adapter v1
 
-Production tafseer import remains blocked until the source URL/file, redistribution permission, attribution wording, author/translator metadata, checksum/import plan and reviewer sign-off are complete.
+Adds the first tafseer importer adapter path using a non-production fixture, generated NOOR CDN-style tafseer routes, audit report and production gate checks.
 
-## v0.21.0 — Sprint 21 Quran Production Source Selection Gate
+## v0.21.0 — Sprint 21 Quran production source selection gate
 
-Quran production source selection gate.
+Adds a Quran-specific production source decision gate so real Quran import remains blocked until source approval is complete.
 
-Sprint 21 adds a Quran-specific production source gate. The app now records the selected Quran source candidate, evaluates whether it can be used for production import, and generates an audit file. The default state remains intentionally blocked because the current candidate is still a placeholder.
+## v0.20.0 — Sprint 20 Quran importer adapter v1
 
-## v0.20.0 — Sprint 20 Quran Importer Adapter v1
-
-Sprint 20 introduced the first Quran importer adapter path using a non-production fixture. It generated NOOR CDN-style surah index and per-surah JSON output while keeping production release blocked.
-
-## v0.19.0 — Sprint 19 Production Source Intake Templates
-
-Sprint 19 added Quran, tafseer and hadith source intake templates and a validation path before importer work begins.
+Adds the first Quran import adapter path using a non-production fixture, generated CDN-style output, audit report and production gate checks.

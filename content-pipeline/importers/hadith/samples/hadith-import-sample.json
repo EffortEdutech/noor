@@ -1,0 +1,72 @@
+{
+  "id": "noor-hadith-fixture-v0.23",
+  "version": "0.23.0",
+  "adapter": "noor-hadith-importer-v1",
+  "status": "fixture-only",
+  "sourceCandidateId": "hadith-production-candidate-placeholder",
+  "sourceLabel": "NOOR Demo Hadith Import Fixture",
+  "licenseStatus": "needs-review",
+  "productionApproved": false,
+  "reviewerSignoff": false,
+  "attributionText": "Demo hadith fixture for adapter testing only. Not for production scholarly use.",
+  "collection": {
+    "id": "demo-hadith-import",
+    "name": "NOOR Demo Hadith Import Fixture",
+    "language": "en",
+    "description": "A small non-production hadith fixture used to test the NOOR hadith importer contract."
+  },
+  "items": [
+    {
+      "id": "demo-hadith-import-001",
+      "book": "Foundations",
+      "chapter": "Intention",
+      "number": "1",
+      "narrator": "Umar ibn al-Khattab",
+      "translations": {
+        "en": "Actions are only by intentions, and every person will have only what they intended.",
+        "ms": "Sesungguhnya setiap amalan itu bergantung kepada niat, dan setiap orang akan mendapat berdasarkan apa yang diniatkannya."
+      },
+      "sourceLabel": "Demo Hadith Fixture",
+      "grading": "fixture-only",
+      "tags": [
+        "intention",
+        "ikhlas",
+        "actions"
+      ]
+    },
+    {
+      "id": "demo-hadith-import-002",
+      "book": "Foundations",
+      "chapter": "Mercy",
+      "number": "2",
+      "translations": {
+        "en": "The merciful are shown mercy by the Most Merciful. Be merciful to those on earth and the One above the heavens will have mercy upon you.",
+        "ms": "Orang yang penyayang akan disayangi oleh Yang Maha Penyayang. Sayangilah mereka di bumi, nescaya kamu akan disayangi oleh Tuhan di langit."
+      },
+      "sourceLabel": "Demo Hadith Fixture",
+      "grading": "fixture-only",
+      "tags": [
+        "mercy",
+        "character",
+        "compassion"
+      ]
+    },
+    {
+      "id": "demo-hadith-import-003",
+      "book": "Foundations",
+      "chapter": "Good character",
+      "number": "3",
+      "translations": {
+        "en": "This demo item keeps the collection route visible for future production hadith imports and review workflows.",
+        "ms": "Item demo ini memastikan kontrak laluan koleksi hadith kekal jelas untuk import produksi dan aliran semakan akan datang."
+      },
+      "sourceLabel": "Demo Hadith Fixture",
+      "grading": "fixture-only",
+      "tags": [
+        "adab",
+        "character",
+        "review"
+      ]
+    }
+  ]
+}

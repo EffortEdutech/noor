@@ -8,6 +8,20 @@ export type NoorReleaseNote = {
 
 export const NOOR_RELEASE_NOTES: NoorReleaseNote[] = [
   {
+    version: '0.23.0',
+    date: '2026-04-30',
+    title: 'Sprint 23 — Hadith importer adapter v1',
+    summary:
+      'Adds the first hadith importer adapter path using a non-production fixture, generated NOOR CDN-style hadith routes, audit report and production gate checks.',
+    highlights: [
+      'hadith:import command to normalize hadith fixture data into NOOR CDN-style collection and item routes',
+      'check:hadith-import command for local and CI validation',
+      'Generated hadith import report and audit markdown under content-pipeline/imported',
+      'Settings Hadith Import card showing adapter status and production gate',
+      'Roadmap updated: Sprint 23 current, Sprint 24 next for scholarly review console'
+    ]
+  },
+  {
     version: '0.22.0',
     date: '2026-04-30',
     title: 'Sprint 22 — Tafseer importer adapter v1',

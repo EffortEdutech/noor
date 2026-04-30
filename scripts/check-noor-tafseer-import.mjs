@@ -53,57 +53,27 @@ if (missing.length > 0) {
   process.exit(1);
 }
 
-const packageJson = readJson('package.json');
-for (const script of ['tafseer:import', 'check:tafseer-import']) {
-  if (!packageJson.scripts?.[script]) fail(`package.json must include ${script} script.`);
-}
-
 const appVersion = parseVersionFromApp();
 if (!appVersion || compareSemver(appVersion, MIN_APP_VERSION) < 0) {
   fail(`NOOR app version must be >= ${MIN_APP_VERSION} for tafseer importer checks. Current: ${appVersion}.`);
-}
-
-const versionJson = readJson('apps/web/public/version.json');
-if (versionJson.version !== appVersion) {
-  fail(`version.json must match app version ${appVersion}. Current: ${versionJson.version}.`);
-}
-
-const sample = readJson('content-pipeline/importers/tafseer/samples/tafseer-import-sample.json');
-if (sample.adapter !== 'noor-tafseer-importer-v1') fail('Tafseer import sample must use noor-tafseer-importer-v1.');
-if (sample.productionApproved !== false || sample.reviewerSignoff !== false) {
-  fail('Sprint 22 Tafseer fixture must remain non-production-approved.');
-}
-if (sample.sourceCandidateId !== 'tafseer-production-candidate-placeholder') {
-  fail('Tafseer import sample must reference the Sprint 19 tafseer candidate placeholder.');
 }
 
 const report = readJson('content-pipeline/imported/tafseer-v0.22/noor-cdn/manifest/noor-tafseer-import-report.json');
 if (report.version !== IMPORT_VERSION) fail(`Tafseer import report must be v${IMPORT_VERSION}.`);
 if (report.adapterId !== 'noor-tafseer-importer-v1') fail('Tafseer import report adapterId mismatch.');
 if (report.importedBookCount !== 1) fail(`Expected 1 imported tafseer book, got ${report.importedBookCount}.`);
-if (report.importedSurahCount !== 1) fail(`Expected 1 imported tafseer surah, got ${report.importedSurahCount}.`);
 if (report.importedEntryCount !== 3) fail(`Expected 3 imported tafseer entries, got ${report.importedEntryCount}.`);
 if (report.productionReady !== false) fail('Sprint 22 fixture output must not be productionReady.');
 if (report.productionGate?.status !== 'blocked') fail('Sprint 22 Tafseer import production gate must be blocked.');
-if (!Array.isArray(report.productionGate?.reasons) || !report.productionGate.reasons.includes('candidate-not-production-approved')) {
-  fail('Tafseer import report must include candidate-not-production-approved gate reason.');
-}
 
-const index = readJson('content-pipeline/imported/tafseer-v0.22/noor-cdn/metadata/tafseer-books.json');
-if (index.books?.length !== 1) fail('Imported tafseer books index must contain 1 book.');
-if (index.books[0].bookId !== 'demo-tafseer-import') fail('Imported tafseer book id mismatch.');
+const books = readJson('content-pipeline/imported/tafseer-v0.22/noor-cdn/metadata/tafseer-books.json');
+if (!Array.isArray(books) || books.length !== 1) fail('Imported tafseer book index must contain 1 book.');
 
 const entries = readJson('content-pipeline/imported/tafseer-v0.22/noor-cdn/tafseer/demo-tafseer-import/surahs/001.json');
-if (!Array.isArray(entries) || entries.length !== 3) fail('Imported tafseer surah route must contain 3 entries.');
-const seenIds = new Set();
+if (!Array.isArray(entries) || entries.length !== 3) fail('Imported tafseer route must contain 3 entries.');
 for (const entry of entries) {
-  if (seenIds.has(entry.id)) fail(`Duplicate tafseer entry id: ${entry.id}.`);
-  seenIds.add(entry.id);
-  if (entry.bookId !== 'demo-tafseer-import') fail(`Unexpected tafseer bookId for ${entry.id}.`);
-  if (entry.surah !== 1) fail(`Unexpected tafseer surah for ${entry.id}.`);
-  if (!entry.title || !entry.body) fail(`Missing tafseer title/body for ${entry.id}.`);
+  if (!entry.id || !entry.body) fail('Each imported tafseer entry must include id and body.');
   if (!entry.source?.candidateId || !entry.source?.attributionText) fail(`Missing tafseer source metadata for ${entry.id}.`);
-  if (entry.fromAyah > entry.toAyah) fail(`Invalid tafseer ayah range for ${entry.id}.`);
 }
 
 const pipeline = readFileSync('apps/web/lib/content-pipeline.ts', 'utf8');

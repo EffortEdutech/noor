@@ -80,6 +80,12 @@ jobs:
       - name: Check Tafseer importer
         run: pnpm check:tafseer-import
 
+      - name: Import Hadith sample source
+        run: pnpm hadith:import
+
+      - name: Check Hadith importer
+        run: pnpm check:hadith-import
+
       - name: Generate roadmap status
         run: pnpm roadmap:status
 

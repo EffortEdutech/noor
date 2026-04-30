@@ -1,8 +1,9 @@
 import { existsSync, readFileSync } from 'node:fs';
 
-const EXPECTED_VERSION = '0.22.0';
+const EXPECTED_VERSION = '0.23.0';
 const QURAN_IMPORT_VERSION = '0.20.0';
 const TAFSEER_IMPORT_VERSION = '0.22.0';
+const HADITH_IMPORT_VERSION = '0.23.0';
 
 const requiredFiles = [
   'package.json',
@@ -16,6 +17,7 @@ const requiredFiles = [
   'apps/web/components/QuranImportCard.tsx',
   'apps/web/components/QuranSourceGateCard.tsx',
   'apps/web/components/TafseerImportCard.tsx',
+  'apps/web/components/HadithImportCard.tsx',
   'apps/web/components/SourceIntakeCard.tsx',
   'apps/web/components/RoadmapControlCard.tsx',
   'apps/web/lib/app-version.ts',
@@ -42,9 +44,12 @@ const requiredFiles = [
   'scripts/check-noor-quran-source-gate.mjs',
   'scripts/import-noor-tafseer.mjs',
   'scripts/check-noor-tafseer-import.mjs',
+  'scripts/import-noor-hadith.mjs',
+  'scripts/check-noor-hadith-import.mjs',
   'content-pipeline/schemas/noor-source-intake.schema.json',
   'content-pipeline/schemas/noor-quran-import-source.schema.json',
   'content-pipeline/schemas/noor-tafseer-import-source.schema.json',
+  'content-pipeline/schemas/noor-hadith-import-source.schema.json',
   'content-pipeline/source-intake/templates/quran-source-intake.template.json',
   'content-pipeline/source-intake/templates/tafseer-source-intake.template.json',
   'content-pipeline/source-intake/templates/hadith-source-intake.template.json',
@@ -63,19 +68,28 @@ const requiredFiles = [
   'content-pipeline/imported/tafseer-v0.22/noor-cdn/metadata/tafseer-books.json',
   'content-pipeline/imported/tafseer-v0.22/noor-cdn/tafseer/demo-tafseer-import/surahs/001.json',
   'content-pipeline/imported/tafseer-v0.22/audit/noor-tafseer-import-audit.md',
+  'content-pipeline/importers/hadith/README.md',
+  'content-pipeline/importers/hadith/samples/hadith-import-sample.json',
+  'content-pipeline/imported/hadith-v0.23/noor-cdn/manifest/noor-hadith-import-report.json',
+  'content-pipeline/imported/hadith-v0.23/noor-cdn/hadith/collections.json',
+  'content-pipeline/imported/hadith-v0.23/noor-cdn/hadith/demo-hadith-import/items.json',
+  'content-pipeline/imported/hadith-v0.23/audit/noor-hadith-import-audit.md',
   'docs/NOOR_MASTER_ROADMAP.md',
   'docs/NOOR_SOURCE_INTAKE.md',
   'docs/NOOR_QURAN_IMPORTER.md',
   'docs/NOOR_QURAN_SOURCE_GATE.md',
   'docs/NOOR_TAFSEER_IMPORTER.md',
+  'docs/NOOR_HADITH_IMPORTER.md',
   'docs/SPRINT_19_SCOPE.md',
   'docs/SPRINT_20_SCOPE.md',
   'docs/SPRINT_21_SCOPE.md',
   'docs/SPRINT_22_SCOPE.md',
+  'docs/SPRINT_23_SCOPE.md',
   'docs/LOCAL_TESTING_SPRINT_19.md',
   'docs/LOCAL_TESTING_SPRINT_20.md',
   'docs/LOCAL_TESTING_SPRINT_21.md',
   'docs/LOCAL_TESTING_SPRINT_22.md',
+  'docs/LOCAL_TESTING_SPRINT_23.md',
   'content-pipeline/roadmap/noor-roadmap-status.json',
   'content-pipeline/roadmap/noor-roadmap-status.md',
   '.github/workflows/noor-ci.yml'
@@ -101,7 +115,7 @@ function appVersion() {
 
 const missing = requiredFiles.filter((file) => !existsSync(file));
 if (missing.length > 0) {
-  console.error('Missing required NOOR Sprint 0-22 files:');
+  console.error('Missing required NOOR Sprint 0-23 files:');
   for (const file of missing) console.error(`- ${file}`);
   process.exit(1);
 }
@@ -120,6 +134,7 @@ for (const script of [
   'check:quran-import',
   'check:quran-source-gate',
   'check:tafseer-import',
+  'check:hadith-import',
   'check:roadmap',
   'content:validate',
   'content:prepare',
@@ -133,6 +148,7 @@ for (const script of [
   'quran:import',
   'quran:gate',
   'tafseer:import',
+  'hadith:import',
   'roadmap:status'
 ]) {
   if (!pkg.scripts?.[script]) fail(`package.json missing script: ${script}`);
@@ -147,19 +163,22 @@ for (const expected of [
   'NOOR_QURAN_IMPORTER',
   'NOOR_QURAN_SOURCE_GATE',
   'NOOR_TAFSEER_IMPORTER',
+  'NOOR_HADITH_IMPORTER',
   'noor-quran-importer-v1',
   'noor-tafseer-importer-v1',
+  'noor-hadith-importer-v1',
   'source:intake',
   'quran:import',
   'quran:gate',
   'tafseer:import',
-  'check:tafseer-import'
+  'hadith:import',
+  'check:hadith-import'
 ]) {
   if (!pipeline.includes(expected)) fail(`content-pipeline.ts missing ${expected}`);
 }
 
 const settings = read('apps/web/app/settings/page.tsx');
-for (const expected of ['RoadmapControlCard', 'QuranSourceGateCard', 'QuranImportCard', 'TafseerImportCard', 'SourceIntakeCard', 'RuntimeContentSourceCard']) {
+for (const expected of ['RoadmapControlCard', 'QuranSourceGateCard', 'QuranImportCard', 'TafseerImportCard', 'HadithImportCard', 'SourceIntakeCard', 'RuntimeContentSourceCard']) {
   if (!settings.includes(expected)) fail(`settings page must render ${expected}`);
 }
 
@@ -195,8 +214,14 @@ if (tafseerReport.version !== TAFSEER_IMPORT_VERSION || tafseerReport.importedBo
 }
 if (tafseerReport.productionGate?.status !== 'blocked') fail('Sprint 22 Tafseer import production gate must be blocked.');
 
+const hadithReport = readJson('content-pipeline/imported/hadith-v0.23/noor-cdn/manifest/noor-hadith-import-report.json');
+if (hadithReport.version !== HADITH_IMPORT_VERSION || hadithReport.importedCollectionCount !== 1 || hadithReport.importedItemCount !== 3) {
+  fail('Sprint 23 Hadith import report has unexpected version/count values. Run pnpm hadith:import.');
+}
+if (hadithReport.productionGate?.status !== 'blocked') fail('Sprint 23 Hadith import production gate must be blocked.');
+
 const roadmap = read('apps/web/lib/roadmap.ts');
-for (const expected of ['currentSprint', 'Sprint 22', 'Sprint 23', 'Tafseer importer adapter v1']) {
+for (const expected of ['currentSprint', 'Sprint 23', 'Sprint 24', 'Hadith importer adapter v1']) {
   if (!roadmap.includes(expected)) fail(`roadmap.ts missing ${expected}`);
 }
 
@@ -218,6 +243,8 @@ for (const expected of [
   'pnpm check:quran-import',
   'pnpm tafseer:import',
   'pnpm check:tafseer-import',
+  'pnpm hadith:import',
+  'pnpm check:hadith-import',
   'pnpm roadmap:status',
   'pnpm check:roadmap'
 ]) {
@@ -225,8 +252,8 @@ for (const expected of [
 }
 
 const releaseNotes = read('RELEASE_NOTES.md') + read('CHANGELOG.md');
-if (!releaseNotes.includes('v0.22.0') || !releaseNotes.includes('Tafseer importer adapter v1')) {
-  fail('Release notes/changelog must include v0.22.0 Tafseer importer adapter v1 entry.');
+if (!releaseNotes.includes('v0.23.0') || !releaseNotes.includes('Hadith importer adapter v1')) {
+  fail('Release notes/changelog must include v0.23.0 Hadith importer adapter v1 entry.');
 }
 
-console.log('NOOR Sprint 0-22 pack check passed.');
+console.log('NOOR Sprint 0-23 pack check passed.');
