@@ -10,6 +10,7 @@ import { PwaStatusCard } from '../../components/PwaStatusCard';
 import { ReaderPreferencesPanel } from '../../components/ReaderPreferencesPanel';
 import { ReleaseNotesCard } from '../../components/ReleaseNotesCard';
 import { RuntimeContentSourceCard } from '../../components/RuntimeContentSourceCard';
+import { SourceGovernanceCard } from '../../components/SourceGovernanceCard';
 import { NOOR_APP_BUILD_LABEL, NOOR_APP_VERSION } from '../../lib/app-version';
 import { getServerNoorContentSource } from '../../lib/runtime-content-source';
 
@@ -26,7 +27,7 @@ export default async function SettingsPage() {
       <PageHeader
         kicker="Settings"
         title="NOOR foundation settings"
-        subtitle="Review runtime content source, CDN publishing, CDN smoke testing, CDN promotion handoff, data configuration, reader preferences, local backup, release notes, app version, content pipeline, install status, offline readiness and content integrity."
+        subtitle="Review runtime content source, CDN publishing, CDN smoke testing, CDN promotion handoff, source governance, data configuration, reader preferences, local backup, release notes, app version, content pipeline, install status, offline readiness and content integrity."
       />
 
       <NoorCard>
@@ -39,6 +40,7 @@ export default async function SettingsPage() {
       <CdnPublishCard />
       <CdnSmokeTestCard />
       <CdnPromotionCard />
+      <SourceGovernanceCard />
       <ReleaseNotesCard />
       <ContentPipelineCard />
       <ReaderPreferencesPanel />

@@ -59,6 +59,12 @@ jobs:
       - name: Check CDN promotion handoff
         run: pnpm check:cdn-promotion
 
+      - name: Audit source governance
+        run: pnpm source:audit
+
+      - name: Check source governance
+        run: pnpm check:source-audit
+
       - name: Typecheck
         run: pnpm typecheck
 

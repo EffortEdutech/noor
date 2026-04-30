@@ -38,6 +38,7 @@ const required = [
   'apps/web/components/CdnPublishCard.tsx',
   'apps/web/components/CdnSmokeTestCard.tsx',
   'apps/web/components/CdnPromotionCard.tsx',
+  'apps/web/components/SourceGovernanceCard.tsx',
   'apps/web/components/JourneyList.tsx',
   'apps/web/components/JourneyStepCard.tsx',
   'apps/web/components/JourneyProgressSummary.tsx',
@@ -75,6 +76,7 @@ const required = [
   'docs/NOOR_CDN_PUBLISHING.md',
   'docs/NOOR_CDN_SMOKE_TESTING.md',
   'docs/NOOR_CDN_PROMOTION.md',
+  'docs/NOOR_SOURCE_GOVERNANCE.md',
   'docs/SPRINT_3_SCOPE.md',
   'docs/SPRINT_4_SCOPE.md',
   'docs/SPRINT_5_SCOPE.md',
@@ -89,11 +91,13 @@ const required = [
   'docs/SPRINT_14_SCOPE.md',
   'docs/SPRINT_15_SCOPE.md',
   'docs/SPRINT_16_SCOPE.md',
+  'docs/SPRINT_17_SCOPE.md',
   'docs/LOCAL_TESTING_SPRINT_12.md',
   'docs/LOCAL_TESTING_SPRINT_13.md',
   'docs/LOCAL_TESTING_SPRINT_14.md',
   'docs/LOCAL_TESTING_SPRINT_15.md',
   'docs/LOCAL_TESTING_SPRINT_16.md',
+  'docs/LOCAL_TESTING_SPRINT_17.md',
   'content-pipeline/README.md',
   'content-pipeline/source/noor-demo-v0.12/manifest/noor-content-manifest.json',
   'content-pipeline/source/noor-demo-v0.12/manifest/noor-source-registry.json',
@@ -108,6 +112,8 @@ const required = [
   'scripts/smoke-noor-cdn.mjs',
   'scripts/promote-noor-cdn.mjs',
   'scripts/check-noor-cdn-promotion.mjs',
+  'scripts/audit-noor-sources.mjs',
+  'scripts/check-noor-source-audit.mjs',
   '.env.example'
 ];
 
@@ -119,7 +125,23 @@ if (missing.length > 0) {
 }
 
 const rootPkg = JSON.parse(readFileSync('package.json', 'utf8'));
-for (const script of ['check:content', 'check:release', 'check:runtime', 'check:cdn-publish', 'check:cdn-smoke', 'check:cdn-promotion', 'content:validate', 'content:prepare', 'cdn:pack', 'cdn:verify', 'cdn:smoke', 'cdn:promote']) {
+for (const script of [
+  'check:content',
+  'check:release',
+  'check:runtime',
+  'check:cdn-publish',
+  'check:cdn-smoke',
+  'check:cdn-promotion',
+  'check:source-audit',
+  'content:validate',
+  'content:prepare',
+  'cdn:pack',
+  'cdn:verify',
+  'cdn:smoke',
+  'cdn:promote',
+  'source:audit',
+  'source:gate'
+]) {
   if (!rootPkg.scripts?.[script]) {
     console.error(`Root package.json must include ${script} script.`);
     process.exit(1);
@@ -133,14 +155,14 @@ if (!webPkg.scripts?.dev?.includes('-p 3200')) {
 }
 
 const appVersion = readFileSync('apps/web/lib/app-version.ts', 'utf8');
-if (!appVersion.includes("NOOR_APP_VERSION = '0.16.0'")) {
-  console.error('Sprint 16 must update NOOR app version to 0.16.0.');
+if (!appVersion.includes("NOOR_APP_VERSION = '0.17.0'")) {
+  console.error('Sprint 17 must update NOOR app version to 0.17.0.');
   process.exit(1);
 }
 
 const versionJson = JSON.parse(readFileSync('apps/web/public/version.json', 'utf8'));
-if (versionJson.version !== '0.16.0') {
-  console.error('version.json must be updated to 0.16.0.');
+if (versionJson.version !== '0.17.0') {
+  console.error('version.json must be updated to 0.17.0.');
   process.exit(1);
 }
 
@@ -157,20 +179,20 @@ if (!dataConfig.includes("'local-cdn'") || !dataConfig.includes('NEXT_PUBLIC_NOO
   process.exit(1);
 }
 
-const cdnPublish = readFileSync('apps/web/lib/content-pipeline.ts', 'utf8');
-if (!cdnPublish.includes('NOOR_CDN_PUBLISHING') || !cdnPublish.includes('noor-cdn-gh-pages')) {
-  console.error('Sprint 14 CDN publishing metadata must be configured.');
-  process.exit(1);
-}
-
-if (!cdnPublish.includes('NOOR_CDN_SMOKE_TESTING') || !cdnPublish.includes('cdn:smoke')) {
-  console.error('Sprint 15 CDN smoke testing metadata must be configured.');
-  process.exit(1);
-}
-
-if (!cdnPublish.includes('NOOR_CDN_PROMOTION') || !cdnPublish.includes('cdn:promote')) {
-  console.error('Sprint 16 CDN promotion metadata must be configured.');
-  process.exit(1);
+const contentPipeline = readFileSync('apps/web/lib/content-pipeline.ts', 'utf8');
+for (const expected of [
+  'NOOR_CDN_PUBLISHING',
+  'NOOR_CDN_SMOKE_TESTING',
+  'NOOR_CDN_PROMOTION',
+  'NOOR_SOURCE_GOVERNANCE',
+  'cdn:smoke',
+  'cdn:promote',
+  'source:audit'
+]) {
+  if (!contentPipeline.includes(expected)) {
+    console.error(`content-pipeline.ts must include ${expected}.`);
+    process.exit(1);
+  }
 }
 
 const smokeScript = readFileSync('scripts/smoke-noor-cdn.mjs', 'utf8');
@@ -185,6 +207,18 @@ if (!promoteScript.includes('noor-cdn.env.local') || !promoteScript.includes('NE
   process.exit(1);
 }
 
+const sourceAuditScript = readFileSync('scripts/audit-noor-sources.mjs', 'utf8');
+if (!sourceAuditScript.includes('noor-source-audit.json') || !sourceAuditScript.includes('--require-production')) {
+  console.error('Sprint 17 source governance script must generate audit reports and support a production gate.');
+  process.exit(1);
+}
+
+const settingsPage = readFileSync('apps/web/app/settings/page.tsx', 'utf8');
+if (!settingsPage.includes('SourceGovernanceCard')) {
+  console.error('Settings page must render the Sprint 17 source governance card.');
+  process.exit(1);
+}
+
 const releaseWorkflow = readFileSync('.github/workflows/noor-release.yml', 'utf8');
 if (!releaseWorkflow.includes('gh release create')) {
   console.error('Sprint 11 release workflow must create a GitHub Release.');
@@ -192,9 +226,18 @@ if (!releaseWorkflow.includes('gh release create')) {
 }
 
 const ciWorkflow = readFileSync('.github/workflows/noor-ci.yml', 'utf8');
-if (!ciWorkflow.includes('pnpm check:runtime') || !ciWorkflow.includes('pnpm check:cdn-publish') || !ciWorkflow.includes('pnpm check:cdn-smoke') || !ciWorkflow.includes('pnpm check:cdn-promotion')) {
-  console.error('NOOR CI must run runtime, CDN publish, CDN smoke and CDN promotion checks.');
-  process.exit(1);
+for (const expected of [
+  'pnpm check:runtime',
+  'pnpm check:cdn-publish',
+  'pnpm check:cdn-smoke',
+  'pnpm check:cdn-promotion',
+  'pnpm source:audit',
+  'pnpm check:source-audit'
+]) {
+  if (!ciWorkflow.includes(expected)) {
+    console.error(`NOOR CI must run ${expected}.`);
+    process.exit(1);
+  }
 }
 
 const cdnManifest = JSON.parse(readFileSync('content-pipeline/source/noor-demo-v0.12/manifest/noor-content-manifest.json', 'utf8'));
@@ -203,4 +246,10 @@ if (cdnManifest.mode !== 'cdn-ready') {
   process.exit(1);
 }
 
-console.log('NOOR Sprint 0-16 pack check passed.');
+const sourceRegistry = JSON.parse(readFileSync('content-pipeline/source/noor-demo-v0.12/manifest/noor-source-registry.json', 'utf8'));
+if (!sourceRegistry.productionGate?.includes('Scholar/reviewer sign-off recorded')) {
+  console.error('Source registry must include scholarly/reviewer sign-off in production gate.');
+  process.exit(1);
+}
+
+console.log('NOOR Sprint 0-17 pack check passed.');

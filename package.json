@@ -19,12 +19,15 @@
     "check:cdn-publish": "node scripts/check-noor-cdn-publish.mjs",
     "check:cdn-smoke": "node scripts/smoke-noor-cdn.mjs",
     "check:cdn-promotion": "node scripts/check-noor-cdn-promotion.mjs",
+    "check:source-audit": "node scripts/check-noor-source-audit.mjs",
     "content:validate": "node scripts/validate-noor-cdn.mjs",
     "content:prepare": "node scripts/prepare-noor-cdn.mjs",
     "cdn:pack": "node scripts/build-noor-cdn-publish-pack.mjs",
     "cdn:verify": "node scripts/verify-noor-cdn-publish-pack.mjs",
     "cdn:smoke": "node scripts/smoke-noor-cdn.mjs",
     "cdn:promote": "node scripts/promote-noor-cdn.mjs",
+    "source:audit": "node scripts/audit-noor-sources.mjs",
+    "source:gate": "node scripts/audit-noor-sources.mjs --require-production",
     "release:bump": "node scripts/bump-noor-version.mjs"
   },
   "devDependencies": {

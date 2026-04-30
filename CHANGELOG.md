@@ -1,5 +1,14 @@
 # NOOR Changelog
 
+## v0.17.0 — Sprint 17 Source governance and production approval gate
+
+- Added `pnpm source:audit`.
+- Added generated source governance JSON and Markdown audit reports.
+- Added `pnpm source:gate` as a manual production approval gate.
+- Added `pnpm check:source-audit`.
+- Added Settings Source Governance card.
+- Added source governance documentation and CI validation.
+
 ## v0.16.0 — Sprint 16 CDN promotion bundle and environment handoff
 
 - Added `pnpm cdn:promote <published-cdn-base>`.

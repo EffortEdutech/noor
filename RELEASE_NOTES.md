@@ -1,5 +1,17 @@
 # NOOR Release Notes
 
+## v0.17.0 — Sprint 17 Source governance and production approval gate
+
+Sprint 17 adds the production safety layer before NOOR moves from demo content into real Quran, tafseer and hadith datasets.
+
+### Highlights
+
+- `pnpm source:audit` validates the source registry and generates local audit reports.
+- Generated reports are written to `content-pipeline/audit/noor-source-audit.json` and `content-pipeline/audit/noor-source-audit.md`.
+- `pnpm source:gate` is a manual production gate and is expected to fail while sources remain demo-only or not-production-approved.
+- `pnpm check:source-audit` validates Sprint 17 metadata, scripts and Settings integration.
+- Settings now shows the Source Governance card.
+
 ## v0.16.0 — Sprint 16 CDN promotion bundle and environment handoff
 
 Sprint 16 adds the missing handoff between "the published CDN URL passed smoke test" and "the app can be safely configured to use that URL".

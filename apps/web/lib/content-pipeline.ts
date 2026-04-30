@@ -26,6 +26,13 @@ export type NoorCdnPromotionStep = {
   note: string;
 };
 
+export type NoorSourceGovernanceStep = {
+  id: string;
+  label: string;
+  status: 'ready' | 'manual-gate' | 'future';
+  note: string;
+};
+
 export const NOOR_CONTENT_PIPELINE = {
   version: '0.12.0',
   label: 'Sprint 12 — Production content pipeline / CDN source preparation',
@@ -119,4 +126,34 @@ export const NOOR_CDN_PROMOTION = {
     { id: 'vercel-env', label: 'Vercel environment update', status: 'manual-gate', note: 'Copy the generated NEXT_PUBLIC values into Vercel or local .env.local, then rebuild.' },
     { id: 'production-content', label: 'Production content gate', status: 'future', note: 'Production Quran, tafseer and hadith content still requires licensing and scholarly approval.' }
   ] satisfies NoorCdnPromotionStep[]
+};
+
+export const NOOR_SOURCE_GOVERNANCE = {
+  version: '0.17.0',
+  label: 'Sprint 17 — Source governance and production approval gate',
+  sourceRegistry: 'content-pipeline/source/noor-demo-v0.12/manifest/noor-source-registry.json',
+  auditRoot: 'content-pipeline/audit',
+  generatedAuditFile: 'content-pipeline/audit/noor-source-audit.json',
+  generatedAuditMarkdown: 'content-pipeline/audit/noor-source-audit.md',
+  commands: [
+    'pnpm source:audit',
+    'pnpm check:source-audit',
+    'pnpm source:gate'
+  ],
+  requiredDomains: ['quran', 'tafseer', 'hadith'],
+  productionRequirements: [
+    'Verified canonical/source text',
+    'Clear redistribution license or written permission',
+    'Attribution wording approved',
+    'Import transform checked against source sample',
+    'Content validator passes after import',
+    'Scholar/reviewer sign-off recorded'
+  ],
+  steps: [
+    { id: 'domain-coverage', label: 'Domain coverage', status: 'ready', note: 'Audit confirms Quran, tafseer and hadith source records exist before any promotion discussion.' },
+    { id: 'demo-block', label: 'Demo content production block', status: 'ready', note: 'Current demo sources remain explicitly marked demo-only and not-production-approved.' },
+    { id: 'audit-report', label: 'Generated audit report', status: 'ready', note: 'source:audit writes JSON and Markdown reports under content-pipeline/audit for local review.' },
+    { id: 'production-gate', label: 'Production gate command', status: 'manual-gate', note: 'source:gate intentionally fails until all source records are production-approved.' },
+    { id: 'real-source-import', label: 'Real source import adapters', status: 'future', note: 'Future sprint can add importer adapters after the selected Quran, tafseer and hadith sources are approved.' }
+  ] satisfies NoorSourceGovernanceStep[]
 };

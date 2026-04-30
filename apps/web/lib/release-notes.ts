@@ -8,6 +8,20 @@ export type NoorReleaseNote = {
 
 export const NOOR_RELEASE_NOTES: NoorReleaseNote[] = [
   {
+    version: '0.17.0',
+    date: '2026-04-30',
+    title: 'Sprint 17 — Source governance and production approval gate',
+    summary:
+      'Adds a source governance audit layer so demo Quran, tafseer and hadith content remains blocked from production until licensing, attribution and scholarly review are complete.',
+    highlights: [
+      'source:audit command to generate JSON and Markdown source governance reports',
+      'source:gate command that intentionally blocks demo-only content from production promotion',
+      'check:source-audit command for local and CI validation',
+      'Settings Source Governance card with registry, audit outputs and gate commands',
+      'Documentation for production approval rules before real content import'
+    ]
+  },
+  {
     version: '0.16.0',
     date: '2026-04-30',
     title: 'Sprint 16 — CDN promotion bundle and environment handoff',

@@ -26,3 +26,6 @@ content-pipeline/publish/
 
 # Generated NOOR CDN promotion handoff files. Regenerate with pnpm cdn:promote.
 content-pipeline/promotion/
+
+# Generated NOOR source governance audit files. Regenerate with pnpm source:audit.
+content-pipeline/audit/
