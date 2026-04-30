@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.24.0 — Sprint 24 Scholarly review console
+
+- Added `review:console`.
+- Added `check:review-console`.
+- Added scholarly review console registry for Quran, tafseer and hadith approval cases.
+- Added generated review audit JSON and Markdown.
+- Added Settings Scholarly Review Console card.
+- Updated app version, release notes, roadmap and CI for Sprint 24.
+
 ## v0.23.0 — Sprint 23 Hadith importer adapter v1
 
 - Added `hadith:import`.

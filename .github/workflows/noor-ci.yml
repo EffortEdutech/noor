@@ -86,6 +86,12 @@ jobs:
       - name: Check Hadith importer
         run: pnpm check:hadith-import
 
+      - name: Generate scholarly review console
+        run: pnpm review:console
+
+      - name: Check scholarly review console
+        run: pnpm check:review-console
+
       - name: Generate roadmap status
         run: pnpm roadmap:status
 

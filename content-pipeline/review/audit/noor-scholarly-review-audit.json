@@ -1,0 +1,30 @@
+{
+  "version": "0.24.0",
+  "generatedAt": "2026-04-30T16:26:47.729Z",
+  "source": "content-pipeline/review/noor-scholarly-review-console.json",
+  "consoleId": "noor-scholarly-review-console-v1",
+  "gateStatus": "blocked",
+  "productionPromotionAllowed": false,
+  "caseCount": 3,
+  "domains": [
+    "quran",
+    "tafseer",
+    "hadith"
+  ],
+  "blockedCases": [
+    "review-quran-production-source",
+    "review-tafseer-production-source",
+    "review-hadith-production-source"
+  ],
+  "requiredEvidence": [
+    "source identity",
+    "license/permission",
+    "attribution wording",
+    "checksum/integrity plan",
+    "scholarly reviewer sign-off"
+  ],
+  "notes": [
+    "No case is approved automatically.",
+    "Production promotion remains blocked until each case has reviewer sign-off and evidence."
+  ]
+}

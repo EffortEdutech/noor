@@ -8,15 +8,15 @@ export type NoorRoadmapSprint = {
 };
 
 export const NOOR_MASTER_ROADMAP = {
-  version: '0.23.0',
+  version: '0.24.0',
   label: 'NOOR Master Blueprint & Roadmap',
   currentPhase: 'Phase 3 — Production content pipeline and source governance',
   generatedRoot: 'content-pipeline/roadmap',
   currentSprint: {
-    sprint: 'Sprint 23',
-    title: 'Hadith importer adapter v1',
+    sprint: 'Sprint 24',
+    title: 'Scholarly review console',
     status: 'current',
-    objective: 'Create the first hadith import adapter that normalizes a structured hadith fixture into NOOR CDN-style hadith collection routes while keeping production hadith blocked until source approval is complete.'
+    objective: 'Add reviewer checklist, sign-off metadata and source approval evidence UI so production Quran, tafseer and hadith promotion stays blocked until documented review evidence is complete.'
   } satisfies NoorRoadmapSprint,
   completedSprints: [
     { sprint: 'Sprint 0', title: 'Repo foundation + data contracts', status: 'complete', objective: 'Monorepo, packages and shared contracts.' },
@@ -42,22 +42,25 @@ export const NOOR_MASTER_ROADMAP = {
     { sprint: 'Sprint 19', title: 'Production source intake templates', status: 'complete', objective: 'Capture Quran, tafseer and hadith candidate source records before import work.' },
     { sprint: 'Sprint 20', title: 'Quran importer adapter v1', status: 'complete', objective: 'Normalize a Quran-like fixture into NOOR CDN-style surah index and per-surah JSON while keeping production release blocked until source approval is complete.' },
     { sprint: 'Sprint 21', title: 'Quran production source selection gate', status: 'complete', objective: 'Keep production Quran import blocked until a real source, license, attribution, checksum plan and reviewer sign-off are complete.' },
-    { sprint: 'Sprint 22', title: 'Tafseer importer adapter v1', status: 'complete', objective: 'Normalize a tafseer fixture into NOOR CDN-style tafseer routes while keeping production tafseer blocked until source approval is complete.' }
+    { sprint: 'Sprint 22', title: 'Tafseer importer adapter v1', status: 'complete', objective: 'Normalize a tafseer fixture into NOOR CDN-style tafseer routes while keeping production tafseer blocked until source approval is complete.' },
+    { sprint: 'Sprint 23', title: 'Hadith importer adapter v1', status: 'complete', objective: 'Normalize a hadith fixture into NOOR CDN-style collection and item routes while keeping production hadith blocked until source approval is complete.' }
   ] satisfies NoorRoadmapSprint[],
   futureSprints: [
-    { sprint: 'Sprint 24', title: 'Scholarly review console', status: 'next', objective: 'Add reviewer checklist, sign-off metadata and source approval evidence UI.' },
-    { sprint: 'Sprint 25', title: 'Production CDN v1 promotion', status: 'future', objective: 'Publish approved content bundle to external CDN and switch runtime defaults carefully.' },
+    { sprint: 'Sprint 25', title: 'Production CDN v1 promotion', status: 'next', objective: 'Publish approved content bundle to external CDN and switch runtime defaults carefully after review gates are satisfied.' },
     { sprint: 'Sprint 26', title: 'Search index from production content', status: 'future', objective: 'Generate a lightweight local search index from approved Quran, tafseer and hadith production content.' },
-    { sprint: 'Sprint 27', title: 'Reader experience from approved content', status: 'future', objective: 'Connect imported approved content into richer reading, tafseer and hadith study journeys.' }
+    { sprint: 'Sprint 27', title: 'Reader experience from approved content', status: 'future', objective: 'Connect imported approved content into richer reading, tafseer and hadith study journeys.' },
+    { sprint: 'Sprint 28', title: 'Quality assurance and regression hardening', status: 'future', objective: 'Add content QA reports, route regression checks and release candidate hardening.' }
   ] satisfies NoorRoadmapSprint[],
   docs: [
     'docs/NOOR_MASTER_ROADMAP.md',
-    'docs/NOOR_HADITH_IMPORTER.md',
-    'docs/SPRINT_23_SCOPE.md',
-    'docs/LOCAL_TESTING_SPRINT_23.md'
+    'docs/NOOR_SCHOLARLY_REVIEW_CONSOLE.md',
+    'docs/SPRINT_24_SCOPE.md',
+    'docs/LOCAL_TESTING_SPRINT_24.md'
   ],
   commands: [
     'pnpm roadmap:status',
+    'pnpm review:console',
+    'pnpm check:review-console',
     'pnpm quran:gate',
     'pnpm check:quran-source-gate',
     'pnpm quran:import',

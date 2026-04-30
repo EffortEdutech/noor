@@ -25,6 +25,7 @@
     "check:quran-source-gate": "node scripts/check-noor-quran-source-gate.mjs",
     "check:tafseer-import": "node scripts/check-noor-tafseer-import.mjs",
     "check:hadith-import": "node scripts/check-noor-hadith-import.mjs",
+    "check:review-console": "node scripts/check-noor-review-console.mjs",
     "check:roadmap": "node scripts/check-noor-roadmap.mjs",
     "content:validate": "node scripts/validate-noor-cdn.mjs",
     "content:prepare": "node scripts/prepare-noor-cdn.mjs",
@@ -39,6 +40,7 @@
     "quran:gate": "node scripts/validate-noor-quran-source-gate.mjs",
     "tafseer:import": "node scripts/import-noor-tafseer.mjs",
     "hadith:import": "node scripts/import-noor-hadith.mjs",
+    "review:console": "node scripts/generate-noor-review-console.mjs",
     "roadmap:status": "node scripts/generate-noor-roadmap.mjs",
     "release:bump": "node scripts/bump-noor-version.mjs"
   },

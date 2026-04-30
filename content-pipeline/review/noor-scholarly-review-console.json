@@ -1,0 +1,93 @@
+{
+  "version": "0.24.0",
+  "consoleId": "noor-scholarly-review-console-v1",
+  "status": "blocked",
+  "generatedBy": "Sprint 24 \u2014 Scholarly review console",
+  "purpose": "Track reviewer evidence and sign-off requirements before NOOR promotes production Quran, tafseer or hadith content.",
+  "productionApprovalPolicy": {
+    "autoApprovalAllowed": false,
+    "requiresNamedReviewer": true,
+    "requiresLicenseEvidence": true,
+    "requiresAttributionEvidence": true,
+    "requiresChecksumEvidence": true,
+    "requiresFinalManualApproval": true
+  },
+  "reviewCases": [
+    {
+      "id": "review-quran-production-source",
+      "domain": "quran",
+      "title": "Quran production source review",
+      "linkedArtifacts": [
+        "content-pipeline/source-gates/quran/quran-production-source-selection.json",
+        "content-pipeline/imported/quran-v0.20/noor-cdn/manifest/noor-quran-import-report.json"
+      ],
+      "reviewStatus": "not-started",
+      "approvalStatus": "blocked",
+      "requiredEvidence": [
+        "source identity",
+        "license/permission",
+        "attribution wording",
+        "checksum/integrity plan",
+        "scholarly reviewer sign-off"
+      ],
+      "signOff": {
+        "reviewerName": null,
+        "reviewerRole": null,
+        "reviewedAt": null,
+        "notes": "Pending verified Quran source selection and reviewer sign-off."
+      }
+    },
+    {
+      "id": "review-tafseer-production-source",
+      "domain": "tafseer",
+      "title": "Tafseer production source review",
+      "linkedArtifacts": [
+        "content-pipeline/imported/tafseer-v0.22/noor-cdn/manifest/noor-tafseer-import-report.json"
+      ],
+      "reviewStatus": "not-started",
+      "approvalStatus": "blocked",
+      "requiredEvidence": [
+        "source identity",
+        "license/permission",
+        "attribution wording",
+        "checksum/integrity plan",
+        "scholarly reviewer sign-off"
+      ],
+      "signOff": {
+        "reviewerName": null,
+        "reviewerRole": null,
+        "reviewedAt": null,
+        "notes": "Pending approved tafseer source and reviewer sign-off."
+      }
+    },
+    {
+      "id": "review-hadith-production-source",
+      "domain": "hadith",
+      "title": "Hadith production source review",
+      "linkedArtifacts": [
+        "content-pipeline/imported/hadith-v0.23/noor-cdn/manifest/noor-hadith-import-report.json"
+      ],
+      "reviewStatus": "not-started",
+      "approvalStatus": "blocked",
+      "requiredEvidence": [
+        "source identity",
+        "license/permission",
+        "attribution wording",
+        "checksum/integrity plan",
+        "scholarly reviewer sign-off"
+      ],
+      "signOff": {
+        "reviewerName": null,
+        "reviewerRole": null,
+        "reviewedAt": null,
+        "notes": "Pending approved hadith source and reviewer sign-off."
+      }
+    }
+  ],
+  "summary": {
+    "totalReviewCases": 3,
+    "blockedReviewCases": 3,
+    "approvedReviewCases": 0,
+    "productionPromotionAllowed": false
+  }
+}

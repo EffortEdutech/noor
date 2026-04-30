@@ -8,6 +8,20 @@ export type NoorReleaseNote = {
 
 export const NOOR_RELEASE_NOTES: NoorReleaseNote[] = [
   {
+    version: '0.24.0',
+    date: '2026-04-30',
+    title: 'Sprint 24 — Scholarly review console',
+    summary:
+      'Adds the first scholarly review console layer for Quran, tafseer and hadith source approval evidence while keeping all production promotion gates blocked until reviewer sign-off is complete.',
+    highlights: [
+      'review:console command to generate review audit JSON and Markdown',
+      'check:review-console command for local and CI validation',
+      'Review registry covering Quran, tafseer and hadith production approval cases',
+      'Settings Scholarly Review Console card showing review evidence requirements',
+      'Roadmap updated: Sprint 24 current, Sprint 25 next for production CDN v1 promotion'
+    ]
+  },
+  {
     version: '0.23.0',
     date: '2026-04-30',
     title: 'Sprint 23 — Hadith importer adapter v1',
