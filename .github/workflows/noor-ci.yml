@@ -92,6 +92,12 @@ jobs:
       - name: Check scholarly review console
         run: pnpm check:review-console
 
+      - name: Generate production CDN promotion candidate
+        run: pnpm production:promote
+
+      - name: Check production CDN promotion candidate
+        run: pnpm check:production-promotion
+
       - name: Generate roadmap status
         run: pnpm roadmap:status
 

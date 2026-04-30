@@ -7,6 +7,7 @@ import { ContentHealthCard } from '../../components/ContentHealthCard';
 import { ContentPipelineCard } from '../../components/ContentPipelineCard';
 import { HadithImportCard } from '../../components/HadithImportCard';
 import { LocalBackupCard } from '../../components/LocalBackupCard';
+import { ProductionCdnPromotionCard } from '../../components/ProductionCdnPromotionCard';
 import { PwaStatusCard } from '../../components/PwaStatusCard';
 import { QuranImportCard } from '../../components/QuranImportCard';
 import { QuranSourceGateCard } from '../../components/QuranSourceGateCard';
@@ -34,7 +35,7 @@ export default async function SettingsPage() {
       <PageHeader
         kicker="Settings"
         title="NOOR foundation settings"
-        subtitle="Review roadmap control, scholarly review console, Quran source gate, Quran import adapter, tafseer import adapter, hadith import adapter, source intake, runtime content source, CDN publishing, CDN smoke testing, CDN promotion handoff, source governance, data configuration, reader preferences, local backup, release notes, app version, content pipeline, install status, offline readiness and content integrity."
+        subtitle="Review roadmap control, production CDN v1 promotion, scholarly review console, source gates, importers, runtime source, CDN publishing, release notes, app version, content pipeline, install status, offline readiness and content integrity."
       />
 
       <NoorCard>
@@ -44,6 +45,7 @@ export default async function SettingsPage() {
       </NoorCard>
 
       <RoadmapControlCard />
+      <ProductionCdnPromotionCard />
       <ScholarlyReviewConsoleCard />
       <QuranSourceGateCard />
       <QuranImportCard />

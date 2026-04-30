@@ -1,0 +1,60 @@
+{
+  "version": "0.25.0",
+  "promotionId": "noor-production-cdn-v1-promotion",
+  "generatedAt": "2026-04-30T16:56:17.406Z",
+  "generatedBy": "Sprint 25 — Production CDN v1 promotion",
+  "status": "blocked",
+  "productionPromotionAllowed": false,
+  "runtimeDefault": "bundled",
+  "promotionMode": "metadata-only-blocked-candidate",
+  "preferredExternalBase": "https://effortedutech.github.io/noor-cdn",
+  "fallbackExternalBase": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main",
+  "sourceArtifacts": {
+    "reviewConsole": "content-pipeline/review/noor-scholarly-review-console.json",
+    "quranImportReport": "content-pipeline/imported/quran-v0.20/noor-cdn/manifest/noor-quran-import-report.json",
+    "tafseerImportReport": "content-pipeline/imported/tafseer-v0.22/noor-cdn/manifest/noor-tafseer-import-report.json",
+    "hadithImportReport": "content-pipeline/imported/hadith-v0.23/noor-cdn/manifest/noor-hadith-import-report.json"
+  },
+  "gates": {
+    "reviewConsole": {
+      "version": "0.24.0",
+      "status": "blocked",
+      "totalReviewCases": 3,
+      "approvedReviewCases": 0,
+      "productionPromotionAllowed": false
+    },
+    "quran": {
+      "version": "0.20.0",
+      "status": "blocked",
+      "approved": false
+    },
+    "tafseer": {
+      "version": "0.22.0",
+      "status": "blocked",
+      "approved": false
+    },
+    "hadith": {
+      "version": "0.23.0",
+      "status": "blocked",
+      "approved": false
+    }
+  },
+  "envPreview": {
+    "NEXT_PUBLIC_NOOR_CONTENT_SOURCE": "bundled",
+    "NEXT_PUBLIC_NOOR_QURAN_CDN_BASE": "",
+    "NEXT_PUBLIC_NOOR_TAFSEER_CDN_BASE": "",
+    "NEXT_PUBLIC_NOOR_HADITH_CDN_BASE": "",
+    "NEXT_PUBLIC_NOOR_MANIFEST_CDN_BASE": ""
+  },
+  "blockedReasons": [
+    "Scholarly review cases are not fully approved.",
+    "Imported Quran, tafseer and hadith reports are not approved for production.",
+    "Review console summary does not allow production promotion."
+  ],
+  "manualReleaseChecklist": [
+    "Run pnpm review:console and confirm all review cases are approved by named reviewers.",
+    "Run importers using approved sources only.",
+    "Run pnpm cdn:pack, pnpm cdn:verify and pnpm cdn:smoke against the final publish folder.",
+    "Only then apply the CDN environment variables in Vercel or local .env."
+  ]
+}
