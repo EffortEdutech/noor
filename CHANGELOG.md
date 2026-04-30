@@ -1,5 +1,27 @@
 # NOOR Changelog
 
+## v0.14.0 — 2026-04-30
+
+Sprint 14 — Zero-budget CDN publish pack.
+
+### Added
+
+- `pnpm cdn:pack` command to generate a clean publish folder at `content-pipeline/publish/noor-cdn-gh-pages`.
+- `pnpm cdn:verify` command to verify required resolver paths and SHA-256 checksums.
+- `pnpm check:cdn-publish` command for local and CI validation.
+- Settings CDN publishing card with GitHub Pages and jsDelivr target bases.
+- `docs/NOOR_CDN_PUBLISHING.md` deployment guide.
+
+### Changed
+
+- CI now checks runtime source switching and CDN publishing readiness.
+- Runtime check now supports future app versions instead of being locked to Sprint 13 only.
+
+### Notes
+
+- This sprint prepares zero-budget hosting flow only.
+- Production datasets still require licensing, attribution and scholarly review before they are published as real NOOR production data.
+
 ## v0.13.0 — 2026-04-30
 
 Sprint 13 — Runtime CDN mode and source switching.

@@ -20,6 +20,25 @@ if (missing.length > 0) {
   process.exit(1);
 }
 
+function parseSemver(value) {
+  const parts = value.split('.').map((part) => Number(part));
+  if (parts.length !== 3 || parts.some((part) => Number.isNaN(part))) return null;
+  return parts;
+}
+
+function isAtLeast(value, target) {
+  const parsed = parseSemver(value);
+  const targetParsed = parseSemver(target);
+  if (!parsed || !targetParsed) return false;
+
+  for (let index = 0; index < 3; index += 1) {
+    if (parsed[index] > targetParsed[index]) return true;
+    if (parsed[index] < targetParsed[index]) return false;
+  }
+
+  return true;
+}
+
 const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
 if (!packageJson.scripts?.['check:runtime']) {
   console.error('package.json must include check:runtime script.');
@@ -52,16 +71,22 @@ for (const [name, content] of Object.entries({ quranPage, quranReader, tafseerPa
   }
 }
 
-const appVersion = readFileSync('apps/web/lib/app-version.ts', 'utf8');
-if (!appVersion.includes("NOOR_APP_VERSION = '0.13.0'")) {
-  console.error('Sprint 13 must update NOOR app version to 0.13.0.');
+const appVersionSource = readFileSync('apps/web/lib/app-version.ts', 'utf8');
+const versionMatch = appVersionSource.match(/NOOR_APP_VERSION = '([^']+)'/);
+if (!versionMatch) {
+  console.error('Cannot read NOOR_APP_VERSION from app-version.ts.');
   process.exit(1);
 }
 
 const versionJson = JSON.parse(readFileSync('apps/web/public/version.json', 'utf8'));
-if (versionJson.version !== '0.13.0') {
-  console.error('version.json must be updated to 0.13.0.');
+if (versionMatch[1] !== versionJson.version) {
+  console.error('Runtime check failed: app-version.ts and version.json are not aligned.');
   process.exit(1);
 }
 
-console.log('NOOR Sprint 13 runtime source switching check passed.');
+if (!isAtLeast(versionJson.version, '0.13.0')) {
+  console.error('Runtime source switching requires NOOR v0.13.0 or later.');
+  process.exit(1);
+}
+
+console.log('NOOR Sprint 13+ runtime source switching check passed.');

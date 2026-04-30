@@ -8,6 +8,20 @@ export type NoorReleaseNote = {
 
 export const NOOR_RELEASE_NOTES: NoorReleaseNote[] = [
   {
+    version: '0.14.0',
+    date: '2026-04-30',
+    title: 'Sprint 14 — Zero-budget CDN publish pack',
+    summary:
+      'Adds a repeatable local CDN publish pack so NOOR content can be copied to a separate zero-budget GitHub Pages or jsDelivr data repository.',
+    highlights: [
+      'cdn:pack command to generate a publish-ready noor-cdn folder',
+      'cdn:verify command with required resolver path and SHA-256 checks',
+      'Settings CDN publishing card with GitHub Pages and jsDelivr target bases',
+      'Sprint 14 CDN deployment documentation',
+      'CI and local checks updated for runtime and CDN publishing validation'
+    ]
+  },
+  {
     version: '0.13.0',
     date: '2026-04-30',
     title: 'Sprint 13 — Runtime CDN mode and source switching',

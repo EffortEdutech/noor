@@ -5,6 +5,13 @@ export type NoorContentPipelineStep = {
   note: string;
 };
 
+export type NoorCdnPublishingStep = {
+  id: string;
+  label: string;
+  status: 'ready' | 'manual-gate' | 'future';
+  note: string;
+};
+
 export const NOOR_CONTENT_PIPELINE = {
   version: '0.12.0',
   label: 'Sprint 12 — Production content pipeline / CDN source preparation',
@@ -45,4 +52,49 @@ export const NOOR_CONTENT_PIPELINE = {
       note: 'Next sprint can add import transformers for chosen verified source datasets.'
     }
   ] satisfies NoorContentPipelineStep[]
+};
+
+export const NOOR_CDN_PUBLISHING = {
+  version: '0.14.0',
+  label: 'Sprint 14 — Zero-budget CDN publish pack',
+  sourceRoot: 'content-pipeline/dist/noor-cdn',
+  publishRoot: 'content-pipeline/publish/noor-cdn-gh-pages',
+  publicSubfolder: 'noor-cdn',
+  generatedManifest: 'content-pipeline/publish/noor-cdn-gh-pages/publish-manifest.json',
+  recommendedDataRepo: 'https://github.com/EffortEdutech/noor-cdn',
+  githubPagesBase: 'https://effortedutech.github.io/noor-cdn/noor-cdn',
+  jsDelivrBase: 'https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn',
+  commands: ['pnpm cdn:pack', 'pnpm cdn:verify', 'pnpm check:cdn-publish'],
+  steps: [
+    {
+      id: 'prepare-local-cdn',
+      label: 'Prepare local CDN files',
+      status: 'ready',
+      note: 'Uses the Sprint 12 content:prepare path to produce a clean noor-cdn folder.'
+    },
+    {
+      id: 'generate-publish-pack',
+      label: 'Generate publish pack',
+      status: 'ready',
+      note: 'Creates a GitHub Pages/jsDelivr-ready folder with checksums and deployment notes.'
+    },
+    {
+      id: 'verify-pack',
+      label: 'Verify publish pack',
+      status: 'ready',
+      note: 'Checks required resolver paths and SHA-256 values before any upload.'
+    },
+    {
+      id: 'external-hosting',
+      label: 'External zero-budget hosting',
+      status: 'manual-gate',
+      note: 'Manual copy to a separate noor-cdn repository, then enable GitHub Pages or use jsDelivr.'
+    },
+    {
+      id: 'production-dataset',
+      label: 'Production dataset promotion',
+      status: 'future',
+      note: 'Real Quran, tafseer and hadith datasets still require licensing, attribution and scholarly review.'
+    }
+  ] satisfies NoorCdnPublishingStep[]
 };

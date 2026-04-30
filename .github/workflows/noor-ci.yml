@@ -38,6 +38,18 @@ jobs:
       - name: Check release metadata
         run: pnpm check:release
 
+      - name: Check runtime content source
+        run: pnpm check:runtime
+
+      - name: Check CDN publishing metadata
+        run: pnpm check:cdn-publish
+
+      - name: Build CDN publish pack
+        run: pnpm cdn:pack
+
+      - name: Verify CDN publish pack
+        run: pnpm cdn:verify
+
       - name: Typecheck
         run: pnpm typecheck
 

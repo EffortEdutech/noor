@@ -35,6 +35,7 @@ const required = [
   'apps/web/components/ReleaseNotesCard.tsx',
   'apps/web/components/ContentPipelineCard.tsx',
   'apps/web/components/RuntimeContentSourceCard.tsx',
+  'apps/web/components/CdnPublishCard.tsx',
   'apps/web/components/JourneyList.tsx',
   'apps/web/components/JourneyStepCard.tsx',
   'apps/web/components/JourneyProgressSummary.tsx',
@@ -69,6 +70,7 @@ const required = [
   'docs/DATA_CONTRACTS.md',
   'docs/NOOR_CONTENT_PIPELINE.md',
   'docs/NOOR_RUNTIME_CDN_MODE.md',
+  'docs/NOOR_CDN_PUBLISHING.md',
   'docs/SPRINT_3_SCOPE.md',
   'docs/SPRINT_4_SCOPE.md',
   'docs/SPRINT_5_SCOPE.md',
@@ -80,8 +82,10 @@ const required = [
   'docs/SPRINT_11_SCOPE.md',
   'docs/SPRINT_12_SCOPE.md',
   'docs/SPRINT_13_SCOPE.md',
+  'docs/SPRINT_14_SCOPE.md',
   'docs/LOCAL_TESTING_SPRINT_12.md',
   'docs/LOCAL_TESTING_SPRINT_13.md',
+  'docs/LOCAL_TESTING_SPRINT_14.md',
   'content-pipeline/README.md',
   'content-pipeline/source/noor-demo-v0.12/manifest/noor-content-manifest.json',
   'content-pipeline/source/noor-demo-v0.12/manifest/noor-source-registry.json',
@@ -90,6 +94,9 @@ const required = [
   'scripts/validate-noor-cdn.mjs',
   'scripts/prepare-noor-cdn.mjs',
   'scripts/check-noor-runtime.mjs',
+  'scripts/build-noor-cdn-publish-pack.mjs',
+  'scripts/verify-noor-cdn-publish-pack.mjs',
+  'scripts/check-noor-cdn-publish.mjs',
   '.env.example'
 ];
 
@@ -101,7 +108,7 @@ if (missing.length > 0) {
 }
 
 const rootPkg = JSON.parse(readFileSync('package.json', 'utf8'));
-for (const script of ['check:content', 'check:release', 'check:runtime', 'content:validate', 'content:prepare']) {
+for (const script of ['check:content', 'check:release', 'check:runtime', 'check:cdn-publish', 'content:validate', 'content:prepare', 'cdn:pack', 'cdn:verify']) {
   if (!rootPkg.scripts?.[script]) {
     console.error(`Root package.json must include ${script} script.`);
     process.exit(1);
@@ -115,14 +122,14 @@ if (!webPkg.scripts?.dev?.includes('-p 3200')) {
 }
 
 const appVersion = readFileSync('apps/web/lib/app-version.ts', 'utf8');
-if (!appVersion.includes("NOOR_APP_VERSION = '0.13.0'")) {
-  console.error('Sprint 13 must update NOOR app version to 0.13.0.');
+if (!appVersion.includes("NOOR_APP_VERSION = '0.14.0'")) {
+  console.error('Sprint 14 must update NOOR app version to 0.14.0.');
   process.exit(1);
 }
 
 const versionJson = JSON.parse(readFileSync('apps/web/public/version.json', 'utf8'));
-if (versionJson.version !== '0.13.0') {
-  console.error('version.json must be updated to 0.13.0.');
+if (versionJson.version !== '0.14.0') {
+  console.error('version.json must be updated to 0.14.0.');
   process.exit(1);
 }
 
@@ -139,9 +146,21 @@ if (!dataConfig.includes("'local-cdn'") || !dataConfig.includes('NEXT_PUBLIC_NOO
   process.exit(1);
 }
 
+const cdnPublish = readFileSync('apps/web/lib/content-pipeline.ts', 'utf8');
+if (!cdnPublish.includes('NOOR_CDN_PUBLISHING') || !cdnPublish.includes('noor-cdn-gh-pages')) {
+  console.error('Sprint 14 CDN publishing metadata must be configured.');
+  process.exit(1);
+}
+
 const releaseWorkflow = readFileSync('.github/workflows/noor-release.yml', 'utf8');
 if (!releaseWorkflow.includes('gh release create')) {
   console.error('Sprint 11 release workflow must create a GitHub Release.');
+  process.exit(1);
+}
+
+const ciWorkflow = readFileSync('.github/workflows/noor-ci.yml', 'utf8');
+if (!ciWorkflow.includes('pnpm check:runtime') || !ciWorkflow.includes('pnpm check:cdn-publish')) {
+  console.error('NOOR CI must run runtime and CDN publish checks.');
   process.exit(1);
 }
 
@@ -151,4 +170,4 @@ if (cdnManifest.mode !== 'cdn-ready') {
   process.exit(1);
 }
 
-console.log('NOOR Sprint 0-13 pack check passed.');
+console.log('NOOR Sprint 0-14 pack check passed.');

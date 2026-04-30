@@ -1,5 +1,6 @@
 import { getContentHealthReport, getNoorDataConfig, getNoorResolverDiagnostics } from '@noor/data';
 import { NoorCard, PageHeader } from '@noor/ui';
+import { CdnPublishCard } from '../../components/CdnPublishCard';
 import { ContentHealthCard } from '../../components/ContentHealthCard';
 import { ContentPipelineCard } from '../../components/ContentPipelineCard';
 import { LocalBackupCard } from '../../components/LocalBackupCard';
@@ -23,7 +24,7 @@ export default async function SettingsPage() {
       <PageHeader
         kicker="Settings"
         title="NOOR foundation settings"
-        subtitle="Review runtime content source, data configuration, reader preferences, local backup, release notes, app version, content pipeline, install status, offline readiness and content integrity."
+        subtitle="Review runtime content source, CDN publishing, data configuration, reader preferences, local backup, release notes, app version, content pipeline, install status, offline readiness and content integrity."
       />
 
       <NoorCard>
@@ -37,6 +38,8 @@ export default async function SettingsPage() {
         config={config}
         diagnostics={diagnostics}
       />
+
+      <CdnPublishCard />
 
       <ReleaseNotesCard />
 

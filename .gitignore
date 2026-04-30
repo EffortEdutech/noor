@@ -19,3 +19,7 @@ pnpm-debug.log*
 noor info.xlsx
 # Office temporary lock files
 ~$*
+
+# Generated NOOR content/CDN publish outputs. Regenerate with pnpm content:prepare and pnpm cdn:pack.
+content-pipeline/dist/
+content-pipeline/publish/

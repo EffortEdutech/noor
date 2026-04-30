@@ -1,26 +1,47 @@
-# NOOR v0.13.0
+# NOOR v0.14.0
 
-Sprint 13 — Runtime CDN mode and source switching.
+Sprint 14 — Zero-budget CDN publish pack.
 
 Released: 2026-04-30
 
 ## Highlights
 
-- Added runtime source modes: `mock`, `local-cdn` and `cdn`.
-- Added a Settings source switcher with cookie-based persistence.
-- Added resolver diagnostics for manifest, content health, Quran, Tafseer and Hadith endpoints.
-- Connected Quran, Tafseer, Hadith and Settings pages to the selected runtime source.
-- Added `pnpm check:runtime` for local validation.
+- Added `pnpm cdn:pack` to generate a clean CDN publish folder.
+- Added `pnpm cdn:verify` to verify resolver files and SHA-256 checksums.
+- Added `pnpm check:cdn-publish` for local and CI validation.
+- Added a Settings CDN publishing card.
+- Added documentation for GitHub Pages and jsDelivr zero-budget hosting.
 
-## How to test local CDN mode
+## Local publish flow
 
-1. Run `pnpm content:prepare`.
-2. Run `pnpm dev`.
-3. Open `http://localhost:3200/settings`.
-4. Select `Local CDN` in the Runtime Content Source card.
-5. Confirm resolver diagnostics show `ok` for local files.
-6. Open `/learn/quran/1`, `/learn/tafseer` and `/learn/hadith`.
+1. Run `pnpm content:validate`.
+2. Run `pnpm content:prepare`.
+3. Run `pnpm cdn:pack`.
+4. Run `pnpm cdn:verify`.
+5. Copy `content-pipeline/publish/noor-cdn-gh-pages` into a separate data repository such as `EffortEdutech/noor-cdn`.
+
+## External CDN mode
+
+After publishing the pack, configure one of these bases in `.env.local`:
+
+```env
+NEXT_PUBLIC_NOOR_DATA_MODE=cdn
+NEXT_PUBLIC_NOOR_MANIFEST_CDN_BASE=https://effortedutech.github.io/noor-cdn/noor-cdn
+NEXT_PUBLIC_NOOR_QURAN_CDN_BASE=https://effortedutech.github.io/noor-cdn/noor-cdn
+NEXT_PUBLIC_NOOR_TAFSEER_CDN_BASE=https://effortedutech.github.io/noor-cdn/noor-cdn
+NEXT_PUBLIC_NOOR_HADITH_CDN_BASE=https://effortedutech.github.io/noor-cdn/noor-cdn
+```
+
+or:
+
+```env
+NEXT_PUBLIC_NOOR_DATA_MODE=cdn
+NEXT_PUBLIC_NOOR_MANIFEST_CDN_BASE=https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn
+NEXT_PUBLIC_NOOR_QURAN_CDN_BASE=https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn
+NEXT_PUBLIC_NOOR_TAFSEER_CDN_BASE=https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn
+NEXT_PUBLIC_NOOR_HADITH_CDN_BASE=https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn
+```
 
 ## Important production note
 
-External CDN mode is fallback-safe, but should not be used as a production claim until the selected Quran, Tafseer and Hadith datasets have passed licensing, attribution, checksum and scholarly review gates.
+This sprint only prepares the zero-budget publishing mechanism. Real Quran, tafseer and hadith datasets must still pass licensing, attribution, checksum and scholarly review gates before they are promoted to production.
