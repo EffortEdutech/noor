@@ -8,6 +8,20 @@ export type NoorReleaseNote = {
 
 export const NOOR_RELEASE_NOTES: NoorReleaseNote[] = [
   {
+    version: '0.18.0',
+    date: '2026-04-30',
+    title: 'Sprint 18 — Master roadmap and release control center',
+    summary:
+      'Adds a visible roadmap control layer so the completed NOOR foundation, current sprint and future production-content path are documented in code, Settings and CI.',
+    highlights: [
+      'Master roadmap data model for completed, current and future sprints',
+      'Settings Roadmap Control card',
+      'roadmap:status command to generate JSON and Markdown roadmap outputs',
+      'check:roadmap command for local and CI validation',
+      'Future sprint plan from production source intake through first production CDN release candidate'
+    ]
+  },
+  {
     version: '0.17.0',
     date: '2026-04-30',
     title: 'Sprint 17 — Source governance and production approval gate',

@@ -20,6 +20,7 @@
     "check:cdn-smoke": "node scripts/smoke-noor-cdn.mjs",
     "check:cdn-promotion": "node scripts/check-noor-cdn-promotion.mjs",
     "check:source-audit": "node scripts/check-noor-source-audit.mjs",
+    "check:roadmap": "node scripts/check-noor-roadmap.mjs",
     "content:validate": "node scripts/validate-noor-cdn.mjs",
     "content:prepare": "node scripts/prepare-noor-cdn.mjs",
     "cdn:pack": "node scripts/build-noor-cdn-publish-pack.mjs",
@@ -28,6 +29,7 @@
     "cdn:promote": "node scripts/promote-noor-cdn.mjs",
     "source:audit": "node scripts/audit-noor-sources.mjs",
     "source:gate": "node scripts/audit-noor-sources.mjs --require-production",
+    "roadmap:status": "node scripts/generate-noor-roadmap.mjs",
     "release:bump": "node scripts/bump-noor-version.mjs"
   },
   "devDependencies": {

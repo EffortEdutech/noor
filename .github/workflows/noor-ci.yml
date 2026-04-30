@@ -65,6 +65,12 @@ jobs:
       - name: Check source governance
         run: pnpm check:source-audit
 
+      - name: Generate roadmap status
+        run: pnpm roadmap:status
+
+      - name: Check roadmap status
+        run: pnpm check:roadmap
+
       - name: Typecheck
         run: pnpm typecheck
 

@@ -25,6 +25,7 @@ const required = [
   'apps/web/lib/reader-preferences.ts',
   'apps/web/lib/release-notes.ts',
   'apps/web/lib/content-pipeline.ts',
+  'apps/web/lib/roadmap.ts',
   'apps/web/lib/runtime-content-source.ts',
   'apps/web/lib/runtime-content-source-constants.ts',
   'apps/web/components/ContinueReadingCard.tsx',
@@ -39,6 +40,7 @@ const required = [
   'apps/web/components/CdnSmokeTestCard.tsx',
   'apps/web/components/CdnPromotionCard.tsx',
   'apps/web/components/SourceGovernanceCard.tsx',
+  'apps/web/components/RoadmapControlCard.tsx',
   'apps/web/components/JourneyList.tsx',
   'apps/web/components/JourneyStepCard.tsx',
   'apps/web/components/JourneyProgressSummary.tsx',
@@ -77,6 +79,7 @@ const required = [
   'docs/NOOR_CDN_SMOKE_TESTING.md',
   'docs/NOOR_CDN_PROMOTION.md',
   'docs/NOOR_SOURCE_GOVERNANCE.md',
+  'docs/NOOR_MASTER_ROADMAP.md',
   'docs/SPRINT_3_SCOPE.md',
   'docs/SPRINT_4_SCOPE.md',
   'docs/SPRINT_5_SCOPE.md',
@@ -92,12 +95,14 @@ const required = [
   'docs/SPRINT_15_SCOPE.md',
   'docs/SPRINT_16_SCOPE.md',
   'docs/SPRINT_17_SCOPE.md',
+  'docs/SPRINT_18_SCOPE.md',
   'docs/LOCAL_TESTING_SPRINT_12.md',
   'docs/LOCAL_TESTING_SPRINT_13.md',
   'docs/LOCAL_TESTING_SPRINT_14.md',
   'docs/LOCAL_TESTING_SPRINT_15.md',
   'docs/LOCAL_TESTING_SPRINT_16.md',
   'docs/LOCAL_TESTING_SPRINT_17.md',
+  'docs/LOCAL_TESTING_SPRINT_18.md',
   'content-pipeline/README.md',
   'content-pipeline/source/noor-demo-v0.12/manifest/noor-content-manifest.json',
   'content-pipeline/source/noor-demo-v0.12/manifest/noor-source-registry.json',
@@ -114,6 +119,8 @@ const required = [
   'scripts/check-noor-cdn-promotion.mjs',
   'scripts/audit-noor-sources.mjs',
   'scripts/check-noor-source-audit.mjs',
+  'scripts/generate-noor-roadmap.mjs',
+  'scripts/check-noor-roadmap.mjs',
   '.env.example'
 ];
 
@@ -133,6 +140,7 @@ for (const script of [
   'check:cdn-smoke',
   'check:cdn-promotion',
   'check:source-audit',
+  'check:roadmap',
   'content:validate',
   'content:prepare',
   'cdn:pack',
@@ -140,7 +148,8 @@ for (const script of [
   'cdn:smoke',
   'cdn:promote',
   'source:audit',
-  'source:gate'
+  'source:gate',
+  'roadmap:status'
 ]) {
   if (!rootPkg.scripts?.[script]) {
     console.error(`Root package.json must include ${script} script.`);
@@ -155,14 +164,14 @@ if (!webPkg.scripts?.dev?.includes('-p 3200')) {
 }
 
 const appVersion = readFileSync('apps/web/lib/app-version.ts', 'utf8');
-if (!appVersion.includes("NOOR_APP_VERSION = '0.17.0'")) {
-  console.error('Sprint 17 must update NOOR app version to 0.17.0.');
+if (!appVersion.includes("NOOR_APP_VERSION = '0.18.0'")) {
+  console.error('Sprint 18 must update NOOR app version to 0.18.0.');
   process.exit(1);
 }
 
 const versionJson = JSON.parse(readFileSync('apps/web/public/version.json', 'utf8'));
-if (versionJson.version !== '0.17.0') {
-  console.error('version.json must be updated to 0.17.0.');
+if (versionJson.version !== '0.18.0') {
+  console.error('version.json must be updated to 0.18.0.');
   process.exit(1);
 }
 
@@ -218,6 +227,16 @@ if (!settingsPage.includes('SourceGovernanceCard')) {
   console.error('Settings page must render the Sprint 17 source governance card.');
   process.exit(1);
 }
+if (!settingsPage.includes('RoadmapControlCard')) {
+  console.error('Settings page must render the Sprint 18 roadmap control card.');
+  process.exit(1);
+}
+
+const roadmapLib = readFileSync('apps/web/lib/roadmap.ts', 'utf8');
+if (!roadmapLib.includes('NOOR_MASTER_ROADMAP') || !roadmapLib.includes('Sprint 19')) {
+  console.error('Sprint 18 roadmap library must define the master roadmap and Sprint 19 next step.');
+  process.exit(1);
+}
 
 const releaseWorkflow = readFileSync('.github/workflows/noor-release.yml', 'utf8');
 if (!releaseWorkflow.includes('gh release create')) {
@@ -232,7 +251,9 @@ for (const expected of [
   'pnpm check:cdn-smoke',
   'pnpm check:cdn-promotion',
   'pnpm source:audit',
-  'pnpm check:source-audit'
+  'pnpm check:source-audit',
+  'pnpm roadmap:status',
+  'pnpm check:roadmap'
 ]) {
   if (!ciWorkflow.includes(expected)) {
     console.error(`NOOR CI must run ${expected}.`);
@@ -252,4 +273,4 @@ if (!sourceRegistry.productionGate?.includes('Scholar/reviewer sign-off recorded
   process.exit(1);
 }
 
-console.log('NOOR Sprint 0-17 pack check passed.');
+console.log('NOOR Sprint 0-18 pack check passed.');

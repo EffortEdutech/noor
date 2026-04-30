@@ -1,5 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 
+const MIN_SOURCE_GOVERNANCE_VERSION = '0.17.0';
+
 const required = [
   'scripts/audit-noor-sources.mjs',
   'scripts/check-noor-source-audit.mjs',
@@ -12,6 +14,30 @@ const required = [
   'docs/LOCAL_TESTING_SPRINT_17.md'
 ];
 
+function fail(message) {
+  console.error(message);
+  process.exit(1);
+}
+
+function parseSemver(version) {
+  const match = String(version).match(/^(\d+)\.(\d+)\.(\d+)$/);
+  if (!match) return null;
+  return match.slice(1).map((part) => Number(part));
+}
+
+function compareSemver(a, b) {
+  const parsedA = parseSemver(a);
+  const parsedB = parseSemver(b);
+  if (!parsedA || !parsedB) return Number.NaN;
+
+  for (let index = 0; index < 3; index += 1) {
+    if (parsedA[index] > parsedB[index]) return 1;
+    if (parsedA[index] < parsedB[index]) return -1;
+  }
+
+  return 0;
+}
+
 const missing = required.filter((file) => !existsSync(file));
 if (missing.length > 0) {
   console.error('Missing Sprint 17 source governance files:');
@@ -22,42 +48,42 @@ if (missing.length > 0) {
 const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
 for (const script of ['source:audit', 'source:gate', 'check:source-audit']) {
   if (!packageJson.scripts?.[script]) {
-    console.error(`package.json must include ${script} script.`);
-    process.exit(1);
+    fail(`package.json must include ${script} script.`);
   }
 }
 
-const appVersion = readFileSync('apps/web/lib/app-version.ts', 'utf8');
-if (!appVersion.includes("NOOR_APP_VERSION = '0.17.0'")) {
-  console.error('Sprint 17 must update NOOR app version to 0.17.0.');
-  process.exit(1);
+const appVersionSource = readFileSync('apps/web/lib/app-version.ts', 'utf8');
+const appVersionMatch = appVersionSource.match(/NOOR_APP_VERSION\s*=\s*['"]([^'"]+)['"]/);
+if (!appVersionMatch) {
+  fail('apps/web/lib/app-version.ts must export NOOR_APP_VERSION.');
+}
+
+const appVersion = appVersionMatch[1];
+if (compareSemver(appVersion, MIN_SOURCE_GOVERNANCE_VERSION) < 0) {
+  fail(`Source governance requires NOOR app version >= ${MIN_SOURCE_GOVERNANCE_VERSION}. Current: ${appVersion}.`);
 }
 
 const versionJson = JSON.parse(readFileSync('apps/web/public/version.json', 'utf8'));
-if (versionJson.version !== '0.17.0') {
-  console.error('version.json must be updated to 0.17.0.');
-  process.exit(1);
+if (versionJson.version !== appVersion) {
+  fail(`version.json version (${versionJson.version}) must match NOOR_APP_VERSION (${appVersion}).`);
 }
 
 const pipeline = readFileSync('apps/web/lib/content-pipeline.ts', 'utf8');
 for (const expected of ['NOOR_SOURCE_GOVERNANCE', 'source:audit', 'source:gate', 'noor-source-audit.json']) {
   if (!pipeline.includes(expected)) {
-    console.error(`content-pipeline.ts must include ${expected}.`);
-    process.exit(1);
+    fail(`content-pipeline.ts must include ${expected}.`);
   }
 }
 
 const settingsPage = readFileSync('apps/web/app/settings/page.tsx', 'utf8');
 if (!settingsPage.includes('SourceGovernanceCard')) {
-  console.error('Settings page must render the Sprint 17 Source Governance card.');
-  process.exit(1);
+  fail('Settings page must render the Sprint 17 Source Governance card.');
 }
 
 const auditScript = readFileSync('scripts/audit-noor-sources.mjs', 'utf8');
 for (const expected of ['--require-production', 'noor-source-audit.json', 'not-production-approved']) {
   if (!auditScript.includes(expected)) {
-    console.error(`audit-noor-sources.mjs must include ${expected}.`);
-    process.exit(1);
+    fail(`audit-noor-sources.mjs must include ${expected}.`);
   }
 }
 
@@ -65,28 +91,18 @@ const registry = JSON.parse(readFileSync('content-pipeline/source/noor-demo-v0.1
 const domains = new Set(registry.sources?.map((source) => source.domain));
 for (const domain of ['quran', 'tafseer', 'hadith']) {
   if (!domains.has(domain)) {
-    console.error(`Source registry must include ${domain} domain.`);
-    process.exit(1);
+    fail(`Source registry must include ${domain} domain.`);
   }
 }
 
 const notApproved = registry.sources.filter((source) => source.approvalStatus !== 'production-approved');
 if (notApproved.length === 0) {
-  console.error('Sprint 17 expects current demo sources to remain blocked from production.');
-  process.exit(1);
+  fail('Sprint 17 expects current demo sources to remain blocked from production.');
 }
 
 const ciWorkflow = readFileSync('.github/workflows/noor-ci.yml', 'utf8');
 if (!ciWorkflow.includes('pnpm source:audit') || !ciWorkflow.includes('pnpm check:source-audit')) {
-  console.error('NOOR CI must run source governance audit checks.');
-  process.exit(1);
+  fail('NOOR CI must run source governance audit checks.');
 }
 
-const changelog = readFileSync('CHANGELOG.md', 'utf8');
-const releaseNotes = readFileSync('RELEASE_NOTES.md', 'utf8');
-if (!changelog.includes('v0.17.0') || !releaseNotes.includes('v0.17.0')) {
-  console.error('Sprint 17 release metadata must mention v0.17.0.');
-  process.exit(1);
-}
-
-console.log('NOOR Sprint 17 source governance check passed.');
+console.log(`NOOR Sprint 17+ source governance check passed for v${appVersion}.`);

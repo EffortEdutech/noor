@@ -29,3 +29,6 @@ content-pipeline/promotion/
 
 # Generated NOOR source governance audit files. Regenerate with pnpm source:audit.
 content-pipeline/audit/
+
+# Generated NOOR roadmap status files. Regenerate with pnpm roadmap:status.
+content-pipeline/roadmap/

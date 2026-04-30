@@ -1,5 +1,17 @@
 # NOOR Release Notes
 
+## v0.18.0 — Sprint 18 Master roadmap and release control center
+
+Sprint 18 prevents roadmap confusion by making NOOR's completed work, current sprint and future production-content path visible in docs, Settings and CI.
+
+### Highlights
+
+- `apps/web/lib/roadmap.ts` defines completed, current and future sprint stages.
+- Settings now shows the Roadmap Control card.
+- `pnpm roadmap:status` generates `content-pipeline/roadmap/noor-roadmap-status.json` and `content-pipeline/roadmap/noor-roadmap-status.md`.
+- `pnpm check:roadmap` validates Sprint 18 metadata and generated roadmap outputs.
+- `docs/NOOR_MASTER_ROADMAP.md` documents the future sprint path from source intake to production CDN release candidate.
+
 ## v0.17.0 — Sprint 17 Source governance and production approval gate
 
 Sprint 17 adds the production safety layer before NOOR moves from demo content into real Quran, tafseer and hadith datasets.

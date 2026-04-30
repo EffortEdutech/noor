@@ -1,5 +1,14 @@
 # NOOR Changelog
 
+## v0.18.0 — Sprint 18 Master roadmap and release control center
+
+- Added `apps/web/lib/roadmap.ts` as the code-level master roadmap.
+- Added Settings Roadmap Control card.
+- Added `pnpm roadmap:status` to generate JSON and Markdown roadmap status outputs.
+- Added `pnpm check:roadmap` for local and CI validation.
+- Added master roadmap, Sprint 18 scope and local testing documentation.
+- Updated NOOR app version to v0.18.0.
+
 ## v0.17.0 — Sprint 17 Source governance and production approval gate
 
 - Added `pnpm source:audit`.

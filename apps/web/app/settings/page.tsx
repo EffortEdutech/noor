@@ -9,6 +9,7 @@ import { LocalBackupCard } from '../../components/LocalBackupCard';
 import { PwaStatusCard } from '../../components/PwaStatusCard';
 import { ReaderPreferencesPanel } from '../../components/ReaderPreferencesPanel';
 import { ReleaseNotesCard } from '../../components/ReleaseNotesCard';
+import { RoadmapControlCard } from '../../components/RoadmapControlCard';
 import { RuntimeContentSourceCard } from '../../components/RuntimeContentSourceCard';
 import { SourceGovernanceCard } from '../../components/SourceGovernanceCard';
 import { NOOR_APP_BUILD_LABEL, NOOR_APP_VERSION } from '../../lib/app-version';
@@ -27,7 +28,7 @@ export default async function SettingsPage() {
       <PageHeader
         kicker="Settings"
         title="NOOR foundation settings"
-        subtitle="Review runtime content source, CDN publishing, CDN smoke testing, CDN promotion handoff, source governance, data configuration, reader preferences, local backup, release notes, app version, content pipeline, install status, offline readiness and content integrity."
+        subtitle="Review roadmap control, runtime content source, CDN publishing, CDN smoke testing, CDN promotion handoff, source governance, data configuration, reader preferences, local backup, release notes, app version, content pipeline, install status, offline readiness and content integrity."
       />
 
       <NoorCard>
@@ -36,6 +37,7 @@ export default async function SettingsPage() {
         <p className="noor-subtitle">{NOOR_APP_BUILD_LABEL}</p>
       </NoorCard>
 
+      <RoadmapControlCard />
       <RuntimeContentSourceCard initialSource={contentSource} config={config} diagnostics={diagnostics} />
       <CdnPublishCard />
       <CdnSmokeTestCard />
