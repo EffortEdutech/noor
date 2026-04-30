@@ -5,40 +5,12 @@ export type NoorContentPipelineStep = {
   note: string;
 };
 
-export type NoorCdnPublishingStep = {
-  id: string;
-  label: string;
-  status: 'ready' | 'manual-gate' | 'future';
-  note: string;
-};
-
-export type NoorCdnSmokeStep = {
-  id: string;
-  label: string;
-  status: 'ready' | 'manual-gate' | 'future';
-  note: string;
-};
-
-export type NoorCdnPromotionStep = {
-  id: string;
-  label: string;
-  status: 'ready' | 'manual-gate' | 'future';
-  note: string;
-};
-
-export type NoorSourceGovernanceStep = {
-  id: string;
-  label: string;
-  status: 'ready' | 'manual-gate' | 'future';
-  note: string;
-};
-
-export type NoorSourceIntakeStep = {
-  id: string;
-  label: string;
-  status: 'ready' | 'manual-gate' | 'future';
-  note: string;
-};
+export type NoorCdnPublishingStep = NoorContentPipelineStep;
+export type NoorCdnSmokeStep = NoorContentPipelineStep;
+export type NoorCdnPromotionStep = NoorContentPipelineStep;
+export type NoorSourceGovernanceStep = NoorContentPipelineStep;
+export type NoorSourceIntakeStep = NoorContentPipelineStep;
+export type NoorQuranImporterStep = NoorContentPipelineStep;
 
 export const NOOR_CONTENT_PIPELINE = {
   version: '0.12.0',
@@ -53,7 +25,7 @@ export const NOOR_CONTENT_PIPELINE = {
     { id: 'cdn-layout', label: 'CDN folder layout', status: 'ready', note: 'Matches existing resolver paths for metadata, surah files, tafseer book files and hadith collections.' },
     { id: 'validation', label: 'Local validation scripts', status: 'ready', note: 'Checks manifest, source registry, surah counts, ayah keys, tafseer routes and hadith routes.' },
     { id: 'scholarly-gate', label: 'Scholarly and licensing gate', status: 'manual-gate', note: 'Required before any real Quran, tafseer or hadith dataset is labelled production.' },
-    { id: 'production-importers', label: 'Production importers', status: 'future', note: 'Next sprint can add import transformers for chosen verified source datasets.' }
+    { id: 'production-importers', label: 'Production importers', status: 'future', note: 'Quran adapter is now started in Sprint 20; tafseer and hadith adapters remain next.' }
   ] satisfies NoorContentPipelineStep[]
 };
 
@@ -83,20 +55,8 @@ export const NOOR_CDN_SMOKE_TESTING = {
   defaultLocalTarget: 'content-pipeline/publish/noor-cdn-gh-pages/noor-cdn',
   githubPagesBase: NOOR_CDN_PUBLISHING.githubPagesBase,
   jsDelivrBase: NOOR_CDN_PUBLISHING.jsDelivrBase,
-  commands: [
-    'pnpm cdn:pack',
-    'pnpm cdn:verify',
-    'pnpm cdn:smoke',
-    'pnpm cdn:smoke https://effortedutech.github.io/noor-cdn/noor-cdn'
-  ],
-  requiredResolverPaths: [
-    'manifest/noor-content-manifest.json',
-    'manifest/noor-content-health.json',
-    'metadata/surah-index.json',
-    'quran/surahs/001.json',
-    'tafseer/demo-tafseer/surahs/001.json',
-    'hadith/collections.json'
-  ],
+  commands: ['pnpm cdn:pack', 'pnpm cdn:verify', 'pnpm cdn:smoke', 'pnpm cdn:smoke https://effortedutech.github.io/noor-cdn/noor-cdn'],
+  requiredResolverPaths: ['manifest/noor-content-manifest.json', 'manifest/noor-content-health.json', 'metadata/surah-index.json', 'quran/surahs/001.json', 'tafseer/demo-tafseer/surahs/001.json', 'hadith/collections.json'],
   steps: [
     { id: 'local-pack-smoke', label: 'Local publish pack smoke test', status: 'ready', note: 'Validates the generated publish folder before it is copied to the data/CDN repository.' },
     { id: 'external-url-smoke', label: 'External CDN URL smoke test', status: 'ready', note: 'Accepts a GitHub Pages or jsDelivr base URL and checks all required resolver files over HTTP.' },
@@ -114,18 +74,8 @@ export const NOOR_CDN_PROMOTION = {
   generatedEnvFile: 'content-pipeline/promotion/noor-cdn.env.local',
   generatedPromotionFile: 'content-pipeline/promotion/noor-cdn-promotion.json',
   generatedChecklistFile: 'content-pipeline/promotion/noor-cdn-promotion-checklist.md',
-  commands: [
-    'pnpm cdn:smoke <published-cdn-base>',
-    'pnpm cdn:promote <published-cdn-base>',
-    'pnpm check:cdn-promotion'
-  ],
-  envKeys: [
-    'NEXT_PUBLIC_NOOR_DATA_MODE',
-    'NEXT_PUBLIC_NOOR_MANIFEST_CDN_BASE',
-    'NEXT_PUBLIC_NOOR_QURAN_CDN_BASE',
-    'NEXT_PUBLIC_NOOR_TAFSEER_CDN_BASE',
-    'NEXT_PUBLIC_NOOR_HADITH_CDN_BASE'
-  ],
+  commands: ['pnpm cdn:smoke <published-cdn-base>', 'pnpm cdn:promote <published-cdn-base>', 'pnpm check:cdn-promotion'],
+  envKeys: ['NEXT_PUBLIC_NOOR_DATA_MODE', 'NEXT_PUBLIC_NOOR_MANIFEST_CDN_BASE', 'NEXT_PUBLIC_NOOR_QURAN_CDN_BASE', 'NEXT_PUBLIC_NOOR_TAFSEER_CDN_BASE', 'NEXT_PUBLIC_NOOR_HADITH_CDN_BASE'],
   steps: [
     { id: 'smoke-first', label: 'Smoke first', status: 'manual-gate', note: 'Run pnpm cdn:smoke against the published URL before generating promotion files.' },
     { id: 'generate-env', label: 'Generate .env handoff', status: 'ready', note: 'cdn:promote writes a copy-pasteable .env.local template using one shared CDN base.' },
@@ -142,20 +92,9 @@ export const NOOR_SOURCE_GOVERNANCE = {
   auditRoot: 'content-pipeline/audit',
   generatedAuditFile: 'content-pipeline/audit/noor-source-audit.json',
   generatedAuditMarkdown: 'content-pipeline/audit/noor-source-audit.md',
-  commands: [
-    'pnpm source:audit',
-    'pnpm check:source-audit',
-    'pnpm source:gate'
-  ],
+  commands: ['pnpm source:audit', 'pnpm check:source-audit', 'pnpm source:gate'],
   requiredDomains: ['quran', 'tafseer', 'hadith'],
-  productionRequirements: [
-    'Verified canonical/source text',
-    'Clear redistribution license or written permission',
-    'Attribution wording approved',
-    'Import transform checked against source sample',
-    'Content validator passes after import',
-    'Scholar/reviewer sign-off recorded'
-  ],
+  productionRequirements: ['Verified canonical/source text', 'Clear redistribution license or written permission', 'Attribution wording approved', 'Import transform checked against source sample', 'Content validator passes after import', 'Scholar/reviewer sign-off recorded'],
   steps: [
     { id: 'domain-coverage', label: 'Domain coverage', status: 'ready', note: 'Audit confirms Quran, tafseer and hadith source records exist before any promotion discussion.' },
     { id: 'demo-block', label: 'Demo content production block', status: 'ready', note: 'Current demo sources remain explicitly marked demo-only and not-production-approved.' },
@@ -175,25 +114,32 @@ export const NOOR_SOURCE_INTAKE = {
   generatedAuditMarkdown: 'content-pipeline/source-intake/audit/noor-source-intake-audit.md',
   commands: ['pnpm source:intake', 'pnpm check:source-intake', 'pnpm source:gate'],
   requiredDomains: ['quran', 'tafseer', 'hadith'],
-  requiredFields: [
-    'id',
-    'domain',
-    'title',
-    'language',
-    'sourceType',
-    'sourceUrl',
-    'licenseStatus',
-    'attributionText',
-    'reviewerRequired',
-    'approvalStatus',
-    'importReadiness'
-  ],
+  requiredFields: ['id', 'domain', 'title', 'language', 'sourceType', 'sourceUrl', 'licenseStatus', 'attributionText', 'reviewerRequired', 'approvalStatus', 'importReadiness'],
   steps: [
     { id: 'quran-template', label: 'Quran intake template', status: 'ready', note: 'Captures canonical text source, translation source, license notes, attribution and reviewer requirements before importer work.' },
     { id: 'tafseer-template', label: 'Tafseer intake template', status: 'ready', note: 'Captures tafseer book, author/translator, source route, license and scholarly review requirements.' },
     { id: 'hadith-template', label: 'Hadith intake template', status: 'ready', note: 'Captures collection, grading/source metadata, source route, license and reviewer requirements.' },
     { id: 'candidate-registry', label: 'Candidate source registry', status: 'ready', note: 'Keeps real source candidates separate from the demo CDN registry until approval.' },
     { id: 'production-approval', label: 'Production approval', status: 'manual-gate', note: 'No candidate can become production-approved without license, attribution, checksum/import plan and reviewer sign-off.' },
-    { id: 'import-adapters', label: 'Importer adapters', status: 'future', note: 'Sprint 20 can begin Quran importer adapter work after candidate records are complete.' }
+    { id: 'import-adapters', label: 'Importer adapters', status: 'future', note: 'Sprint 20 begins Quran importer adapter work with a non-production fixture.' }
   ] satisfies NoorSourceIntakeStep[]
+};
+
+export const NOOR_QURAN_IMPORTER = {
+  version: '0.20.0',
+  label: 'Sprint 20 — Quran importer adapter v1',
+  adapterId: 'noor-quran-importer-v1',
+  sampleSource: 'content-pipeline/importers/quran/samples/quran-import-sample.json',
+  outputRoot: 'content-pipeline/imported/quran-v0.20/noor-cdn',
+  generatedReport: 'content-pipeline/imported/quran-v0.20/noor-cdn/manifest/noor-quran-import-report.json',
+  generatedAuditMarkdown: 'content-pipeline/imported/quran-v0.20/audit/noor-quran-import-audit.md',
+  commands: ['pnpm quran:import', 'pnpm check:quran-import', 'pnpm check:pack'],
+  productionGate: ['Selected Quran source candidate exists in source intake registry', 'License is approved for redistribution', 'Attribution wording is recorded', 'Canonical text checksum/import plan is recorded', 'Reviewer sign-off is recorded', 'Adapter output passes count, key and route validation'],
+  steps: [
+    { id: 'adapter-contract', label: 'Importer contract', status: 'ready', note: 'Normalizes a structured Quran source JSON into NOOR CDN-style surah index and per-surah files.' },
+    { id: 'fixture-import', label: 'Fixture import', status: 'ready', note: 'Imports existing NOOR demo Quran records as a non-production adapter fixture.' },
+    { id: 'count-validation', label: 'Count and key validation', status: 'ready', note: 'Checks surah numbers, ayah counts, unique keys and required translations before writing output.' },
+    { id: 'source-gate', label: 'Source governance gate', status: 'manual-gate', note: 'Output report remains blocked from production because the Quran source candidate is still not approved.' },
+    { id: 'production-quran-source', label: 'Production Quran source', status: 'future', note: 'Replace the fixture with a verified Quran source only after license, attribution and reviewer sign-off are complete.' }
+  ] satisfies NoorQuranImporterStep[]
 };

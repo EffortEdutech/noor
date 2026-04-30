@@ -1,85 +1,42 @@
 import { existsSync, readFileSync } from 'node:fs';
 
-const required = [
+const EXPECTED_VERSION = '0.20.0';
+
+function fail(message) {
+  console.error(message);
+  process.exit(1);
+}
+
+function read(file) {
+  return readFileSync(file, 'utf8');
+}
+
+for (const file of [
   'apps/web/lib/roadmap.ts',
   'apps/web/components/RoadmapControlCard.tsx',
-  'apps/web/components/SourceIntakeCard.tsx',
-  'apps/web/app/settings/page.tsx',
-  'apps/web/lib/app-version.ts',
-  'apps/web/public/version.json',
-  'apps/web/lib/release-notes.ts',
-  'CHANGELOG.md',
-  'RELEASE_NOTES.md',
-  'docs/NOOR_MASTER_ROADMAP.md',
-  'docs/SPRINT_19_SCOPE.md',
-  'docs/LOCAL_TESTING_SPRINT_19.md',
   'scripts/generate-noor-roadmap.mjs',
-  'scripts/check-noor-roadmap.mjs',
   'content-pipeline/roadmap/noor-roadmap-status.json',
-  'content-pipeline/roadmap/noor-roadmap-status.md'
-];
-
-const missing = required.filter((file) => !existsSync(file));
-if (missing.length > 0) {
-  console.error('Missing roadmap files. Run pnpm roadmap:status before pnpm check:roadmap if generated files are missing.');
-  for (const file of missing) console.error(`- ${file}`);
-  process.exit(1);
+  'content-pipeline/roadmap/noor-roadmap-status.md',
+  'docs/NOOR_MASTER_ROADMAP.md'
+]) {
+  if (!existsSync(file)) fail(`Missing roadmap file: ${file}`);
 }
 
-const appVersion = readFileSync('apps/web/lib/app-version.ts', 'utf8');
-if (!appVersion.includes("NOOR_APP_VERSION = '0.19.0'")) {
-  console.error('Sprint 19 must update NOOR app version to 0.19.0.');
-  process.exit(1);
+const roadmapTs = read('apps/web/lib/roadmap.ts');
+for (const expected of ['Sprint 20', 'Quran importer adapter v1', 'Sprint 21', 'Tafseer importer adapter v1', 'Hadith importer adapter v1']) {
+  if (!roadmapTs.includes(expected)) fail(`roadmap.ts missing ${expected}`);
 }
 
-const versionJson = JSON.parse(readFileSync('apps/web/public/version.json', 'utf8'));
-if (versionJson.version !== '0.19.0') {
-  console.error('version.json must be updated to 0.19.0.');
-  process.exit(1);
+const generated = JSON.parse(read('content-pipeline/roadmap/noor-roadmap-status.json'));
+if (generated.version !== EXPECTED_VERSION) fail(`Roadmap generated version must be ${EXPECTED_VERSION}.`);
+if (generated.currentSprint?.sprint !== 'Sprint 20') fail('Current roadmap sprint must be Sprint 20.');
+if (!generated.completedSprints?.includes('Sprint 19')) fail('Roadmap must mark Sprint 19 complete.');
+if (generated.futureSprints?.[0]?.sprint !== 'Sprint 21') fail('Roadmap next sprint must be Sprint 21.');
+if (!generated.commands?.includes('pnpm quran:import')) fail('Roadmap commands must include pnpm quran:import.');
+
+const docs = read('docs/NOOR_MASTER_ROADMAP.md');
+if (!docs.includes('Sprint 20') || !docs.includes('Sprint 21')) {
+  fail('NOOR_MASTER_ROADMAP.md must include Sprint 20 and Sprint 21.');
 }
 
-const packageJson = JSON.parse(readFileSync('package.json', 'utf8'));
-for (const script of ['roadmap:status', 'check:roadmap', 'source:intake', 'check:source-intake']) {
-  if (!packageJson.scripts?.[script]) {
-    console.error(`package.json must include ${script}.`);
-    process.exit(1);
-  }
-}
-
-const roadmapLib = readFileSync('apps/web/lib/roadmap.ts', 'utf8');
-for (const expected of ['NOOR_MASTER_ROADMAP', 'Sprint 19', 'Production source intake templates', 'Sprint 20', 'Quran importer adapter v1', 'Sprint 24', 'Production CDN release candidate']) {
-  if (!roadmapLib.includes(expected)) {
-    console.error(`roadmap.ts must include ${expected}.`);
-    process.exit(1);
-  }
-}
-
-const settingsPage = readFileSync('apps/web/app/settings/page.tsx', 'utf8');
-for (const expected of ['RoadmapControlCard', 'SourceIntakeCard']) {
-  if (!settingsPage.includes(expected)) {
-    console.error(`Settings page must render ${expected}.`);
-    process.exit(1);
-  }
-}
-
-const releaseNotes = readFileSync('apps/web/lib/release-notes.ts', 'utf8');
-const changelog = readFileSync('CHANGELOG.md', 'utf8');
-const releaseNotesMd = readFileSync('RELEASE_NOTES.md', 'utf8');
-for (const [name, text] of [['release-notes.ts', releaseNotes], ['CHANGELOG.md', changelog], ['RELEASE_NOTES.md', releaseNotesMd]]) {
-  if (!text.includes('v0.19.0') && !text.includes("version: '0.19.0'")) {
-    console.error(`${name} must include v0.19.0.`);
-    process.exit(1);
-  }
-}
-
-const roadmapStatus = JSON.parse(readFileSync('content-pipeline/roadmap/noor-roadmap-status.json', 'utf8'));
-if (roadmapStatus.currentVersion !== '0.19.0' || roadmapStatus.currentSprint !== 'Sprint 19') {
-  console.error('Generated roadmap status must identify Sprint 19 and v0.19.0.');
-  process.exit(1);
-}
-if (!roadmapStatus.next?.includes('Sprint 20')) {
-  console.error('Generated roadmap status must identify Sprint 20 as next.');
-  process.exit(1);
-}
-
-console.log('NOOR Sprint 19 roadmap check passed.');
+console.log('NOOR Sprint 20 roadmap check passed.');

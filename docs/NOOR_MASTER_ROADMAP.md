@@ -1,115 +1,73 @@
 # NOOR Master Blueprint & Roadmap
 
-**Current version:** v0.19.0  
-**Current sprint:** Sprint 19 — Production source intake templates  
-**Local port:** 3200  
-**Repository:** `https://github.com/EffortEdutech/noor`
+Version: v0.20.0  
+Current sprint: Sprint 20 — Quran importer adapter v1
 
----
+## Current Phase
 
-## 1. Roadmap purpose
+Phase 3 — Production content pipeline and source governance.
 
-This document is the control document for NOOR after the Ilm-Mate replacement foundation. It keeps the team aligned on what has already been completed, what sprint is active now, and which future sprints are planned before real production Quran, tafseer and hadith content can be promoted.
+## Completed Foundation
 
-NOOR is still local-first and zero-budget by default. Production content work must remain gated by source licensing, attribution and scholarly/reviewer sign-off.
+NOOR has completed the zero-budget foundation:
 
----
+1. app shell and design system,
+2. Quran reader foundation,
+3. journeys and progress,
+4. Studio reminders,
+5. PWA install/update support,
+6. local content validation,
+7. release metadata,
+8. runtime CDN mode,
+9. zero-budget CDN publish/smoke/promotion flow,
+10. source governance,
+11. roadmap control,
+12. production source intake templates.
 
-## 2. Completed foundation
+## Sprint 20 Current Work
 
-| Stage | Status | Summary |
-| --- | --- | --- |
-| Sprint 0-2 | Complete | Repo foundation, app shell, design system and Quran/Tafseer/Hadith data contracts. |
-| Sprint 3-8 | Complete | Core reader, search, journeys, studio, PWA/offline shell and content integrity checks. |
-| Sprint 9-11 | Complete | Reader preferences, local backup/reset, release automation, changelog and CI. |
-| Sprint 12-17 | Complete | Content pipeline, runtime CDN mode, zero-budget CDN publish pack, smoke testing, promotion handoff and source governance gate. |
-| Sprint 18 | Complete | Master roadmap, roadmap status generator and Settings Roadmap Control card. |
+Sprint 20 creates the first Quran importer adapter.
 
----
+This sprint is deliberately not a production content sprint. It is an adapter and governance sprint.
 
-## 3. Current sprint
+### Deliverables
 
-### Sprint 19 — Production source intake templates
+- Quran import adapter
+- Quran import validation
+- generated CDN-style Quran output
+- generated import audit
+- Settings Quran Import card
+- release v0.20.0
+- roadmap status update
 
-Objective: create structured source intake records before the first real importer is built.
+## Sprint 21 Next Work
 
-Sprint 19 adds:
+Sprint 21 — Quran production source selection gate.
 
-- Quran source intake template.
-- Tafseer source intake template.
-- Hadith source intake template.
-- Candidate source registry under `content-pipeline/source-intake/noor-source-candidates.json`.
-- Source intake schema under `content-pipeline/schemas/noor-source-intake.schema.json`.
-- `pnpm source:intake` validation and audit generation.
-- `pnpm check:source-intake` local/CI check.
-- Settings Source Intake card.
+Goal:
 
-This sprint does **not** approve production sources and does **not** import real Quran, tafseer or hadith content yet.
+- evaluate the real Quran source candidate,
+- confirm license and attribution,
+- record checksum/import plan,
+- define reviewer sign-off path,
+- decide whether production Quran import can proceed or must remain blocked.
 
----
+## Future Sprint Plan
 
-## 4. Future sprint plan
+| Sprint | Focus |
+|---|---|
+| Sprint 21 | Quran production source selection gate |
+| Sprint 22 | Tafseer importer adapter v1 |
+| Sprint 23 | Hadith importer adapter v1 |
+| Sprint 24 | Scholarly review console |
+| Sprint 25 | Production CDN v1 promotion |
 
-| Sprint | Version | Target | Purpose |
-| --- | --- | --- | --- |
-| Sprint 20 | v0.20.0 | Quran importer adapter v1 | Normalize the first approved Quran source into NOOR CDN format. |
-| Sprint 21 | v0.21.0 | Tafseer importer adapter v1 | Normalize approved tafseer source files into NOOR tafseer route format. |
-| Sprint 22 | v0.22.0 | Hadith importer adapter v1 | Normalize approved hadith source files into collection route format. |
-| Sprint 23 | v0.23.0 | Scholarly review workflow | Generate reviewer checklists and approval records linked to the source registry. |
-| Sprint 24 | v0.24.0 | Production CDN release candidate | Package the first approved production-content CDN release candidate. |
-| Sprint 25 | v0.25.0 | Learner accounts and sync planning | Plan optional Supabase sync while keeping local-first mode. |
-
----
-
-## 5. Current control commands
-
-Run these after applying Sprint 19:
+## Command Set
 
 ```bash
-pnpm install
-pnpm source:intake
-pnpm check:source-intake
 pnpm roadmap:status
+pnpm quran:import
+pnpm check:quran-import
 pnpm check:roadmap
 pnpm check:pack
-pnpm check:content
-pnpm check:release
-pnpm check:runtime
-pnpm content:validate
-pnpm content:prepare
-pnpm cdn:pack
-pnpm cdn:verify
-pnpm check:cdn-smoke
-pnpm cdn:promote
-pnpm check:cdn-promotion
-pnpm source:audit
-pnpm check:source-audit
-pnpm typecheck
-pnpm build
 ```
-
-`pnpm source:gate` should still fail until real sources are reviewed and approved.
-
----
-
-## 6. Production content guardrails
-
-1. Demo content remains blocked from production.
-2. Candidate sources must remain separate from the existing demo CDN source registry.
-3. No source can be promoted without license, attribution, checksum/import plan and reviewer sign-off.
-4. Importers must not rewrite or guess religious content.
-5. Every future sprint must update version, release notes, docs, Settings card and validation checks.
-
----
-
-## 7. Sprint 20 readiness
-
-Sprint 20 can begin once the Quran candidate record has at least:
-
-- Source URL or internal source file path.
-- License/permission decision.
-- Attribution wording.
-- Checksum/import plan.
-- Reviewer role assigned.
-- Import format notes.
-

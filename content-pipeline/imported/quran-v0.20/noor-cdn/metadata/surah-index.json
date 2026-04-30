@@ -1,0 +1,49 @@
+{
+  "version": "0.20.0",
+  "generatedAt": "2026-04-30T14:36:12.205Z",
+  "sourceCandidateId": "quran-production-candidate-placeholder",
+  "sourceLabel": "NOOR Quran importer fixture",
+  "productionReady": false,
+  "surahs": [
+    {
+      "number": 1,
+      "slug": "al-fatihah",
+      "nameArabic": "الفاتحة",
+      "nameTransliteration": "Al-Fatihah",
+      "nameEnglish": "The Opening",
+      "revelation": "makki",
+      "ayahCount": 7,
+      "route": "quran/surahs/001.json"
+    },
+    {
+      "number": 112,
+      "slug": "al-ikhlas",
+      "nameArabic": "الإخلاص",
+      "nameTransliteration": "Al-Ikhlas",
+      "nameEnglish": "Sincerity",
+      "revelation": "makki",
+      "ayahCount": 4,
+      "route": "quran/surahs/112.json"
+    },
+    {
+      "number": 113,
+      "slug": "al-falaq",
+      "nameArabic": "الفلق",
+      "nameTransliteration": "Al-Falaq",
+      "nameEnglish": "The Daybreak",
+      "revelation": "makki",
+      "ayahCount": 5,
+      "route": "quran/surahs/113.json"
+    },
+    {
+      "number": 114,
+      "slug": "an-nas",
+      "nameArabic": "الناس",
+      "nameTransliteration": "An-Nas",
+      "nameEnglish": "Mankind",
+      "revelation": "makki",
+      "ayahCount": 6,
+      "route": "quran/surahs/114.json"
+    }
+  ]
+}

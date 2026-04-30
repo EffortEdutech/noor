@@ -1,13 +1,13 @@
 name: NOOR CI
 
 on:
-  pull_request:
-    branches: [main]
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
 
 jobs:
-  validate:
+  noor-checks:
     name: Validate NOOR app
     runs-on: ubuntu-latest
 
@@ -23,26 +23,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: Check pack structure
-        run: pnpm check:pack
+      - name: Validate content source
+        run: pnpm content:validate
 
-      - name: Check content integrity
-        run: pnpm check:content
-
-      - name: Check release metadata
-        run: pnpm check:release
-
-      - name: Check runtime content source
-        run: pnpm check:runtime
-
-      - name: Check CDN publishing metadata
-        run: pnpm check:cdn-publish
+      - name: Prepare CDN content
+        run: pnpm content:prepare
 
       - name: Build CDN publish pack
         run: pnpm cdn:pack
@@ -51,7 +42,7 @@ jobs:
         run: pnpm cdn:verify
 
       - name: Smoke test CDN publish pack
-        run: pnpm check:cdn-smoke
+        run: pnpm cdn:smoke
 
       - name: Generate CDN promotion handoff
         run: pnpm cdn:promote
@@ -71,8 +62,32 @@ jobs:
       - name: Check source intake
         run: pnpm check:source-intake
 
+      - name: Import Quran sample source
+        run: pnpm quran:import
+
+      - name: Check Quran importer
+        run: pnpm check:quran-import
+
       - name: Generate roadmap status
         run: pnpm roadmap:status
+
+      - name: Check NOOR pack structure
+        run: pnpm check:pack
+
+      - name: Check content integrity
+        run: pnpm check:content
+
+      - name: Check release metadata
+        run: pnpm check:release
+
+      - name: Check runtime content source
+        run: pnpm check:runtime
+
+      - name: Check CDN publishing metadata
+        run: pnpm check:cdn-publish
+
+      - name: Check CDN smoke metadata
+        run: pnpm check:cdn-smoke
 
       - name: Check roadmap status
         run: pnpm check:roadmap

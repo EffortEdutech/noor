@@ -21,6 +21,7 @@
     "check:cdn-promotion": "node scripts/check-noor-cdn-promotion.mjs",
     "check:source-audit": "node scripts/check-noor-source-audit.mjs",
     "check:source-intake": "node scripts/check-noor-source-intake.mjs",
+    "check:quran-import": "node scripts/check-noor-quran-import.mjs",
     "check:roadmap": "node scripts/check-noor-roadmap.mjs",
     "content:validate": "node scripts/validate-noor-cdn.mjs",
     "content:prepare": "node scripts/prepare-noor-cdn.mjs",
@@ -31,6 +32,7 @@
     "source:audit": "node scripts/audit-noor-sources.mjs",
     "source:gate": "node scripts/audit-noor-sources.mjs --require-production",
     "source:intake": "node scripts/validate-noor-source-intake.mjs",
+    "quran:import": "node scripts/import-noor-quran.mjs",
     "roadmap:status": "node scripts/generate-noor-roadmap.mjs",
     "release:bump": "node scripts/bump-noor-version.mjs"
   },

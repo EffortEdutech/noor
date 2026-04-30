@@ -8,6 +8,20 @@ export type NoorReleaseNote = {
 
 export const NOOR_RELEASE_NOTES: NoorReleaseNote[] = [
   {
+    version: '0.20.0',
+    date: '2026-04-30',
+    title: 'Sprint 20 — Quran importer adapter v1',
+    summary:
+      'Adds the first Quran import adapter path using a non-production fixture, generated CDN-style output, audit report and production gate checks.',
+    highlights: [
+      'quran:import command to normalize Quran fixture data into NOOR CDN-style routes',
+      'check:quran-import command to validate output counts, ayah keys, source gate and generated audit files',
+      'Settings Quran Import card showing adapter status and production gate',
+      'Generated import report, surah index and per-surah JSON output under content-pipeline/imported',
+      'Production Quran import remains blocked until license, attribution and reviewer sign-off are complete'
+    ]
+  },
+  {
     version: '0.19.0',
     date: '2026-04-30',
     title: 'Sprint 19 — Production source intake templates',
@@ -47,126 +61,6 @@ export const NOOR_RELEASE_NOTES: NoorReleaseNote[] = [
       'check:source-audit command for local and CI validation',
       'Settings Source Governance card with registry, audit outputs and gate commands',
       'Documentation for production approval rules before real content import'
-    ]
-  },
-  {
-    version: '0.16.0',
-    date: '2026-04-30',
-    title: 'Sprint 16 — CDN promotion bundle and environment handoff',
-    summary:
-      'Adds a repeatable handoff step after CDN smoke testing so a verified CDN base can be converted into local or Vercel environment values safely.',
-    highlights: [
-      'cdn:promote command to generate promotion JSON, .env.local handoff and checklist files',
-      'check:cdn-promotion command for local and CI validation',
-      'Settings CDN Promotion card with environment keys and generated file paths',
-      'CI update for promotion metadata and handoff validation',
-      'Documentation for local and Vercel external CDN promotion'
-    ]
-  },
-  {
-    version: '0.15.0',
-    date: '2026-04-30',
-    title: 'Sprint 15 — CDN smoke testing and promotion gate',
-    summary:
-      'Adds local and remote CDN smoke testing so NOOR content can be verified before switching runtime mode to an external CDN.',
-    highlights: [
-      'cdn:smoke command to verify the generated local publish pack',
-      'Remote URL smoke testing for GitHub Pages or jsDelivr CDN bases',
-      'Settings CDN smoke testing card with required resolver paths',
-      'CI check for CDN smoke validation after cdn:pack and cdn:verify',
-      'Documentation for the external CDN promotion gate'
-    ]
-  },
-  {
-    version: '0.14.0',
-    date: '2026-04-30',
-    title: 'Sprint 14 — Zero-budget CDN publish pack',
-    summary:
-      'Adds a repeatable local CDN publish pack so NOOR content can be copied to a separate zero-budget GitHub Pages or jsDelivr data repository.',
-    highlights: [
-      'cdn:pack command to generate a publish-ready noor-cdn folder',
-      'cdn:verify command with required resolver path and SHA-256 checks',
-      'Settings CDN publishing card with GitHub Pages and jsDelivr target bases',
-      'Sprint 14 CDN deployment documentation',
-      'CI and local checks updated for runtime and CDN publishing validation'
-    ]
-  },
-  {
-    version: '0.13.0',
-    date: '2026-04-30',
-    title: 'Sprint 13 — Runtime CDN mode and source switching',
-    summary:
-      'Adds runtime content source switching so NOOR can move safely between bundled mock content, local prepared CDN files and configured external CDN endpoints.',
-    highlights: [
-      'Runtime source modes: mock, local-cdn and cdn',
-      'Settings source switcher with cookie-based persistence',
-      'Resolver diagnostics for manifest, Quran, Tafseer and Hadith endpoints',
-      'Quran, Tafseer, Hadith and Settings pages now use the selected runtime content source',
-      'Fallback-safe fetch behavior when CDN endpoints are unavailable'
-    ]
-  },
-  {
-    version: '0.12.0',
-    date: '2026-04-30',
-    title: 'Sprint 12 — Production content pipeline and CDN source preparation',
-    summary:
-      'Adds the first repeatable source-to-CDN content preparation path, with local validation, source registry, CDN-ready folder structure and Settings visibility.',
-    highlights: [
-      'CDN-ready content-pipeline/source folder using existing demo Quran, tafseer and hadith records',
-      'Source registry and production gate checklist for licensing and scholarly review',
-      'content:validate and content:prepare commands',
-      'Local /noor-cdn public output for resolver testing',
-      'Settings content pipeline card'
-    ]
-  },
-  {
-    version: '0.11.0',
-    date: '2026-04-30',
-    title: 'Sprint 11 — Release automation and changelog center',
-    summary:
-      'Adds CI checks, GitHub release automation, local release validation, visible changelog and a repeatable version bump command.',
-    highlights: [
-      'GitHub Actions CI for pack, content, release, typecheck and build checks',
-      'Automatic GitHub release creation when a new version is pushed to main',
-      'Changelog page and Settings release card',
-      'Local check:release command to verify version metadata before push',
-      'release:bump helper for future version updates'
-    ]
-  },
-  {
-    version: '0.10.0',
-    date: '2026-04-29',
-    title: 'Sprint 10 — Local backup restore and reset center',
-    summary:
-      'Added export, copy, import and clear-local-data tools so local progress can be preserved before testing or deployment.',
-    highlights: [
-      'Backup and restore card in Settings',
-      'JSON export and clipboard copy',
-      'Local reset flow for bookmarks, progress, preferences and search history'
-    ]
-  },
-  {
-    version: '0.9.0',
-    date: '2026-04-29',
-    title: 'Sprint 9 — Reader preferences and Quran study controls',
-    summary:
-      'Added reader preferences for translation mode, Arabic size, transliteration, tafseer notes and focus mode.',
-    highlights: [
-      'Reader preference panel in Quran reader and Settings',
-      'Local persistence of study controls',
-      'English/Malay translation display modes'
-    ]
-  },
-  {
-    version: '0.8.0',
-    date: '2026-04-29',
-    title: 'Sprint 8 — Content integrity and expanded demo content',
-    summary:
-      'Added content manifest, integrity checks, Settings health card and expanded demo Quran content.',
-    highlights: [
-      'Content health report',
-      'check:content command',
-      'Demo content for Al-Fatihah, Al-Ikhlas, Al-Falaq and An-Nas'
     ]
   }
 ];

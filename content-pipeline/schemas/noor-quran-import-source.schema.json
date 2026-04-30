@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://noor.local/schemas/noor-quran-import-source.schema.json",
+  "title": "NOOR Quran Import Source",
+  "type": "object",
+  "required": [
+    "id",
+    "version",
+    "adapter",
+    "sourceCandidateId",
+    "licenseStatus",
+    "attributionText",
+    "productionApproved",
+    "reviewerSignoff",
+    "surahs"
+  ]
+}

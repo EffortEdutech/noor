@@ -1,0 +1,50 @@
+{
+  "version": "0.20.0",
+  "adapterId": "noor-quran-importer-v1",
+  "generatedAt": "2026-04-30T14:36:12.205Z",
+  "sourceId": "noor-quran-import-fixture-v0.20",
+  "sourceCandidateId": "quran-production-candidate-placeholder",
+  "sourceLabel": "NOOR Quran importer fixture",
+  "sourceStatus": "adapter-fixture",
+  "productionReady": false,
+  "productionGate": {
+    "status": "blocked",
+    "reasons": [
+      "candidate-not-production-approved",
+      "license-not-approved",
+      "source-fixture-not-production-approved",
+      "reviewer-signoff-missing"
+    ]
+  },
+  "importedSurahCount": 4,
+  "importedAyahCount": 22,
+  "routes": [
+    "metadata/surah-index.json",
+    "quran/surahs/001.json",
+    "quran/surahs/112.json",
+    "quran/surahs/113.json",
+    "quran/surahs/114.json"
+  ],
+  "files": [
+    {
+      "path": "metadata/surah-index.json",
+      "sha256": "dc7adb3c9a27b32d20dfb456ba8013a478d19389f5e374110122dcaf849c0132"
+    },
+    {
+      "path": "quran/surahs/001.json",
+      "sha256": "d35df59bfe78e6e8b19edd0568f156e51bf6a9d858898a83adc824826b61b474"
+    },
+    {
+      "path": "quran/surahs/112.json",
+      "sha256": "ec81eda1105bb51dba0e6414edd48ad874e548fe811c9971762deb508ab582c3"
+    },
+    {
+      "path": "quran/surahs/113.json",
+      "sha256": "580a9f5f679f5f760b8000a55949b4b819dfa16327dac63f6840d52a402749d9"
+    },
+    {
+      "path": "quran/surahs/114.json",
+      "sha256": "295367a56d541c8fdf4662390b28b4e193a21c0f139f6f2a243794242e7c6163"
+    }
+  ]
+}

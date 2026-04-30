@@ -1,0 +1,239 @@
+{
+  "id": "noor-quran-import-fixture-v0.20",
+  "version": "0.20.0",
+  "adapter": "noor-quran-importer-v1",
+  "status": "adapter-fixture",
+  "sourceCandidateId": "quran-production-candidate-placeholder",
+  "sourceLabel": "NOOR Quran importer fixture",
+  "sourceType": "quran-import-fixture",
+  "licenseStatus": "fixture-only",
+  "attributionText": "Fixture compiled from existing NOOR demo content for adapter validation only. Not a production source.",
+  "productionApproved": false,
+  "reviewerSignoff": false,
+  "notes": [
+    "Sprint 20 proves the importer adapter and output contract only.",
+    "Production Quran import remains blocked until a verified source is licensed, attributed, checksummed and reviewed."
+  ],
+  "surahs": [
+    {
+      "number": 1,
+      "slug": "al-fatihah",
+      "nameArabic": "الفاتحة",
+      "nameTransliteration": "Al-Fatihah",
+      "nameEnglish": "The Opening",
+      "revelation": "makki",
+      "ayahCount": 7,
+      "ayahs": [
+        {
+          "ayah": 1,
+          "arabic": "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+          "translations": {
+            "en": "In the name of Allah, the Most Compassionate, the Most Merciful.",
+            "ms": "Dengan nama Allah Yang Maha Pemurah lagi Maha Penyayang."
+          }
+        },
+        {
+          "ayah": 2,
+          "arabic": "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
+          "translations": {
+            "en": "All praise is for Allah, Lord of all worlds.",
+            "ms": "Segala puji bagi Allah, Tuhan seluruh alam."
+          }
+        },
+        {
+          "ayah": 3,
+          "arabic": "الرَّحْمَٰنِ الرَّحِيمِ",
+          "translations": {
+            "en": "The Most Compassionate, the Most Merciful.",
+            "ms": "Yang Maha Pemurah lagi Maha Penyayang."
+          }
+        },
+        {
+          "ayah": 4,
+          "arabic": "مَالِكِ يَوْمِ الدِّينِ",
+          "translations": {
+            "en": "Master of the Day of Recompense.",
+            "ms": "Pemilik Hari Pembalasan."
+          }
+        },
+        {
+          "ayah": 5,
+          "arabic": "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ",
+          "translations": {
+            "en": "You alone we worship, and You alone we ask for help.",
+            "ms": "Hanya kepada-Mu kami menyembah dan hanya kepada-Mu kami memohon pertolongan."
+          }
+        },
+        {
+          "ayah": 6,
+          "arabic": "اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ",
+          "translations": {
+            "en": "Guide us to the straight path.",
+            "ms": "Tunjukilah kami jalan yang lurus."
+          }
+        },
+        {
+          "ayah": 7,
+          "arabic": "صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
+          "translations": {
+            "en": "The path of those You have blessed, not of those who incur anger, nor of those who are astray.",
+            "ms": "Jalan orang-orang yang telah Engkau beri nikmat, bukan jalan mereka yang dimurkai dan bukan pula mereka yang sesat."
+          }
+        }
+      ]
+    },
+    {
+      "number": 112,
+      "slug": "al-ikhlas",
+      "nameArabic": "الإخلاص",
+      "nameTransliteration": "Al-Ikhlas",
+      "nameEnglish": "Sincerity",
+      "revelation": "makki",
+      "ayahCount": 4,
+      "ayahs": [
+        {
+          "ayah": 1,
+          "arabic": "قُلْ هُوَ اللَّهُ أَحَدٌ",
+          "translations": {
+            "en": "Say, He is Allah, One.",
+            "ms": "Katakanlah: Dialah Allah Yang Maha Esa."
+          }
+        },
+        {
+          "ayah": 2,
+          "arabic": "اللَّهُ الصَّمَدُ",
+          "translations": {
+            "en": "Allah, the Eternal Refuge.",
+            "ms": "Allah tempat bergantung segala sesuatu."
+          }
+        },
+        {
+          "ayah": 3,
+          "arabic": "لَمْ يَلِدْ وَلَمْ يُولَدْ",
+          "translations": {
+            "en": "He neither begets nor is born.",
+            "ms": "Dia tidak beranak dan tidak pula diperanakkan."
+          }
+        },
+        {
+          "ayah": 4,
+          "arabic": "وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ",
+          "translations": {
+            "en": "And there is none comparable to Him.",
+            "ms": "Dan tidak ada sesuatu pun yang setara dengan-Nya."
+          }
+        }
+      ]
+    },
+    {
+      "number": 113,
+      "slug": "al-falaq",
+      "nameArabic": "الفلق",
+      "nameTransliteration": "Al-Falaq",
+      "nameEnglish": "The Daybreak",
+      "revelation": "makki",
+      "ayahCount": 5,
+      "ayahs": [
+        {
+          "ayah": 1,
+          "arabic": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ",
+          "translations": {
+            "en": "Say, I seek refuge in the Lord of daybreak.",
+            "ms": "Katakanlah: Aku berlindung kepada Tuhan yang menguasai subuh."
+          }
+        },
+        {
+          "ayah": 2,
+          "arabic": "مِن شَرِّ مَا خَلَقَ",
+          "translations": {
+            "en": "From the evil of what He created.",
+            "ms": "Daripada kejahatan makhluk yang Dia ciptakan."
+          }
+        },
+        {
+          "ayah": 3,
+          "arabic": "وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ",
+          "translations": {
+            "en": "And from the evil of darkness when it settles.",
+            "ms": "Dan daripada kejahatan malam apabila telah gelap gelita."
+          }
+        },
+        {
+          "ayah": 4,
+          "arabic": "وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ",
+          "translations": {
+            "en": "And from the evil of those who blow upon knots.",
+            "ms": "Dan daripada kejahatan para peniup pada ikatan-ikatan."
+          }
+        },
+        {
+          "ayah": 5,
+          "arabic": "وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+          "translations": {
+            "en": "And from the evil of an envier when he envies.",
+            "ms": "Dan daripada kejahatan orang yang dengki apabila dia dengki."
+          }
+        }
+      ]
+    },
+    {
+      "number": 114,
+      "slug": "an-nas",
+      "nameArabic": "الناس",
+      "nameTransliteration": "An-Nas",
+      "nameEnglish": "Mankind",
+      "revelation": "makki",
+      "ayahCount": 6,
+      "ayahs": [
+        {
+          "ayah": 1,
+          "arabic": "قُلْ أَعُوذُ بِرَبِّ النَّاسِ",
+          "translations": {
+            "en": "Say, I seek refuge in the Lord of mankind.",
+            "ms": "Katakanlah: Aku berlindung kepada Tuhan manusia."
+          }
+        },
+        {
+          "ayah": 2,
+          "arabic": "مَلِكِ النَّاسِ",
+          "translations": {
+            "en": "The Sovereign of mankind.",
+            "ms": "Raja manusia."
+          }
+        },
+        {
+          "ayah": 3,
+          "arabic": "إِلَٰهِ النَّاسِ",
+          "translations": {
+            "en": "The God of mankind.",
+            "ms": "Sembahan manusia."
+          }
+        },
+        {
+          "ayah": 4,
+          "arabic": "مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ",
+          "translations": {
+            "en": "From the evil of the retreating whisperer.",
+            "ms": "Daripada kejahatan pembisik yang bersembunyi."
+          }
+        },
+        {
+          "ayah": 5,
+          "arabic": "الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ",
+          "translations": {
+            "en": "Who whispers into the hearts of mankind.",
+            "ms": "Yang membisikkan ke dalam dada manusia."
+          }
+        },
+        {
+          "ayah": 6,
+          "arabic": "مِنَ الْجِنَّةِ وَالنَّاسِ",
+          "translations": {
+            "en": "From among jinn and mankind.",
+            "ms": "Daripada kalangan jin dan manusia."
+          }
+        }
+      ]
+    }
+  ]
+}

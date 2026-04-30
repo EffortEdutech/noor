@@ -12,7 +12,7 @@ export function RoadmapControlCard() {
     <NoorCard>
       <div className="noor-row">
         <span className="noor-badge gold">Roadmap</span>
-        <span className="noor-badge emerald">Sprint 18</span>
+        <span className="noor-badge emerald">{NOOR_MASTER_ROADMAP.currentSprint.sprint}</span>
       </div>
 
       <h2>{NOOR_MASTER_ROADMAP.label}</h2>
