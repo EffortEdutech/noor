@@ -1,15 +1,19 @@
 import { getSurahIndex } from '@noor/data';
 import { NoorCard, PageHeader } from '@noor/ui';
+import { getServerNoorContentSource } from '../../../lib/runtime-content-source';
+
+export const dynamic = 'force-dynamic';
 
 export default async function QuranIndexPage() {
-  const surahs = await getSurahIndex();
+  const contentSource = await getServerNoorContentSource();
+  const surahs = await getSurahIndex({ source: contentSource });
 
   return (
     <main className="noor-page">
       <PageHeader
         kicker="Quran"
         title="Surah index"
-        subtitle="Loaded through the NOOR data resolver. In Sprint 2 this uses mock fallback first, and can later switch to CDN mode."
+        subtitle={`Loaded through the NOOR data resolver. Runtime content source: ${contentSource}.`}
       />
 
       <section className="noor-grid">

@@ -1,4 +1,4 @@
-import { getContentHealthReport, getNoorDataConfig } from '@noor/data';
+import { getContentHealthReport, getNoorDataConfig, getNoorResolverDiagnostics } from '@noor/data';
 import { NoorCard, PageHeader } from '@noor/ui';
 import { ContentHealthCard } from '../../components/ContentHealthCard';
 import { ContentPipelineCard } from '../../components/ContentPipelineCard';
@@ -6,18 +6,24 @@ import { LocalBackupCard } from '../../components/LocalBackupCard';
 import { PwaStatusCard } from '../../components/PwaStatusCard';
 import { ReaderPreferencesPanel } from '../../components/ReaderPreferencesPanel';
 import { ReleaseNotesCard } from '../../components/ReleaseNotesCard';
+import { RuntimeContentSourceCard } from '../../components/RuntimeContentSourceCard';
 import { NOOR_APP_BUILD_LABEL, NOOR_APP_VERSION } from '../../lib/app-version';
+import { getServerNoorContentSource } from '../../lib/runtime-content-source';
+
+export const dynamic = 'force-dynamic';
 
 export default async function SettingsPage() {
-  const config = getNoorDataConfig();
-  const contentHealth = await getContentHealthReport();
+  const contentSource = await getServerNoorContentSource();
+  const config = getNoorDataConfig(contentSource);
+  const contentHealth = await getContentHealthReport({ source: contentSource });
+  const diagnostics = await getNoorResolverDiagnostics({ source: contentSource });
 
   return (
     <main className="noor-page">
       <PageHeader
         kicker="Settings"
         title="NOOR foundation settings"
-        subtitle="Review data configuration, reader preferences, local backup, release notes, app version, content pipeline, install status, offline readiness and content integrity."
+        subtitle="Review runtime content source, data configuration, reader preferences, local backup, release notes, app version, content pipeline, install status, offline readiness and content integrity."
       />
 
       <NoorCard>
@@ -25,6 +31,12 @@ export default async function SettingsPage() {
         <h2>NOOR v{NOOR_APP_VERSION}</h2>
         <p className="noor-subtitle">{NOOR_APP_BUILD_LABEL}</p>
       </NoorCard>
+
+      <RuntimeContentSourceCard
+        initialSource={contentSource}
+        config={config}
+        diagnostics={diagnostics}
+      />
 
       <ReleaseNotesCard />
 
@@ -40,11 +52,12 @@ export default async function SettingsPage() {
 
       <NoorCard>
         <h2>Data mode</h2>
-        <p className="noor-subtitle"><strong>{config.mode}</strong></p>
+        <p className="noor-subtitle"><strong>{config.mode}</strong> · {config.sourceLabel}</p>
         <div className="noor-divider" />
         <p className="noor-subtitle">Quran CDN: {config.quranCdnBase}</p>
         <p className="noor-subtitle">Tafseer CDN: {config.tafseerCdnBase}</p>
         <p className="noor-subtitle">Hadith CDN: {config.hadithCdnBase}</p>
+        <p className="noor-subtitle">Manifest CDN: {config.manifestCdnBase}</p>
       </NoorCard>
     </main>
   );

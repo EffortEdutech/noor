@@ -1,17 +1,21 @@
 import { getHadithCollections, getHadithItems } from '@noor/data';
 import { HadithCard, NoorCard, PageHeader } from '@noor/ui';
+import { getServerNoorContentSource } from '../../../lib/runtime-content-source';
+
+export const dynamic = 'force-dynamic';
 
 export default async function HadithPage() {
-  const collections = await getHadithCollections();
+  const contentSource = await getServerNoorContentSource();
+  const collections = await getHadithCollections({ source: contentSource });
   const firstCollection = collections[0];
-  const items = firstCollection ? await getHadithItems(firstCollection.id) : [];
+  const items = firstCollection ? await getHadithItems(firstCollection.id, { source: contentSource }) : [];
 
   return (
     <main className="noor-page">
       <PageHeader
         kicker="Hadith"
         title="Hadith resolver"
-        subtitle="Collection and item resolvers are ready for later CDN-backed Hadith datasets."
+        subtitle={`Collection and item resolvers are active with runtime content source: ${contentSource}.`}
       />
 
       <section className="noor-grid">

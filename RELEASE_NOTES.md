@@ -1,18 +1,26 @@
-# NOOR v0.12.0
+# NOOR v0.13.0
 
-Sprint 12 — Production content pipeline and CDN source preparation.
+Sprint 13 — Runtime CDN mode and source switching.
 
 Released: 2026-04-30
 
 ## Highlights
 
-- Added a CDN-ready source folder under `content-pipeline/source/noor-demo-v0.12`.
-- Added a source registry and production promotion gate for licensing, attribution and scholarly review.
-- Added `pnpm content:validate` to validate the source pack.
-- Added `pnpm content:prepare` to generate local CDN output under `content-pipeline/dist/noor-cdn` and `apps/web/public/noor-cdn`.
-- Added a Settings content pipeline card.
-- Added `docs/NOOR_CONTENT_PIPELINE.md`.
+- Added runtime source modes: `mock`, `local-cdn` and `cdn`.
+- Added a Settings source switcher with cookie-based persistence.
+- Added resolver diagnostics for manifest, content health, Quran, Tafseer and Hadith endpoints.
+- Connected Quran, Tafseer, Hadith and Settings pages to the selected runtime source.
+- Added `pnpm check:runtime` for local validation.
+
+## How to test local CDN mode
+
+1. Run `pnpm content:prepare`.
+2. Run `pnpm dev`.
+3. Open `http://localhost:3200/settings`.
+4. Select `Local CDN` in the Runtime Content Source card.
+5. Confirm resolver diagnostics show `ok` for local files.
+6. Open `/learn/quran/1`, `/learn/tafseer` and `/learn/hadith`.
 
 ## Important production note
 
-Sprint 12 does not claim the demo data is production-ready. It only makes the data packaging workflow production-shaped. Real Quran, tafseer and hadith datasets must pass licensing, source attribution, checksum and scholarly/reviewer gates before being marked as production.
+External CDN mode is fallback-safe, but should not be used as a production claim until the selected Quran, Tafseer and Hadith datasets have passed licensing, attribution, checksum and scholarly review gates.

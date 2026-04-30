@@ -1,25 +1,42 @@
-import { getNoorDataConfig } from './config';
+import { getNoorDataConfig, type NoorDataMode } from './config';
 
-export async function fetchJsonWithFallback<T>(url: string, fallback: T): Promise<T> {
-  const config = getNoorDataConfig();
+export type NoorFetchOptions = {
+  mode?: NoorDataMode;
+  allowFallback?: boolean;
+  timeoutMs?: number;
+  revalidateSeconds?: number;
+};
 
-  if (config.mode !== 'cdn') {
+export async function fetchJsonWithFallback<T>(
+  url: string,
+  fallback: T,
+  options: NoorFetchOptions = {}
+): Promise<T> {
+  const mode = options.mode ?? getNoorDataConfig().mode;
+  const allowFallback = options.allowFallback ?? true;
+
+  if (mode === 'mock') {
     return fallback;
   }
 
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 3500);
+  const timeout = setTimeout(() => controller.abort(), options.timeoutMs ?? 3500);
 
   try {
     const response = await fetch(url, {
       signal: controller.signal,
-      next: { revalidate: 60 * 60 }
+      next: { revalidate: options.revalidateSeconds ?? 60 * 60 }
     });
 
-    if (!response.ok) return fallback;
+    if (!response.ok) {
+      if (allowFallback) return fallback;
+      throw new Error(`NOOR content request failed: ${response.status} ${response.statusText}`);
+    }
+
     return (await response.json()) as T;
-  } catch {
-    return fallback;
+  } catch (error) {
+    if (allowFallback) return fallback;
+    throw error;
   } finally {
     clearTimeout(timeout);
   }

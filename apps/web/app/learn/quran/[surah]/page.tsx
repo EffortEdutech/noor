@@ -4,22 +4,26 @@ import { notFound } from 'next/navigation';
 import { AyahStudyCard } from '../../../../components/AyahStudyCard';
 import { ReaderPreferencesPanel } from '../../../../components/ReaderPreferencesPanel';
 import { ReadingProgressPanel } from '../../../../components/ReadingProgressPanel';
+import { getServerNoorContentSource } from '../../../../lib/runtime-content-source';
+
+export const dynamic = 'force-dynamic';
 
 export default async function SurahReaderPage({ params }: { params: Promise<{ surah: string }> }) {
   const { surah: surahParam } = await params;
   const surahNumber = Number(surahParam);
-  const content = await getSurahContent(surahNumber);
+  const contentSource = await getServerNoorContentSource();
+  const content = await getSurahContent(surahNumber, { source: contentSource });
 
   if (!content) notFound();
 
-  const tafseer = await getTafseerEntries('demo-tafseer', surahNumber);
+  const tafseer = await getTafseerEntries('demo-tafseer', surahNumber, { source: contentSource });
 
   return (
     <main className="noor-page">
       <PageHeader
         kicker="Quran reader"
         title={content.surah.nameTransliteration}
-        subtitle={`${content.surah.nameEnglish} · ${content.surah.revelation} · ${content.surah.ayahCount} ayat`}
+        subtitle={`${content.surah.nameEnglish} · ${content.surah.revelation} · ${content.surah.ayahCount} ayat · Source: ${contentSource}`}
       />
 
       <section className="noor-grid">

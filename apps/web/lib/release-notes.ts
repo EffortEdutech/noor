@@ -8,6 +8,20 @@ export type NoorReleaseNote = {
 
 export const NOOR_RELEASE_NOTES: NoorReleaseNote[] = [
   {
+    version: '0.13.0',
+    date: '2026-04-30',
+    title: 'Sprint 13 — Runtime CDN mode and source switching',
+    summary:
+      'Adds runtime content source switching so NOOR can move safely between bundled mock content, local prepared CDN files and configured external CDN endpoints.',
+    highlights: [
+      'Runtime source modes: mock, local-cdn and cdn',
+      'Settings source switcher with cookie-based persistence',
+      'Resolver diagnostics for manifest, Quran, Tafseer and Hadith endpoints',
+      'Quran, Tafseer, Hadith and Settings pages now use the selected runtime content source',
+      'Fallback-safe fetch behavior when CDN endpoints are unavailable'
+    ]
+  },
+  {
     version: '0.12.0',
     date: '2026-04-30',
     title: 'Sprint 12 — Production content pipeline and CDN source preparation',

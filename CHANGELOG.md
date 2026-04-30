@@ -1,5 +1,28 @@
 # NOOR Changelog
 
+## v0.13.0 — 2026-04-30
+
+Sprint 13 — Runtime CDN mode and source switching.
+
+### Added
+
+- Runtime content source modes: `mock`, `local-cdn` and `cdn`.
+- Settings runtime source switcher with cookie-based persistence.
+- Resolver diagnostics for manifest, content health, Quran, Tafseer and Hadith endpoints.
+- `pnpm check:runtime` command.
+- Local CDN mode using prepared files served from `apps/web/public/noor-cdn`.
+
+### Changed
+
+- Quran, Tafseer, Hadith and Settings pages now read the selected runtime content source.
+- Data resolvers now accept optional source overrides and keep bundled fallback behavior.
+- Data mode configuration now includes a dedicated `NEXT_PUBLIC_NOOR_LOCAL_CDN_BASE` setting.
+
+### Notes
+
+- External CDN mode remains fallback-safe until production datasets pass licensing, attribution and scholarly review.
+- Local CDN mode is intended for localhost testing after `pnpm content:prepare` and `pnpm dev`.
+
 ## v0.12.0 — 2026-04-30
 
 Sprint 12 — Production content pipeline and CDN source preparation.

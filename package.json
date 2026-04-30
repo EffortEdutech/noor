@@ -15,6 +15,7 @@
     "check:pack": "node scripts/check-noor-pack.mjs",
     "check:content": "node scripts/check-noor-content.mjs",
     "check:release": "node scripts/check-noor-release.mjs",
+    "check:runtime": "node scripts/check-noor-runtime.mjs",
     "content:validate": "node scripts/validate-noor-cdn.mjs",
     "content:prepare": "node scripts/prepare-noor-cdn.mjs",
     "release:bump": "node scripts/bump-noor-version.mjs"

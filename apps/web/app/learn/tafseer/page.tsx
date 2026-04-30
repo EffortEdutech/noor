@@ -1,15 +1,19 @@
 import { getTafseerEntries } from '@noor/data';
 import { NoorCard, PageHeader } from '@noor/ui';
+import { getServerNoorContentSource } from '../../../lib/runtime-content-source';
+
+export const dynamic = 'force-dynamic';
 
 export default async function TafseerPage() {
-  const entries = await getTafseerEntries('demo-tafseer', 1);
+  const contentSource = await getServerNoorContentSource();
+  const entries = await getTafseerEntries('demo-tafseer', 1, { source: contentSource });
 
   return (
     <main className="noor-page">
       <PageHeader
         kicker="Tafseer"
         title="Understanding layer"
-        subtitle="This Sprint 2 screen proves the tafseer resolver contract before loading a full tafseer corpus."
+        subtitle={`This screen proves the tafseer resolver contract using runtime content source: ${contentSource}.`}
       />
 
       <section className="noor-stack">
