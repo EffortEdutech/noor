@@ -53,6 +53,12 @@ jobs:
       - name: Smoke test CDN publish pack
         run: pnpm check:cdn-smoke
 
+      - name: Generate CDN promotion handoff
+        run: pnpm cdn:promote
+
+      - name: Check CDN promotion handoff
+        run: pnpm check:cdn-promotion
+
       - name: Typecheck
         run: pnpm typecheck
 

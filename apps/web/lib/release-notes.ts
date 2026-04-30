@@ -8,6 +8,20 @@ export type NoorReleaseNote = {
 
 export const NOOR_RELEASE_NOTES: NoorReleaseNote[] = [
   {
+    version: '0.16.0',
+    date: '2026-04-30',
+    title: 'Sprint 16 — CDN promotion bundle and environment handoff',
+    summary:
+      'Adds a repeatable handoff step after CDN smoke testing so a verified CDN base can be converted into local or Vercel environment values safely.',
+    highlights: [
+      'cdn:promote command to generate promotion JSON, .env.local handoff and checklist files',
+      'check:cdn-promotion command for local and CI validation',
+      'Settings CDN Promotion card with environment keys and generated file paths',
+      'CI update for promotion metadata and handoff validation',
+      'Documentation for local and Vercel external CDN promotion'
+    ]
+  },
+  {
     version: '0.15.0',
     date: '2026-04-30',
     title: 'Sprint 15 — CDN smoke testing and promotion gate',

@@ -19,6 +19,13 @@ export type NoorCdnSmokeStep = {
   note: string;
 };
 
+export type NoorCdnPromotionStep = {
+  id: string;
+  label: string;
+  status: 'ready' | 'manual-gate' | 'future';
+  note: string;
+};
+
 export const NOOR_CONTENT_PIPELINE = {
   version: '0.12.0',
   label: 'Sprint 12 — Production content pipeline / CDN source preparation',
@@ -82,4 +89,34 @@ export const NOOR_CDN_SMOKE_TESTING = {
     { id: 'runtime-promotion-gate', label: 'Runtime promotion gate', status: 'manual-gate', note: 'Only switch NOOR to external CDN mode after cdn:smoke passes against the published URL.' },
     { id: 'production-content', label: 'Production content gate', status: 'future', note: 'Real datasets still require licensing, attribution and scholarly review before production release.' }
   ] satisfies NoorCdnSmokeStep[]
+};
+
+export const NOOR_CDN_PROMOTION = {
+  version: '0.16.0',
+  label: 'Sprint 16 — CDN promotion bundle and environment handoff',
+  defaultPromotionBase: NOOR_CDN_PUBLISHING.githubPagesBase,
+  fallbackPromotionBase: NOOR_CDN_PUBLISHING.jsDelivrBase,
+  promotionRoot: 'content-pipeline/promotion',
+  generatedEnvFile: 'content-pipeline/promotion/noor-cdn.env.local',
+  generatedPromotionFile: 'content-pipeline/promotion/noor-cdn-promotion.json',
+  generatedChecklistFile: 'content-pipeline/promotion/noor-cdn-promotion-checklist.md',
+  commands: [
+    'pnpm cdn:smoke <published-cdn-base>',
+    'pnpm cdn:promote <published-cdn-base>',
+    'pnpm check:cdn-promotion'
+  ],
+  envKeys: [
+    'NEXT_PUBLIC_NOOR_DATA_MODE',
+    'NEXT_PUBLIC_NOOR_MANIFEST_CDN_BASE',
+    'NEXT_PUBLIC_NOOR_QURAN_CDN_BASE',
+    'NEXT_PUBLIC_NOOR_TAFSEER_CDN_BASE',
+    'NEXT_PUBLIC_NOOR_HADITH_CDN_BASE'
+  ],
+  steps: [
+    { id: 'smoke-first', label: 'Smoke first', status: 'manual-gate', note: 'Run pnpm cdn:smoke against the published URL before generating promotion files.' },
+    { id: 'generate-env', label: 'Generate .env handoff', status: 'ready', note: 'cdn:promote writes a copy-pasteable .env.local template using one shared CDN base.' },
+    { id: 'promotion-record', label: 'Promotion record', status: 'ready', note: 'A JSON promotion record documents target URL, resolver paths and the exact smoke command.' },
+    { id: 'vercel-env', label: 'Vercel environment update', status: 'manual-gate', note: 'Copy the generated NEXT_PUBLIC values into Vercel or local .env.local, then rebuild.' },
+    { id: 'production-content', label: 'Production content gate', status: 'future', note: 'Production Quran, tafseer and hadith content still requires licensing and scholarly approval.' }
+  ] satisfies NoorCdnPromotionStep[]
 };

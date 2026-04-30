@@ -1,5 +1,13 @@
 # NOOR Changelog
 
+## v0.16.0 — Sprint 16 CDN promotion bundle and environment handoff
+
+- Added `pnpm cdn:promote <published-cdn-base>`.
+- Added generated CDN promotion JSON, `.env.local` handoff and checklist outputs.
+- Added `pnpm check:cdn-promotion`.
+- Added Settings CDN Promotion card.
+- Added CDN promotion documentation and CI validation.
+
 ## v0.15.0 — Sprint 15 CDN smoke testing and promotion gate
 
 - Added `pnpm cdn:smoke` for local publish-pack smoke testing.

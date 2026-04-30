@@ -1,5 +1,6 @@
 import { getContentHealthReport, getNoorDataConfig, getNoorResolverDiagnostics } from '@noor/data';
 import { NoorCard, PageHeader } from '@noor/ui';
+import { CdnPromotionCard } from '../../components/CdnPromotionCard';
 import { CdnPublishCard } from '../../components/CdnPublishCard';
 import { CdnSmokeTestCard } from '../../components/CdnSmokeTestCard';
 import { ContentHealthCard } from '../../components/ContentHealthCard';
@@ -25,7 +26,7 @@ export default async function SettingsPage() {
       <PageHeader
         kicker="Settings"
         title="NOOR foundation settings"
-        subtitle="Review runtime content source, CDN publishing, CDN smoke testing, data configuration, reader preferences, local backup, release notes, app version, content pipeline, install status, offline readiness and content integrity."
+        subtitle="Review runtime content source, CDN publishing, CDN smoke testing, CDN promotion handoff, data configuration, reader preferences, local backup, release notes, app version, content pipeline, install status, offline readiness and content integrity."
       />
 
       <NoorCard>
@@ -37,6 +38,7 @@ export default async function SettingsPage() {
       <RuntimeContentSourceCard initialSource={contentSource} config={config} diagnostics={diagnostics} />
       <CdnPublishCard />
       <CdnSmokeTestCard />
+      <CdnPromotionCard />
       <ReleaseNotesCard />
       <ContentPipelineCard />
       <ReaderPreferencesPanel />

@@ -23,3 +23,6 @@ noor info.xlsx
 # Generated NOOR content/CDN publish outputs. Regenerate with pnpm content:prepare and pnpm cdn:pack.
 content-pipeline/dist/
 content-pipeline/publish/
+
+# Generated NOOR CDN promotion handoff files. Regenerate with pnpm cdn:promote.
+content-pipeline/promotion/
