@@ -1,0 +1,934 @@
+{
+  "version": "0.26.6",
+  "generatedAt": "2026-05-01T11:04:36.427Z",
+  "sourceRoot": "content-pipeline/imported/ilm-mate-v1/noor-cdn",
+  "byDomain": {
+    "quran": [
+      {
+        "reviewId": "quran-surah-001",
+        "domain": "quran",
+        "status": "pending-review",
+        "productionApproved": false,
+        "surah": {
+          "number": 1,
+          "nameArabic": "الفاتحة",
+          "nameTransliteration": "Al-Faatihah",
+          "nameEnglish": "The Opening",
+          "ayahCount": 7
+        },
+        "sampleAyahs": [
+          {
+            "key": "1:1",
+            "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ",
+            "english": "In the name of Allah, Most Gracious, Most Merciful.",
+            "malay": "Dengan nama Allah, Yang Maha Pemurah, lagi Maha Mengasihani"
+          },
+          {
+            "key": "1:2",
+            "arabic": "ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَـٰلَمِينَ",
+            "english": "Praise be to Allah, the Cherisher and Sustainer of the worlds;",
+            "malay": "Segala puji tertentu bagi Allah, Tuhan yang memelihara dan mentadbirkan sekalian alam"
+          },
+          {
+            "key": "1:3",
+            "arabic": "ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ",
+            "english": "Most Gracious, Most Merciful;",
+            "malay": "Yang Maha Pemurah, lagi Maha Mengasihani"
+          }
+        ]
+      },
+      {
+        "reviewId": "quran-surah-002",
+        "domain": "quran",
+        "status": "pending-review",
+        "productionApproved": false,
+        "surah": {
+          "number": 2,
+          "nameArabic": "البقرة",
+          "nameTransliteration": "Al-Baqarah",
+          "nameEnglish": "The Cow",
+          "ayahCount": 286
+        },
+        "sampleAyahs": [
+          {
+            "key": "2:1",
+            "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ الٓمٓ",
+            "english": "A. L. M.",
+            "malay": "Alif, Laam, Miim"
+          },
+          {
+            "key": "2:2",
+            "arabic": "ذَٰلِكَ ٱلْكِتَـٰبُ لَا رَيْبَ ۛ فِيهِ ۛ هُدًى لِّلْمُتَّقِينَ",
+            "english": "This is the Book; in it is guidance sure, without doubt, to those who fear Allah;",
+            "malay": "Kitab Al-Quran ini, tidak ada sebarang syak padanya (tentang datangnya dari Allah dan tentang sempurnanya); ia pula menjadi petunjuk bagi orang-orang yang (hendak) bertaqwa"
+          },
+          {
+            "key": "2:3",
+            "arabic": "ٱلَّذِينَ يُؤْمِنُونَ بِٱلْغَيْبِ وَيُقِيمُونَ ٱلصَّلَوٰةَ وَمِمَّا رَزَقْنَـٰهُمْ يُنفِقُونَ",
+            "english": "Who believe in the Unseen, are steadfast in prayer, and spend out of what We have provided for them;",
+            "malay": "Iaitu orang-orang yang beriman kepada perkara-perkara yang ghaib, dan mendirikan (mengerjakan) sembahyang serta membelanjakan (mendermakan) sebahagian dari rezeki yang Kami berikan kepada mereka"
+          }
+        ]
+      },
+      {
+        "reviewId": "quran-surah-018",
+        "domain": "quran",
+        "status": "pending-review",
+        "productionApproved": false,
+        "surah": {
+          "number": 18,
+          "nameArabic": "الكهف",
+          "nameTransliteration": "Al-Kahf",
+          "nameEnglish": "The Cave",
+          "ayahCount": 110
+        },
+        "sampleAyahs": [
+          {
+            "key": "18:1",
+            "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ ٱلْحَمْدُ لِلَّهِ ٱلَّذِىٓ أَنزَلَ عَلَىٰ عَبْدِهِ ٱلْكِتَـٰبَ وَلَمْ يَجْعَل لَّهُۥ عِوَجَا ۜ",
+            "english": "Praise be to Allah, Who hath sent to His Servant the Book, and hath allowed therein no Crookedness:",
+            "malay": "Segala puji terentu bagi Allah yang telah menurunkan kepada hambaNya (Muhammad), Kitab suci Al-Quran, dan tidak menjadikan padanya sesuatu yang bengkok (terpesong)"
+          },
+          {
+            "key": "18:2",
+            "arabic": "قَيِّمًا لِّيُنذِرَ بَأْسًا شَدِيدًا مِّن لَّدُنْهُ وَيُبَشِّرَ ٱلْمُؤْمِنِينَ ٱلَّذِينَ يَعْمَلُونَ ٱلصَّـٰلِحَـٰتِ أَنَّ لَهُمْ أَجْرًا حَسَنًا",
+            "english": "(He hath made it) Straight (and Clear) in order that He may warn (the godless) of a terrible Punishment from Him, and that He may give Glad Tidings to the Believers who work righteous deeds, that they shall have a goodly Reward,",
+            "malay": "(Bahkan keadaannya) tetap benar lagi menjadi pengawas turunnya Al-Quran untuk memberi amaran (kepada orang-orang yang ingkar) dengan azab yang seberat-beratnya dari sisi Allah, dan memberi berita gembira kepada orang-orang yang beriman yang mengerjakan amal-amal soleh, bahawa mereka akan beroleh balasan yang baik"
+          },
+          {
+            "key": "18:3",
+            "arabic": "مَّـٰكِثِينَ فِيهِ أَبَدًا",
+            "english": "Wherein they shall remain for ever:",
+            "malay": "Mereka tinggal tetap dalam (balasan yang baik) itu selama-lamanya"
+          }
+        ]
+      },
+      {
+        "reviewId": "quran-surah-036",
+        "domain": "quran",
+        "status": "pending-review",
+        "productionApproved": false,
+        "surah": {
+          "number": 36,
+          "nameArabic": "يس",
+          "nameTransliteration": "Yaaseen",
+          "nameEnglish": "Ya-Sin",
+          "ayahCount": 83
+        },
+        "sampleAyahs": [
+          {
+            "key": "36:1",
+            "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ يسٓ",
+            "english": "Ya Sin.",
+            "malay": "Yaa, Siin"
+          },
+          {
+            "key": "36:2",
+            "arabic": "وَٱلْقُرْءَانِ ٱلْحَكِيمِ",
+            "english": "By the Qur'an, full of Wisdom,-",
+            "malay": "Demi Al-Quran yang mengandungi hikmat-hikmat dan kebenaran yang tetap kukuh"
+          },
+          {
+            "key": "36:3",
+            "arabic": "إِنَّكَ لَمِنَ ٱلْمُرْسَلِينَ",
+            "english": "Thou art indeed one of the messengers,",
+            "malay": "Sesungguhnya engkau (wahai Muhammad adalah seorang Rasul) dari Rasul-rasul yang telah diutus"
+          }
+        ]
+      },
+      {
+        "reviewId": "quran-surah-055",
+        "domain": "quran",
+        "status": "pending-review",
+        "productionApproved": false,
+        "surah": {
+          "number": 55,
+          "nameArabic": "الرحمن",
+          "nameTransliteration": "Ar-Rahmaan",
+          "nameEnglish": "The Beneficent",
+          "ayahCount": 78
+        },
+        "sampleAyahs": [
+          {
+            "key": "55:1",
+            "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ ٱلرَّحْمَـٰنُ",
+            "english": "(Allah) Most Gracious!",
+            "malay": "(Tuhan) Yang Maha Pemurah serta melimpah-limpah rahmatNya"
+          },
+          {
+            "key": "55:2",
+            "arabic": "عَلَّمَ ٱلْقُرْءَانَ",
+            "english": "It is He Who has taught the Qur'an.",
+            "malay": "Dia lah yang telah mengajarkan Al-Quran"
+          },
+          {
+            "key": "55:3",
+            "arabic": "خَلَقَ ٱلْإِنسَـٰنَ",
+            "english": "He has created man:",
+            "malay": "Dia lah yang telah menciptakan manusia"
+          }
+        ]
+      },
+      {
+        "reviewId": "quran-surah-067",
+        "domain": "quran",
+        "status": "pending-review",
+        "productionApproved": false,
+        "surah": {
+          "number": 67,
+          "nameArabic": "الملك",
+          "nameTransliteration": "Al-Mulk",
+          "nameEnglish": "The Sovereignty",
+          "ayahCount": 30
+        },
+        "sampleAyahs": [
+          {
+            "key": "67:1",
+            "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ تَبَـٰرَكَ ٱلَّذِى بِيَدِهِ ٱلْمُلْكُ وَهُوَ عَلَىٰ كُلِّ شَىْءٍ قَدِيرٌ",
+            "english": "Blessed be He in Whose hands is Dominion; and He over all things hath Power;-",
+            "malay": "Maha Berkat (serta Maha Tinggilah kelebihan) Tuhan yang menguasai pemerintahan (dunia dan akhirat); dan memanglah Ia Maha Kuasa atas tiap-tiap sesuatu"
+          },
+          {
+            "key": "67:2",
+            "arabic": "ٱلَّذِى خَلَقَ ٱلْمَوْتَ وَٱلْحَيَوٰةَ لِيَبْلُوَكُمْ أَيُّكُمْ أَحْسَنُ عَمَلًا ۚ وَهُوَ ٱلْعَزِيزُ ٱلْغَفُورُ",
+            "english": "He Who created Death and Life, that He may try which of you is best in deed: and He is the Exalted in Might, Oft-Forgiving;-",
+            "malay": "Dia lah yang telah mentakdirkan adanya mati dan hidup (kamu) - untuk menguji dan menzahirkan keadaan kamu: siapakah di antara kamu yang lebih baik amalnya; dan Ia Maha Kuasa (membalas amal kamu), lagi Maha Pengampun, (bagi orang-orang yang bertaubat)"
+          },
+          {
+            "key": "67:3",
+            "arabic": "ٱلَّذِى خَلَقَ سَبْعَ سَمَـٰوَٰتٍ طِبَاقًا ۖ مَّا تَرَىٰ فِى خَلْقِ ٱلرَّحْمَـٰنِ مِن تَفَـٰوُتٍ ۖ فَٱرْجِعِ ٱلْبَصَرَ هَلْ تَرَىٰ مِن فُطُورٍ",
+            "english": "He Who created the seven heavens one above another: No want of proportion wilt thou see in the Creation of (Allah) Most Gracious. So turn thy vision again: seest thou any flaw?",
+            "malay": "Dia lah yang telah mengaturkan kejadian tujuh petala langit yang berlapis-lapis; engkau tidak dapat melihat pada ciptaan Allah Yang Maha Pemurah itu sebarang keadaan yang tidak seimbang dan tidak munasabah; (jika engkau ragu-ragu) maka ulangilah pandangan - (mu) - dapatkah engkau melihat sebarang kecacatan"
+          }
+        ]
+      },
+      {
+        "reviewId": "quran-surah-112",
+        "domain": "quran",
+        "status": "pending-review",
+        "productionApproved": false,
+        "surah": {
+          "number": 112,
+          "nameArabic": "الإخلاص",
+          "nameTransliteration": "Al-Ikhlaas",
+          "nameEnglish": "The Sincerity",
+          "ayahCount": 4
+        },
+        "sampleAyahs": [
+          {
+            "key": "112:1",
+            "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ قُلْ هُوَ ٱللَّهُ أَحَدٌ",
+            "english": "Say: He is Allah, the One and Only;",
+            "malay": "Katakanlah (wahai Muhammad): \"(Tuhanku) ialah Allah Yang Maha Esa"
+          },
+          {
+            "key": "112:2",
+            "arabic": "ٱللَّهُ ٱلصَّمَدُ",
+            "english": "Allah, the Eternal, Absolute;",
+            "malay": "Allah Yang menjadi tumpuan sekalian makhluk untuk memohon sebarang hajat"
+          },
+          {
+            "key": "112:3",
+            "arabic": "لَمْ يَلِدْ وَلَمْ يُولَدْ",
+            "english": "He begetteth not, nor is He begotten;",
+            "malay": "Ia tiada beranak, dan Ia pula tidak diperanakkan"
+          }
+        ]
+      },
+      {
+        "reviewId": "quran-surah-113",
+        "domain": "quran",
+        "status": "pending-review",
+        "productionApproved": false,
+        "surah": {
+          "number": 113,
+          "nameArabic": "الفلق",
+          "nameTransliteration": "Al-Falaq",
+          "nameEnglish": "The Daybreak",
+          "ayahCount": 5
+        },
+        "sampleAyahs": [
+          {
+            "key": "113:1",
+            "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ قُلْ أَعُوذُ بِرَبِّ ٱلْفَلَقِ",
+            "english": "Say: I seek refuge with the Lord of the Dawn",
+            "malay": "Katakanlah (wahai Muhammad); \"Aku berlindung kepada (Allah) Tuhan yang menciptakan sekalian makhluk"
+          },
+          {
+            "key": "113:2",
+            "arabic": "مِن شَرِّ مَا خَلَقَ",
+            "english": "From the mischief of created things;",
+            "malay": "Dari bencana makhluk-makhluk yang Ia ciptakan"
+          },
+          {
+            "key": "113:3",
+            "arabic": "وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ",
+            "english": "From the mischief of Darkness as it overspreads;",
+            "malay": "Dan dari bahaya gelap apabila ia masuk"
+          }
+        ]
+      },
+      {
+        "reviewId": "quran-surah-114",
+        "domain": "quran",
+        "status": "pending-review",
+        "productionApproved": false,
+        "surah": {
+          "number": 114,
+          "nameArabic": "الناس",
+          "nameTransliteration": "An-Naas",
+          "nameEnglish": "Mankind",
+          "ayahCount": 6
+        },
+        "sampleAyahs": [
+          {
+            "key": "114:1",
+            "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ قُلْ أَعُوذُ بِرَبِّ ٱلنَّاسِ",
+            "english": "Say: I seek refuge with the Lord and Cherisher of Mankind,",
+            "malay": "Katakanlah (wahai Muhammad): \"Aku berlindung kepada (Allah) Pemulihara sekalian manusia"
+          },
+          {
+            "key": "114:2",
+            "arabic": "مَلِكِ ٱلنَّاسِ",
+            "english": "The King (or Ruler) of Mankind,",
+            "malay": "Yang Menguasai sekalian manusia"
+          },
+          {
+            "key": "114:3",
+            "arabic": "إِلَـٰهِ ٱلنَّاسِ",
+            "english": "The god (or judge) of Mankind,-",
+            "malay": "Tuhan yang berhak disembah oleh sekalian manusia"
+          }
+        ]
+      }
+    ],
+    "tafseer": [
+      {
+        "reviewId": "tafseer-book-ar-tafsir-ibn-kathir",
+        "domain": "tafseer",
+        "status": "pending-review",
+        "productionApproved": false,
+        "bookId": "ar-tafsir-ibn-kathir",
+        "entryCount": 6236,
+        "firstSample": {
+          "id": "ar-tafsir-ibn-kathir-1-1",
+          "title": "Tafsir Ibn Kathir — Arabic (full) · 1:1",
+          "bodyExcerpt": "بسم الله الرحمن الرحيم سورة الفاتحة . يقال لها الفاتحة أي فاتحة الكتاب خطا وبها تفتح القراءة في الصلوات ويقال لها أيضا أم الكتاب عند الجمهور ذكره أنس , والحسن وابن سيرين كرها تسمي…",
+          "sourceLabel": "Tafsir Ibn Kathir — Arabic (full)"
+        }
+      },
+      {
+        "reviewId": "tafseer-book-ar-tafsir-muyassar",
+        "domain": "tafseer",
+        "status": "pending-review",
+        "productionApproved": false,
+        "bookId": "ar-tafsir-muyassar",
+        "entryCount": 6236,
+        "firstSample": {
+          "id": "ar-tafsir-muyassar-1-1",
+          "title": "Tafsir Muyassar — Arabic · 1:1",
+          "bodyExcerpt": "سورة الفاتحة سميت هذه السورة بالفاتحة؛ لأنه يفتتح بها القرآن العظيم، وتسمى المثاني؛ لأنها تقرأ في كل ركعة، ولها أسماء أخر. أبتدئ قراءة القرآن باسم الله مستعينا به، (اللهِ) علم على…",
+          "sourceLabel": "Tafsir Muyassar — Arabic"
+        }
+      },
+      {
+        "reviewId": "tafseer-book-en-al-jalalayn",
+        "domain": "tafseer",
+        "status": "pending-review",
+        "productionApproved": false,
+        "bookId": "en-al-jalalayn",
+        "entryCount": 6236,
+        "firstSample": {
+          "id": "en-al-jalalayn-1-1",
+          "title": "Tafsir Al-Jalalayn — English · 1:1",
+          "bodyExcerpt": "In the Name of God the Compassionate the Merciful",
+          "sourceLabel": "Tafsir Al-Jalalayn — English"
+        }
+      },
+      {
+        "reviewId": "tafseer-book-en-tafisr-ibn-kathir",
+        "domain": "tafseer",
+        "status": "pending-review",
+        "productionApproved": false,
+        "bookId": "en-tafisr-ibn-kathir",
+        "entryCount": 6236,
+        "firstSample": {
+          "id": "en-tafisr-ibn-kathir-1-1",
+          "title": "Tafsir Ibn Kathir — English (abridged) · 1:1",
+          "bodyExcerpt": "<div lang=\"en\" class=\"en \"><h2>The Meaning of Al Fatiha &amp; its Various Names</h2></div><p lang=\"en\" class=\"en \">This Surah is called Al-Fatihah, that is, the Opener of the Book…",
+          "sourceLabel": "Tafsir Ibn Kathir — English (abridged)"
+        }
+      },
+      {
+        "reviewId": "tafseer-book-en-tafsir-maarif-ul-quran",
+        "domain": "tafseer",
+        "status": "pending-review",
+        "productionApproved": false,
+        "bookId": "en-tafsir-maarif-ul-quran",
+        "entryCount": 6236,
+        "firstSample": {
+          "id": "en-tafsir-maarif-ul-quran-1-1",
+          "title": "Maarif-ul-Quran — Mufti Shafi · 1:1",
+          "bodyExcerpt": "Bismillah بِسْمِ اللَّـهِ is a verse of the Holy Qur'an There is consensus of all the Muslims on the fact that Bismillah al-Rahman al-Rahim بِسْمِ اللَّـهِ الرَّ‌حْمَـٰنِ الرَّ‌حِ…",
+          "sourceLabel": "Maarif-ul-Quran — Mufti Shafi"
+        }
+      },
+      {
+        "reviewId": "tafseer-book-ur-tafseer-ibn-e-kaseer",
+        "domain": "tafseer",
+        "status": "pending-review",
+        "productionApproved": false,
+        "bookId": "ur-tafseer-ibn-e-kaseer",
+        "entryCount": 6236,
+        "firstSample": {
+          "id": "ur-tafseer-ibn-e-kaseer-1-1",
+          "title": "Tafsir Ibn Kathir — Urdu · 1:1",
+          "bodyExcerpt": "بسم اللہ سورة نمل کی ایک آیت یا ؟ صحابہ نے اللہ کی کتاب کو اسی سے شروع کیا۔ علماء کا اتفاق ہے کہ آیت (بسم اللہ الرحمن الرحیم) سورة نمل کی ایک آیت ہے۔ البتہ اس میں اختلاف ہے کہ وہ…",
+          "sourceLabel": "Tafsir Ibn Kathir — Urdu"
+        }
+      }
+    ],
+    "hadith": [
+      {
+        "reviewId": "hadith-collection-nawawi40",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "nawawi40",
+        "name": "forties — nawawi40",
+        "language": "en",
+        "itemCount": 42,
+        "firstSample": {
+          "id": "nawawi40-1",
+          "number": "1",
+          "arabicExcerpt": "عَنْ أَمِيرِ الْمُؤْمِنِينَ أَبِي حَفْصٍ عُمَرَ بْنِ الْخَطَّابِ رَضِيَ اللهُ عَنْهُ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ: \" إنَّمَا الْأَعْمَالُ بِالنِّيَّا…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "forties · nawawi40"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-ara-nawawi40",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "ara-nawawi40",
+        "name": "الأربعون النووية — ara-nawawi40",
+        "language": "ar",
+        "itemCount": 42,
+        "firstSample": {
+          "id": "ara-nawawi40-1",
+          "number": "1",
+          "arabicExcerpt": "عَنْ أَمِيرِ الْمُؤْمِنِينَ أَبِي حَفْصٍ عُمَرَ بْنِ الْخَطَّابِ رَضِيَ اللهُ عَنْهُ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ: \" إنَّمَا الْأَعْمَالُ بِالنِّيَّا…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "الأربعون النووية · ara-nawawi40"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-eng-nawawi40",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "eng-nawawi40",
+        "name": "The Forty Hadith of Imam Nawawi — eng-nawawi40",
+        "language": "en",
+        "itemCount": 42,
+        "firstSample": {
+          "id": "eng-nawawi40-1",
+          "number": "1",
+          "arabicExcerpt": "عَنْ أَمِيرِ الْمُؤْمِنِينَ أَبِي حَفْصٍ عُمَرَ بْنِ الْخَطَّابِ رَضِيَ اللهُ عَنْهُ قَالَ: سَمِعْتُ رَسُولَ اللَّهِ صلى الله عليه وسلم يَقُولُ: \" إنَّمَا الْأَعْمَالُ بِالنِّيَّا…",
+          "englishExcerpt": "It is narrated on the authority of Amirul Mu'minin, Abu Hafs 'Umar bin al-Khattab (ra) who said: I heard the Messenger of Allah (ﷺ) say: \"Actions are (judged) by motives (niyyah),…",
+          "malayExcerpt": "",
+          "sourceLabel": "The Forty Hadith of Imam Nawawi · eng-nawawi40"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-qudsi40",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "qudsi40",
+        "name": "forties — qudsi40",
+        "language": "en",
+        "itemCount": 40,
+        "firstSample": {
+          "id": "qudsi40-1",
+          "number": "1",
+          "arabicExcerpt": "عَنْ أَبِي هُرَيْرَةَ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: \" لَمَّا قَضَى اللَّهُ الْخَلْقَ، كَتَبَ فِي كِتَابِهِ عَلَى نَفْسِهِ، فَهُوَ مَوْضُوعٌ عِنْد…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "forties · qudsi40"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-ara-qudsi40",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "ara-qudsi40",
+        "name": "الأربعون القدسية — ara-qudsi40",
+        "language": "ar",
+        "itemCount": 40,
+        "firstSample": {
+          "id": "ara-qudsi40-1",
+          "number": "1",
+          "arabicExcerpt": "عَنْ أَبِي هُرَيْرَةَ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: \" لَمَّا قَضَى اللَّهُ الْخَلْقَ، كَتَبَ فِي كِتَابِهِ عَلَى نَفْسِهِ، فَهُوَ مَوْضُوعٌ عِنْد…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "الأربعون القدسية · ara-qudsi40"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-eng-qudsi40",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "eng-qudsi40",
+        "name": "The Forty Hadith Qudsi — eng-qudsi40",
+        "language": "en",
+        "itemCount": 40,
+        "firstSample": {
+          "id": "eng-qudsi40-1",
+          "number": "1",
+          "arabicExcerpt": "عَنْ أَبِي هُرَيْرَةَ قَالَ: قَالَ رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: \" لَمَّا قَضَى اللَّهُ الْخَلْقَ، كَتَبَ فِي كِتَابِهِ عَلَى نَفْسِهِ، فَهُوَ مَوْضُوعٌ عِنْد…",
+          "englishExcerpt": "On the authority of Abu Hurayrah (may Allah be pleased with him), who said that the Messenger of Allah (ﷺ) said: When Allah decreed the Creation He pledged Himself by writing in H…",
+          "malayExcerpt": "",
+          "sourceLabel": "The Forty Hadith Qudsi · eng-qudsi40"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-shahwaliullah40",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "shahwaliullah40",
+        "name": "forties — shahwaliullah40",
+        "language": "en",
+        "itemCount": 40,
+        "firstSample": {
+          "id": "shahwaliullah40-1",
+          "number": "1",
+          "arabicExcerpt": "لَیْسَ الْخَبَرُ کَالْمُعَایَنَةِ",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "forties · shahwaliullah40"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-ara-shahwaliullah40",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "ara-shahwaliullah40",
+        "name": "أربعون ولي الله الدهلوي — ara-shahwaliullah40",
+        "language": "ar",
+        "itemCount": 40,
+        "firstSample": {
+          "id": "ara-shahwaliullah40-1",
+          "number": "1",
+          "arabicExcerpt": "لَیْسَ الْخَبَرُ کَالْمُعَایَنَةِ",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "أربعون ولي الله الدهلوي · ara-shahwaliullah40"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-eng-shahwaliullah40",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "eng-shahwaliullah40",
+        "name": "The Forty Hadith of Shah Waliullah — eng-shahwaliullah40",
+        "language": "en",
+        "itemCount": 40,
+        "firstSample": {
+          "id": "eng-shahwaliullah40-1",
+          "number": "1",
+          "arabicExcerpt": "لَیْسَ الْخَبَرُ کَالْمُعَایَنَةِ",
+          "englishExcerpt": "The report is not like witnessing.",
+          "malayExcerpt": "",
+          "sourceLabel": "The Forty Hadith of Shah Waliullah · eng-shahwaliullah40"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-aladab-almufrad",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "aladab-almufrad",
+        "name": "other_books — aladab_almufrad",
+        "language": "en",
+        "itemCount": 1326,
+        "firstSample": {
+          "id": "aladab-almufrad-1",
+          "number": "1",
+          "arabicExcerpt": "أَخْبَرَنَا أَبُو نَصْرٍ أَحْمَدُ بْن مُحَمَّدِ بْنِ الْحَسَنِ بْنِ حَامِدِ بْنِ هَارُونَ بْنِ عَبْدِ الجْبَّارِ البُخَارِيُّ المَعْرُوفُ بِابْنِ النَّيَازِكِيِّ قِرَاءَةً عَلَيْه…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "other_books · aladab_almufrad"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-bulugh-almaram",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "bulugh-almaram",
+        "name": "other_books — bulugh_almaram",
+        "language": "en",
+        "itemCount": 1767,
+        "firstSample": {
+          "id": "bulugh-almaram-1",
+          "number": "1",
+          "arabicExcerpt": "عَنْ أَبِي هُرَيْرَةَ ‏- رضى الله عنه ‏- قَالَ: قَالَ رَسُولُ اَللَّهِ ‏- صلى الله عليه وسلم ‏-فِي اَلْبَحْرِ: { هُوَ اَلطُّهُورُ مَاؤُهُ, اَلْحِلُّ مَيْتَتُهُ } أَخْرَجَهُ اَلْأَ…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "other_books · bulugh_almaram"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-mishkat-almasabih",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "mishkat-almasabih",
+        "name": "other_books — mishkat_almasabih",
+        "language": "en",
+        "itemCount": 4428,
+        "firstSample": {
+          "id": "mishkat-almasabih-1",
+          "number": "1",
+          "arabicExcerpt": "عَنْ عُمَرَ بْنِ الْخَطَّابِ رَضِيَ اللَّهُ عَنْهُ قَالَ: بَيْنَا نَحْنُ عِنْدَ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ ذَاتَ يَوْمٍ إِذْ طَلَعَ عَلَيْنَا رَجُلٌ شَدِيدُ…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "other_books · mishkat_almasabih"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-riyad-assalihin",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "riyad-assalihin",
+        "name": "other_books — riyad_assalihin",
+        "language": "en",
+        "itemCount": 1896,
+        "firstSample": {
+          "id": "riyad-assalihin-1",
+          "number": "1",
+          "arabicExcerpt": "وعن ابن عمر رضي الله عنهما أن رسول الله صلى الله عليه وسلم مر على رجل من الأنصار وهو يعظ أخاه في الحياء، فقال رسول الله صلى الله عليه وسلم‏:‏ \"دعه فإن الحياء من الإيمان\" ‏(‏‏(‏متف…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "other_books · riyad_assalihin"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-shamail-muhammadiyah",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "shamail-muhammadiyah",
+        "name": "other_books — shamail_muhammadiyah",
+        "language": "en",
+        "itemCount": 402,
+        "firstSample": {
+          "id": "shamail-muhammadiyah-1",
+          "number": "1",
+          "arabicExcerpt": "حَدَّثَنَا أَبُو رَجَاءٍ قُتَيْبَةُ بْنُ سَعِيدٍ، عَنْ مَالِكِ بْنِ أَنَسٍ، عَنْ رَبِيعَةَ بْنِ أَبِي عَبْدِ الرَّحْمَنِ، عَنْ أَنَسِ بْنِ مَالِكٍ، أَنَّهُ سَمِعَهُ، يَقُولُ‏:‏ كَ…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "other_books · shamail_muhammadiyah"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-abudawud",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "abudawud",
+        "name": "the_9_books — abudawud",
+        "language": "en",
+        "itemCount": 5276,
+        "firstSample": {
+          "id": "abudawud-1",
+          "number": "1",
+          "arabicExcerpt": "حَدَّثَنَا عَبْدُ اللَّهِ بْنُ مَسْلَمَةَ بْنِ قَعْنَبٍ الْقَعْنَبِيُّ، حَدَّثَنَا عَبْدُ الْعَزِيزِ، - يَعْنِي ابْنَ مُحَمَّدٍ - عَنْ مُحَمَّدٍ، - يَعْنِي ابْنَ عَمْرٍو - عَنْ أَ…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "the_9_books · abudawud"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-ahmed",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "ahmed",
+        "name": "the_9_books — ahmed",
+        "language": "en",
+        "itemCount": 1374,
+        "firstSample": {
+          "id": "ahmed-1",
+          "number": "1",
+          "arabicExcerpt": "حَدَّثَنَا عَبْدُ اللَّهِ بْنُ نُمَيْرٍ، قَالَ أَخْبَرَنَا إِسْمَاعِيلُ يَعْنِي ابْنَ أَبِي خَالِدٍ، عَنْ قَيْسٍ، قَالَ قَامَ أَبُو بَكْرٍ رَضِيَ اللَّهُ عَنْهُ فَحَمِدَ اللَّهَ و…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "the_9_books · ahmed"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-bukhari",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "bukhari",
+        "name": "the_9_books — bukhari",
+        "language": "en",
+        "itemCount": 7277,
+        "firstSample": {
+          "id": "bukhari-1",
+          "number": "1",
+          "arabicExcerpt": "حَدَّثَنَا الْحُمَيْدِيُّ عَبْدُ اللَّهِ بْنُ الزُّبَيْرِ ، قَالَ : حَدَّثَنَا سُفْيَانُ ، قَالَ : حَدَّثَنَا يَحْيَى بْنُ سَعِيدٍ الْأَنْصَارِيُّ ، قَالَ : أَخْبَرَنِي مُحَمَّدُ…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "the_9_books · bukhari"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-darimi",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "darimi",
+        "name": "the_9_books — darimi",
+        "language": "en",
+        "itemCount": 3406,
+        "firstSample": {
+          "id": "darimi-1",
+          "number": "1",
+          "arabicExcerpt": "أَخْبَرَنَا عَلِيُّ بْنُ عَبْدِ الْحَمِيدِ ، حَدَّثَنَا سُلَيْمَانُ بْنُ الْمُغِيرَةِ ، عَنْ ثَابِتٍ ، عَنْ أَنَسِ بْنِ مَالِكٍ رَضِيَ اللهُ عَنْهُ، قَالَ :\" لَمَّا نُهِينَا أَنْ…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "the_9_books · darimi"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-ibnmajah",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "ibnmajah",
+        "name": "the_9_books — ibnmajah",
+        "language": "en",
+        "itemCount": 4345,
+        "firstSample": {
+          "id": "ibnmajah-1",
+          "number": "1",
+          "arabicExcerpt": "حَدَّثَنَا أَبُو بَكْرِ بْنُ أَبِي شَيْبَةَ، حَدَّثَنَا إِسْمَاعِيلُ بْنُ إِبْرَاهِيمَ، عَنْ أَبِي رَيْحَانَةَ، عَنْ سَفِينَةَ، قَالَ كَانَ رَسُولُ اللَّهِ ـ صلى الله عليه وسلم ـ…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "the_9_books · ibnmajah"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-malik",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "malik",
+        "name": "the_9_books — malik",
+        "language": "en",
+        "itemCount": 1985,
+        "firstSample": {
+          "id": "malik-1",
+          "number": "1",
+          "arabicExcerpt": "قَالَ حَدَّثَنِي يَحْيَى بْنُ يَحْيَى اللَّيْثِيُّ، عَنْ مَالِكِ بْنِ أَنَسٍ، عَنِ ابْنِ شِهَابٍ، أَنَّ عُمَرَ بْنَ عَبْدِ الْعَزِيزِ، أَخَّرَ الصَّلاَةَ يَوْمًا فَدَخَلَ عَلَيْهِ…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "the_9_books · malik"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-muslim",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "muslim",
+        "name": "the_9_books — muslim",
+        "language": "en",
+        "itemCount": 7459,
+        "firstSample": {
+          "id": "muslim-1",
+          "number": "1",
+          "arabicExcerpt": "حَدَّثَنِي أَبُو خَيْثَمَةَ، زُهَيْرُ بْنُ حَرْبٍ حَدَّثَنَا وَكِيعٌ، عَنْ كَهْمَسٍ، عَنْ عَبْدِ اللَّهِ بْنِ بُرَيْدَةَ، عَنْ يَحْيَى بْنِ يَعْمَرَ، ح وَحَدَّثَنَا عُبَيْدُ اللَّ…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "the_9_books · muslim"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-nasai",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "nasai",
+        "name": "the_9_books — nasai",
+        "language": "en",
+        "itemCount": 5768,
+        "firstSample": {
+          "id": "nasai-1",
+          "number": "1",
+          "arabicExcerpt": "أَخْبَرَنَا قُتَيْبَةُ بْنُ سَعِيدٍ، قَالَ حَدَّثَنَا سُفْيَانُ، عَنِ الزُّهْرِيِّ، عَنْ أَبِي سَلَمَةَ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏ \"‏ إِذَ…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "the_9_books · nasai"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-tirmidhi",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "tirmidhi",
+        "name": "the_9_books — tirmidhi",
+        "language": "en",
+        "itemCount": 4053,
+        "firstSample": {
+          "id": "tirmidhi-1",
+          "number": "1",
+          "arabicExcerpt": "حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ، حَدَّثَنَا أَبُو عَوَانَةَ، عَنْ سِمَاكِ بْنِ حَرْبٍ، ح وَحَدَّثَنَا هَنَّادٌ، حَدَّثَنَا وَكِيعٌ، عَنْ إِسْرَائِيلَ، عَنْ سِمَاكٍ، عَنْ مُصْعَ…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "the_9_books · tirmidhi"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-all",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "all",
+        "name": "nawawi40 — all",
+        "language": "en",
+        "itemCount": 40,
+        "firstSample": {
+          "id": "all-1",
+          "number": "1",
+          "arabicExcerpt": "لَیْسَ الْخَبَرُ کَالْمُعَایَنَةِ",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "shahwaliullah40 · all"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-all",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "all",
+        "name": "qudsi40 — all",
+        "language": "en",
+        "itemCount": 40,
+        "firstSample": {
+          "id": "all-1",
+          "number": "1",
+          "arabicExcerpt": "لَیْسَ الْخَبَرُ کَالْمُعَایَنَةِ",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "shahwaliullah40 · all"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-all",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "all",
+        "name": "shahwaliullah40 — all",
+        "language": "en",
+        "itemCount": 40,
+        "firstSample": {
+          "id": "all-1",
+          "number": "1",
+          "arabicExcerpt": "لَیْسَ الْخَبَرُ کَالْمُعَایَنَةِ",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "shahwaliullah40 · all"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-01",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "01",
+        "name": "aladab_almufrad — 01",
+        "language": "en",
+        "itemCount": 148,
+        "firstSample": {
+          "id": "01-1",
+          "number": "1",
+          "arabicExcerpt": "حَدَّثَنَا قُتَيْبَةُ بْنُ سَعِيدٍ، حَدَّثَنَا أَبُو عَوَانَةَ، عَنْ سِمَاكِ بْنِ حَرْبٍ، ح وَحَدَّثَنَا هَنَّادٌ، حَدَّثَنَا وَكِيعٌ، عَنْ إِسْرَائِيلَ، عَنْ سِمَاكٍ، عَنْ مُصْعَ…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "tirmidhi · 01"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-02",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "02",
+        "name": "aladab_almufrad — 02",
+        "language": "en",
+        "itemCount": 304,
+        "firstSample": {
+          "id": "02-1",
+          "number": "1",
+          "arabicExcerpt": "حَدَّثَنَا هَنَّادُ بْنُ السَّرِيِّ، حَدَّثَنَا عَبْدُ الرَّحْمَنِ بْنُ أَبِي الزِّنَادِ، عَنْ عَبْدِ الرَّحْمَنِ بْنِ الْحَارِثِ بْنِ عَيَّاشِ بْنِ أَبِي رَبِيعَةَ، عَنْ حَكِيمِ…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "tirmidhi · 02"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-03",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "03",
+        "name": "aladab_almufrad — 03",
+        "language": "en",
+        "itemCount": 35,
+        "firstSample": {
+          "id": "03-1",
+          "number": "1",
+          "arabicExcerpt": "حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا اللَّيْثُ بْنُ سَعْدٍ، عَنْ يَزِيدَ بْنِ أَبِي حَبِيبٍ، عَنْ عَبْدِ اللَّهِ بْنِ رَاشِدٍ الزَّوْفِيِّ، عَنْ عَبْدِ اللَّهِ بْنِ أَبِي مُرَّةَ الز…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "tirmidhi · 03"
+        }
+      },
+      {
+        "reviewId": "hadith-collection-04",
+        "domain": "hadith",
+        "status": "pending-review",
+        "productionApproved": false,
+        "collectionId": "04",
+        "name": "aladab_almufrad — 04",
+        "language": "en",
+        "itemCount": 42,
+        "firstSample": {
+          "id": "04-1",
+          "number": "1",
+          "arabicExcerpt": "حَدَّثَنَا قُتَيْبَةُ، حَدَّثَنَا الْمُغِيرَةُ بْنُ عَبْدِ الرَّحْمَنِ، عَنْ أَبِي الزِّنَادِ، عَنِ الأَعْرَجِ، عَنْ أَبِي هُرَيْرَةَ، أَنَّ النَّبِيَّ صلى الله عليه وسلم قَالَ ‏…",
+          "englishExcerpt": "",
+          "malayExcerpt": "",
+          "sourceLabel": "tirmidhi · 04"
+        }
+      }
+    ]
+  }
+}

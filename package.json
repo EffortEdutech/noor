@@ -51,7 +51,9 @@
     "ilm:migrate:tafseer": "node scripts/migrate-ilm-mate-content.mjs --only=tafseer",
     "ilm:migrate:hadith": "node scripts/migrate-ilm-mate-content.mjs --only=hadith",
     "ilm:migrate:all": "node scripts/migrate-ilm-mate-content.mjs --only=all",
-    "check:ilm-migration": "node scripts/check-ilm-mate-migration.mjs"
+    "check:ilm-migration": "node scripts/check-ilm-mate-migration.mjs",
+    "ilm:review-console": "node scripts/generate-ilm-mate-review-console.mjs",
+    "check:ilm-review-console": "node scripts/check-ilm-mate-review-console.mjs"
   },
   "devDependencies": {
     "@types/react": "19.0.10",

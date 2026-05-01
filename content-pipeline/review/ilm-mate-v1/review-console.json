@@ -1,0 +1,39 @@
+{
+  "id": "noor-ilm-mate-v1-review-console",
+  "version": "0.26.6",
+  "label": "ilm-mate migrated content review console",
+  "generatedAt": "2026-05-01T11:04:36.427Z",
+  "sourceRoot": "content-pipeline/imported/ilm-mate-v1/noor-cdn",
+  "outputRoot": "content-pipeline/review/ilm-mate-v1",
+  "productionGate": {
+    "status": "blocked",
+    "productionApproved": false,
+    "reason": "Migrated ilm-mate content requires source licensing, attribution, checksum/integrity and scholarly review before production CDN promotion.",
+    "requiredEvidence": [
+      "source identity",
+      "license or written redistribution permission",
+      "attribution wording",
+      "checksum/integrity plan",
+      "scholarly reviewer sign-off",
+      "production promotion approval"
+    ]
+  },
+  "summary": {
+    "quran": {
+      "surahIndexCount": 114,
+      "surahFileCount": 114,
+      "ayahCount": 6236
+    },
+    "tafseer": {
+      "sampleBookCount": 6,
+      "entryCount": 37416
+    },
+    "hadith": {
+      "collectionCount": 630,
+      "itemCount": 103625
+    },
+    "search": {
+      "totalEntries": 147277
+    }
+  }
+}
