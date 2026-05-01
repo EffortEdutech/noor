@@ -1,0 +1,19 @@
+domain,evidence_key,label,required,status,evidence_ref,reviewer,notes
+quran,source_identity,Source identity,true,missing,,,Confirm original source identity for quran content.
+quran,license_or_permission,License or written redistribution permission,true,missing,,,"Attach license text, permission email, or official reuse terms."
+quran,attribution_wording,Attribution wording,true,missing,,,Confirm exact public attribution wording before CDN promotion.
+quran,checksum_integrity_plan,Checksum / integrity plan,true,missing,,,Record checksum method and integrity verification plan.
+quran,scholarly_reviewer_signoff,Scholarly reviewer sign-off,true,missing,,,Capture qualified reviewer sign-off for sacred content accuracy.
+quran,production_promotion_approval,Production promotion approval,true,blocked,,,Must remain blocked until all required evidence is complete.
+tafseer,source_identity,Source identity,true,missing,,,Confirm original source identity for tafseer content.
+tafseer,license_or_permission,License or written redistribution permission,true,missing,,,"Attach license text, permission email, or official reuse terms."
+tafseer,attribution_wording,Attribution wording,true,missing,,,Confirm exact public attribution wording before CDN promotion.
+tafseer,checksum_integrity_plan,Checksum / integrity plan,true,missing,,,Record checksum method and integrity verification plan.
+tafseer,scholarly_reviewer_signoff,Scholarly reviewer sign-off,true,missing,,,Capture qualified reviewer sign-off for sacred content accuracy.
+tafseer,production_promotion_approval,Production promotion approval,true,blocked,,,Must remain blocked until all required evidence is complete.
+hadith,source_identity,Source identity,true,missing,,,Confirm original source identity for hadith content.
+hadith,license_or_permission,License or written redistribution permission,true,missing,,,"Attach license text, permission email, or official reuse terms."
+hadith,attribution_wording,Attribution wording,true,missing,,,Confirm exact public attribution wording before CDN promotion.
+hadith,checksum_integrity_plan,Checksum / integrity plan,true,missing,,,Record checksum method and integrity verification plan.
+hadith,scholarly_reviewer_signoff,Scholarly reviewer sign-off,true,missing,,,Capture qualified reviewer sign-off for sacred content accuracy.
+hadith,production_promotion_approval,Production promotion approval,true,blocked,,,Must remain blocked until all required evidence is complete.

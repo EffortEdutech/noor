@@ -53,7 +53,9 @@
     "ilm:migrate:all": "node scripts/migrate-ilm-mate-content.mjs --only=all",
     "check:ilm-migration": "node scripts/check-ilm-mate-migration.mjs",
     "ilm:review-console": "node scripts/generate-ilm-mate-review-console.mjs",
-    "check:ilm-review-console": "node scripts/check-ilm-mate-review-console.mjs"
+    "check:ilm-review-console": "node scripts/check-ilm-mate-review-console.mjs",
+    "ilm:review-actions": "node scripts/generate-ilm-mate-review-actions.mjs",
+    "check:ilm-review-actions": "node scripts/check-ilm-mate-review-actions.mjs"
   },
   "devDependencies": {
     "@types/react": "19.0.10",

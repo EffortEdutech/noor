@@ -17,6 +17,7 @@ import { RoadmapControlCard } from '../../components/RoadmapControlCard';
 import { RuntimeContentSourceCard } from '../../components/RuntimeContentSourceCard';
 import { ScholarlyReviewConsoleCard } from '../../components/ScholarlyReviewConsoleCard';
 import { IlmMateReviewConsoleCard } from '../../components/IlmMateReviewConsoleCard';
+import { IlmMateReviewActionsCard } from '../../components/IlmMateReviewActionsCard';
 import { SourceGovernanceCard } from '../../components/SourceGovernanceCard';
 import { SourceIntakeCard } from '../../components/SourceIntakeCard';
 import { TafseerImportCard } from '../../components/TafseerImportCard';
@@ -49,6 +50,7 @@ export default async function SettingsPage() {
       <ProductionCdnPromotionCard />
       <ScholarlyReviewConsoleCard />
       <IlmMateReviewConsoleCard />
+      <IlmMateReviewActionsCard />
       <QuranSourceGateCard />
       <QuranImportCard />
       <TafseerImportCard />

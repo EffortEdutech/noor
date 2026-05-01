@@ -1,0 +1,281 @@
+{
+  "id": "noor-ilm-mate-v1-review-actions-register",
+  "version": "0.26.7",
+  "label": "ilm-mate migrated content review workflow actions",
+  "generatedAt": "2026-05-01T14:05:25.495Z",
+  "sourceReviewConsole": "content-pipeline/review/ilm-mate-v1/review-console.json",
+  "sourceSampleQueue": "content-pipeline/review/ilm-mate-v1/review-sample-queue.json",
+  "outputRoot": "content-pipeline/review/ilm-mate-v1/actions",
+  "policy": {
+    "productionGateStatus": "blocked",
+    "productionApproved": false,
+    "allowedStatuses": [
+      "blocked",
+      "needs-evidence",
+      "in-review",
+      "reviewed",
+      "approved-for-staging"
+    ],
+    "disallowedUntilEvidenceComplete": [
+      "approved-for-production",
+      "production-promoted"
+    ],
+    "rule": "No domain may be productionApproved=true until all required evidence is complete and production promotion is explicitly approved."
+  },
+  "summary": {
+    "quran": {
+      "surahIndexCount": 114,
+      "surahFileCount": 114,
+      "ayahCount": 6236
+    },
+    "tafseer": {
+      "sampleBookCount": 6,
+      "entryCount": 37416
+    },
+    "hadith": {
+      "collectionCount": 630,
+      "itemCount": 103625
+    },
+    "search": {
+      "totalEntries": 147277
+    }
+  },
+  "requiredEvidence": [
+    "source identity",
+    "license or written redistribution permission",
+    "attribution wording",
+    "checksum/integrity plan",
+    "scholarly reviewer sign-off",
+    "production promotion approval"
+  ],
+  "domainReviews": [
+    {
+      "id": "ilm-mate-v1-quran-review-actions",
+      "domain": "quran",
+      "status": "needs-evidence",
+      "productionApproved": false,
+      "readinessScore": 0,
+      "counts": {
+        "surahs": 114,
+        "ayat": 6236,
+        "sampleItems": 9
+      },
+      "requiredEvidence": [
+        {
+          "key": "source_identity",
+          "label": "Source identity",
+          "required": true,
+          "status": "missing",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Confirm original source identity for quran content."
+        },
+        {
+          "key": "license_or_permission",
+          "label": "License or written redistribution permission",
+          "required": true,
+          "status": "missing",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Attach license text, permission email, or official reuse terms."
+        },
+        {
+          "key": "attribution_wording",
+          "label": "Attribution wording",
+          "required": true,
+          "status": "missing",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Confirm exact public attribution wording before CDN promotion."
+        },
+        {
+          "key": "checksum_integrity_plan",
+          "label": "Checksum / integrity plan",
+          "required": true,
+          "status": "missing",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Record checksum method and integrity verification plan."
+        },
+        {
+          "key": "scholarly_reviewer_signoff",
+          "label": "Scholarly reviewer sign-off",
+          "required": true,
+          "status": "missing",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Capture qualified reviewer sign-off for sacred content accuracy."
+        },
+        {
+          "key": "production_promotion_approval",
+          "label": "Production promotion approval",
+          "required": true,
+          "status": "blocked",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Must remain blocked until all required evidence is complete."
+        }
+      ],
+      "nextActions": [
+        "Assign a responsible reviewer for quran.",
+        "Collect source identity and license/permission evidence for quran.",
+        "Confirm public attribution wording for quran.",
+        "Record checksum/integrity verification for quran.",
+        "Capture scholarly reviewer sign-off for quran.",
+        "Keep productionApproved=false until all evidence is complete."
+      ]
+    },
+    {
+      "id": "ilm-mate-v1-tafseer-review-actions",
+      "domain": "tafseer",
+      "status": "needs-evidence",
+      "productionApproved": false,
+      "readinessScore": 0,
+      "counts": {
+        "books": 6,
+        "entries": 37416,
+        "sampleItems": 6
+      },
+      "requiredEvidence": [
+        {
+          "key": "source_identity",
+          "label": "Source identity",
+          "required": true,
+          "status": "missing",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Confirm original source identity for tafseer content."
+        },
+        {
+          "key": "license_or_permission",
+          "label": "License or written redistribution permission",
+          "required": true,
+          "status": "missing",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Attach license text, permission email, or official reuse terms."
+        },
+        {
+          "key": "attribution_wording",
+          "label": "Attribution wording",
+          "required": true,
+          "status": "missing",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Confirm exact public attribution wording before CDN promotion."
+        },
+        {
+          "key": "checksum_integrity_plan",
+          "label": "Checksum / integrity plan",
+          "required": true,
+          "status": "missing",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Record checksum method and integrity verification plan."
+        },
+        {
+          "key": "scholarly_reviewer_signoff",
+          "label": "Scholarly reviewer sign-off",
+          "required": true,
+          "status": "missing",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Capture qualified reviewer sign-off for sacred content accuracy."
+        },
+        {
+          "key": "production_promotion_approval",
+          "label": "Production promotion approval",
+          "required": true,
+          "status": "blocked",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Must remain blocked until all required evidence is complete."
+        }
+      ],
+      "nextActions": [
+        "Assign a responsible reviewer for tafseer.",
+        "Collect source identity and license/permission evidence for tafseer.",
+        "Confirm public attribution wording for tafseer.",
+        "Record checksum/integrity verification for tafseer.",
+        "Capture scholarly reviewer sign-off for tafseer.",
+        "Keep productionApproved=false until all evidence is complete."
+      ]
+    },
+    {
+      "id": "ilm-mate-v1-hadith-review-actions",
+      "domain": "hadith",
+      "status": "needs-evidence",
+      "productionApproved": false,
+      "readinessScore": 0,
+      "counts": {
+        "collections": 630,
+        "items": 103625,
+        "sampleItems": 30
+      },
+      "requiredEvidence": [
+        {
+          "key": "source_identity",
+          "label": "Source identity",
+          "required": true,
+          "status": "missing",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Confirm original source identity for hadith content."
+        },
+        {
+          "key": "license_or_permission",
+          "label": "License or written redistribution permission",
+          "required": true,
+          "status": "missing",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Attach license text, permission email, or official reuse terms."
+        },
+        {
+          "key": "attribution_wording",
+          "label": "Attribution wording",
+          "required": true,
+          "status": "missing",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Confirm exact public attribution wording before CDN promotion."
+        },
+        {
+          "key": "checksum_integrity_plan",
+          "label": "Checksum / integrity plan",
+          "required": true,
+          "status": "missing",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Record checksum method and integrity verification plan."
+        },
+        {
+          "key": "scholarly_reviewer_signoff",
+          "label": "Scholarly reviewer sign-off",
+          "required": true,
+          "status": "missing",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Capture qualified reviewer sign-off for sacred content accuracy."
+        },
+        {
+          "key": "production_promotion_approval",
+          "label": "Production promotion approval",
+          "required": true,
+          "status": "blocked",
+          "evidenceRef": "",
+          "reviewer": "",
+          "notes": "Must remain blocked until all required evidence is complete."
+        }
+      ],
+      "nextActions": [
+        "Assign a responsible reviewer for hadith.",
+        "Collect source identity and license/permission evidence for hadith.",
+        "Confirm public attribution wording for hadith.",
+        "Record checksum/integrity verification for hadith.",
+        "Capture scholarly reviewer sign-off for hadith.",
+        "Keep productionApproved=false until all evidence is complete."
+      ]
+    }
+  ]
+}
