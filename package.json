@@ -55,7 +55,9 @@
     "ilm:review-console": "node scripts/generate-ilm-mate-review-console.mjs",
     "check:ilm-review-console": "node scripts/check-ilm-mate-review-console.mjs",
     "ilm:review-actions": "node scripts/generate-ilm-mate-review-actions.mjs",
-    "check:ilm-review-actions": "node scripts/check-ilm-mate-review-actions.mjs"
+    "check:ilm-review-actions": "node scripts/check-ilm-mate-review-actions.mjs",
+    "ilm:promotion-readiness": "node scripts/generate-ilm-mate-promotion-readiness.mjs",
+    "check:ilm-promotion-readiness": "node scripts/check-ilm-mate-promotion-readiness.mjs"
   },
   "devDependencies": {
     "@types/react": "19.0.10",

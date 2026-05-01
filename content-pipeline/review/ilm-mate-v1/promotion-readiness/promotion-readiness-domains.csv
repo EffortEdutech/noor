@@ -1,0 +1,4 @@
+"domain","status","readinessScore","requiredEvidenceCount","completedEvidenceCount","missingEvidenceCount","canApproveForStaging","canPromoteToProduction"
+"quran","blocked","0","6","0","6","false","false"
+"tafseer","blocked","0","6","0","6","false","false"
+"hadith","blocked","0","6","0","6","false","false"
