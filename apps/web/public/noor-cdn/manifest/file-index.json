@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-01T06:49:06.924Z",
+  "generatedAt": "2026-05-01T07:48:26.064Z",
   "files": [
     {
       "path": "hadith/collections.json",
@@ -24,7 +24,7 @@
     {
       "path": "manifest/search-index-manifest.json",
       "bytes": 355,
-      "sha256": "75c86b9ebf262ec52de24907a00716b400594fb130f931d043354098d976d893"
+      "sha256": "afb998504c15719075736dea42d28d6c95d25402b6ff049768090d3a79e7f77d"
     },
     {
       "path": "metadata/surah-index.json",

@@ -8,6 +8,20 @@ export type NoorReleaseNote = {
 
 export const NOOR_RELEASE_NOTES: NoorReleaseNote[] = [
   {
+    version: '0.26.0',
+    date: '2026-05-01',
+    title: 'Sprint 26 — CDN search index',
+    summary:
+      'Adds a lightweight CDN search index path so Explore can search Quran, Tafseer and Hadith content from the published noor-cdn repository while preserving bundled fallback safety.',
+    highlights: [
+      'CDN search index available at noor-cdn/search/search-index.json',
+      'Explore loads from the External CDN search index when runtime source is set to cdn',
+      'Explore follows the same browser runtime source setting used by Settings and reader pages',
+      'Confirmed 30 CDN search entries across Quran, Tafseer and Hadith demo/partial content',
+      'Production content promotion remains blocked until source licensing, attribution, checksum and scholarly review gates are approved'
+    ]
+  },
+  {
     version: '0.25.0',
     date: '2026-04-30',
     title: 'Sprint 25 — Production CDN v1 promotion',

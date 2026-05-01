@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.26.0 — Sprint 26 CDN search index
+
+- Added CDN search index support for Quran, Tafseer and Hadith content.
+- Added external CDN search loading for `/explore` with bundled fallback protection.
+- Added browser runtime source alignment so Explore follows the same `noor.contentSource.v1` setting as Settings and reader pages.
+- Confirmed `/learn/quran` runs from external CDN content and `/explore` reports `External CDN search index` with 30 CDN entries.
+- Kept production content promotion blocked until scholarly review and source approval gates are complete.
+
 ## v0.25.0 — Sprint 25 Production CDN v1 promotion
 
 - Added `production:promote`.
