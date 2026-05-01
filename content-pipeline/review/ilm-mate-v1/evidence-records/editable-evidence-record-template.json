@@ -1,0 +1,83 @@
+{
+  "note": "Copy one evidence record, fill only editable fields, then paste it back into evidence-completion-records.json. Do not set productionApproved=true.",
+  "editableFields": [
+    "completionStatus",
+    "submissionStatus",
+    "reviewerDecision",
+    "reviewerName",
+    "reviewerRole",
+    "reviewerOrganisation",
+    "evidenceReference",
+    "sourceUrlOrDocument",
+    "evidenceFiles",
+    "dateSubmitted",
+    "dateReviewed",
+    "reviewerNotes",
+    "rejectionReason",
+    "acceptedForStaging",
+    "lastUpdatedAt"
+  ],
+  "allowedCompletionStatuses": [
+    "draft",
+    "not-submitted",
+    "submitted",
+    "under-review",
+    "accepted-for-staging",
+    "needs-more-information",
+    "rejected",
+    "blocked"
+  ],
+  "allowedReviewerDecisions": [
+    "pending",
+    "accepted-for-staging",
+    "needs-more-information",
+    "rejected"
+  ],
+  "sampleRecord": {
+    "id": "ilm-mate-v1-quran-source_identity-evidence-record",
+    "formId": "ilm-mate-v1-quran-source_identity-evidence-form",
+    "domain": "quran",
+    "domainLabel": "Quran",
+    "evidenceKey": "source_identity",
+    "evidenceLabel": "Source identity",
+    "required": true,
+    "editable": true,
+    "currentEvidenceStatus": "missing",
+    "completionStatus": "not-submitted",
+    "submissionStatus": "not-submitted",
+    "reviewerDecision": "pending",
+    "reviewerName": "",
+    "reviewerRole": "",
+    "reviewerOrganisation": "",
+    "evidenceReference": "",
+    "sourceUrlOrDocument": "",
+    "evidenceFiles": [],
+    "dateSubmitted": "",
+    "dateReviewed": "",
+    "reviewerNotes": "",
+    "rejectionReason": "",
+    "acceptedForStaging": false,
+    "productionApproved": false,
+    "canApproveProduction": false,
+    "lockedByGate": false,
+    "instructions": "Identify the original upstream source for Quran. Include repository/site name, URL, edition/book name, language, source maintainer and date accessed.",
+    "notes": "Confirm original source identity for quran content.",
+    "allowedCompletionStatuses": [
+      "draft",
+      "not-submitted",
+      "submitted",
+      "under-review",
+      "accepted-for-staging",
+      "needs-more-information",
+      "rejected"
+    ],
+    "allowedReviewerDecisions": [
+      "pending",
+      "accepted-for-staging",
+      "needs-more-information",
+      "rejected"
+    ],
+    "lastUpdatedAt": "",
+    "recordPolicy": "Editable staging evidence record. Accepted staging evidence does not equal production approval."
+  }
+}

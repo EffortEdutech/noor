@@ -1,0 +1,132 @@
+{
+  "id": "noor-ilm-mate-v1-evidence-completion-workflow",
+  "version": "0.27.0",
+  "label": "ilm-mate migrated content evidence completion workflow",
+  "generatedAt": "2026-05-01T20:48:34.575Z",
+  "sourceEvidenceIntakePack": "content-pipeline/review/ilm-mate-v1/evidence-intake/evidence-intake-pack.json",
+  "outputRoot": "content-pipeline/review/ilm-mate-v1/evidence-records",
+  "policy": {
+    "status": "blocked",
+    "productionApproved": false,
+    "canPromoteToProduction": false,
+    "rule": "Sprint 27 creates editable staging evidence records only. It must not approve production and must not publish migrated ilm-mate content to the NOOR CDN repository."
+  },
+  "editableRecordPolicy": {
+    "owner": "NOOR content governance / review team",
+    "editableFields": [
+      "completionStatus",
+      "submissionStatus",
+      "reviewerDecision",
+      "reviewerName",
+      "reviewerRole",
+      "reviewerOrganisation",
+      "evidenceReference",
+      "sourceUrlOrDocument",
+      "evidenceFiles",
+      "dateSubmitted",
+      "dateReviewed",
+      "reviewerNotes",
+      "rejectionReason",
+      "acceptedForStaging",
+      "lastUpdatedAt"
+    ],
+    "lockedFields": [
+      "domain",
+      "evidenceKey",
+      "required",
+      "productionApproved",
+      "canApproveProduction",
+      "lockedByGate"
+    ],
+    "allowedReviewerDecisions": [
+      "pending",
+      "accepted-for-staging",
+      "needs-more-information",
+      "rejected"
+    ],
+    "allowedCompletionStatuses": [
+      "draft",
+      "not-submitted",
+      "submitted",
+      "under-review",
+      "accepted-for-staging",
+      "needs-more-information",
+      "rejected",
+      "blocked"
+    ],
+    "productionApprovalRule": "production_promotion_approval records remain blocked until a later production-promotion sprint."
+  },
+  "sourceSummary": {
+    "domains": 3,
+    "evidenceForms": 18,
+    "domainTemplates": 3,
+    "missingEvidenceFromReadiness": 18,
+    "completedEvidenceFromReadiness": 0
+  },
+  "summary": {
+    "totalRecords": 18,
+    "acceptedForStaging": 0,
+    "blocked": 3,
+    "missingOrDraft": 15,
+    "domainsReadyForStaging": 0,
+    "domains": [
+      {
+        "domain": "quran",
+        "domainLabel": "Quran",
+        "requiredEvidenceRecords": 6,
+        "nonProductionRequired": 5,
+        "nonProductionAccepted": 0,
+        "acceptedForStaging": 0,
+        "submittedOrUnderReview": 0,
+        "needsMoreInformation": 0,
+        "rejected": 0,
+        "blocked": 1,
+        "completionPercent": 0,
+        "stagingReady": false,
+        "productionApproved": false,
+        "canPromoteToProduction": false
+      },
+      {
+        "domain": "tafseer",
+        "domainLabel": "Tafseer",
+        "requiredEvidenceRecords": 6,
+        "nonProductionRequired": 5,
+        "nonProductionAccepted": 0,
+        "acceptedForStaging": 0,
+        "submittedOrUnderReview": 0,
+        "needsMoreInformation": 0,
+        "rejected": 0,
+        "blocked": 1,
+        "completionPercent": 0,
+        "stagingReady": false,
+        "productionApproved": false,
+        "canPromoteToProduction": false
+      },
+      {
+        "domain": "hadith",
+        "domainLabel": "Hadith",
+        "requiredEvidenceRecords": 6,
+        "nonProductionRequired": 5,
+        "nonProductionAccepted": 0,
+        "acceptedForStaging": 0,
+        "submittedOrUnderReview": 0,
+        "needsMoreInformation": 0,
+        "rejected": 0,
+        "blocked": 1,
+        "completionPercent": 0,
+        "stagingReady": false,
+        "productionApproved": false,
+        "canPromoteToProduction": false
+      }
+    ],
+    "productionApproved": false,
+    "canPromoteToProduction": false,
+    "status": "blocked"
+  },
+  "nextActions": [
+    "Open evidence-completion-records.json and fill reviewer/evidence fields as submissions arrive.",
+    "Use accepted-for-staging only after source, license, attribution, checksum and scholarly evidence are reviewed.",
+    "Keep production_promotion_approval records blocked.",
+    "Re-run pnpm check:ilm-evidence-records after editing records."
+  ]
+}
