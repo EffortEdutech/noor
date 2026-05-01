@@ -57,7 +57,9 @@
     "ilm:review-actions": "node scripts/generate-ilm-mate-review-actions.mjs",
     "check:ilm-review-actions": "node scripts/check-ilm-mate-review-actions.mjs",
     "ilm:promotion-readiness": "node scripts/generate-ilm-mate-promotion-readiness.mjs",
-    "check:ilm-promotion-readiness": "node scripts/check-ilm-mate-promotion-readiness.mjs"
+    "check:ilm-promotion-readiness": "node scripts/check-ilm-mate-promotion-readiness.mjs",
+    "ilm:evidence-intake": "node scripts/generate-ilm-mate-evidence-intake.mjs",
+    "check:ilm-evidence-intake": "node scripts/check-ilm-mate-evidence-intake.mjs"
   },
   "devDependencies": {
     "@types/react": "19.0.10",

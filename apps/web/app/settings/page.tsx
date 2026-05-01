@@ -19,6 +19,7 @@ import { ScholarlyReviewConsoleCard } from '../../components/ScholarlyReviewCons
 import { IlmMateReviewConsoleCard } from '../../components/IlmMateReviewConsoleCard';
 import { IlmMateReviewActionsCard } from '../../components/IlmMateReviewActionsCard';
 import { IlmMatePromotionReadinessCard } from '../../components/IlmMatePromotionReadinessCard';
+import { IlmMateEvidenceIntakeCard } from '../../components/IlmMateEvidenceIntakeCard';
 import { SourceGovernanceCard } from '../../components/SourceGovernanceCard';
 import { SourceIntakeCard } from '../../components/SourceIntakeCard';
 import { TafseerImportCard } from '../../components/TafseerImportCard';
@@ -53,6 +54,7 @@ export default async function SettingsPage() {
       <IlmMateReviewConsoleCard />
       <IlmMateReviewActionsCard />
       <IlmMatePromotionReadinessCard />
+      <IlmMateEvidenceIntakeCard />
       <QuranSourceGateCard />
       <QuranImportCard />
       <TafseerImportCard />
