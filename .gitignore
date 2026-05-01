@@ -35,3 +35,9 @@ content-pipeline/source-intake/audit/
 
 # Generated NOOR roadmap status files. Regenerate with pnpm roadmap:status.
 content-pipeline/roadmap/
+
+# NOOR generated ilm-mate migration staging output
+content-pipeline/imported/ilm-mate-v1/
+
+# NOOR generated ilm-mate migration staging output
+content-pipeline/imported/ilm-mate-v1/

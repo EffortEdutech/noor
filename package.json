@@ -45,7 +45,13 @@
     "review:console": "node scripts/generate-noor-review-console.mjs",
     "production:promote": "node scripts/promote-noor-production-cdn.mjs",
     "roadmap:status": "node scripts/generate-noor-roadmap.mjs",
-    "release:bump": "node scripts/bump-noor-version.mjs"
+    "release:bump": "node scripts/bump-noor-version.mjs",
+    "ilm:inspect": "node scripts/inspect-ilm-mate-content.mjs",
+    "ilm:migrate:quran": "node scripts/migrate-ilm-mate-content.mjs --only=quran",
+    "ilm:migrate:tafseer": "node scripts/migrate-ilm-mate-content.mjs --only=tafseer",
+    "ilm:migrate:hadith": "node scripts/migrate-ilm-mate-content.mjs --only=hadith",
+    "ilm:migrate:all": "node scripts/migrate-ilm-mate-content.mjs --only=all",
+    "check:ilm-migration": "node scripts/check-ilm-mate-migration.mjs"
   },
   "devDependencies": {
     "@types/react": "19.0.10",
