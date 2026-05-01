@@ -21,6 +21,7 @@ import { IlmMateReviewActionsCard } from '../../components/IlmMateReviewActionsC
 import { IlmMatePromotionReadinessCard } from '../../components/IlmMatePromotionReadinessCard';
 import { IlmMateEvidenceIntakeCard } from '../../components/IlmMateEvidenceIntakeCard';
 import { IlmMateEvidenceCompletionCard } from '../../components/IlmMateEvidenceCompletionCard';
+import { IlmMateEvidenceUpdateHelperCard } from '../../components/IlmMateEvidenceUpdateHelperCard';
 import { SourceGovernanceCard } from '../../components/SourceGovernanceCard';
 import { SourceIntakeCard } from '../../components/SourceIntakeCard';
 import { TafseerImportCard } from '../../components/TafseerImportCard';
@@ -57,6 +58,7 @@ export default async function SettingsPage() {
       <IlmMatePromotionReadinessCard />
       <IlmMateEvidenceIntakeCard />
       <IlmMateEvidenceCompletionCard />
+      <IlmMateEvidenceUpdateHelperCard />
       <QuranSourceGateCard />
       <QuranImportCard />
       <TafseerImportCard />

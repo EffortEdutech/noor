@@ -1,0 +1,96 @@
+{
+  "id": "noor-sprint27-1-ilm-mate-evidence-update-helper",
+  "version": "0.27.1",
+  "label": "ilm-mate evidence record update helper",
+  "generatedAt": "2026-05-01T23:29:30.061Z",
+  "status": "blocked",
+  "productionApproved": false,
+  "canPromoteToProduction": false,
+  "sourceRecords": "content-pipeline/review/ilm-mate-v1/evidence-records/evidence-completion-records.json",
+  "outputRoot": "content-pipeline/review/ilm-mate-v1/evidence-records/update-helper",
+  "recordsRoot": "content-pipeline/review/ilm-mate-v1/evidence-records",
+  "allowedUpdateStatuses": [
+    "draft",
+    "not-submitted",
+    "submitted",
+    "under-review",
+    "accepted-for-staging",
+    "needs-more-information",
+    "rejected"
+  ],
+  "recordCount": 18,
+  "summary": {
+    "totalRecords": 18,
+    "acceptedForStaging": 0,
+    "blocked": 3,
+    "missingOrDraft": 15,
+    "domainsReadyForStaging": 0,
+    "domains": [
+      {
+        "domain": "quran",
+        "domainLabel": "Quran",
+        "requiredEvidenceRecords": 6,
+        "nonProductionRequired": 5,
+        "nonProductionAccepted": 0,
+        "acceptedForStaging": 0,
+        "submittedOrUnderReview": 0,
+        "needsMoreInformation": 0,
+        "rejected": 0,
+        "blocked": 1,
+        "completionPercent": 0,
+        "stagingReady": false,
+        "productionApproved": false,
+        "canPromoteToProduction": false
+      },
+      {
+        "domain": "tafseer",
+        "domainLabel": "Tafseer",
+        "requiredEvidenceRecords": 6,
+        "nonProductionRequired": 5,
+        "nonProductionAccepted": 0,
+        "acceptedForStaging": 0,
+        "submittedOrUnderReview": 0,
+        "needsMoreInformation": 0,
+        "rejected": 0,
+        "blocked": 1,
+        "completionPercent": 0,
+        "stagingReady": false,
+        "productionApproved": false,
+        "canPromoteToProduction": false
+      },
+      {
+        "domain": "hadith",
+        "domainLabel": "Hadith",
+        "requiredEvidenceRecords": 6,
+        "nonProductionRequired": 5,
+        "nonProductionAccepted": 0,
+        "acceptedForStaging": 0,
+        "submittedOrUnderReview": 0,
+        "needsMoreInformation": 0,
+        "rejected": 0,
+        "blocked": 1,
+        "completionPercent": 0,
+        "stagingReady": false,
+        "productionApproved": false,
+        "canPromoteToProduction": false
+      }
+    ],
+    "productionApproved": false,
+    "canPromoteToProduction": false,
+    "status": "blocked"
+  },
+  "commands": {
+    "generate": "pnpm ilm:evidence-helper",
+    "listAll": "pnpm ilm:evidence:list",
+    "listQuran": "pnpm ilm:evidence:list -- --domain=quran",
+    "updateById": "pnpm ilm:evidence:update -- --id=ilm-mate-v1-quran-source_identity-evidence-record --status=submitted --reviewer-name=\"Reviewer Name\" --evidence-reference=\"Evidence reference\"",
+    "updateByDomain": "pnpm ilm:evidence:update -- --domain=quran --evidence-key=source_identity --status=under-review --reviewer-name=\"Reviewer Name\"",
+    "validate": "pnpm check:ilm-evidence-records && pnpm check:ilm-evidence-helper"
+  },
+  "policy": {
+    "productionApprovalRecordsLocked": true,
+    "productionApproved": false,
+    "canPromoteToProduction": false,
+    "rule": "Sprint 27.1 may update staging evidence records only. It must not approve production CDN publication."
+  }
+}
