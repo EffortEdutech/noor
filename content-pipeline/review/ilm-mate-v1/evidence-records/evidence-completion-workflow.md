@@ -1,6 +1,6 @@
 # NOOR Sprint 27 — ilm-mate Evidence Completion Workflow
 
-Generated: 2026-05-01T20:48:34.575Z
+Updated: 2026-05-01T23:45:30.796Z
 
 ## Gate status
 
@@ -17,14 +17,6 @@ Generated: 2026-05-01T20:48:34.575Z
 - **Tafseer** — 0/5 non-production evidence items accepted for staging, production approved: false
 - **Hadith** — 0/5 non-production evidence items accepted for staging, production approved: false
 
-## Editable records
-
-Edit this file carefully when evidence arrives:
-
-`content-pipeline/review/ilm-mate-v1/evidence-records/evidence-completion-records.json`
-
-Allowed decisions: `pending`, `accepted-for-staging`, `needs-more-information`, `rejected`.
-
 ## Policy
 
-Sprint 27 creates editable staging evidence records only. It must not approve production and must not publish migrated ilm-mate content to the NOOR CDN repository.
+Accepted staging evidence does not equal production approval. Production CDN publication remains blocked.

@@ -65,7 +65,9 @@
     "ilm:evidence-helper": "node scripts/generate-ilm-mate-evidence-update-helper.mjs",
     "ilm:evidence:list": "node scripts/list-ilm-mate-evidence-records.mjs",
     "ilm:evidence:update": "node scripts/update-ilm-mate-evidence-record.mjs",
-    "check:ilm-evidence-helper": "node scripts/check-ilm-mate-evidence-update-helper.mjs"
+    "check:ilm-evidence-helper": "node scripts/check-ilm-mate-evidence-update-helper.mjs",
+    "ilm:evidence-trial": "node scripts/run-ilm-mate-evidence-update-trial.mjs",
+    "check:ilm-evidence-trial": "node scripts/check-ilm-mate-evidence-update-trial.mjs"
   },
   "devDependencies": {
     "@types/react": "19.0.10",

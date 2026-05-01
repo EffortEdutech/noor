@@ -4,12 +4,12 @@
     "domain": "quran",
     "evidenceKey": "source_identity",
     "reviewerDecision": "pending",
-    "completionStatus": "not-submitted",
+    "completionStatus": "submitted",
     "reviewerName": "",
     "dateReviewed": "",
     "acceptedForStaging": false,
     "productionApproved": false,
-    "decisionNotes": ""
+    "decisionNotes": "Sprint 27.2 sample submission only. Source identity evidence is submitted for future reviewer assessment, not accepted for staging yet."
   },
   {
     "recordId": "ilm-mate-v1-quran-license_or_permission-evidence-record",
@@ -76,12 +76,12 @@
     "domain": "tafseer",
     "evidenceKey": "source_identity",
     "reviewerDecision": "pending",
-    "completionStatus": "not-submitted",
+    "completionStatus": "submitted",
     "reviewerName": "",
     "dateReviewed": "",
     "acceptedForStaging": false,
     "productionApproved": false,
-    "decisionNotes": ""
+    "decisionNotes": "Sprint 27.2 sample submission only. Source identity evidence is submitted for future reviewer assessment, not accepted for staging yet."
   },
   {
     "recordId": "ilm-mate-v1-tafseer-license_or_permission-evidence-record",
@@ -148,12 +148,12 @@
     "domain": "hadith",
     "evidenceKey": "source_identity",
     "reviewerDecision": "pending",
-    "completionStatus": "not-submitted",
+    "completionStatus": "submitted",
     "reviewerName": "",
     "dateReviewed": "",
     "acceptedForStaging": false,
     "productionApproved": false,
-    "decisionNotes": ""
+    "decisionNotes": "Sprint 27.2 sample submission only. Source identity evidence is submitted for future reviewer assessment, not accepted for staging yet."
   },
   {
     "recordId": "ilm-mate-v1-hadith-license_or_permission-evidence-record",

@@ -2,7 +2,7 @@
   "id": "noor-ilm-mate-v1-evidence-completion-workflow",
   "version": "0.27.0",
   "label": "ilm-mate migrated content evidence completion workflow",
-  "generatedAt": "2026-05-01T20:48:34.575Z",
+  "generatedAt": "2026-05-01T23:45:30.796Z",
   "sourceEvidenceIntakePack": "content-pipeline/review/ilm-mate-v1/evidence-intake/evidence-intake-pack.json",
   "outputRoot": "content-pipeline/review/ilm-mate-v1/evidence-records",
   "policy": {
@@ -67,7 +67,7 @@
     "totalRecords": 18,
     "acceptedForStaging": 0,
     "blocked": 3,
-    "missingOrDraft": 15,
+    "missingOrDraft": 12,
     "domainsReadyForStaging": 0,
     "domains": [
       {
@@ -77,7 +77,7 @@
         "nonProductionRequired": 5,
         "nonProductionAccepted": 0,
         "acceptedForStaging": 0,
-        "submittedOrUnderReview": 0,
+        "submittedOrUnderReview": 1,
         "needsMoreInformation": 0,
         "rejected": 0,
         "blocked": 1,
@@ -93,7 +93,7 @@
         "nonProductionRequired": 5,
         "nonProductionAccepted": 0,
         "acceptedForStaging": 0,
-        "submittedOrUnderReview": 0,
+        "submittedOrUnderReview": 1,
         "needsMoreInformation": 0,
         "rejected": 0,
         "blocked": 1,
@@ -109,7 +109,7 @@
         "nonProductionRequired": 5,
         "nonProductionAccepted": 0,
         "acceptedForStaging": 0,
-        "submittedOrUnderReview": 0,
+        "submittedOrUnderReview": 1,
         "needsMoreInformation": 0,
         "rejected": 0,
         "blocked": 1,
@@ -128,5 +128,7 @@
     "Use accepted-for-staging only after source, license, attribution, checksum and scholarly evidence are reviewed.",
     "Keep production_promotion_approval records blocked.",
     "Re-run pnpm check:ilm-evidence-records after editing records."
-  ]
+  ],
+  "lastUpdatedBy": "Sprint 27.1 evidence update helper",
+  "lastUpdatedAt": "2026-05-01T23:45:30.796Z"
 }
