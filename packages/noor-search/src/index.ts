@@ -34,10 +34,12 @@ export type NoorSearchOptions = {
   topic?: string;
 };
 
-type SearchCandidate = Omit<NoorSearchResult, 'matchedFields' | 'score'> & {
+export type NoorSearchIndexEntry = Omit<NoorSearchResult, 'matchedFields' | 'score'> & {
   searchText: Record<string, string | undefined>;
   priority: number;
 };
+
+type SearchCandidate = NoorSearchIndexEntry;
 
 export const NOOR_SEARCH_TYPES: { id: NoorSearchType; label: string; description: string }[] = [
   { id: 'quran', label: 'Quran', description: 'Ayah text, translation, transliteration and surah names.' },
@@ -244,11 +246,11 @@ function scoreCandidate(candidate: SearchCandidate, queryTokens: string[]) {
   return { score, matchedFields };
 }
 
-export function getNoorSearchTypeLabel(type: NoorSearchType) {
-  return NOOR_SEARCH_TYPES.find((item) => item.id === type)?.label ?? type;
-}
-
-export function searchNoorLocal(query: string, options: NoorSearchOptions = {}): NoorSearchResult[] {
+function runSearchCandidates(
+  candidates: SearchCandidate[],
+  query: string,
+  options: NoorSearchOptions = {}
+): NoorSearchResult[] {
   const q = query.trim();
   const queryTokens = tokens(q);
   if (queryTokens.length === 0) return [];
@@ -259,7 +261,7 @@ export function searchNoorLocal(query: string, options: NoorSearchOptions = {}):
   const topicTokens = topic ? tokens(topic.query) : [];
   const activeTokens = Array.from(new Set([...queryTokens, ...topicTokens]));
 
-  return buildCandidates()
+  return candidates
     .filter((candidate) => allowedTypes.has(candidate.type))
     .map((candidate) => {
       const { score, matchedFields } = scoreCandidate(candidate, activeTokens);
@@ -279,6 +281,22 @@ export function searchNoorLocal(query: string, options: NoorSearchOptions = {}):
     .filter((result) => result.score > 0 && result.matchedFields.length > 0)
     .sort((a, b) => b.score - a.score || a.title.localeCompare(b.title))
     .slice(0, limit);
+}
+
+export function getNoorSearchTypeLabel(type: NoorSearchType) {
+  return NOOR_SEARCH_TYPES.find((item) => item.id === type)?.label ?? type;
+}
+
+export function searchNoorLocal(query: string, options: NoorSearchOptions = {}): NoorSearchResult[] {
+  return runSearchCandidates(buildCandidates(), query, options);
+}
+
+export function searchNoorIndex(
+  query: string,
+  index: NoorSearchIndexEntry[],
+  options: NoorSearchOptions = {}
+): NoorSearchResult[] {
+  return runSearchCandidates(index, query, options);
 }
 
 export function getNoorSearchSuggestions(query: string, limit = 6) {

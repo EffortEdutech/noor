@@ -30,6 +30,13 @@ function ensurePreparedSource() {
   runNodeScript('scripts/prepare-noor-cdn.mjs');
 }
 
+function ensureSearchIndex() {
+  const searchIndex = join(SOURCE_ROOT, 'search/search-index.json');
+  if (existsSync(searchIndex)) return;
+  console.log('NOOR CDN search index missing. Building Sprint 26 search index...');
+  runNodeScript('scripts/build-noor-cdn-search-index.mjs', [SOURCE_ROOT, SOURCE_ROOT]);
+}
+
 function walkFiles(dir) {
   const files = [];
 
@@ -61,6 +68,7 @@ function writeJson(file, value) {
 }
 
 ensurePreparedSource();
+ensureSearchIndex();
 
 rmSync(PUBLISH_ROOT, { recursive: true, force: true });
 mkdirSync(CDN_ROOT, { recursive: true });
@@ -99,7 +107,8 @@ const publishManifest = {
     'noor-cdn/metadata/surah-index.json',
     'noor-cdn/quran/surahs/001.json',
     'noor-cdn/tafseer/demo-tafseer/surahs/001.json',
-    'noor-cdn/hadith/collections.json'
+    'noor-cdn/hadith/collections.json',
+    'noor-cdn/search/search-index.json'
   ],
   files
 };
@@ -111,6 +120,7 @@ writeJson(join(CDN_ROOT, 'index.json'), {
   generatedAt: publishManifest.generatedAt,
   manifest: 'manifest/noor-content-manifest.json',
   health: 'manifest/noor-content-health.json',
+  search: 'search/search-index.json',
   publishManifest: '../publish-manifest.json'
 });
 

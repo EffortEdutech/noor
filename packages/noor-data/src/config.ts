@@ -45,6 +45,8 @@ export const NOOR_DATA_SOURCE_OPTIONS: NoorDataSourceOption[] = [
   }
 ];
 
+const DEFAULT_NOOR_CDN_BASE = 'https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn';
+
 function env(name: string, fallback: string): string {
   return typeof process !== 'undefined' && process.env?.[name]
     ? String(process.env[name])
@@ -92,16 +94,16 @@ export function getNoorDataConfig(sourceOverride?: NoorDataMode | string | null)
 
   if (mode === 'cdn') {
     const quranCdnBase = trimBase(
-      env('NEXT_PUBLIC_NOOR_QURAN_CDN_BASE', 'https://cdn.jsdelivr.net/gh/EffortEdutech/noor-quran-data@main')
+      env('NEXT_PUBLIC_NOOR_QURAN_CDN_BASE', DEFAULT_NOOR_CDN_BASE)
     );
     const tafseerCdnBase = trimBase(
-      env('NEXT_PUBLIC_NOOR_TAFSEER_CDN_BASE', 'https://huggingface.co/datasets/EffortEdutech/noor-tafseer-data/resolve/main')
+      env('NEXT_PUBLIC_NOOR_TAFSEER_CDN_BASE', DEFAULT_NOOR_CDN_BASE)
     );
     const hadithCdnBase = trimBase(
-      env('NEXT_PUBLIC_NOOR_HADITH_CDN_BASE', 'https://data.noor.app')
+      env('NEXT_PUBLIC_NOOR_HADITH_CDN_BASE', DEFAULT_NOOR_CDN_BASE)
     );
     const manifestCdnBase = trimBase(
-      env('NEXT_PUBLIC_NOOR_MANIFEST_CDN_BASE', quranCdnBase)
+      env('NEXT_PUBLIC_NOOR_MANIFEST_CDN_BASE', DEFAULT_NOOR_CDN_BASE)
     );
 
     return {

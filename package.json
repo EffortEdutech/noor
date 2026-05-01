@@ -30,6 +30,7 @@
     "check:roadmap": "node scripts/check-noor-roadmap.mjs",
     "content:validate": "node scripts/validate-noor-cdn.mjs",
     "content:prepare": "node scripts/prepare-noor-cdn.mjs",
+    "search:build-cdn-index": "node scripts/build-noor-cdn-search-index.mjs",
     "cdn:pack": "node scripts/build-noor-cdn-publish-pack.mjs",
     "cdn:verify": "node scripts/verify-noor-cdn-publish-pack.mjs",
     "cdn:smoke": "node scripts/smoke-noor-cdn.mjs",

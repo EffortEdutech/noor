@@ -5,6 +5,7 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "dependencies": {
-    "@noor/content": "workspace:*"
+    "@noor/content": "workspace:*",
+    "@noor/search": "workspace:*"
   }
 }

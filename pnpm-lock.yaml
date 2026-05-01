@@ -64,6 +64,9 @@ importers:
       '@noor/content':
         specifier: workspace:*
         version: link:../noor-content
+      '@noor/search':
+        specifier: workspace:*
+        version: link:../noor-search
 
   packages/noor-search:
     dependencies:

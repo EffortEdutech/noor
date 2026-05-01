@@ -23,6 +23,22 @@ function runValidator() {
   }
 }
 
+function runSearchIndexBuilder(target) {
+  const result = spawnSync(process.execPath, ['scripts/build-noor-cdn-search-index.mjs', target, target], {
+    stdio: 'inherit',
+    shell: false
+  });
+
+  if (result.error) {
+    console.error(result.error);
+    process.exit(1);
+  }
+
+  if (result.status !== 0) {
+    process.exit(result.status ?? 1);
+  }
+}
+
 function readJson(path) {
   return JSON.parse(readFileSync(path, 'utf8'));
 }
@@ -163,7 +179,7 @@ function buildContentHealthReport(root, manifest) {
   issues.push({
     severity: 'info',
     area: 'manifest',
-    message: 'Sprint 14 publishes a CDN-ready demo pack. Production promotion still requires verified sources, licensing and scholarly review.'
+    message: 'Sprint 26 publishes a CDN-ready demo pack with a generated search index. Production promotion still requires verified sources, licensing and scholarly review.'
   });
 
   const hasErrors = issues.some((issue) => issue.severity === 'error');
@@ -188,6 +204,8 @@ function buildContentHealthReport(root, manifest) {
 runValidator();
 copyFresh(DIST_ROOT);
 copyFresh(PUBLIC_ROOT);
+runSearchIndexBuilder(DIST_ROOT);
+runSearchIndexBuilder(PUBLIC_ROOT);
 
 const files = listJsonFiles(DIST_ROOT).map((file) => ({
   path: relative(DIST_ROOT, file).replaceAll('\\\\', '/').replaceAll('\\', '/'),
