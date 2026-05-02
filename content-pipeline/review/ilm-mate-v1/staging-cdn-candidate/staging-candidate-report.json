@@ -1,32 +1,41 @@
 {
-  "sprint": "27.4",
-  "version": "0.27.4",
-  "label": "ilm-mate staging CDN publish pack gate",
-  "generatedAt": "2026-05-02T02:53:56.394Z",
-  "source": {
-    "evidenceRecordsRoot": "content-pipeline/review/ilm-mate-v1/evidence-records",
-    "evidenceRecordsPath": "content-pipeline/review/ilm-mate-v1/evidence-records/evidence-completion-records.json",
-    "migratedCdnRoot": "content-pipeline/imported/ilm-mate-v1/noor-cdn",
-    "migratedCdnAvailable": true
-  },
-  "outputRoot": "content-pipeline/review/ilm-mate-v1/staging-cdn-publish",
-  "stagingPublishRoot": "content-pipeline/publish/ilm-mate-v1-staging-cdn",
-  "status": "blocked",
+  "sprint": "27.7",
+  "version": "0.27.7",
+  "label": "ilm-mate staging CDN candidate pack",
+  "generatedAt": "2026-05-02T02:53:59.580Z",
+  "status": "staging-candidate-ready",
   "productionApproved": false,
   "canPromoteToProduction": false,
   "canPushNoorCdnStaging": true,
   "canPushNoorCdnMain": false,
-  "domainsReadyForStaging": 3,
-  "totalDomains": 3,
-  "totalEvidenceRecords": 18,
-  "acceptedForStaging": 15,
-  "blockedProductionApprovalRecords": 3,
-  "requiredNextEvidence": [],
+  "sourceGate": {
+    "reportPath": "content-pipeline/review/ilm-mate-v1/staging-cdn-publish/staging-cdn-publish-report.json",
+    "domainsReadyForStaging": 3,
+    "totalDomains": 3,
+    "acceptedForStaging": 15
+  },
+  "candidate": {
+    "publishRoot": "content-pipeline/publish/ilm-mate-v1-staging-cdn",
+    "contentRoot": "content-pipeline/publish/ilm-mate-v1-staging-cdn/noor-cdn",
+    "fileIndexPath": "content-pipeline/review/ilm-mate-v1/staging-cdn-candidate/staging-candidate-file-index.csv",
+    "fileCount": 941,
+    "jsonFileCount": 940,
+    "totalBytes": 591585323,
+    "topLevelFolders": [
+      "hadith",
+      "manifest",
+      "metadata",
+      "quran",
+      "search",
+      "tafseer"
+    ]
+  },
   "noorCdnTarget": {
     "repository": "EffortEdutech/noor-cdn",
+    "localRepoSuggestion": "C:/Users/user/Documents/00 Combo3/noor-cdn",
     "branch": "staging-ilm-mate-v1",
     "path": "noor-cdn/",
-    "rule": "Staging branch only. Never push migrated ilm-mate content to noor-cdn/main in Sprint 27.4."
+    "rule": "Staging branch only. Do not push migrated ilm-mate content to noor-cdn/main in Sprint 27.7."
   },
   "domains": [
     {
@@ -88,14 +97,15 @@
     }
   ],
   "guardrails": [
+    "noor-cdn/main must not be updated in Sprint 27.7.",
+    "Only noor-cdn/staging-ilm-mate-v1 is allowed for this candidate.",
     "Production CDN remains blocked.",
-    "noor-cdn/main must not be updated in Sprint 27.4.",
-    "Staging noor-cdn branch may only be used after all three domains have five non-production evidence items accepted for staging.",
-    "production_promotion_approval records must remain blocked."
+    "production_promotion_approval records must remain blocked.",
+    "Candidate files are generated under content-pipeline/publish and are intentionally ignored by Git in the noor app repo."
   ],
   "commands": [
-    "pnpm ilm:staging-cdn-pack",
-    "pnpm check:ilm-staging-cdn-pack",
-    "pnpm ilm:evidence:list -- --status=accepted-for-staging"
+    "pnpm ilm:staging-cdn-candidate",
+    "pnpm check:ilm-staging-cdn-candidate",
+    "robocopy \"<NOOR>/content-pipeline/publish/ilm-mate-v1-staging-cdn/noor-cdn\" \"<noor-cdn>/noor-cdn\" /E"
   ]
 }
