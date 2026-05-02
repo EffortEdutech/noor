@@ -32,7 +32,8 @@ import { SourceGovernanceCard } from '../../components/SourceGovernanceCard';
 import { SourceIntakeCard } from '../../components/SourceIntakeCard';
 import { TafseerImportCard } from '../../components/TafseerImportCard';
 import { NOOR_APP_BUILD_LABEL, NOOR_APP_VERSION } from '../../lib/app-version';
-import { getServerNoorContentSource } from '../../lib/runtime-content-source';
+import { getServerNoorContentSource } from '../../lib/runtime-content-source';import { NoorCdnStagingBranchHandoffCard } from "@/components/NoorCdnStagingBranchHandoffCard";
+
 
 export const dynamic = 'force-dynamic';
 
@@ -71,6 +72,7 @@ export default async function SettingsPage() {
       <IlmMateRequiredEvidenceTrialCard />
       <IlmMateRequiredEvidenceAcceptanceCard />
       <IlmMateStagingCdnCandidateCard />
+          <NoorCdnStagingBranchHandoffCard />
       <QuranSourceGateCard />
       <QuranImportCard />
       <TafseerImportCard />

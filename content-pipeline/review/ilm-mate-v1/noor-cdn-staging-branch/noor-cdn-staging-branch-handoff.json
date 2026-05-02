@@ -1,0 +1,110 @@
+{
+  "sprint": "27.8",
+  "title": "NOOR CDN staging branch handoff",
+  "generatedAt": "2026-05-02T03:10:58.485Z",
+  "status": "staging-branch-ready",
+  "sourceCandidateRoot": "content-pipeline/publish/ilm-mate-v1-staging-cdn/noor-cdn",
+  "targetRepository": "EffortEdutech/noor-cdn",
+  "targetBranch": "staging-ilm-mate-v1",
+  "allowedTarget": "noor-cdn/staging-ilm-mate-v1",
+  "blockedTargets": [
+    "noor-cdn/main",
+    "production CDN"
+  ],
+  "canPushNoorCdnStaging": true,
+  "canPushNoorCdnMain": false,
+  "productionApproved": false,
+  "canPromoteToProduction": false,
+  "files": 941,
+  "jsonFiles": 940,
+  "totalBytes": 591585323,
+  "totalMegabytes": 564.18,
+  "largestFiles": [
+    {
+      "path": "search/search-index.json",
+      "bytes": 347697861
+    },
+    {
+      "path": "hadith/bukhari/items.json",
+      "bytes": 9933225
+    },
+    {
+      "path": "hadith/muslim/items.json",
+      "bytes": 9349439
+    },
+    {
+      "path": "hadith/tirmidhi/items.json",
+      "bytes": 6693324
+    },
+    {
+      "path": "hadith/nasai/items.json",
+      "bytes": 6639576
+    },
+    {
+      "path": "hadith/abudawud/items.json",
+      "bytes": 6508714
+    },
+    {
+      "path": "hadith/ibnmajah/items.json",
+      "bytes": 4900441
+    },
+    {
+      "path": "hadith/mishkat-almasabih/items.json",
+      "bytes": 4248789
+    },
+    {
+      "path": "hadith/darimi/items.json",
+      "bytes": 3522858
+    },
+    {
+      "path": "tafseer/en-tafisr-ibn-kathir/surahs/002.json",
+      "bytes": 3313558
+    },
+    {
+      "path": "tafseer/ur-tafseer-ibn-e-kaseer/surahs/002.json",
+      "bytes": 2555203
+    },
+    {
+      "path": "tafseer/en-tafisr-ibn-kathir/surahs/003.json",
+      "bytes": 2383172
+    },
+    {
+      "path": "tafseer/ur-tafseer-ibn-e-kaseer/surahs/003.json",
+      "bytes": 2320543
+    },
+    {
+      "path": "hadith/malik/items.json",
+      "bytes": 2266250
+    },
+    {
+      "path": "tafseer/ur-tafseer-ibn-e-kaseer/surahs/004.json",
+      "bytes": 2139933
+    },
+    {
+      "path": "tafseer/en-tafisr-ibn-kathir/surahs/004.json",
+      "bytes": 2030983
+    },
+    {
+      "path": "tafseer/ar-tafsir-ibn-kathir/surahs/002.json",
+      "bytes": 1973821
+    },
+    {
+      "path": "hadith/ahmed/items.json",
+      "bytes": 1906174
+    },
+    {
+      "path": "hadith/bulugh-almaram/items.json",
+      "bytes": 1893642
+    },
+    {
+      "path": "tafseer/en-tafsir-maarif-ul-quran/surahs/002.json",
+      "bytes": 1823933
+    }
+  ],
+  "sampledChecksums": [],
+  "notes": [
+    "This handoff does not push anything automatically.",
+    "Use the generated PowerShell copy script only after switching the local noor-cdn repo to staging-ilm-mate-v1.",
+    "Do not push noor-cdn/main in Sprint 27.8."
+  ]
+}

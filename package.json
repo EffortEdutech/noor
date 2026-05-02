@@ -77,7 +77,9 @@
     "ilm:required-evidence-acceptance": "node scripts/run-ilm-mate-required-evidence-acceptance.mjs",
     "check:ilm-required-evidence-acceptance": "node scripts/check-ilm-mate-required-evidence-acceptance.mjs",
     "ilm:staging-cdn-candidate": "node scripts/build-ilm-mate-staging-cdn-candidate.mjs",
-    "check:ilm-staging-cdn-candidate": "node scripts/check-ilm-mate-staging-cdn-candidate.mjs"
+    "check:ilm-staging-cdn-candidate": "node scripts/check-ilm-mate-staging-cdn-candidate.mjs",
+    "cdn:staging-handoff": "node scripts/generate-noor-cdn-staging-branch-handoff.mjs",
+    "check:cdn-staging-handoff": "node scripts/check-noor-cdn-staging-branch-handoff.mjs"
   },
   "devDependencies": {
     "@types/react": "19.0.10",
