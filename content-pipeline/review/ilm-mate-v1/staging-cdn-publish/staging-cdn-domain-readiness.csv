@@ -1,4 +1,4 @@
 "domain","domainLabel","nonProductionRequired","acceptedForStaging","missingForStaging","stagingReady","acceptedEvidenceKeys","missingEvidenceKeys","productionApprovalStatus","productionApproved","canPromoteToProduction"
-"quran","Quran","5","1","4","false","source_identity","license_or_permission;attribution_wording;checksum_integrity_plan;scholarly_reviewer_signoff","blocked","false","false"
-"tafseer","Tafseer","5","1","4","false","source_identity","license_or_permission;attribution_wording;checksum_integrity_plan;scholarly_reviewer_signoff","blocked","false","false"
-"hadith","Hadith","5","1","4","false","source_identity","license_or_permission;attribution_wording;checksum_integrity_plan;scholarly_reviewer_signoff","blocked","false","false"
+"quran","Quran","5","5","0","true","source_identity;license_or_permission;attribution_wording;checksum_integrity_plan;scholarly_reviewer_signoff","","blocked","false","false"
+"tafseer","Tafseer","5","5","0","true","source_identity;license_or_permission;attribution_wording;checksum_integrity_plan;scholarly_reviewer_signoff","","blocked","false","false"
+"hadith","Hadith","5","5","0","true","source_identity;license_or_permission;attribution_wording;checksum_integrity_plan;scholarly_reviewer_signoff","","blocked","false","false"

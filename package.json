@@ -73,7 +73,9 @@
     "ilm:staging-cdn-pack": "node scripts/generate-ilm-mate-staging-cdn-pack.mjs",
     "check:ilm-staging-cdn-pack": "node scripts/check-ilm-mate-staging-cdn-pack.mjs",
     "ilm:required-evidence-trial": "node scripts/run-ilm-mate-required-evidence-trial.mjs",
-    "check:ilm-required-evidence-trial": "node scripts/check-ilm-mate-required-evidence-trial.mjs"
+    "check:ilm-required-evidence-trial": "node scripts/check-ilm-mate-required-evidence-trial.mjs",
+    "ilm:required-evidence-acceptance": "node scripts/run-ilm-mate-required-evidence-acceptance.mjs",
+    "check:ilm-required-evidence-acceptance": "node scripts/check-ilm-mate-required-evidence-acceptance.mjs"
   },
   "devDependencies": {
     "@types/react": "19.0.10",

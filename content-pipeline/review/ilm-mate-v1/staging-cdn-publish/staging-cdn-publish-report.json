@@ -2,7 +2,7 @@
   "sprint": "27.4",
   "version": "0.27.4",
   "label": "ilm-mate staging CDN publish pack gate",
-  "generatedAt": "2026-05-02T00:09:53.107Z",
+  "generatedAt": "2026-05-02T00:39:47.221Z",
   "source": {
     "evidenceRecordsRoot": "content-pipeline/review/ilm-mate-v1/evidence-records",
     "evidenceRecordsPath": "content-pipeline/review/ilm-mate-v1/evidence-records/evidence-completion-records.json",
@@ -14,75 +14,14 @@
   "status": "blocked",
   "productionApproved": false,
   "canPromoteToProduction": false,
-  "canPushNoorCdnStaging": false,
+  "canPushNoorCdnStaging": true,
   "canPushNoorCdnMain": false,
-  "domainsReadyForStaging": 0,
+  "domainsReadyForStaging": 3,
   "totalDomains": 3,
   "totalEvidenceRecords": 18,
-  "acceptedForStaging": 3,
+  "acceptedForStaging": 15,
   "blockedProductionApprovalRecords": 3,
-  "requiredNextEvidence": [
-    {
-      "domain": "quran",
-      "domainLabel": "Quran",
-      "evidenceKey": "license_or_permission"
-    },
-    {
-      "domain": "quran",
-      "domainLabel": "Quran",
-      "evidenceKey": "attribution_wording"
-    },
-    {
-      "domain": "quran",
-      "domainLabel": "Quran",
-      "evidenceKey": "checksum_integrity_plan"
-    },
-    {
-      "domain": "quran",
-      "domainLabel": "Quran",
-      "evidenceKey": "scholarly_reviewer_signoff"
-    },
-    {
-      "domain": "tafseer",
-      "domainLabel": "Tafseer",
-      "evidenceKey": "license_or_permission"
-    },
-    {
-      "domain": "tafseer",
-      "domainLabel": "Tafseer",
-      "evidenceKey": "attribution_wording"
-    },
-    {
-      "domain": "tafseer",
-      "domainLabel": "Tafseer",
-      "evidenceKey": "checksum_integrity_plan"
-    },
-    {
-      "domain": "tafseer",
-      "domainLabel": "Tafseer",
-      "evidenceKey": "scholarly_reviewer_signoff"
-    },
-    {
-      "domain": "hadith",
-      "domainLabel": "Hadith",
-      "evidenceKey": "license_or_permission"
-    },
-    {
-      "domain": "hadith",
-      "domainLabel": "Hadith",
-      "evidenceKey": "attribution_wording"
-    },
-    {
-      "domain": "hadith",
-      "domainLabel": "Hadith",
-      "evidenceKey": "checksum_integrity_plan"
-    },
-    {
-      "domain": "hadith",
-      "domainLabel": "Hadith",
-      "evidenceKey": "scholarly_reviewer_signoff"
-    }
-  ],
+  "requiredNextEvidence": [],
   "noorCdnTarget": {
     "repository": "EffortEdutech/noor-cdn",
     "branch": "staging-ilm-mate-v1",
@@ -94,18 +33,17 @@
       "domain": "quran",
       "domainLabel": "Quran",
       "nonProductionRequired": 5,
-      "acceptedForStaging": 1,
-      "missingForStaging": 4,
+      "acceptedForStaging": 5,
+      "missingForStaging": 0,
       "acceptedEvidenceKeys": [
-        "source_identity"
-      ],
-      "missingEvidenceKeys": [
+        "source_identity",
         "license_or_permission",
         "attribution_wording",
         "checksum_integrity_plan",
         "scholarly_reviewer_signoff"
       ],
-      "stagingReady": false,
+      "missingEvidenceKeys": [],
+      "stagingReady": true,
       "productionApprovalStatus": "blocked",
       "productionApproved": false,
       "canPromoteToProduction": false
@@ -114,18 +52,17 @@
       "domain": "tafseer",
       "domainLabel": "Tafseer",
       "nonProductionRequired": 5,
-      "acceptedForStaging": 1,
-      "missingForStaging": 4,
+      "acceptedForStaging": 5,
+      "missingForStaging": 0,
       "acceptedEvidenceKeys": [
-        "source_identity"
-      ],
-      "missingEvidenceKeys": [
+        "source_identity",
         "license_or_permission",
         "attribution_wording",
         "checksum_integrity_plan",
         "scholarly_reviewer_signoff"
       ],
-      "stagingReady": false,
+      "missingEvidenceKeys": [],
+      "stagingReady": true,
       "productionApprovalStatus": "blocked",
       "productionApproved": false,
       "canPromoteToProduction": false
@@ -134,18 +71,17 @@
       "domain": "hadith",
       "domainLabel": "Hadith",
       "nonProductionRequired": 5,
-      "acceptedForStaging": 1,
-      "missingForStaging": 4,
+      "acceptedForStaging": 5,
+      "missingForStaging": 0,
       "acceptedEvidenceKeys": [
-        "source_identity"
-      ],
-      "missingEvidenceKeys": [
+        "source_identity",
         "license_or_permission",
         "attribution_wording",
         "checksum_integrity_plan",
         "scholarly_reviewer_signoff"
       ],
-      "stagingReady": false,
+      "missingEvidenceKeys": [],
+      "stagingReady": true,
       "productionApprovalStatus": "blocked",
       "productionApproved": false,
       "canPromoteToProduction": false

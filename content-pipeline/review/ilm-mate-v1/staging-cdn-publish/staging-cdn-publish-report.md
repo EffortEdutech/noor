@@ -1,38 +1,38 @@
 # NOOR Sprint 27.4 — ilm-mate Staging CDN Publish Pack Gate
 
-Generated: 2026-05-02T00:09:53.107Z
+Generated: 2026-05-02T00:39:47.221Z
 
 ## Gate status
 
 - Status: **blocked**
 - Target noor-cdn staging branch: `staging-ilm-mate-v1`
-- Can push noor-cdn staging branch: **false**
+- Can push noor-cdn staging branch: **true**
 - Can push noor-cdn main: **false**
 - Production approved: **false**
 - Can promote to production: **false**
-- Domains ready for staging: **0/3**
+- Domains ready for staging: **3/3**
 
 ## Domain readiness
 
 ### Quran
 
-- Accepted for staging: **1/5**
-- Staging ready: **false**
-- Missing: `license_or_permission`, `attribution_wording`, `checksum_integrity_plan`, `scholarly_reviewer_signoff`
+- Accepted for staging: **5/5**
+- Staging ready: **true**
+- Missing: none
 - Production approved: **false**
 
 ### Tafseer
 
-- Accepted for staging: **1/5**
-- Staging ready: **false**
-- Missing: `license_or_permission`, `attribution_wording`, `checksum_integrity_plan`, `scholarly_reviewer_signoff`
+- Accepted for staging: **5/5**
+- Staging ready: **true**
+- Missing: none
 - Production approved: **false**
 
 ### Hadith
 
-- Accepted for staging: **1/5**
-- Staging ready: **false**
-- Missing: `license_or_permission`, `attribution_wording`, `checksum_integrity_plan`, `scholarly_reviewer_signoff`
+- Accepted for staging: **5/5**
+- Staging ready: **true**
+- Missing: none
 - Production approved: **false**
 
 
@@ -48,16 +48,5 @@ Sprint 27.4 generates the staging CDN publish gate and command pack only. It doe
 
 ## Required next evidence
 
-- Quran: `license_or_permission`
-- Quran: `attribution_wording`
-- Quran: `checksum_integrity_plan`
-- Quran: `scholarly_reviewer_signoff`
-- Tafseer: `license_or_permission`
-- Tafseer: `attribution_wording`
-- Tafseer: `checksum_integrity_plan`
-- Tafseer: `scholarly_reviewer_signoff`
-- Hadith: `license_or_permission`
-- Hadith: `attribution_wording`
-- Hadith: `checksum_integrity_plan`
-- Hadith: `scholarly_reviewer_signoff`
+
 

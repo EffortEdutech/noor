@@ -1,10 +1,10 @@
 # NOOR Sprint 27.4 — Future Staging noor-cdn Commands
 
-These commands are intentionally **not active yet** because canPushNoorCdnStaging is false.
+These commands are intentionally **not active yet** because canPushNoorCdnStaging is true.
 
 ## Current status
 
-- Domains ready for staging: 0/3
+- Domains ready for staging: 3/3
 - Production approved: false
 - Can promote to production: false
 
