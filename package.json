@@ -69,7 +69,9 @@
     "ilm:evidence-trial": "node scripts/run-ilm-mate-evidence-update-trial.mjs",
     "check:ilm-evidence-trial": "node scripts/check-ilm-mate-evidence-update-trial.mjs",
     "ilm:reviewer-decision-trial": "node scripts/run-ilm-mate-reviewer-decision-trial.mjs",
-    "check:ilm-reviewer-decision-trial": "node scripts/check-ilm-mate-reviewer-decision-trial.mjs"
+    "check:ilm-reviewer-decision-trial": "node scripts/check-ilm-mate-reviewer-decision-trial.mjs",
+    "ilm:staging-cdn-pack": "node scripts/generate-ilm-mate-staging-cdn-pack.mjs",
+    "check:ilm-staging-cdn-pack": "node scripts/check-ilm-mate-staging-cdn-pack.mjs"
   },
   "devDependencies": {
     "@types/react": "19.0.10",

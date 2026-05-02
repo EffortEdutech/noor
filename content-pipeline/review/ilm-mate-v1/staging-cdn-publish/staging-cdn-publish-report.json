@@ -1,0 +1,165 @@
+{
+  "sprint": "27.4",
+  "version": "0.27.4",
+  "label": "ilm-mate staging CDN publish pack gate",
+  "generatedAt": "2026-05-02T00:09:53.107Z",
+  "source": {
+    "evidenceRecordsRoot": "content-pipeline/review/ilm-mate-v1/evidence-records",
+    "evidenceRecordsPath": "content-pipeline/review/ilm-mate-v1/evidence-records/evidence-completion-records.json",
+    "migratedCdnRoot": "content-pipeline/imported/ilm-mate-v1/noor-cdn",
+    "migratedCdnAvailable": true
+  },
+  "outputRoot": "content-pipeline/review/ilm-mate-v1/staging-cdn-publish",
+  "stagingPublishRoot": "content-pipeline/publish/ilm-mate-v1-staging-cdn",
+  "status": "blocked",
+  "productionApproved": false,
+  "canPromoteToProduction": false,
+  "canPushNoorCdnStaging": false,
+  "canPushNoorCdnMain": false,
+  "domainsReadyForStaging": 0,
+  "totalDomains": 3,
+  "totalEvidenceRecords": 18,
+  "acceptedForStaging": 3,
+  "blockedProductionApprovalRecords": 3,
+  "requiredNextEvidence": [
+    {
+      "domain": "quran",
+      "domainLabel": "Quran",
+      "evidenceKey": "license_or_permission"
+    },
+    {
+      "domain": "quran",
+      "domainLabel": "Quran",
+      "evidenceKey": "attribution_wording"
+    },
+    {
+      "domain": "quran",
+      "domainLabel": "Quran",
+      "evidenceKey": "checksum_integrity_plan"
+    },
+    {
+      "domain": "quran",
+      "domainLabel": "Quran",
+      "evidenceKey": "scholarly_reviewer_signoff"
+    },
+    {
+      "domain": "tafseer",
+      "domainLabel": "Tafseer",
+      "evidenceKey": "license_or_permission"
+    },
+    {
+      "domain": "tafseer",
+      "domainLabel": "Tafseer",
+      "evidenceKey": "attribution_wording"
+    },
+    {
+      "domain": "tafseer",
+      "domainLabel": "Tafseer",
+      "evidenceKey": "checksum_integrity_plan"
+    },
+    {
+      "domain": "tafseer",
+      "domainLabel": "Tafseer",
+      "evidenceKey": "scholarly_reviewer_signoff"
+    },
+    {
+      "domain": "hadith",
+      "domainLabel": "Hadith",
+      "evidenceKey": "license_or_permission"
+    },
+    {
+      "domain": "hadith",
+      "domainLabel": "Hadith",
+      "evidenceKey": "attribution_wording"
+    },
+    {
+      "domain": "hadith",
+      "domainLabel": "Hadith",
+      "evidenceKey": "checksum_integrity_plan"
+    },
+    {
+      "domain": "hadith",
+      "domainLabel": "Hadith",
+      "evidenceKey": "scholarly_reviewer_signoff"
+    }
+  ],
+  "noorCdnTarget": {
+    "repository": "EffortEdutech/noor-cdn",
+    "branch": "staging-ilm-mate-v1",
+    "path": "noor-cdn/",
+    "rule": "Staging branch only. Never push migrated ilm-mate content to noor-cdn/main in Sprint 27.4."
+  },
+  "domains": [
+    {
+      "domain": "quran",
+      "domainLabel": "Quran",
+      "nonProductionRequired": 5,
+      "acceptedForStaging": 1,
+      "missingForStaging": 4,
+      "acceptedEvidenceKeys": [
+        "source_identity"
+      ],
+      "missingEvidenceKeys": [
+        "license_or_permission",
+        "attribution_wording",
+        "checksum_integrity_plan",
+        "scholarly_reviewer_signoff"
+      ],
+      "stagingReady": false,
+      "productionApprovalStatus": "blocked",
+      "productionApproved": false,
+      "canPromoteToProduction": false
+    },
+    {
+      "domain": "tafseer",
+      "domainLabel": "Tafseer",
+      "nonProductionRequired": 5,
+      "acceptedForStaging": 1,
+      "missingForStaging": 4,
+      "acceptedEvidenceKeys": [
+        "source_identity"
+      ],
+      "missingEvidenceKeys": [
+        "license_or_permission",
+        "attribution_wording",
+        "checksum_integrity_plan",
+        "scholarly_reviewer_signoff"
+      ],
+      "stagingReady": false,
+      "productionApprovalStatus": "blocked",
+      "productionApproved": false,
+      "canPromoteToProduction": false
+    },
+    {
+      "domain": "hadith",
+      "domainLabel": "Hadith",
+      "nonProductionRequired": 5,
+      "acceptedForStaging": 1,
+      "missingForStaging": 4,
+      "acceptedEvidenceKeys": [
+        "source_identity"
+      ],
+      "missingEvidenceKeys": [
+        "license_or_permission",
+        "attribution_wording",
+        "checksum_integrity_plan",
+        "scholarly_reviewer_signoff"
+      ],
+      "stagingReady": false,
+      "productionApprovalStatus": "blocked",
+      "productionApproved": false,
+      "canPromoteToProduction": false
+    }
+  ],
+  "guardrails": [
+    "Production CDN remains blocked.",
+    "noor-cdn/main must not be updated in Sprint 27.4.",
+    "Staging noor-cdn branch may only be used after all three domains have five non-production evidence items accepted for staging.",
+    "production_promotion_approval records must remain blocked."
+  ],
+  "commands": [
+    "pnpm ilm:staging-cdn-pack",
+    "pnpm check:ilm-staging-cdn-pack",
+    "pnpm ilm:evidence:list -- --status=accepted-for-staging"
+  ]
+}
