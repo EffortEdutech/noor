@@ -87,7 +87,13 @@
     "check:cdn-staging-runtime": "node scripts/check-noor-cdn-staging-runtime.mjs",
     "ilm:hadith:view-model": "node scripts/build-ilm-mate-hadith-view-model.mjs",
     "check:ilm-hadith-view-model": "node scripts/check-ilm-mate-hadith-view-model.mjs",
-    "check:sprint27-9-2": "pnpm check:ilm-hadith-view-model"
+    "check:sprint27-9-2": "pnpm check:ilm-hadith-view-model",
+    "tafseer:index": "node scripts/generate-noor-tafseer-index.mjs",
+    "check:tafseer-index": "node scripts/check-noor-tafseer-index.mjs",
+    "check:sprint27-9-3": "pnpm check:tafseer-index && pnpm typecheck && pnpm build",
+    "cdn:staging-acceptance": "node scripts/run-staging-cdn-acceptance-checklist.mjs",
+    "check:cdn-staging-acceptance": "node scripts/check-staging-cdn-acceptance-checklist.mjs",
+    "check:sprint27-10": "pnpm check:cdn-staging-acceptance"
   },
   "devDependencies": {
     "@types/react": "19.0.10",

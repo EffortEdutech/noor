@@ -1,0 +1,235 @@
+{
+  "generatedAt": "2026-05-02T10:53:09.219Z",
+  "sprint": "27.10",
+  "title": "Staging CDN Acceptance Checklist",
+  "productionPromotion": "blocked",
+  "expectedStagingBranch": "staging-ilm-mate-v1",
+  "productionBranch": "main",
+  "selectedCdnRoot": "../noor-cdn/noor-cdn",
+  "selectedCdnRootLabel": "sibling noor-cdn repository",
+  "candidates": [
+    {
+      "label": "sibling noor-cdn repository",
+      "root": "../noor-cdn/noor-cdn",
+      "exists": true
+    },
+    {
+      "label": "generated git-safe staging pack",
+      "root": "content-pipeline/publish/ilm-mate-v1-staging-cdn-git-safe/noor-cdn",
+      "exists": true
+    },
+    {
+      "label": "generated staging candidate",
+      "root": "content-pipeline/publish/ilm-mate-v1-staging-cdn/noor-cdn",
+      "exists": true
+    },
+    {
+      "label": "imported ilm-mate CDN staging data",
+      "root": "content-pipeline/imported/ilm-mate-v1/noor-cdn",
+      "exists": true
+    }
+  ],
+  "env": {
+    "envFiles": [
+      ".env.local",
+      "apps/web/.env.local"
+    ],
+    "values": {
+      "NEXT_PUBLIC_NOOR_DATA_MODE": "cdn",
+      "NEXT_PUBLIC_NOOR_MANIFEST_CDN_BASE": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@staging-ilm-mate-v1/noor-cdn",
+      "NEXT_PUBLIC_NOOR_QURAN_CDN_BASE": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@staging-ilm-mate-v1/noor-cdn",
+      "NEXT_PUBLIC_NOOR_TAFSEER_CDN_BASE": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@staging-ilm-mate-v1/noor-cdn",
+      "NEXT_PUBLIC_NOOR_HADITH_CDN_BASE": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@staging-ilm-mate-v1/noor-cdn",
+      "NOOR_STAGING_CDN_BASE": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@staging-ilm-mate-v1/noor-cdn"
+    }
+  },
+  "noorCdnGit": {
+    "repoRoot": "../noor-cdn",
+    "branch": "staging-ilm-mate-v1",
+    "head": "163c137",
+    "clean": true,
+    "statusShort": ""
+  },
+  "manifest": {
+    "exists": true,
+    "healthExists": true,
+    "fileIndexExists": true,
+    "version": "0.26.5",
+    "status": null
+  },
+  "quran": {
+    "surahIndexCount": 114,
+    "surahFiles": 114,
+    "ayat": 6236
+  },
+  "tafseer": {
+    "indexExists": true,
+    "indexEntries": 6,
+    "tafseerFiles": 684,
+    "sampledEntryCount": 15145,
+    "sampleFilesChecked": 250
+  },
+  "hadith": {
+    "collectionsPathExists": true,
+    "collections": 630,
+    "byBook": 627,
+    "byChapter": 607,
+    "duplicateCollectionIds": [],
+    "itemFiles": 630,
+    "sampledItems": 102012,
+    "emptyItemFileSamples": [],
+    "emptyItemFileCountInSample": 0,
+    "duplicateItemIdSamples": []
+  },
+  "search": {
+    "path": "search/search-index-lite.json",
+    "exists": true,
+    "entries": 5000,
+    "sourceTypes": [
+      "hadith"
+    ]
+  },
+  "acceptedForStaging": true,
+  "requiredFailures": [],
+  "recommendedFailures": [],
+  "checks": [
+    {
+      "id": "cdn-root",
+      "title": "A staging CDN folder is available locally",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "selected": "../noor-cdn/noor-cdn",
+        "label": "sibling noor-cdn repository"
+      }
+    },
+    {
+      "id": "noor-cdn-branch",
+      "title": "Local noor-cdn repository is on staging branch",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "branch": "staging-ilm-mate-v1",
+        "expected": "staging-ilm-mate-v1"
+      }
+    },
+    {
+      "id": "noor-cdn-clean",
+      "title": "Local noor-cdn working tree is clean",
+      "severity": "recommended",
+      "status": "pass",
+      "details": {
+        "statusShort": "(clean)"
+      }
+    },
+    {
+      "id": "manifest",
+      "title": "Manifest and health files exist",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "exists": true,
+        "healthExists": true,
+        "fileIndexExists": true,
+        "version": "0.26.5",
+        "status": null
+      }
+    },
+    {
+      "id": "quran",
+      "title": "Quran staging CDN has 114 surahs and 6,236 ayat",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "surahIndexCount": 114,
+        "surahFiles": 114,
+        "ayat": 6236
+      }
+    },
+    {
+      "id": "tafseer",
+      "title": "Tafseer staging CDN index and files are present",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "indexExists": true,
+        "indexEntries": 6,
+        "tafseerFiles": 684,
+        "sampledEntryCount": 15145,
+        "sampleFilesChecked": 250
+      }
+    },
+    {
+      "id": "hadith-collections",
+      "title": "Hadith collections include both by_book and by_chapter views",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "collections": 630,
+        "byBook": 627,
+        "byChapter": 607
+      }
+    },
+    {
+      "id": "hadith-unique-collection-ids",
+      "title": "Hadith collection IDs are globally unique",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "duplicateCollectionIds": []
+      }
+    },
+    {
+      "id": "hadith-item-ids",
+      "title": "Hadith sampled item IDs are unique inside each CDN collection",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "sampledItemFiles": 630,
+        "duplicateItemIdSamples": [],
+        "emptyItemFileCountInSample": 0,
+        "emptyItemFileSamples": []
+      }
+    },
+    {
+      "id": "search",
+      "title": "Search index exists and has entries",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "path": "search/search-index-lite.json",
+        "exists": true,
+        "entries": 5000,
+        "sourceTypes": [
+          "hadith"
+        ]
+      }
+    },
+    {
+      "id": "runtime-env-staging",
+      "title": "Runtime env points to staging CDN branch, not noor-cdn main",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "envFiles": [
+          ".env.local",
+          "apps/web/.env.local"
+        ],
+        "containsStagingBranch": true,
+        "containsNoorCdnMain": false
+      }
+    },
+    {
+      "id": "production-block",
+      "title": "Production promotion remains blocked until explicit final approval",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "noorCdnMainTouched": false,
+        "productionBranch": "main",
+        "requiredNextStepBeforeProduction": "Manual review sign-off + explicit promotion sprint"
+      }
+    }
+  ],
+  "nextAction": "Staging CDN is accepted for reviewer/runtime testing only. Do not promote noor-cdn/main yet."
+}

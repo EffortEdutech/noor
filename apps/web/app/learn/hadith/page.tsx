@@ -23,6 +23,11 @@ type HadithCollectionWithView = Awaited<ReturnType<typeof getHadithCollections>>
   tags?: string[];
 };
 
+type HadithCollectionResolved = HadithCollectionWithView & {
+  resolvedView: HadithViewMode | 'legacy';
+  renderKey: string;
+};
+
 type HadithItemWithCanonical = Awaited<ReturnType<typeof getHadithItems>>[number] & {
   canonicalHadithId?: string;
   viewItemId?: string;
@@ -39,23 +44,42 @@ function normalizeView(value: SearchParamValue): HadithViewMode {
   return firstValue(value) === 'by_chapter' ? 'by_chapter' : 'by_book';
 }
 
-function inferCollectionView(collection: HadithCollectionWithView): HadithViewMode | 'unknown' {
+function inferCollectionView(collection: HadithCollectionWithView): HadithViewMode | 'legacy' {
   if (collection.sourceView === 'by_book' || collection.viewMode === 'by_book') return 'by_book';
   if (collection.sourceView === 'by_chapter' || collection.viewMode === 'by_chapter') return 'by_chapter';
 
-  const haystack = [collection.id, collection.name, collection.description, collection.sourcePath, ...(collection.tags ?? [])]
+  const haystack = [
+    collection.id,
+    collection.name,
+    collection.description,
+    collection.sourcePath,
+    collection.sourceBook,
+    collection.sourceScope,
+    ...(collection.tags ?? [])
+  ]
     .filter(Boolean)
     .join(' ')
     .toLowerCase();
 
-  if (haystack.includes('by-chapter') || haystack.includes('by_chapter') || haystack.includes('/by_chapter/')) {
+  if (
+    haystack.includes('by-chapter') ||
+    haystack.includes('by_chapter') ||
+    haystack.includes('/by_chapter/') ||
+    haystack.includes('hadith/db/by_chapter')
+  ) {
     return 'by_chapter';
   }
-  if (haystack.includes('by-book') || haystack.includes('by_book') || haystack.includes('/by_book/')) {
+
+  if (
+    haystack.includes('by-book') ||
+    haystack.includes('by_book') ||
+    haystack.includes('/by_book/') ||
+    haystack.includes('hadith/db/by_book')
+  ) {
     return 'by_book';
   }
 
-  return 'unknown';
+  return 'legacy';
 }
 
 function buildCollectionHref(view: HadithViewMode, collectionId?: string) {
@@ -78,6 +102,12 @@ function dedupeHadithItems(items: HadithItemWithCanonical[]) {
   return deduped;
 }
 
+function collectionBadgeLabel(view: HadithCollectionResolved['resolvedView']) {
+  if (view === 'by_chapter') return 'By chapter';
+  if (view === 'by_book') return 'By book';
+  return 'Legacy';
+}
+
 export default async function HadithPage({ searchParams }: HadithPageProps) {
   const params = (await searchParams) ?? {};
   const activeView = normalizeView(params.view);
@@ -85,18 +115,24 @@ export default async function HadithPage({ searchParams }: HadithPageProps) {
   const contentSource = await getServerNoorContentSource();
   const collections = (await getHadithCollections({ source: contentSource })) as HadithCollectionWithView[];
 
-  const collectionsWithView = collections.map((collection, index) => ({
+  const collectionsWithView: HadithCollectionResolved[] = collections.map((collection, index) => ({
     ...collection,
     resolvedView: inferCollectionView(collection),
-    renderKey: `${collection.id}-${index}`
+    renderKey: `${collection.id}-${collection.sourceView ?? collection.viewMode ?? 'legacy'}-${index}`
   }));
 
   const byBookCollections = collectionsWithView.filter((collection) => collection.resolvedView === 'by_book');
   const byChapterCollections = collectionsWithView.filter((collection) => collection.resolvedView === 'by_chapter');
-  const unknownCollections = collectionsWithView.filter((collection) => collection.resolvedView === 'unknown');
-
+  const legacyCollections = collectionsWithView.filter((collection) => collection.resolvedView === 'legacy');
   const activeCollections = activeView === 'by_chapter' ? byChapterCollections : byBookCollections;
-  const visibleCollections = activeCollections.length > 0 ? activeCollections : collectionsWithView;
+
+  const visibleCollections =
+    activeCollections.length > 0
+      ? activeCollections
+      : activeView === 'by_book'
+        ? legacyCollections
+        : [];
+
   const selectedCollection =
     visibleCollections.find((collection) => collection.id === selectedCollectionId) ??
     visibleCollections[0];
@@ -105,6 +141,8 @@ export default async function HadithPage({ searchParams }: HadithPageProps) {
     ? ((await getHadithItems(selectedCollection.id, { source: contentSource })) as HadithItemWithCanonical[])
     : [];
   const items = dedupeHadithItems(rawItems);
+
+  const hasViewMetadata = byBookCollections.length > 0 || byChapterCollections.length > 0;
 
   return (
     <main className="noor-page">
@@ -117,15 +155,15 @@ export default async function HadithPage({ searchParams }: HadithPageProps) {
       <section className="noor-card noor-stack">
         <div className="noor-row" style={{ alignItems: 'center', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
           <div>
-            <span className="noor-badge emerald">Sprint 27.9.2</span>
+            <span className="noor-badge emerald">Sprint 27.9.3</span>
             <h2>Hadith navigation view</h2>
             <p className="noor-subtitle">
-              by_book and by_chapter are treated as separate navigation views. The same canonical hadith may appear in both views, but each displayed collection uses a unique view ID.
+              by_book and by_chapter are separate navigation views. The same canonical hadith may exist in both source structures, but the reader displays one selected view at a time.
             </p>
           </div>
           <div className="noor-row" style={{ gap: '0.5rem', flexWrap: 'wrap' }}>
             <Link className={`noor-button ${activeView === 'by_book' ? 'primary' : 'secondary'}`} href={buildCollectionHref('by_book')}>
-              View by book ({byBookCollections.length || collections.length})
+              View by book ({byBookCollections.length})
             </Link>
             <Link className={`noor-button ${activeView === 'by_chapter' ? 'primary' : 'secondary'}`} href={buildCollectionHref('by_chapter')}>
               View by chapter ({byChapterCollections.length})
@@ -133,9 +171,22 @@ export default async function HadithPage({ searchParams }: HadithPageProps) {
           </div>
         </div>
 
-        {unknownCollections.length > 0 ? (
+        <div className="noor-row" style={{ gap: '0.5rem', flexWrap: 'wrap' }}>
+          <span className="noor-badge">Total collections: {collections.length}</span>
+          <span className="noor-badge emerald">By book: {byBookCollections.length}</span>
+          <span className="noor-badge gold">By chapter: {byChapterCollections.length}</span>
+          {legacyCollections.length > 0 ? <span className="noor-badge">Legacy: {legacyCollections.length}</span> : null}
+        </div>
+
+        {!hasViewMetadata ? (
           <p className="noor-subtitle">
-            {unknownCollections.length} legacy collection(s) do not yet declare a Hadith view. They remain visible as fallback content.
+            This Hadith collection index does not expose by_book/by_chapter metadata yet. If you expected the staging CDN data, restart the dev server and make sure .env.local uses the raw GitHub staging URL, not a stale cached CDN URL.
+          </p>
+        ) : null}
+
+        {activeView === 'by_chapter' && byChapterCollections.length === 0 ? (
+          <p className="noor-subtitle">
+            No by_chapter collections were found in the active runtime source. This usually means the app is reading an older/stale hadith/collections.json file.
           </p>
         ) : null}
       </section>
@@ -143,10 +194,11 @@ export default async function HadithPage({ searchParams }: HadithPageProps) {
       <section className="noor-grid">
         {visibleCollections.map((collection) => (
           <NoorCard key={collection.renderKey}>
-            <span className="noor-badge emerald">{collection.resolvedView === 'by_chapter' ? 'By chapter' : collection.resolvedView === 'by_book' ? 'By book' : 'Legacy'}</span>
+            <span className="noor-badge emerald">{collectionBadgeLabel(collection.resolvedView)}</span>
             <h2>{collection.name}</h2>
             <p className="noor-subtitle">{collection.description}</p>
             <p className="noor-subtitle">Language: {collection.language}</p>
+            {collection.sourceScope ? <p className="noor-subtitle">Scope: {collection.sourceScope}</p> : null}
             {typeof collection.itemCount === 'number' ? <p className="noor-subtitle">Items: {collection.itemCount}</p> : null}
             <Link className="noor-button secondary" href={buildCollectionHref(activeView, collection.id)}>
               Open collection
