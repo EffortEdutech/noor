@@ -1,0 +1,214 @@
+{
+  "sprint": "27.9",
+  "label": "NOOR staging CDN runtime test",
+  "generatedAt": "2026-05-02T03:55:49.537Z",
+  "base": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@staging-ilm-mate-v1/noor-cdn",
+  "targetRepo": "EffortEdutech/noor-cdn",
+  "targetBranch": "staging-ilm-mate-v1",
+  "passed": true,
+  "requiredPassed": 10,
+  "requiredTotal": 10,
+  "canPushNoorCdnStaging": true,
+  "canPushNoorCdnMain": false,
+  "productionApproved": false,
+  "canPromoteToProduction": false,
+  "results": [
+    {
+      "id": "manifest",
+      "path": "manifest/noor-content-manifest.json",
+      "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@staging-ilm-mate-v1/noor-cdn/manifest/noor-content-manifest.json",
+      "required": true,
+      "passed": true,
+      "status": 200,
+      "statusText": "OK",
+      "bytes": 1765,
+      "durationMs": 1711,
+      "parseError": null,
+      "summary": {
+        "shape": "object",
+        "keys": [
+          "id",
+          "version",
+          "label",
+          "releasedAt",
+          "mode",
+          "datasets",
+          "search"
+        ],
+        "version": "0.26.5"
+      }
+    },
+    {
+      "id": "health",
+      "path": "manifest/noor-content-health.json",
+      "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@staging-ilm-mate-v1/noor-cdn/manifest/noor-content-health.json",
+      "required": true,
+      "passed": true,
+      "status": 200,
+      "statusText": "OK",
+      "bytes": 2540,
+      "durationMs": 788,
+      "parseError": null,
+      "summary": {
+        "shape": "object",
+        "keys": [
+          "manifest",
+          "generatedAt",
+          "isHealthy",
+          "summary",
+          "issues"
+        ]
+      }
+    },
+    {
+      "id": "search_manifest",
+      "path": "manifest/search-index-manifest.json",
+      "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@staging-ilm-mate-v1/noor-cdn/manifest/search-index-manifest.json",
+      "required": true,
+      "passed": true,
+      "status": 200,
+      "statusText": "OK",
+      "bytes": 4645,
+      "durationMs": 358,
+      "parseError": null,
+      "summary": {
+        "shape": "object",
+        "keys": [
+          "name",
+          "format",
+          "generatedAt",
+          "source",
+          "totalEntries",
+          "byType",
+          "githubSafe",
+          "githubHardLimitBytes",
+          "safetyLimitBytes",
+          "originalMonolithicIndex",
+          "compatibilityIndex",
+          "liteIndex",
+          "shards",
+          "fullIndexEntryCountFromShards"
+        ],
+        "totalEntries": 147277
+      }
+    },
+    {
+      "id": "surah_index",
+      "path": "metadata/surah-index.json",
+      "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@staging-ilm-mate-v1/noor-cdn/metadata/surah-index.json",
+      "required": true,
+      "passed": true,
+      "status": 200,
+      "statusText": "OK",
+      "bytes": 23739,
+      "durationMs": 424,
+      "parseError": null,
+      "summary": {
+        "shape": "array",
+        "count": 114
+      }
+    },
+    {
+      "id": "quran_001",
+      "path": "quran/surahs/001.json",
+      "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@staging-ilm-mate-v1/noor-cdn/quran/surahs/001.json",
+      "required": true,
+      "passed": true,
+      "status": 200,
+      "statusText": "OK",
+      "bytes": 3910,
+      "durationMs": 1341,
+      "parseError": null,
+      "summary": {
+        "shape": "object",
+        "keys": [
+          "surah",
+          "ayahs"
+        ]
+      }
+    },
+    {
+      "id": "quran_002",
+      "path": "quran/surahs/002.json",
+      "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@staging-ilm-mate-v1/noor-cdn/quran/surahs/002.json",
+      "required": true,
+      "passed": true,
+      "status": 200,
+      "statusText": "OK",
+      "bytes": 497064,
+      "durationMs": 1027,
+      "parseError": null,
+      "summary": {
+        "shape": "object",
+        "keys": [
+          "surah",
+          "ayahs"
+        ]
+      }
+    },
+    {
+      "id": "tafseer_001",
+      "path": "tafseer/ar-tafsir-ibn-kathir/surahs/001.json",
+      "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@staging-ilm-mate-v1/noor-cdn/tafseer/ar-tafsir-ibn-kathir/surahs/001.json",
+      "required": true,
+      "passed": true,
+      "status": 200,
+      "statusText": "OK",
+      "bytes": 129558,
+      "durationMs": 693,
+      "parseError": null,
+      "summary": {
+        "shape": "array",
+        "count": 7
+      }
+    },
+    {
+      "id": "hadith_collections",
+      "path": "hadith/collections.json",
+      "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@staging-ilm-mate-v1/noor-cdn/hadith/collections.json",
+      "required": true,
+      "passed": true,
+      "status": 200,
+      "statusText": "OK",
+      "bytes": 108238,
+      "durationMs": 512,
+      "parseError": null,
+      "summary": {
+        "shape": "array",
+        "count": 630
+      }
+    },
+    {
+      "id": "hadith_01",
+      "path": "hadith/01/items.json",
+      "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@staging-ilm-mate-v1/noor-cdn/hadith/01/items.json",
+      "required": true,
+      "passed": true,
+      "status": 200,
+      "statusText": "OK",
+      "bytes": 276681,
+      "durationMs": 575,
+      "parseError": null,
+      "summary": {
+        "shape": "array",
+        "count": 148
+      }
+    },
+    {
+      "id": "search_lite",
+      "path": "search/search-index-lite.json",
+      "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@staging-ilm-mate-v1/noor-cdn/search/search-index-lite.json",
+      "required": true,
+      "passed": true,
+      "status": 200,
+      "statusText": "OK",
+      "bytes": 7153427,
+      "durationMs": 1995,
+      "parseError": null,
+      "summary": {
+        "shape": "array",
+        "count": 5000
+      }
+    }
+  ]
+}

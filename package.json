@@ -79,7 +79,12 @@
     "ilm:staging-cdn-candidate": "node scripts/build-ilm-mate-staging-cdn-candidate.mjs",
     "check:ilm-staging-cdn-candidate": "node scripts/check-ilm-mate-staging-cdn-candidate.mjs",
     "cdn:staging-handoff": "node scripts/generate-noor-cdn-staging-branch-handoff.mjs",
-    "check:cdn-staging-handoff": "node scripts/check-noor-cdn-staging-branch-handoff.mjs"
+    "check:cdn-staging-handoff": "node scripts/check-noor-cdn-staging-branch-handoff.mjs",
+    "cdn:staging-git-safe": "node scripts/generate-noor-cdn-git-safe-staging-pack.mjs",
+    "check:cdn-staging-git-safe": "node scripts/check-noor-cdn-git-safe-staging-pack.mjs",
+    "cdn:staging-env": "node scripts/write-noor-staging-cdn-env.mjs",
+    "cdn:test-staging": "node scripts/test-noor-cdn-staging-runtime.mjs",
+    "check:cdn-staging-runtime": "node scripts/check-noor-cdn-staging-runtime.mjs"
   },
   "devDependencies": {
     "@types/react": "19.0.10",

@@ -28,6 +28,7 @@ import { IlmMateStagingCdnPackCard } from '../../components/IlmMateStagingCdnPac
 import { IlmMateRequiredEvidenceTrialCard } from '../../components/IlmMateRequiredEvidenceTrialCard';
 import { IlmMateRequiredEvidenceAcceptanceCard } from '../../components/IlmMateRequiredEvidenceAcceptanceCard';
 import { IlmMateStagingCdnCandidateCard } from '../../components/IlmMateStagingCdnCandidateCard';
+import { NoorCdnStagingRuntimeTestCard } from '../../components/NoorCdnStagingRuntimeTestCard';
 import { SourceGovernanceCard } from '../../components/SourceGovernanceCard';
 import { SourceIntakeCard } from '../../components/SourceIntakeCard';
 import { TafseerImportCard } from '../../components/TafseerImportCard';
@@ -73,6 +74,7 @@ export default async function SettingsPage() {
       <IlmMateRequiredEvidenceAcceptanceCard />
       <IlmMateStagingCdnCandidateCard />
           <NoorCdnStagingBranchHandoffCard />
+      <NoorCdnStagingRuntimeTestCard />
       <QuranSourceGateCard />
       <QuranImportCard />
       <TafseerImportCard />
