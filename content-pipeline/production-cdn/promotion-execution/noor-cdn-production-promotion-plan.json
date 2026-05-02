@@ -1,0 +1,150 @@
+{
+  "sprint": "27.14",
+  "title": "Production CDN Promotion Plan",
+  "generatedAt": "2026-05-02T17:40:39.239Z",
+  "promotionStatus": "ready_for_manual_noor_cdn_main_promotion",
+  "productionPromotionAllowed": true,
+  "promotionExecuted": false,
+  "noorCdnMainTouched": false,
+  "sourceBranch": "noor-cdn/staging-ilm-mate-v1",
+  "targetBranch": "noor-cdn/main",
+  "noorCdnGit": {
+    "repoRoot": "..\\noor-cdn",
+    "exists": true,
+    "branch": "staging-ilm-mate-v1",
+    "clean": true,
+    "statusShort": "",
+    "localStagingHead": "163c137",
+    "originStagingHead": "163c137",
+    "originMainHead": "dc846f0",
+    "localMainOnlyCommits": 0,
+    "localStagingOnlyCommits": 4,
+    "originMainOnlyCommits": 0,
+    "originStagingOnlyCommits": 4
+  },
+  "gates": [
+    {
+      "id": "approval-gate",
+      "title": "Sprint 27.13 approval gate allows Sprint 27.14 promotion",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "approvalStatus": "approved_for_promotion",
+        "productionPromotionAllowed": true,
+        "requiredNextSprint": "Sprint 27.14 - Promote noor-cdn staging to production main"
+      }
+    },
+    {
+      "id": "staging-acceptance",
+      "title": "Sprint 27.10 staging CDN acceptance passed",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "acceptedForStaging": true,
+        "requiredFailures": []
+      }
+    },
+    {
+      "id": "browser-qa",
+      "title": "Sprint 27.11 staging browser QA passed",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "status": "accepted_for_staging_browser_qa",
+        "requiredFailed": 0,
+        "requiredPending": 0
+      }
+    },
+    {
+      "id": "noor-cdn-clean",
+      "title": "Local noor-cdn working tree is clean",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "repoRoot": "..\\noor-cdn",
+        "exists": true,
+        "branch": "staging-ilm-mate-v1",
+        "clean": true,
+        "statusShort": "",
+        "localStagingHead": "163c137",
+        "originStagingHead": "163c137",
+        "originMainHead": "dc846f0",
+        "localMainOnlyCommits": 0,
+        "localStagingOnlyCommits": 4,
+        "originMainOnlyCommits": 0,
+        "originStagingOnlyCommits": 4
+      }
+    },
+    {
+      "id": "noor-cdn-staging-ahead",
+      "title": "noor-cdn staging has reviewed content not yet on main",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "repoRoot": "..\\noor-cdn",
+        "exists": true,
+        "branch": "staging-ilm-mate-v1",
+        "clean": true,
+        "statusShort": "",
+        "localStagingHead": "163c137",
+        "originStagingHead": "163c137",
+        "originMainHead": "dc846f0",
+        "localMainOnlyCommits": 0,
+        "localStagingOnlyCommits": 4,
+        "originMainOnlyCommits": 0,
+        "originStagingOnlyCommits": 4
+      }
+    },
+    {
+      "id": "noor-cdn-main-not-ahead",
+      "title": "noor-cdn/main is not ahead of staging",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "repoRoot": "..\\noor-cdn",
+        "exists": true,
+        "branch": "staging-ilm-mate-v1",
+        "clean": true,
+        "statusShort": "",
+        "localStagingHead": "163c137",
+        "originStagingHead": "163c137",
+        "originMainHead": "dc846f0",
+        "localMainOnlyCommits": 0,
+        "localStagingOnlyCommits": 4,
+        "originMainOnlyCommits": 0,
+        "originStagingOnlyCommits": 4
+      }
+    }
+  ],
+  "requiredFailures": [],
+  "commands": {
+    "noorPrecheck": [
+      "pnpm production:cdn-promotion-plan",
+      "pnpm check:production-cdn-promotion-plan"
+    ],
+    "noorCdnPromotion": [
+      "cd \"C:\\Users\\user\\Documents\\00 Combo3\\noor-cdn\"",
+      "git checkout staging-ilm-mate-v1",
+      "git pull origin staging-ilm-mate-v1",
+      "git checkout main",
+      "git pull origin main",
+      "git merge staging-ilm-mate-v1",
+      "git push origin main"
+    ],
+    "noorRecord": [
+      "cd \"C:\\Users\\user\\Documents\\00 Combo3\\Noor\"",
+      "pnpm production:cdn-record-promotion",
+      "pnpm check:sprint27-14"
+    ]
+  },
+  "publicProductionBases": {
+    "githubPages": "https://effortedutech.github.io/noor-cdn/noor-cdn",
+    "jsDelivr": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn",
+    "rawGitHub": "https://raw.githubusercontent.com/EffortEdutech/noor-cdn/main/noor-cdn"
+  },
+  "safetyRules": [
+    "Only promote noor-cdn/staging-ilm-mate-v1 into noor-cdn/main after this plan passes.",
+    "Use a normal fast-forward merge when possible; do not force push noor-cdn/main.",
+    "After pushing noor-cdn/main, return to NOOR and record the execution report."
+  ]
+}

@@ -101,7 +101,12 @@
     "check:sprint27-12": "pnpm roadmap:status && pnpm check:release && pnpm check:roadmap && pnpm check:pack && pnpm check:sprint27-11",
     "production:approval-gate": "node scripts/run-production-cdn-approval-gate.mjs",
     "check:production-approval-gate": "node scripts/check-production-cdn-approval-gate.mjs",
-    "check:sprint27-13": "pnpm check:sprint27-12 && pnpm check:production-approval-gate"
+    "check:sprint27-13": "pnpm check:sprint27-12 && pnpm check:production-approval-gate",
+    "production:cdn-promotion-plan": "node scripts/generate-noor-production-cdn-promotion-plan.mjs",
+    "check:production-cdn-promotion-plan": "node scripts/check-noor-production-cdn-promotion-plan.mjs",
+    "production:cdn-record-promotion": "node scripts/record-noor-production-cdn-promotion.mjs",
+    "check:production-cdn-promoted": "node scripts/check-noor-production-cdn-promoted.mjs",
+    "check:sprint27-14": "pnpm check:sprint27-13 && pnpm check:production-cdn-promotion-plan && pnpm check:production-cdn-promoted && pnpm check:pack"
   },
   "devDependencies": {
     "@types/react": "19.0.10",

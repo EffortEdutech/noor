@@ -43,6 +43,11 @@ const requiredFiles = [
   'scripts/check-noor-production-promotion.mjs',
   'scripts/run-production-cdn-approval-gate.mjs',
   'scripts/check-production-cdn-approval-gate.mjs',
+  'scripts/generate-noor-production-cdn-promotion-plan.mjs',
+  'scripts/check-noor-production-cdn-promotion-plan.mjs',
+  'scripts/record-noor-production-cdn-promotion.mjs',
+  'scripts/check-noor-production-cdn-promoted.mjs',
+  'scripts/apply-sprint27-14-package-scripts.mjs',
   'scripts/check-noor-pack.mjs',
   'scripts/check-noor-release.mjs',
   'scripts/generate-noor-roadmap.mjs',
@@ -58,6 +63,10 @@ const requiredFiles = [
   'content-pipeline/production-cdn/.env.noor-production-cdn.example',
   'content-pipeline/production-cdn/approval-gate/noor-production-cdn-approval-gate.json',
   'content-pipeline/production-cdn/approval-gate/noor-production-cdn-approval-gate.md',
+  'content-pipeline/production-cdn/promotion-execution/noor-cdn-production-promotion-plan.json',
+  'content-pipeline/production-cdn/promotion-execution/noor-cdn-production-promotion-plan.md',
+  'content-pipeline/production-cdn/promotion-execution/noor-cdn-production-promotion-execution.json',
+  'content-pipeline/production-cdn/promotion-execution/noor-cdn-production-promotion-execution.md',
   'content-pipeline/roadmap/noor-roadmap-status.json',
   'content-pipeline/roadmap/noor-roadmap-status.md',
   'content-pipeline/review/ilm-mate-v1/staging-cdn-acceptance/staging-cdn-acceptance-report.json',
@@ -70,6 +79,7 @@ const requiredFiles = [
   'docs/SPRINT_27_11_STAGING_BROWSER_QA.md',
   'docs/SPRINT_27_12_RELEASE_METADATA.md',
   'docs/SPRINT_27_13_PRODUCTION_CDN_APPROVAL_GATE.md',
+  'docs/SPRINT_27_14_PRODUCTION_CDN_PROMOTION.md',
   '.github/workflows/noor-ci.yml',
   'RELEASE_NOTES.md',
   'CHANGELOG.md'
@@ -77,7 +87,7 @@ const requiredFiles = [
 
 const missing = requiredFiles.filter((file) => !existsSync(file));
 if (missing.length > 0) {
-  console.error('Missing required NOOR Sprint 0-27.12 files:');
+  console.error('Missing required NOOR Sprint 0-27.14 files:');
   for (const file of missing) console.error(`- ${file}`);
   process.exit(1);
 }
@@ -102,7 +112,12 @@ for (const script of [
   'check:sprint27-12',
   'production:approval-gate',
   'check:production-approval-gate',
-  'check:sprint27-13'
+  'check:sprint27-13',
+  'production:cdn-promotion-plan',
+  'check:production-cdn-promotion-plan',
+  'production:cdn-record-promotion',
+  'check:production-cdn-promoted',
+  'check:sprint27-14'
 ]) {
   if (!pkg.scripts?.[script]) fail(`package.json missing script: ${script}`);
 }
@@ -149,6 +164,18 @@ if (productionApprovalGate.productionPromotionAllowed !== true) fail('Sprint 27.
 if (productionApprovalGate.promotionExecuted !== false || productionApprovalGate.noorCdnMainTouched !== false) {
   fail('Sprint 27.13 must approve promotion without touching noor-cdn/main.');
 }
+
+
+const productionExecution = readJson('content-pipeline/production-cdn/promotion-execution/noor-cdn-production-promotion-execution.json');
+if (productionExecution.sprint !== '27.14') fail('Sprint 27.14 production CDN execution file must declare sprint 27.14.');
+if (productionExecution.promotionStatus !== 'production_promoted') fail('Sprint 27.14 production CDN execution must be production_promoted.');
+if (productionExecution.promotionExecuted !== true || productionExecution.noorCdnMainTouched !== true) {
+  fail('Sprint 27.14 must record that noor-cdn/main was touched and promoted.');
+}
+if (productionExecution.sourceBranch !== 'noor-cdn/staging-ilm-mate-v1') fail('Sprint 27.14 source branch must be noor-cdn/staging-ilm-mate-v1.');
+if (productionExecution.targetBranch !== 'noor-cdn/main') fail('Sprint 27.14 target branch must be noor-cdn/main.');
+if (productionExecution.requiredFailures?.length > 0) fail('Sprint 27.14 production execution must have no required failures.');
+if (productionExecution.gitComparison?.stagingCommitsMissingFromMain !== 0) fail('noor-cdn/main must contain all staging branch commits.');
 
 const stagingAcceptance = readJson('content-pipeline/review/ilm-mate-v1/staging-cdn-acceptance/staging-cdn-acceptance-report.json');
 if (stagingAcceptance.acceptedForStaging !== true) fail('Sprint 27.10 staging CDN acceptance must remain accepted for staging.');
@@ -219,4 +246,4 @@ if (!cdnSearchCandidates.some((file) => existsSync(file))) {
   fail('Generated CDN search index missing. Run pnpm content:prepare and pnpm search:build-cdn-index.');
 }
 
-console.log('NOOR Sprint 0-27.13 pack check passed.');
+console.log('NOOR Sprint 0-27.14 pack check passed.');

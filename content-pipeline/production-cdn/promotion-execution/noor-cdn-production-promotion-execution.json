@@ -1,0 +1,44 @@
+{
+  "sprint": "27.14",
+  "title": "Production CDN Promotion Execution Record",
+  "generatedAt": "2026-05-02T17:44:42.361Z",
+  "promotionStatus": "production_promoted",
+  "productionPromotionAllowed": true,
+  "promotionExecuted": true,
+  "noorCdnMainTouched": true,
+  "sourceBranch": "noor-cdn/staging-ilm-mate-v1",
+  "targetBranch": "noor-cdn/main",
+  "promotionPlan": "content-pipeline\\production-cdn\\promotion-execution\\noor-cdn-production-promotion-plan.json",
+  "noorCdnGit": {
+    "repoRoot": "..\\noor-cdn",
+    "exists": true,
+    "branch": "main",
+    "clean": true,
+    "statusShort": "",
+    "localMainHead": "163c137",
+    "localStagingHead": "163c137",
+    "originMainHead": "163c137",
+    "originStagingHead": "163c137",
+    "comparison": {
+      "localMainOnlyCommits": 0,
+      "localStagingOnlyCommits": 0,
+      "originMainOnlyCommits": 0,
+      "stagingCommitsMissingFromMain": 0,
+      "mainContainsStaging": true
+    }
+  },
+  "gitComparison": {
+    "localMainOnlyCommits": 0,
+    "localStagingOnlyCommits": 0,
+    "originMainOnlyCommits": 0,
+    "stagingCommitsMissingFromMain": 0,
+    "mainContainsStaging": true
+  },
+  "requiredFailures": [],
+  "publicProductionBases": {
+    "githubPages": "https://effortedutech.github.io/noor-cdn/noor-cdn",
+    "jsDelivr": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn",
+    "rawGitHub": "https://raw.githubusercontent.com/EffortEdutech/noor-cdn/main/noor-cdn"
+  },
+  "runtimeReminder": "After production CDN is promoted, app environments may point External CDN to @main/noor-cdn. Keep bundled fallback enabled."
+}
