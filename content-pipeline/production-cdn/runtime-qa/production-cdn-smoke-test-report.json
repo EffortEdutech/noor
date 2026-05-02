@@ -1,0 +1,418 @@
+{
+  "sprint": "27.15",
+  "title": "Production CDN Runtime Smoke Test",
+  "generatedAt": "2026-05-02T18:25:11.053Z",
+  "status": "production_runtime_passed",
+  "productionBranch": "noor-cdn/main",
+  "requiredBases": [
+    "jsdelivr-main",
+    "raw-github-main"
+  ],
+  "optionalBases": [
+    "github-pages-main"
+  ],
+  "baseResults": [
+    {
+      "id": "jsdelivr-main",
+      "label": "jsDelivr production main",
+      "required": true,
+      "baseUrl": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn",
+      "checkedAt": "2026-05-02T18:24:57.860Z",
+      "checks": [
+        {
+          "id": "manifest",
+          "path": "manifest/noor-content-manifest.json",
+          "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn/manifest/noor-content-manifest.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 773,
+          "bytes": 2111,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "health",
+          "path": "manifest/noor-content-health.json",
+          "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn/manifest/noor-content-health.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 626,
+          "bytes": 3299,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "surah-index",
+          "path": "metadata/surah-index.json",
+          "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn/metadata/surah-index.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 575,
+          "bytes": 23739,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "quran-001",
+          "path": "quran/surahs/001.json",
+          "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn/quran/surahs/001.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 402,
+          "bytes": 3910,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "quran-114",
+          "path": "quran/surahs/114.json",
+          "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn/quran/surahs/114.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 555,
+          "bytes": 2919,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "tafseer-index",
+          "path": "metadata/tafseer-index.json",
+          "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn/metadata/tafseer-index.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 635,
+          "bytes": 10908,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "hadith-collections",
+          "path": "hadith/collections.json",
+          "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn/hadith/collections.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 1022,
+          "bytes": 311542,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "search-index",
+          "path": "search/search-index.json",
+          "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn/search/search-index.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 1070,
+          "bytes": 7269960,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "tafseer-sample-001",
+          "path": "tafseer/ar-tafsir-ibn-kathir/surahs/001.json",
+          "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn/tafseer/ar-tafsir-ibn-kathir/surahs/001.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 482,
+          "bytes": 129558,
+          "selectedBookId": "ar-tafsir-ibn-kathir"
+        },
+        {
+          "id": "hadith-sample-items",
+          "path": "hadith/by-book__forties__nawawi40/items.json",
+          "url": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn/hadith/by-book__forties__nawawi40/items.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 462,
+          "bytes": 63837,
+          "selectedCollectionId": "by-book__forties__nawawi40"
+        }
+      ],
+      "summary": {
+        "total": 10,
+        "passed": 10,
+        "failed": 0,
+        "requiredFailures": []
+      }
+    },
+    {
+      "id": "raw-github-main",
+      "label": "Raw GitHub production main",
+      "required": true,
+      "baseUrl": "https://raw.githubusercontent.com/EffortEdutech/noor-cdn/main/noor-cdn",
+      "checkedAt": "2026-05-02T18:25:05.254Z",
+      "checks": [
+        {
+          "id": "manifest",
+          "path": "manifest/noor-content-manifest.json",
+          "url": "https://raw.githubusercontent.com/EffortEdutech/noor-cdn/main/noor-cdn/manifest/noor-content-manifest.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 834,
+          "bytes": 2111,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "health",
+          "path": "manifest/noor-content-health.json",
+          "url": "https://raw.githubusercontent.com/EffortEdutech/noor-cdn/main/noor-cdn/manifest/noor-content-health.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 360,
+          "bytes": 3299,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "surah-index",
+          "path": "metadata/surah-index.json",
+          "url": "https://raw.githubusercontent.com/EffortEdutech/noor-cdn/main/noor-cdn/metadata/surah-index.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 356,
+          "bytes": 23739,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "quran-001",
+          "path": "quran/surahs/001.json",
+          "url": "https://raw.githubusercontent.com/EffortEdutech/noor-cdn/main/noor-cdn/quran/surahs/001.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 352,
+          "bytes": 3910,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "quran-114",
+          "path": "quran/surahs/114.json",
+          "url": "https://raw.githubusercontent.com/EffortEdutech/noor-cdn/main/noor-cdn/quran/surahs/114.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 353,
+          "bytes": 2919,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "tafseer-index",
+          "path": "metadata/tafseer-index.json",
+          "url": "https://raw.githubusercontent.com/EffortEdutech/noor-cdn/main/noor-cdn/metadata/tafseer-index.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 362,
+          "bytes": 10908,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "hadith-collections",
+          "path": "hadith/collections.json",
+          "url": "https://raw.githubusercontent.com/EffortEdutech/noor-cdn/main/noor-cdn/hadith/collections.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 622,
+          "bytes": 311542,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "search-index",
+          "path": "search/search-index.json",
+          "url": "https://raw.githubusercontent.com/EffortEdutech/noor-cdn/main/noor-cdn/search/search-index.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 600,
+          "bytes": 7269960,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "tafseer-sample-001",
+          "path": "tafseer/ar-tafsir-ibn-kathir/surahs/001.json",
+          "url": "https://raw.githubusercontent.com/EffortEdutech/noor-cdn/main/noor-cdn/tafseer/ar-tafsir-ibn-kathir/surahs/001.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 364,
+          "bytes": 129558,
+          "selectedBookId": "ar-tafsir-ibn-kathir"
+        },
+        {
+          "id": "hadith-sample-items",
+          "path": "hadith/by-book__forties__nawawi40/items.json",
+          "url": "https://raw.githubusercontent.com/EffortEdutech/noor-cdn/main/noor-cdn/hadith/by-book__forties__nawawi40/items.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 378,
+          "bytes": 63837,
+          "selectedCollectionId": "by-book__forties__nawawi40"
+        }
+      ],
+      "summary": {
+        "total": 10,
+        "passed": 10,
+        "failed": 0,
+        "requiredFailures": []
+      }
+    },
+    {
+      "id": "github-pages-main",
+      "label": "GitHub Pages production main",
+      "required": false,
+      "baseUrl": "https://effortedutech.github.io/noor-cdn/noor-cdn",
+      "checkedAt": "2026-05-02T18:25:11.053Z",
+      "checks": [
+        {
+          "id": "manifest",
+          "path": "manifest/noor-content-manifest.json",
+          "url": "https://effortedutech.github.io/noor-cdn/noor-cdn/manifest/noor-content-manifest.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 828,
+          "bytes": 2111,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "health",
+          "path": "manifest/noor-content-health.json",
+          "url": "https://effortedutech.github.io/noor-cdn/noor-cdn/manifest/noor-content-health.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 347,
+          "bytes": 3299,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "surah-index",
+          "path": "metadata/surah-index.json",
+          "url": "https://effortedutech.github.io/noor-cdn/noor-cdn/metadata/surah-index.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 339,
+          "bytes": 23739,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "quran-001",
+          "path": "quran/surahs/001.json",
+          "url": "https://effortedutech.github.io/noor-cdn/noor-cdn/quran/surahs/001.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 339,
+          "bytes": 3910,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "quran-114",
+          "path": "quran/surahs/114.json",
+          "url": "https://effortedutech.github.io/noor-cdn/noor-cdn/quran/surahs/114.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 345,
+          "bytes": 2919,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "tafseer-index",
+          "path": "metadata/tafseer-index.json",
+          "url": "https://effortedutech.github.io/noor-cdn/noor-cdn/metadata/tafseer-index.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 342,
+          "bytes": 10908,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "hadith-collections",
+          "path": "hadith/collections.json",
+          "url": "https://effortedutech.github.io/noor-cdn/noor-cdn/hadith/collections.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 341,
+          "bytes": 311542,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "search-index",
+          "path": "search/search-index.json",
+          "url": "https://effortedutech.github.io/noor-cdn/noor-cdn/search/search-index.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 480,
+          "bytes": 7269960,
+          "parseError": null,
+          "error": null
+        },
+        {
+          "id": "tafseer-sample-001",
+          "path": "tafseer/ar-tafsir-ibn-kathir/surahs/001.json",
+          "url": "https://effortedutech.github.io/noor-cdn/noor-cdn/tafseer/ar-tafsir-ibn-kathir/surahs/001.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 346,
+          "bytes": 129558,
+          "selectedBookId": "ar-tafsir-ibn-kathir"
+        },
+        {
+          "id": "hadith-sample-items",
+          "path": "hadith/by-book__forties__nawawi40/items.json",
+          "url": "https://effortedutech.github.io/noor-cdn/noor-cdn/hadith/by-book__forties__nawawi40/items.json",
+          "severity": "required",
+          "status": "pass",
+          "httpStatus": 200,
+          "elapsedMs": 345,
+          "bytes": 63837,
+          "selectedCollectionId": "by-book__forties__nawawi40"
+        }
+      ],
+      "summary": {
+        "total": 10,
+        "passed": 10,
+        "failed": 0,
+        "requiredFailures": []
+      }
+    }
+  ],
+  "requiredFailures": [],
+  "optionalFailures": [],
+  "note": "Required production bases are jsDelivr @main and raw GitHub main. GitHub Pages is optional because repository Pages may be disabled or delayed."
+}

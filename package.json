@@ -106,7 +106,13 @@
     "check:production-cdn-promotion-plan": "node scripts/check-noor-production-cdn-promotion-plan.mjs",
     "production:cdn-record-promotion": "node scripts/record-noor-production-cdn-promotion.mjs",
     "check:production-cdn-promoted": "node scripts/check-noor-production-cdn-promoted.mjs",
-    "check:sprint27-14": "pnpm check:sprint27-13 && pnpm check:production-cdn-promotion-plan && pnpm check:production-cdn-promoted && pnpm check:pack"
+    "check:sprint27-14": "pnpm check:sprint27-13 && pnpm check:production-cdn-promotion-plan && pnpm check:production-cdn-promoted && pnpm check:pack",
+    "production:cdn-smoke-test": "node scripts/run-production-cdn-smoke-test.mjs",
+    "check:production-cdn-smoke-test": "node scripts/check-production-cdn-smoke-test.mjs",
+    "production:browser-qa": "node scripts/generate-production-browser-qa.mjs",
+    "production:browser-qa:update": "node scripts/update-production-browser-qa.mjs",
+    "check:production-browser-qa": "node scripts/check-production-browser-qa.mjs",
+    "check:sprint27-15": "pnpm check:sprint27-14 && pnpm check:production-cdn-smoke-test && pnpm check:production-browser-qa"
   },
   "devDependencies": {
     "@types/react": "19.0.10",

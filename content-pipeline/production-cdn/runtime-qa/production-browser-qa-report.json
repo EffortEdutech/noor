@@ -1,0 +1,126 @@
+{
+  "sprint": "27.15",
+  "title": "Production Browser QA Checklist",
+  "generatedAt": "2026-05-02T18:25:24.870Z",
+  "status": "accepted_for_production_browser_qa",
+  "productionBranch": "noor-cdn/main",
+  "localhost": "http://localhost:3200",
+  "tasks": [
+    {
+      "id": "settings-production-cdn",
+      "title": "Settings page shows external CDN @main/noor-cdn or production runtime context",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T18:27:37.689Z",
+      "note": "Manual production browser QA completed on localhost:3200 against noor-cdn/main."
+    },
+    {
+      "id": "quran-index-production",
+      "title": "/learn/quran loads from production CDN",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T18:27:37.689Z",
+      "note": "Manual production browser QA completed on localhost:3200 against noor-cdn/main."
+    },
+    {
+      "id": "quran-surah-001-production",
+      "title": "/learn/quran/001 loads Al-Fatihah from production CDN",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T18:27:37.689Z",
+      "note": "Manual production browser QA completed on localhost:3200 against noor-cdn/main."
+    },
+    {
+      "id": "quran-surah-114-production",
+      "title": "/learn/quran/114 loads An-Nas from production CDN",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T18:27:37.689Z",
+      "note": "Manual production browser QA completed on localhost:3200 against noor-cdn/main."
+    },
+    {
+      "id": "tafseer-production-library",
+      "title": "/learn/tafseer shows production CDN tafseer library/index",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T18:27:37.689Z",
+      "note": "Manual production browser QA completed on localhost:3200 against noor-cdn/main."
+    },
+    {
+      "id": "tafseer-production-reader",
+      "title": "Tafseer sample reader opens a production CDN tafseer file",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T18:27:37.689Z",
+      "note": "Manual production browser QA completed on localhost:3200 against noor-cdn/main."
+    },
+    {
+      "id": "hadith-production-library",
+      "title": "/learn/hadith shows production CDN hadith collections",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T18:27:37.689Z",
+      "note": "Manual production browser QA completed on localhost:3200 against noor-cdn/main."
+    },
+    {
+      "id": "hadith-view-by-book-production",
+      "title": "Hadith View by book has collections and opens items",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T18:27:37.689Z",
+      "note": "Manual production browser QA completed on localhost:3200 against noor-cdn/main."
+    },
+    {
+      "id": "hadith-view-by-chapter-production",
+      "title": "Hadith View by chapter behavior is checked and documented",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T18:27:37.689Z",
+      "note": "Manual production browser QA completed on localhost:3200 against noor-cdn/main."
+    },
+    {
+      "id": "hadith-duplicate-key-production",
+      "title": "Hadith page has no duplicate React key all console warning",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T18:27:37.689Z",
+      "note": "Manual production browser QA completed on localhost:3200 against noor-cdn/main."
+    },
+    {
+      "id": "explore-production-search",
+      "title": "/explore uses External CDN search index from production CDN",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T18:27:37.689Z",
+      "note": "Manual production browser QA completed on localhost:3200 against noor-cdn/main."
+    },
+    {
+      "id": "fallback-safe-production",
+      "title": "Bundled fallback remains enabled if CDN fetch fails",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T18:27:37.689Z",
+      "note": "Manual production browser QA completed on localhost:3200 against noor-cdn/main."
+    }
+  ],
+  "summary": {
+    "total": 12,
+    "requiredTotal": 12,
+    "requiredPassed": 12,
+    "requiredFailed": 0,
+    "requiredPending": 0
+  },
+  "updatedAt": "2026-05-02T18:27:37.689Z"
+}
