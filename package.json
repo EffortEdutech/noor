@@ -93,7 +93,11 @@
     "check:sprint27-9-3": "pnpm check:tafseer-index && pnpm typecheck && pnpm build",
     "cdn:staging-acceptance": "node scripts/run-staging-cdn-acceptance-checklist.mjs",
     "check:cdn-staging-acceptance": "node scripts/check-staging-cdn-acceptance-checklist.mjs",
-    "check:sprint27-10": "pnpm check:cdn-staging-acceptance"
+    "check:sprint27-10": "pnpm check:cdn-staging-acceptance",
+    "qa:staging-browser": "node scripts/generate-staging-browser-qa-checklist.mjs",
+    "qa:staging-browser:update": "node scripts/update-staging-browser-qa-result.mjs",
+    "check:qa-staging-browser": "node scripts/check-staging-browser-qa-checklist.mjs",
+    "check:sprint27-11": "pnpm check:cdn-staging-acceptance && pnpm check:cdn-staging-runtime && pnpm check:qa-staging-browser"
   },
   "devDependencies": {
     "@types/react": "19.0.10",

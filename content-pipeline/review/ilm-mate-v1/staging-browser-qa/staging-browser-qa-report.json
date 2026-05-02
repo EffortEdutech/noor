@@ -1,0 +1,233 @@
+{
+  "sprint": "27.11",
+  "title": "Staging Browser QA / Quran + Tafseer + Hadith Runtime Verification",
+  "generatedAt": "2026-05-02T13:51:19.479Z",
+  "expectedLocalhost": "http://localhost:3200",
+  "expectedStagingBranch": "staging-ilm-mate-v1",
+  "productionPromotion": "blocked",
+  "status": "accepted_for_staging_browser_qa",
+  "autoChecks": [
+    {
+      "id": "acceptance-report",
+      "title": "Sprint 27.10 staging acceptance report exists and is accepted",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "exists": true,
+        "acceptedForStaging": true,
+        "requiredFailures": []
+      }
+    },
+    {
+      "id": "runtime-env-staging",
+      "title": "Runtime env references staging-ilm-mate-v1 and avoids noor-cdn main",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "envFiles": [
+          ".env.local",
+          "apps/web/.env.local",
+          ".env.local.staging-ilm-mate-v1"
+        ],
+        "containsStagingBranch": true,
+        "containsNoorCdnMain": false
+      }
+    },
+    {
+      "id": "production-block",
+      "title": "Production CDN remains blocked",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "noorCdnMainTouched": false,
+        "productionPromotion": "blocked"
+      }
+    }
+  ],
+  "tasks": [
+    {
+      "id": "settings-runtime-source",
+      "category": "settings",
+      "title": "Settings page shows staging CDN runtime source",
+      "url": "http://localhost:3200/settings",
+      "expected": "Data mode is cdn / External CDN and CDN bases point to staging-ilm-mate-v1. Production remains blocked.",
+      "evidenceHint": "Confirm the Data mode card and Sprint 27.10 acceptance card are visible.",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T13:51:19.428Z",
+      "notes": "Manual browser QA completed on localhost:3200 against staging CDN."
+    },
+    {
+      "id": "settings-production-block",
+      "category": "settings",
+      "title": "Production guard remains visible",
+      "url": "http://localhost:3200/settings",
+      "expected": "Production CDN remains blocked and noor-cdn/main is not promoted.",
+      "evidenceHint": "Confirm no card suggests production promotion is complete.",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T13:51:19.428Z",
+      "notes": "Manual browser QA completed on localhost:3200 against staging CDN."
+    },
+    {
+      "id": "quran-index-cdn",
+      "category": "quran",
+      "title": "Quran Surah index loads from CDN",
+      "url": "http://localhost:3200/learn/quran",
+      "expected": "Page says Runtime content source: cdn and displays the Surah index.",
+      "evidenceHint": "Confirm it does not say mock fallback.",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T13:51:19.428Z",
+      "notes": "Manual browser QA completed on localhost:3200 against staging CDN."
+    },
+    {
+      "id": "quran-surah-001",
+      "category": "quran",
+      "title": "Quran Surah 001 opens from CDN",
+      "url": "http://localhost:3200/learn/quran/001",
+      "expected": "Surah Al-Fatihah opens with ayat content from CDN.",
+      "evidenceHint": "Check the first and last ayah render.",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T13:51:19.428Z",
+      "notes": "Manual browser QA completed on localhost:3200 against staging CDN."
+    },
+    {
+      "id": "quran-surah-114",
+      "category": "quran",
+      "title": "Quran Surah 114 opens from CDN",
+      "url": "http://localhost:3200/learn/quran/114",
+      "expected": "Surah An-Nas opens with ayat content from CDN.",
+      "evidenceHint": "Check a late Surah so we know the full 114-surah range is reachable.",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T13:51:19.428Z",
+      "notes": "Manual browser QA completed on localhost:3200 against staging CDN."
+    },
+    {
+      "id": "tafseer-library-cdn",
+      "category": "tafseer",
+      "title": "Tafseer library loads from CDN",
+      "url": "http://localhost:3200/learn/tafseer",
+      "expected": "Tafseer CDN library appears with selectable Tafseer sources/books.",
+      "evidenceHint": "Confirm the page is not demo-only and shows CDN source/index information.",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T13:51:19.428Z",
+      "notes": "Manual browser QA completed on localhost:3200 against staging CDN."
+    },
+    {
+      "id": "tafseer-sample-entry",
+      "category": "tafseer",
+      "title": "Tafseer sample source and Surah content can be opened",
+      "url": "http://localhost:3200/learn/tafseer",
+      "expected": "At least one Tafseer source and Surah sample displays entries.",
+      "evidenceHint": "Open a listed Tafseer item/source and verify text appears.",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T13:51:19.428Z",
+      "notes": "Manual browser QA completed on localhost:3200 against staging CDN."
+    },
+    {
+      "id": "hadith-by-book",
+      "category": "hadith",
+      "title": "Hadith View by book is populated",
+      "url": "http://localhost:3200/learn/hadith",
+      "expected": "View by book count is greater than 0 and collections render.",
+      "evidenceHint": "Confirm the by-book tab/list has content.",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T13:51:19.428Z",
+      "notes": "Manual browser QA completed on localhost:3200 against staging CDN."
+    },
+    {
+      "id": "hadith-by-chapter",
+      "category": "hadith",
+      "title": "Hadith View by chapter is populated",
+      "url": "http://localhost:3200/learn/hadith",
+      "expected": "View by chapter count is greater than 0 and chapter collections render.",
+      "evidenceHint": "Confirm this is no longer View by chapter (0).",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T13:51:19.428Z",
+      "notes": "Manual browser QA completed on localhost:3200 against staging CDN."
+    },
+    {
+      "id": "hadith-no-duplicate-key",
+      "category": "hadith",
+      "title": "Hadith page has no duplicate React key console error",
+      "url": "http://localhost:3200/learn/hadith",
+      "expected": "Browser console has no duplicate key `all` warning/error.",
+      "evidenceHint": "Open Chrome DevTools Console and refresh the page.",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T13:51:19.428Z",
+      "notes": "Manual browser QA completed on localhost:3200 against staging CDN."
+    },
+    {
+      "id": "explore-search-cdn",
+      "category": "explore",
+      "title": "Explore uses external CDN search index",
+      "url": "http://localhost:3200/explore",
+      "expected": "Search source shows External CDN search index and returns results.",
+      "evidenceHint": "Search “mercy” or “prayer”; confirm results are from CDN search.",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T13:51:19.428Z",
+      "notes": "Manual browser QA completed on localhost:3200 against staging CDN."
+    },
+    {
+      "id": "explore-hadith-dedup-observation",
+      "category": "explore",
+      "title": "Hadith search duplicate behavior is observed and documented",
+      "url": "http://localhost:3200/explore",
+      "expected": "If the same canonical Hadith appears by book and by chapter, note it for Sprint 27.12 dedup/search refinement.",
+      "evidenceHint": "This is observational; pass if behavior is documented even if future refinement is needed.",
+      "severity": "recommended",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T13:51:19.428Z",
+      "notes": "Manual browser QA completed on localhost:3200 against staging CDN."
+    },
+    {
+      "id": "network-no-critical-errors",
+      "category": "browser",
+      "title": "No critical network or CORS errors during browser QA",
+      "url": "Chrome DevTools → Network / Console",
+      "expected": "No repeated 404/CORS failures for manifest, Quran, Tafseer, Hadith, or search files.",
+      "evidenceHint": "Refresh Settings, Quran, Tafseer, Hadith and Explore with DevTools open.",
+      "severity": "required",
+      "status": "pass",
+      "reviewer": "Darya Malak",
+      "reviewedAt": "2026-05-02T13:51:19.428Z",
+      "notes": "Manual browser QA completed on localhost:3200 against staging CDN."
+    }
+  ],
+  "summary": {
+    "totalTasks": 13,
+    "requiredTasks": 12,
+    "requiredPassed": 12,
+    "requiredPending": 0,
+    "requiredFailed": 0,
+    "recommendedPending": 0,
+    "recommendedFailed": 0,
+    "autoRequiredFailures": [],
+    "requiredPendingIds": [],
+    "requiredFailedIds": [],
+    "recommendedPendingIds": [],
+    "recommendedFailedIds": []
+  },
+  "nextAction": "Browser QA accepted for staging. Production CDN remains blocked until explicit promotion sprint."
+}
