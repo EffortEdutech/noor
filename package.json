@@ -84,7 +84,9 @@
     "check:cdn-staging-git-safe": "node scripts/check-noor-cdn-git-safe-staging-pack.mjs",
     "cdn:staging-env": "node scripts/write-noor-staging-cdn-env.mjs",
     "cdn:test-staging": "node scripts/test-noor-cdn-staging-runtime.mjs",
-    "check:cdn-staging-runtime": "node scripts/check-noor-cdn-staging-runtime.mjs"
+    "check:cdn-staging-runtime": "node scripts/check-noor-cdn-staging-runtime.mjs",
+    "ilm:hadith:normalize-ids": "node scripts/normalize-ilm-mate-hadith-ids.mjs",
+    "check:ilm-hadith-normalized-ids": "node scripts/check-ilm-mate-hadith-normalized-ids.mjs"
   },
   "devDependencies": {
     "@types/react": "19.0.10",

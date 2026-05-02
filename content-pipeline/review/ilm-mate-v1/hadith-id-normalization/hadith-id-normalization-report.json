@@ -1,0 +1,4295 @@
+{
+  "sprint": "27.9.1",
+  "label": "Hadith collection ID normalization",
+  "generatedAt": "2026-05-02T05:01:47.846Z",
+  "status": "normalized",
+  "sourceRoot": "C:\\Users\\user\\Documents\\00 Combo3\\muslim-companion-poc\\content",
+  "outputRoot": "content-pipeline/imported/ilm-mate-v1/noor-cdn",
+  "collectionCount": 630,
+  "itemCount": 102012,
+  "skipped": [],
+  "duplicateBaseIds": [
+    {
+      "id": "all",
+      "count": 3
+    },
+    {
+      "id": "01",
+      "count": 9
+    },
+    {
+      "id": "02",
+      "count": 9
+    },
+    {
+      "id": "03",
+      "count": 9
+    },
+    {
+      "id": "04",
+      "count": 9
+    },
+    {
+      "id": "05",
+      "count": 9
+    },
+    {
+      "id": "06",
+      "count": 9
+    },
+    {
+      "id": "07",
+      "count": 9
+    },
+    {
+      "id": "08",
+      "count": 9
+    },
+    {
+      "id": "09",
+      "count": 9
+    },
+    {
+      "id": "10",
+      "count": 13
+    },
+    {
+      "id": "11",
+      "count": 13
+    },
+    {
+      "id": "12",
+      "count": 13
+    },
+    {
+      "id": "13",
+      "count": 13
+    },
+    {
+      "id": "14",
+      "count": 13
+    },
+    {
+      "id": "15",
+      "count": 13
+    },
+    {
+      "id": "16",
+      "count": 13
+    },
+    {
+      "id": "17",
+      "count": 12
+    },
+    {
+      "id": "18",
+      "count": 12
+    },
+    {
+      "id": "19",
+      "count": 12
+    },
+    {
+      "id": "20",
+      "count": 11
+    },
+    {
+      "id": "21",
+      "count": 11
+    },
+    {
+      "id": "22",
+      "count": 11
+    },
+    {
+      "id": "23",
+      "count": 11
+    },
+    {
+      "id": "24",
+      "count": 10
+    },
+    {
+      "id": "25",
+      "count": 9
+    },
+    {
+      "id": "26",
+      "count": 9
+    },
+    {
+      "id": "27",
+      "count": 9
+    },
+    {
+      "id": "28",
+      "count": 9
+    },
+    {
+      "id": "29",
+      "count": 9
+    },
+    {
+      "id": "30",
+      "count": 9
+    },
+    {
+      "id": "31",
+      "count": 10
+    },
+    {
+      "id": "32",
+      "count": 9
+    },
+    {
+      "id": "33",
+      "count": 9
+    },
+    {
+      "id": "34",
+      "count": 9
+    },
+    {
+      "id": "35",
+      "count": 9
+    },
+    {
+      "id": "36",
+      "count": 9
+    },
+    {
+      "id": "37",
+      "count": 9
+    },
+    {
+      "id": "38",
+      "count": 8
+    },
+    {
+      "id": "39",
+      "count": 8
+    },
+    {
+      "id": "40",
+      "count": 8
+    },
+    {
+      "id": "41",
+      "count": 8
+    },
+    {
+      "id": "42",
+      "count": 8
+    },
+    {
+      "id": "43",
+      "count": 8
+    },
+    {
+      "id": "44",
+      "count": 7
+    },
+    {
+      "id": "45",
+      "count": 7
+    },
+    {
+      "id": "46",
+      "count": 7
+    },
+    {
+      "id": "47",
+      "count": 7
+    },
+    {
+      "id": "48",
+      "count": 7
+    },
+    {
+      "id": "49",
+      "count": 7
+    },
+    {
+      "id": "50",
+      "count": 6
+    },
+    {
+      "id": "51",
+      "count": 6
+    },
+    {
+      "id": "52",
+      "count": 5
+    },
+    {
+      "id": "53",
+      "count": 5
+    },
+    {
+      "id": "54",
+      "count": 5
+    },
+    {
+      "id": "55",
+      "count": 5
+    },
+    {
+      "id": "56",
+      "count": 5
+    },
+    {
+      "id": "57",
+      "count": 3
+    },
+    {
+      "id": "1",
+      "count": 5
+    },
+    {
+      "id": "2",
+      "count": 5
+    },
+    {
+      "id": "3",
+      "count": 5
+    },
+    {
+      "id": "4",
+      "count": 5
+    },
+    {
+      "id": "5",
+      "count": 5
+    },
+    {
+      "id": "6",
+      "count": 5
+    },
+    {
+      "id": "7",
+      "count": 5
+    },
+    {
+      "id": "8",
+      "count": 4
+    },
+    {
+      "id": "9",
+      "count": 4
+    },
+    {
+      "id": "introduction",
+      "count": 5
+    },
+    {
+      "id": "58",
+      "count": 2
+    },
+    {
+      "id": "59",
+      "count": 2
+    },
+    {
+      "id": "60",
+      "count": 2
+    },
+    {
+      "id": "61",
+      "count": 2
+    }
+  ],
+  "changedCollectionIds": [
+    {
+      "sourcePath": "hadith/db/by_chapter/forties/nawawi40/all.json",
+      "oldId": "all",
+      "newId": "all",
+      "duplicateGroupSize": 3,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/forties/qudsi40/all.json",
+      "oldId": "all",
+      "newId": "by-chapter-forties-qudsi40-all",
+      "duplicateGroupSize": 3,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/forties/shahwaliullah40/all.json",
+      "oldId": "all",
+      "newId": "by-chapter-forties-shahwaliullah40-all",
+      "duplicateGroupSize": 3,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/01.json",
+      "oldId": "01",
+      "newId": "01",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/02.json",
+      "oldId": "02",
+      "newId": "02",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/03.json",
+      "oldId": "03",
+      "newId": "03",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/04.json",
+      "oldId": "04",
+      "newId": "04",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/05.json",
+      "oldId": "05",
+      "newId": "05",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/06.json",
+      "oldId": "06",
+      "newId": "06",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/07.json",
+      "oldId": "07",
+      "newId": "07",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/08.json",
+      "oldId": "08",
+      "newId": "08",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/09.json",
+      "oldId": "09",
+      "newId": "09",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/10.json",
+      "oldId": "10",
+      "newId": "10",
+      "duplicateGroupSize": 13,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/11.json",
+      "oldId": "11",
+      "newId": "11",
+      "duplicateGroupSize": 13,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/12.json",
+      "oldId": "12",
+      "newId": "12",
+      "duplicateGroupSize": 13,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/13.json",
+      "oldId": "13",
+      "newId": "13",
+      "duplicateGroupSize": 13,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/14.json",
+      "oldId": "14",
+      "newId": "14",
+      "duplicateGroupSize": 13,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/15.json",
+      "oldId": "15",
+      "newId": "15",
+      "duplicateGroupSize": 13,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/16.json",
+      "oldId": "16",
+      "newId": "16",
+      "duplicateGroupSize": 13,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/17.json",
+      "oldId": "17",
+      "newId": "17",
+      "duplicateGroupSize": 12,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/18.json",
+      "oldId": "18",
+      "newId": "18",
+      "duplicateGroupSize": 12,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/19.json",
+      "oldId": "19",
+      "newId": "19",
+      "duplicateGroupSize": 12,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/20.json",
+      "oldId": "20",
+      "newId": "20",
+      "duplicateGroupSize": 11,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/21.json",
+      "oldId": "21",
+      "newId": "21",
+      "duplicateGroupSize": 11,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/22.json",
+      "oldId": "22",
+      "newId": "22",
+      "duplicateGroupSize": 11,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/23.json",
+      "oldId": "23",
+      "newId": "23",
+      "duplicateGroupSize": 11,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/24.json",
+      "oldId": "24",
+      "newId": "24",
+      "duplicateGroupSize": 10,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/25.json",
+      "oldId": "25",
+      "newId": "25",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/26.json",
+      "oldId": "26",
+      "newId": "26",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/27.json",
+      "oldId": "27",
+      "newId": "27",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/28.json",
+      "oldId": "28",
+      "newId": "28",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/29.json",
+      "oldId": "29",
+      "newId": "29",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/30.json",
+      "oldId": "30",
+      "newId": "30",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/31.json",
+      "oldId": "31",
+      "newId": "31",
+      "duplicateGroupSize": 10,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/32.json",
+      "oldId": "32",
+      "newId": "32",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/33.json",
+      "oldId": "33",
+      "newId": "33",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/34.json",
+      "oldId": "34",
+      "newId": "34",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/35.json",
+      "oldId": "35",
+      "newId": "35",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/36.json",
+      "oldId": "36",
+      "newId": "36",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/37.json",
+      "oldId": "37",
+      "newId": "37",
+      "duplicateGroupSize": 9,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/38.json",
+      "oldId": "38",
+      "newId": "38",
+      "duplicateGroupSize": 8,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/39.json",
+      "oldId": "39",
+      "newId": "39",
+      "duplicateGroupSize": 8,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/40.json",
+      "oldId": "40",
+      "newId": "40",
+      "duplicateGroupSize": 8,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/41.json",
+      "oldId": "41",
+      "newId": "41",
+      "duplicateGroupSize": 8,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/42.json",
+      "oldId": "42",
+      "newId": "42",
+      "duplicateGroupSize": 8,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/43.json",
+      "oldId": "43",
+      "newId": "43",
+      "duplicateGroupSize": 8,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/44.json",
+      "oldId": "44",
+      "newId": "44",
+      "duplicateGroupSize": 7,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/45.json",
+      "oldId": "45",
+      "newId": "45",
+      "duplicateGroupSize": 7,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/46.json",
+      "oldId": "46",
+      "newId": "46",
+      "duplicateGroupSize": 7,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/47.json",
+      "oldId": "47",
+      "newId": "47",
+      "duplicateGroupSize": 7,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/48.json",
+      "oldId": "48",
+      "newId": "48",
+      "duplicateGroupSize": 7,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/49.json",
+      "oldId": "49",
+      "newId": "49",
+      "duplicateGroupSize": 7,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/50.json",
+      "oldId": "50",
+      "newId": "50",
+      "duplicateGroupSize": 6,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/51.json",
+      "oldId": "51",
+      "newId": "51",
+      "duplicateGroupSize": 6,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/52.json",
+      "oldId": "52",
+      "newId": "52",
+      "duplicateGroupSize": 5,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/53.json",
+      "oldId": "53",
+      "newId": "53",
+      "duplicateGroupSize": 5,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/54.json",
+      "oldId": "54",
+      "newId": "54",
+      "duplicateGroupSize": 5,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/55.json",
+      "oldId": "55",
+      "newId": "55",
+      "duplicateGroupSize": 5,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/56.json",
+      "oldId": "56",
+      "newId": "56",
+      "duplicateGroupSize": 5,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/aladab_almufrad/57.json",
+      "oldId": "57",
+      "newId": "57",
+      "duplicateGroupSize": 3,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/bulugh_almaram/1.json",
+      "oldId": "1",
+      "newId": "1",
+      "duplicateGroupSize": 5,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/bulugh_almaram/10.json",
+      "oldId": "10",
+      "newId": "by-chapter-other-books-bulugh-almaram-10",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/bulugh_almaram/11.json",
+      "oldId": "11",
+      "newId": "by-chapter-other-books-bulugh-almaram-11",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/bulugh_almaram/12.json",
+      "oldId": "12",
+      "newId": "by-chapter-other-books-bulugh-almaram-12",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/bulugh_almaram/13.json",
+      "oldId": "13",
+      "newId": "by-chapter-other-books-bulugh-almaram-13",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/bulugh_almaram/14.json",
+      "oldId": "14",
+      "newId": "by-chapter-other-books-bulugh-almaram-14",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/bulugh_almaram/15.json",
+      "oldId": "15",
+      "newId": "by-chapter-other-books-bulugh-almaram-15",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/bulugh_almaram/16.json",
+      "oldId": "16",
+      "newId": "by-chapter-other-books-bulugh-almaram-16",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/bulugh_almaram/2.json",
+      "oldId": "2",
+      "newId": "2",
+      "duplicateGroupSize": 5,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/bulugh_almaram/3.json",
+      "oldId": "3",
+      "newId": "3",
+      "duplicateGroupSize": 5,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/bulugh_almaram/4.json",
+      "oldId": "4",
+      "newId": "4",
+      "duplicateGroupSize": 5,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/bulugh_almaram/5.json",
+      "oldId": "5",
+      "newId": "5",
+      "duplicateGroupSize": 5,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/bulugh_almaram/6.json",
+      "oldId": "6",
+      "newId": "6",
+      "duplicateGroupSize": 5,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/bulugh_almaram/7.json",
+      "oldId": "7",
+      "newId": "7",
+      "duplicateGroupSize": 5,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/bulugh_almaram/8.json",
+      "oldId": "8",
+      "newId": "8",
+      "duplicateGroupSize": 4,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/bulugh_almaram/9.json",
+      "oldId": "9",
+      "newId": "9",
+      "duplicateGroupSize": 4,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/1.json",
+      "oldId": "1",
+      "newId": "by-chapter-other-books-mishkat-almasabih-1",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/10.json",
+      "oldId": "10",
+      "newId": "by-chapter-other-books-mishkat-almasabih-10",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/11.json",
+      "oldId": "11",
+      "newId": "by-chapter-other-books-mishkat-almasabih-11",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/12.json",
+      "oldId": "12",
+      "newId": "by-chapter-other-books-mishkat-almasabih-12",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/13.json",
+      "oldId": "13",
+      "newId": "by-chapter-other-books-mishkat-almasabih-13",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/14.json",
+      "oldId": "14",
+      "newId": "by-chapter-other-books-mishkat-almasabih-14",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/15.json",
+      "oldId": "15",
+      "newId": "by-chapter-other-books-mishkat-almasabih-15",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/16.json",
+      "oldId": "16",
+      "newId": "by-chapter-other-books-mishkat-almasabih-16",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/17.json",
+      "oldId": "17",
+      "newId": "by-chapter-other-books-mishkat-almasabih-17",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/18.json",
+      "oldId": "18",
+      "newId": "by-chapter-other-books-mishkat-almasabih-18",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/19.json",
+      "oldId": "19",
+      "newId": "by-chapter-other-books-mishkat-almasabih-19",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/2.json",
+      "oldId": "2",
+      "newId": "by-chapter-other-books-mishkat-almasabih-2",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/20.json",
+      "oldId": "20",
+      "newId": "by-chapter-other-books-mishkat-almasabih-20",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/21.json",
+      "oldId": "21",
+      "newId": "by-chapter-other-books-mishkat-almasabih-21",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/22.json",
+      "oldId": "22",
+      "newId": "by-chapter-other-books-mishkat-almasabih-22",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/23.json",
+      "oldId": "23",
+      "newId": "by-chapter-other-books-mishkat-almasabih-23",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/24.json",
+      "oldId": "24",
+      "newId": "by-chapter-other-books-mishkat-almasabih-24",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/3.json",
+      "oldId": "3",
+      "newId": "by-chapter-other-books-mishkat-almasabih-3",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/4.json",
+      "oldId": "4",
+      "newId": "by-chapter-other-books-mishkat-almasabih-4",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/5.json",
+      "oldId": "5",
+      "newId": "by-chapter-other-books-mishkat-almasabih-5",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/6.json",
+      "oldId": "6",
+      "newId": "by-chapter-other-books-mishkat-almasabih-6",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/7.json",
+      "oldId": "7",
+      "newId": "by-chapter-other-books-mishkat-almasabih-7",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/8.json",
+      "oldId": "8",
+      "newId": "by-chapter-other-books-mishkat-almasabih-8",
+      "duplicateGroupSize": 4,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/9.json",
+      "oldId": "9",
+      "newId": "by-chapter-other-books-mishkat-almasabih-9",
+      "duplicateGroupSize": 4,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/mishkat_almasabih/introduction.json",
+      "oldId": "introduction",
+      "newId": "introduction",
+      "duplicateGroupSize": 5,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/1.json",
+      "oldId": "1",
+      "newId": "by-chapter-other-books-riyad-assalihin-1",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/10.json",
+      "oldId": "10",
+      "newId": "by-chapter-other-books-riyad-assalihin-10",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/11.json",
+      "oldId": "11",
+      "newId": "by-chapter-other-books-riyad-assalihin-11",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/12.json",
+      "oldId": "12",
+      "newId": "by-chapter-other-books-riyad-assalihin-12",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/13.json",
+      "oldId": "13",
+      "newId": "by-chapter-other-books-riyad-assalihin-13",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/14.json",
+      "oldId": "14",
+      "newId": "by-chapter-other-books-riyad-assalihin-14",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/15.json",
+      "oldId": "15",
+      "newId": "by-chapter-other-books-riyad-assalihin-15",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/16.json",
+      "oldId": "16",
+      "newId": "by-chapter-other-books-riyad-assalihin-16",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/17.json",
+      "oldId": "17",
+      "newId": "by-chapter-other-books-riyad-assalihin-17",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/18.json",
+      "oldId": "18",
+      "newId": "by-chapter-other-books-riyad-assalihin-18",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/19.json",
+      "oldId": "19",
+      "newId": "by-chapter-other-books-riyad-assalihin-19",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/2.json",
+      "oldId": "2",
+      "newId": "by-chapter-other-books-riyad-assalihin-2",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/3.json",
+      "oldId": "3",
+      "newId": "by-chapter-other-books-riyad-assalihin-3",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/4.json",
+      "oldId": "4",
+      "newId": "by-chapter-other-books-riyad-assalihin-4",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/5.json",
+      "oldId": "5",
+      "newId": "by-chapter-other-books-riyad-assalihin-5",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/6.json",
+      "oldId": "6",
+      "newId": "by-chapter-other-books-riyad-assalihin-6",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/7.json",
+      "oldId": "7",
+      "newId": "by-chapter-other-books-riyad-assalihin-7",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/8.json",
+      "oldId": "8",
+      "newId": "by-chapter-other-books-riyad-assalihin-8",
+      "duplicateGroupSize": 4,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/9.json",
+      "oldId": "9",
+      "newId": "by-chapter-other-books-riyad-assalihin-9",
+      "duplicateGroupSize": 4,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/riyad_assalihin/introduction.json",
+      "oldId": "introduction",
+      "newId": "by-chapter-other-books-riyad-assalihin-introduction",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/1.json",
+      "oldId": "1",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-1",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/10.json",
+      "oldId": "10",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-10",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/11.json",
+      "oldId": "11",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-11",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/12.json",
+      "oldId": "12",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-12",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/13.json",
+      "oldId": "13",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-13",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/14.json",
+      "oldId": "14",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-14",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/15.json",
+      "oldId": "15",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-15",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/16.json",
+      "oldId": "16",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-16",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/17.json",
+      "oldId": "17",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-17",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/18.json",
+      "oldId": "18",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-18",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/19.json",
+      "oldId": "19",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-19",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/2.json",
+      "oldId": "2",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-2",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/20.json",
+      "oldId": "20",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-20",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/21.json",
+      "oldId": "21",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-21",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/22.json",
+      "oldId": "22",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-22",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/23.json",
+      "oldId": "23",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-23",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/24.json",
+      "oldId": "24",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-24",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/25.json",
+      "oldId": "25",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-25",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/26.json",
+      "oldId": "26",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-26",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/27.json",
+      "oldId": "27",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-27",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/28.json",
+      "oldId": "28",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-28",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/29.json",
+      "oldId": "29",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-29",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/3.json",
+      "oldId": "3",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-3",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/30.json",
+      "oldId": "30",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-30",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/31.json",
+      "oldId": "31",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-31",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/32.json",
+      "oldId": "32",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-32",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/33.json",
+      "oldId": "33",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-33",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/34.json",
+      "oldId": "34",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-34",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/35.json",
+      "oldId": "35",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-35",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/36.json",
+      "oldId": "36",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-36",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/37.json",
+      "oldId": "37",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-37",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/38.json",
+      "oldId": "38",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-38",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/39.json",
+      "oldId": "39",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-39",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/4.json",
+      "oldId": "4",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-4",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/40.json",
+      "oldId": "40",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-40",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/41.json",
+      "oldId": "41",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-41",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/42.json",
+      "oldId": "42",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-42",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/43.json",
+      "oldId": "43",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-43",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/44.json",
+      "oldId": "44",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-44",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/45.json",
+      "oldId": "45",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-45",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/46.json",
+      "oldId": "46",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-46",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/47.json",
+      "oldId": "47",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-47",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/48.json",
+      "oldId": "48",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-48",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/49.json",
+      "oldId": "49",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-49",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/5.json",
+      "oldId": "5",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-5",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/50.json",
+      "oldId": "50",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-50",
+      "duplicateGroupSize": 6,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/51.json",
+      "oldId": "51",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-51",
+      "duplicateGroupSize": 6,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/52.json",
+      "oldId": "52",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-52",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/53.json",
+      "oldId": "53",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-53",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/54.json",
+      "oldId": "54",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-54",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/55.json",
+      "oldId": "55",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-55",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/56.json",
+      "oldId": "56",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-56",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/6.json",
+      "oldId": "6",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-6",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/7.json",
+      "oldId": "7",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-7",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/8.json",
+      "oldId": "8",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-8",
+      "duplicateGroupSize": 4,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/other_books/shamail_muhammadiyah/9.json",
+      "oldId": "9",
+      "newId": "by-chapter-other-books-shamail-muhammadiyah-9",
+      "duplicateGroupSize": 4,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/01.json",
+      "oldId": "01",
+      "newId": "by-chapter-the-9-books-abudawud-01",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/02.json",
+      "oldId": "02",
+      "newId": "by-chapter-the-9-books-abudawud-02",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/03.json",
+      "oldId": "03",
+      "newId": "by-chapter-the-9-books-abudawud-03",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/04.json",
+      "oldId": "04",
+      "newId": "by-chapter-the-9-books-abudawud-04",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/05.json",
+      "oldId": "05",
+      "newId": "by-chapter-the-9-books-abudawud-05",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/06.json",
+      "oldId": "06",
+      "newId": "by-chapter-the-9-books-abudawud-06",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/07.json",
+      "oldId": "07",
+      "newId": "by-chapter-the-9-books-abudawud-07",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/08.json",
+      "oldId": "08",
+      "newId": "by-chapter-the-9-books-abudawud-08",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/09.json",
+      "oldId": "09",
+      "newId": "by-chapter-the-9-books-abudawud-09",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/10.json",
+      "oldId": "10",
+      "newId": "by-chapter-the-9-books-abudawud-10",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/11.json",
+      "oldId": "11",
+      "newId": "by-chapter-the-9-books-abudawud-11",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/12.json",
+      "oldId": "12",
+      "newId": "by-chapter-the-9-books-abudawud-12",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/13.json",
+      "oldId": "13",
+      "newId": "by-chapter-the-9-books-abudawud-13",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/14.json",
+      "oldId": "14",
+      "newId": "by-chapter-the-9-books-abudawud-14",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/15.json",
+      "oldId": "15",
+      "newId": "by-chapter-the-9-books-abudawud-15",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/16.json",
+      "oldId": "16",
+      "newId": "by-chapter-the-9-books-abudawud-16",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/17.json",
+      "oldId": "17",
+      "newId": "by-chapter-the-9-books-abudawud-17",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/18.json",
+      "oldId": "18",
+      "newId": "by-chapter-the-9-books-abudawud-18",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/19.json",
+      "oldId": "19",
+      "newId": "by-chapter-the-9-books-abudawud-19",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/20.json",
+      "oldId": "20",
+      "newId": "by-chapter-the-9-books-abudawud-20",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/21.json",
+      "oldId": "21",
+      "newId": "by-chapter-the-9-books-abudawud-21",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/22.json",
+      "oldId": "22",
+      "newId": "by-chapter-the-9-books-abudawud-22",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/23.json",
+      "oldId": "23",
+      "newId": "by-chapter-the-9-books-abudawud-23",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/24.json",
+      "oldId": "24",
+      "newId": "by-chapter-the-9-books-abudawud-24",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/25.json",
+      "oldId": "25",
+      "newId": "by-chapter-the-9-books-abudawud-25",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/26.json",
+      "oldId": "26",
+      "newId": "by-chapter-the-9-books-abudawud-26",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/27.json",
+      "oldId": "27",
+      "newId": "by-chapter-the-9-books-abudawud-27",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/28.json",
+      "oldId": "28",
+      "newId": "by-chapter-the-9-books-abudawud-28",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/29.json",
+      "oldId": "29",
+      "newId": "by-chapter-the-9-books-abudawud-29",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/30.json",
+      "oldId": "30",
+      "newId": "by-chapter-the-9-books-abudawud-30",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/31.json",
+      "oldId": "31",
+      "newId": "by-chapter-the-9-books-abudawud-31",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/32.json",
+      "oldId": "32",
+      "newId": "by-chapter-the-9-books-abudawud-32",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/33.json",
+      "oldId": "33",
+      "newId": "by-chapter-the-9-books-abudawud-33",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/34.json",
+      "oldId": "34",
+      "newId": "by-chapter-the-9-books-abudawud-34",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/35.json",
+      "oldId": "35",
+      "newId": "by-chapter-the-9-books-abudawud-35",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/36.json",
+      "oldId": "36",
+      "newId": "by-chapter-the-9-books-abudawud-36",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/37.json",
+      "oldId": "37",
+      "newId": "by-chapter-the-9-books-abudawud-37",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/38.json",
+      "oldId": "38",
+      "newId": "by-chapter-the-9-books-abudawud-38",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/39.json",
+      "oldId": "39",
+      "newId": "by-chapter-the-9-books-abudawud-39",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/40.json",
+      "oldId": "40",
+      "newId": "by-chapter-the-9-books-abudawud-40",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/41.json",
+      "oldId": "41",
+      "newId": "by-chapter-the-9-books-abudawud-41",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/42.json",
+      "oldId": "42",
+      "newId": "by-chapter-the-9-books-abudawud-42",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/abudawud/43.json",
+      "oldId": "43",
+      "newId": "by-chapter-the-9-books-abudawud-43",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ahmed/1.json",
+      "oldId": "1",
+      "newId": "by-chapter-the-9-books-ahmed-1",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ahmed/2.json",
+      "oldId": "2",
+      "newId": "by-chapter-the-9-books-ahmed-2",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ahmed/3.json",
+      "oldId": "3",
+      "newId": "by-chapter-the-9-books-ahmed-3",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ahmed/31.json",
+      "oldId": "31",
+      "newId": "by-chapter-the-9-books-ahmed-31",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ahmed/4.json",
+      "oldId": "4",
+      "newId": "by-chapter-the-9-books-ahmed-4",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ahmed/5.json",
+      "oldId": "5",
+      "newId": "by-chapter-the-9-books-ahmed-5",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ahmed/6.json",
+      "oldId": "6",
+      "newId": "by-chapter-the-9-books-ahmed-6",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ahmed/7.json",
+      "oldId": "7",
+      "newId": "by-chapter-the-9-books-ahmed-7",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/01.json",
+      "oldId": "01",
+      "newId": "by-chapter-the-9-books-bukhari-01",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/02.json",
+      "oldId": "02",
+      "newId": "by-chapter-the-9-books-bukhari-02",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/03.json",
+      "oldId": "03",
+      "newId": "by-chapter-the-9-books-bukhari-03",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/04.json",
+      "oldId": "04",
+      "newId": "by-chapter-the-9-books-bukhari-04",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/05.json",
+      "oldId": "05",
+      "newId": "by-chapter-the-9-books-bukhari-05",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/06.json",
+      "oldId": "06",
+      "newId": "by-chapter-the-9-books-bukhari-06",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/07.json",
+      "oldId": "07",
+      "newId": "by-chapter-the-9-books-bukhari-07",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/08.json",
+      "oldId": "08",
+      "newId": "by-chapter-the-9-books-bukhari-08",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/09.json",
+      "oldId": "09",
+      "newId": "by-chapter-the-9-books-bukhari-09",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/10.json",
+      "oldId": "10",
+      "newId": "by-chapter-the-9-books-bukhari-10",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/11.json",
+      "oldId": "11",
+      "newId": "by-chapter-the-9-books-bukhari-11",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/12.json",
+      "oldId": "12",
+      "newId": "by-chapter-the-9-books-bukhari-12",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/13.json",
+      "oldId": "13",
+      "newId": "by-chapter-the-9-books-bukhari-13",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/14.json",
+      "oldId": "14",
+      "newId": "by-chapter-the-9-books-bukhari-14",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/15.json",
+      "oldId": "15",
+      "newId": "by-chapter-the-9-books-bukhari-15",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/16.json",
+      "oldId": "16",
+      "newId": "by-chapter-the-9-books-bukhari-16",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/17.json",
+      "oldId": "17",
+      "newId": "by-chapter-the-9-books-bukhari-17",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/18.json",
+      "oldId": "18",
+      "newId": "by-chapter-the-9-books-bukhari-18",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/19.json",
+      "oldId": "19",
+      "newId": "by-chapter-the-9-books-bukhari-19",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/20.json",
+      "oldId": "20",
+      "newId": "by-chapter-the-9-books-bukhari-20",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/21.json",
+      "oldId": "21",
+      "newId": "by-chapter-the-9-books-bukhari-21",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/22.json",
+      "oldId": "22",
+      "newId": "by-chapter-the-9-books-bukhari-22",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/23.json",
+      "oldId": "23",
+      "newId": "by-chapter-the-9-books-bukhari-23",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/24.json",
+      "oldId": "24",
+      "newId": "by-chapter-the-9-books-bukhari-24",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/25.json",
+      "oldId": "25",
+      "newId": "by-chapter-the-9-books-bukhari-25",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/26.json",
+      "oldId": "26",
+      "newId": "by-chapter-the-9-books-bukhari-26",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/27.json",
+      "oldId": "27",
+      "newId": "by-chapter-the-9-books-bukhari-27",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/28.json",
+      "oldId": "28",
+      "newId": "by-chapter-the-9-books-bukhari-28",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/29.json",
+      "oldId": "29",
+      "newId": "by-chapter-the-9-books-bukhari-29",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/30.json",
+      "oldId": "30",
+      "newId": "by-chapter-the-9-books-bukhari-30",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/31.json",
+      "oldId": "31",
+      "newId": "by-chapter-the-9-books-bukhari-31",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/32.json",
+      "oldId": "32",
+      "newId": "by-chapter-the-9-books-bukhari-32",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/33.json",
+      "oldId": "33",
+      "newId": "by-chapter-the-9-books-bukhari-33",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/34.json",
+      "oldId": "34",
+      "newId": "by-chapter-the-9-books-bukhari-34",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/35.json",
+      "oldId": "35",
+      "newId": "by-chapter-the-9-books-bukhari-35",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/36.json",
+      "oldId": "36",
+      "newId": "by-chapter-the-9-books-bukhari-36",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/37.json",
+      "oldId": "37",
+      "newId": "by-chapter-the-9-books-bukhari-37",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/38.json",
+      "oldId": "38",
+      "newId": "by-chapter-the-9-books-bukhari-38",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/39.json",
+      "oldId": "39",
+      "newId": "by-chapter-the-9-books-bukhari-39",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/40.json",
+      "oldId": "40",
+      "newId": "by-chapter-the-9-books-bukhari-40",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/41.json",
+      "oldId": "41",
+      "newId": "by-chapter-the-9-books-bukhari-41",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/42.json",
+      "oldId": "42",
+      "newId": "by-chapter-the-9-books-bukhari-42",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/43.json",
+      "oldId": "43",
+      "newId": "by-chapter-the-9-books-bukhari-43",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/44.json",
+      "oldId": "44",
+      "newId": "by-chapter-the-9-books-bukhari-44",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/45.json",
+      "oldId": "45",
+      "newId": "by-chapter-the-9-books-bukhari-45",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/46.json",
+      "oldId": "46",
+      "newId": "by-chapter-the-9-books-bukhari-46",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/47.json",
+      "oldId": "47",
+      "newId": "by-chapter-the-9-books-bukhari-47",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/48.json",
+      "oldId": "48",
+      "newId": "by-chapter-the-9-books-bukhari-48",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/49.json",
+      "oldId": "49",
+      "newId": "by-chapter-the-9-books-bukhari-49",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/50.json",
+      "oldId": "50",
+      "newId": "by-chapter-the-9-books-bukhari-50",
+      "duplicateGroupSize": 6,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/51.json",
+      "oldId": "51",
+      "newId": "by-chapter-the-9-books-bukhari-51",
+      "duplicateGroupSize": 6,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/52.json",
+      "oldId": "52",
+      "newId": "by-chapter-the-9-books-bukhari-52",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/53.json",
+      "oldId": "53",
+      "newId": "by-chapter-the-9-books-bukhari-53",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/54.json",
+      "oldId": "54",
+      "newId": "by-chapter-the-9-books-bukhari-54",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/55.json",
+      "oldId": "55",
+      "newId": "by-chapter-the-9-books-bukhari-55",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/56.json",
+      "oldId": "56",
+      "newId": "by-chapter-the-9-books-bukhari-56",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/57.json",
+      "oldId": "57",
+      "newId": "by-chapter-the-9-books-bukhari-57",
+      "duplicateGroupSize": 3,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/58.json",
+      "oldId": "58",
+      "newId": "58",
+      "duplicateGroupSize": 2,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/59.json",
+      "oldId": "59",
+      "newId": "59",
+      "duplicateGroupSize": 2,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/60.json",
+      "oldId": "60",
+      "newId": "60",
+      "duplicateGroupSize": 2,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/bukhari/61.json",
+      "oldId": "61",
+      "newId": "61",
+      "duplicateGroupSize": 2,
+      "changed": false
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/01.json",
+      "oldId": "01",
+      "newId": "by-chapter-the-9-books-darimi-01",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/02.json",
+      "oldId": "02",
+      "newId": "by-chapter-the-9-books-darimi-02",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/03.json",
+      "oldId": "03",
+      "newId": "by-chapter-the-9-books-darimi-03",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/04.json",
+      "oldId": "04",
+      "newId": "by-chapter-the-9-books-darimi-04",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/05.json",
+      "oldId": "05",
+      "newId": "by-chapter-the-9-books-darimi-05",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/06.json",
+      "oldId": "06",
+      "newId": "by-chapter-the-9-books-darimi-06",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/07.json",
+      "oldId": "07",
+      "newId": "by-chapter-the-9-books-darimi-07",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/08.json",
+      "oldId": "08",
+      "newId": "by-chapter-the-9-books-darimi-08",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/09.json",
+      "oldId": "09",
+      "newId": "by-chapter-the-9-books-darimi-09",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/10.json",
+      "oldId": "10",
+      "newId": "by-chapter-the-9-books-darimi-10",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/11.json",
+      "oldId": "11",
+      "newId": "by-chapter-the-9-books-darimi-11",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/12.json",
+      "oldId": "12",
+      "newId": "by-chapter-the-9-books-darimi-12",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/13.json",
+      "oldId": "13",
+      "newId": "by-chapter-the-9-books-darimi-13",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/14.json",
+      "oldId": "14",
+      "newId": "by-chapter-the-9-books-darimi-14",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/15.json",
+      "oldId": "15",
+      "newId": "by-chapter-the-9-books-darimi-15",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/16.json",
+      "oldId": "16",
+      "newId": "by-chapter-the-9-books-darimi-16",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/17.json",
+      "oldId": "17",
+      "newId": "by-chapter-the-9-books-darimi-17",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/18.json",
+      "oldId": "18",
+      "newId": "by-chapter-the-9-books-darimi-18",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/19.json",
+      "oldId": "19",
+      "newId": "by-chapter-the-9-books-darimi-19",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/20.json",
+      "oldId": "20",
+      "newId": "by-chapter-the-9-books-darimi-20",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/21.json",
+      "oldId": "21",
+      "newId": "by-chapter-the-9-books-darimi-21",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/22.json",
+      "oldId": "22",
+      "newId": "by-chapter-the-9-books-darimi-22",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/23.json",
+      "oldId": "23",
+      "newId": "by-chapter-the-9-books-darimi-23",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/darimi/introduction.json",
+      "oldId": "introduction",
+      "newId": "by-chapter-the-9-books-darimi-introduction",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/01.json",
+      "oldId": "01",
+      "newId": "by-chapter-the-9-books-ibnmajah-01",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/02.json",
+      "oldId": "02",
+      "newId": "by-chapter-the-9-books-ibnmajah-02",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/03.json",
+      "oldId": "03",
+      "newId": "by-chapter-the-9-books-ibnmajah-03",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/04.json",
+      "oldId": "04",
+      "newId": "by-chapter-the-9-books-ibnmajah-04",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/05.json",
+      "oldId": "05",
+      "newId": "by-chapter-the-9-books-ibnmajah-05",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/06.json",
+      "oldId": "06",
+      "newId": "by-chapter-the-9-books-ibnmajah-06",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/07.json",
+      "oldId": "07",
+      "newId": "by-chapter-the-9-books-ibnmajah-07",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/08.json",
+      "oldId": "08",
+      "newId": "by-chapter-the-9-books-ibnmajah-08",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/09.json",
+      "oldId": "09",
+      "newId": "by-chapter-the-9-books-ibnmajah-09",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/10.json",
+      "oldId": "10",
+      "newId": "by-chapter-the-9-books-ibnmajah-10",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/11.json",
+      "oldId": "11",
+      "newId": "by-chapter-the-9-books-ibnmajah-11",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/12.json",
+      "oldId": "12",
+      "newId": "by-chapter-the-9-books-ibnmajah-12",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/13.json",
+      "oldId": "13",
+      "newId": "by-chapter-the-9-books-ibnmajah-13",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/14.json",
+      "oldId": "14",
+      "newId": "by-chapter-the-9-books-ibnmajah-14",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/15.json",
+      "oldId": "15",
+      "newId": "by-chapter-the-9-books-ibnmajah-15",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/16.json",
+      "oldId": "16",
+      "newId": "by-chapter-the-9-books-ibnmajah-16",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/17.json",
+      "oldId": "17",
+      "newId": "by-chapter-the-9-books-ibnmajah-17",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/18.json",
+      "oldId": "18",
+      "newId": "by-chapter-the-9-books-ibnmajah-18",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/19.json",
+      "oldId": "19",
+      "newId": "by-chapter-the-9-books-ibnmajah-19",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/20.json",
+      "oldId": "20",
+      "newId": "by-chapter-the-9-books-ibnmajah-20",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/21.json",
+      "oldId": "21",
+      "newId": "by-chapter-the-9-books-ibnmajah-21",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/22.json",
+      "oldId": "22",
+      "newId": "by-chapter-the-9-books-ibnmajah-22",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/23.json",
+      "oldId": "23",
+      "newId": "by-chapter-the-9-books-ibnmajah-23",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/24.json",
+      "oldId": "24",
+      "newId": "by-chapter-the-9-books-ibnmajah-24",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/25.json",
+      "oldId": "25",
+      "newId": "by-chapter-the-9-books-ibnmajah-25",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/26.json",
+      "oldId": "26",
+      "newId": "by-chapter-the-9-books-ibnmajah-26",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/27.json",
+      "oldId": "27",
+      "newId": "by-chapter-the-9-books-ibnmajah-27",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/28.json",
+      "oldId": "28",
+      "newId": "by-chapter-the-9-books-ibnmajah-28",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/29.json",
+      "oldId": "29",
+      "newId": "by-chapter-the-9-books-ibnmajah-29",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/30.json",
+      "oldId": "30",
+      "newId": "by-chapter-the-9-books-ibnmajah-30",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/31.json",
+      "oldId": "31",
+      "newId": "by-chapter-the-9-books-ibnmajah-31",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/32.json",
+      "oldId": "32",
+      "newId": "by-chapter-the-9-books-ibnmajah-32",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/33.json",
+      "oldId": "33",
+      "newId": "by-chapter-the-9-books-ibnmajah-33",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/34.json",
+      "oldId": "34",
+      "newId": "by-chapter-the-9-books-ibnmajah-34",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/35.json",
+      "oldId": "35",
+      "newId": "by-chapter-the-9-books-ibnmajah-35",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/36.json",
+      "oldId": "36",
+      "newId": "by-chapter-the-9-books-ibnmajah-36",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/37.json",
+      "oldId": "37",
+      "newId": "by-chapter-the-9-books-ibnmajah-37",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/ibnmajah/introduction.json",
+      "oldId": "introduction",
+      "newId": "by-chapter-the-9-books-ibnmajah-introduction",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/01.json",
+      "oldId": "01",
+      "newId": "by-chapter-the-9-books-malik-01",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/02.json",
+      "oldId": "02",
+      "newId": "by-chapter-the-9-books-malik-02",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/03.json",
+      "oldId": "03",
+      "newId": "by-chapter-the-9-books-malik-03",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/04.json",
+      "oldId": "04",
+      "newId": "by-chapter-the-9-books-malik-04",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/05.json",
+      "oldId": "05",
+      "newId": "by-chapter-the-9-books-malik-05",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/06.json",
+      "oldId": "06",
+      "newId": "by-chapter-the-9-books-malik-06",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/07.json",
+      "oldId": "07",
+      "newId": "by-chapter-the-9-books-malik-07",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/08.json",
+      "oldId": "08",
+      "newId": "by-chapter-the-9-books-malik-08",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/09.json",
+      "oldId": "09",
+      "newId": "by-chapter-the-9-books-malik-09",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/10.json",
+      "oldId": "10",
+      "newId": "by-chapter-the-9-books-malik-10",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/11.json",
+      "oldId": "11",
+      "newId": "by-chapter-the-9-books-malik-11",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/12.json",
+      "oldId": "12",
+      "newId": "by-chapter-the-9-books-malik-12",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/13.json",
+      "oldId": "13",
+      "newId": "by-chapter-the-9-books-malik-13",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/14.json",
+      "oldId": "14",
+      "newId": "by-chapter-the-9-books-malik-14",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/15.json",
+      "oldId": "15",
+      "newId": "by-chapter-the-9-books-malik-15",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/16.json",
+      "oldId": "16",
+      "newId": "by-chapter-the-9-books-malik-16",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/17.json",
+      "oldId": "17",
+      "newId": "by-chapter-the-9-books-malik-17",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/18.json",
+      "oldId": "18",
+      "newId": "by-chapter-the-9-books-malik-18",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/19.json",
+      "oldId": "19",
+      "newId": "by-chapter-the-9-books-malik-19",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/20.json",
+      "oldId": "20",
+      "newId": "by-chapter-the-9-books-malik-20",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/21.json",
+      "oldId": "21",
+      "newId": "by-chapter-the-9-books-malik-21",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/22.json",
+      "oldId": "22",
+      "newId": "by-chapter-the-9-books-malik-22",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/23.json",
+      "oldId": "23",
+      "newId": "by-chapter-the-9-books-malik-23",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/24.json",
+      "oldId": "24",
+      "newId": "by-chapter-the-9-books-malik-24",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/25.json",
+      "oldId": "25",
+      "newId": "by-chapter-the-9-books-malik-25",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/26.json",
+      "oldId": "26",
+      "newId": "by-chapter-the-9-books-malik-26",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/27.json",
+      "oldId": "27",
+      "newId": "by-chapter-the-9-books-malik-27",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/28.json",
+      "oldId": "28",
+      "newId": "by-chapter-the-9-books-malik-28",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/29.json",
+      "oldId": "29",
+      "newId": "by-chapter-the-9-books-malik-29",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/30.json",
+      "oldId": "30",
+      "newId": "by-chapter-the-9-books-malik-30",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/31.json",
+      "oldId": "31",
+      "newId": "by-chapter-the-9-books-malik-31",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/32.json",
+      "oldId": "32",
+      "newId": "by-chapter-the-9-books-malik-32",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/33.json",
+      "oldId": "33",
+      "newId": "by-chapter-the-9-books-malik-33",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/34.json",
+      "oldId": "34",
+      "newId": "by-chapter-the-9-books-malik-34",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/35.json",
+      "oldId": "35",
+      "newId": "by-chapter-the-9-books-malik-35",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/36.json",
+      "oldId": "36",
+      "newId": "by-chapter-the-9-books-malik-36",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/37.json",
+      "oldId": "37",
+      "newId": "by-chapter-the-9-books-malik-37",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/38.json",
+      "oldId": "38",
+      "newId": "by-chapter-the-9-books-malik-38",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/39.json",
+      "oldId": "39",
+      "newId": "by-chapter-the-9-books-malik-39",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/40.json",
+      "oldId": "40",
+      "newId": "by-chapter-the-9-books-malik-40",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/41.json",
+      "oldId": "41",
+      "newId": "by-chapter-the-9-books-malik-41",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/42.json",
+      "oldId": "42",
+      "newId": "by-chapter-the-9-books-malik-42",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/43.json",
+      "oldId": "43",
+      "newId": "by-chapter-the-9-books-malik-43",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/44.json",
+      "oldId": "44",
+      "newId": "by-chapter-the-9-books-malik-44",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/45.json",
+      "oldId": "45",
+      "newId": "by-chapter-the-9-books-malik-45",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/46.json",
+      "oldId": "46",
+      "newId": "by-chapter-the-9-books-malik-46",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/47.json",
+      "oldId": "47",
+      "newId": "by-chapter-the-9-books-malik-47",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/48.json",
+      "oldId": "48",
+      "newId": "by-chapter-the-9-books-malik-48",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/49.json",
+      "oldId": "49",
+      "newId": "by-chapter-the-9-books-malik-49",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/50.json",
+      "oldId": "50",
+      "newId": "by-chapter-the-9-books-malik-50",
+      "duplicateGroupSize": 6,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/51.json",
+      "oldId": "51",
+      "newId": "by-chapter-the-9-books-malik-51",
+      "duplicateGroupSize": 6,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/52.json",
+      "oldId": "52",
+      "newId": "by-chapter-the-9-books-malik-52",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/53.json",
+      "oldId": "53",
+      "newId": "by-chapter-the-9-books-malik-53",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/54.json",
+      "oldId": "54",
+      "newId": "by-chapter-the-9-books-malik-54",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/55.json",
+      "oldId": "55",
+      "newId": "by-chapter-the-9-books-malik-55",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/56.json",
+      "oldId": "56",
+      "newId": "by-chapter-the-9-books-malik-56",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/57.json",
+      "oldId": "57",
+      "newId": "by-chapter-the-9-books-malik-57",
+      "duplicateGroupSize": 3,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/58.json",
+      "oldId": "58",
+      "newId": "by-chapter-the-9-books-malik-58",
+      "duplicateGroupSize": 2,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/59.json",
+      "oldId": "59",
+      "newId": "by-chapter-the-9-books-malik-59",
+      "duplicateGroupSize": 2,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/60.json",
+      "oldId": "60",
+      "newId": "by-chapter-the-9-books-malik-60",
+      "duplicateGroupSize": 2,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/malik/61.json",
+      "oldId": "61",
+      "newId": "by-chapter-the-9-books-malik-61",
+      "duplicateGroupSize": 2,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/01.json",
+      "oldId": "01",
+      "newId": "by-chapter-the-9-books-muslim-01",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/02.json",
+      "oldId": "02",
+      "newId": "by-chapter-the-9-books-muslim-02",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/03.json",
+      "oldId": "03",
+      "newId": "by-chapter-the-9-books-muslim-03",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/04.json",
+      "oldId": "04",
+      "newId": "by-chapter-the-9-books-muslim-04",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/05.json",
+      "oldId": "05",
+      "newId": "by-chapter-the-9-books-muslim-05",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/06.json",
+      "oldId": "06",
+      "newId": "by-chapter-the-9-books-muslim-06",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/07.json",
+      "oldId": "07",
+      "newId": "by-chapter-the-9-books-muslim-07",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/08.json",
+      "oldId": "08",
+      "newId": "by-chapter-the-9-books-muslim-08",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/09.json",
+      "oldId": "09",
+      "newId": "by-chapter-the-9-books-muslim-09",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/10.json",
+      "oldId": "10",
+      "newId": "by-chapter-the-9-books-muslim-10",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/11.json",
+      "oldId": "11",
+      "newId": "by-chapter-the-9-books-muslim-11",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/12.json",
+      "oldId": "12",
+      "newId": "by-chapter-the-9-books-muslim-12",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/13.json",
+      "oldId": "13",
+      "newId": "by-chapter-the-9-books-muslim-13",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/14.json",
+      "oldId": "14",
+      "newId": "by-chapter-the-9-books-muslim-14",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/15.json",
+      "oldId": "15",
+      "newId": "by-chapter-the-9-books-muslim-15",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/16.json",
+      "oldId": "16",
+      "newId": "by-chapter-the-9-books-muslim-16",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/17.json",
+      "oldId": "17",
+      "newId": "by-chapter-the-9-books-muslim-17",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/18.json",
+      "oldId": "18",
+      "newId": "by-chapter-the-9-books-muslim-18",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/19.json",
+      "oldId": "19",
+      "newId": "by-chapter-the-9-books-muslim-19",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/20.json",
+      "oldId": "20",
+      "newId": "by-chapter-the-9-books-muslim-20",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/21.json",
+      "oldId": "21",
+      "newId": "by-chapter-the-9-books-muslim-21",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/22.json",
+      "oldId": "22",
+      "newId": "by-chapter-the-9-books-muslim-22",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/23.json",
+      "oldId": "23",
+      "newId": "by-chapter-the-9-books-muslim-23",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/24.json",
+      "oldId": "24",
+      "newId": "by-chapter-the-9-books-muslim-24",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/25.json",
+      "oldId": "25",
+      "newId": "by-chapter-the-9-books-muslim-25",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/26.json",
+      "oldId": "26",
+      "newId": "by-chapter-the-9-books-muslim-26",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/27.json",
+      "oldId": "27",
+      "newId": "by-chapter-the-9-books-muslim-27",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/28.json",
+      "oldId": "28",
+      "newId": "by-chapter-the-9-books-muslim-28",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/29.json",
+      "oldId": "29",
+      "newId": "by-chapter-the-9-books-muslim-29",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/30.json",
+      "oldId": "30",
+      "newId": "by-chapter-the-9-books-muslim-30",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/31.json",
+      "oldId": "31",
+      "newId": "by-chapter-the-9-books-muslim-31",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/32.json",
+      "oldId": "32",
+      "newId": "by-chapter-the-9-books-muslim-32",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/33.json",
+      "oldId": "33",
+      "newId": "by-chapter-the-9-books-muslim-33",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/34.json",
+      "oldId": "34",
+      "newId": "by-chapter-the-9-books-muslim-34",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/35.json",
+      "oldId": "35",
+      "newId": "by-chapter-the-9-books-muslim-35",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/36.json",
+      "oldId": "36",
+      "newId": "by-chapter-the-9-books-muslim-36",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/37.json",
+      "oldId": "37",
+      "newId": "by-chapter-the-9-books-muslim-37",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/38.json",
+      "oldId": "38",
+      "newId": "by-chapter-the-9-books-muslim-38",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/39.json",
+      "oldId": "39",
+      "newId": "by-chapter-the-9-books-muslim-39",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/40.json",
+      "oldId": "40",
+      "newId": "by-chapter-the-9-books-muslim-40",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/41.json",
+      "oldId": "41",
+      "newId": "by-chapter-the-9-books-muslim-41",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/42.json",
+      "oldId": "42",
+      "newId": "by-chapter-the-9-books-muslim-42",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/43.json",
+      "oldId": "43",
+      "newId": "by-chapter-the-9-books-muslim-43",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/44.json",
+      "oldId": "44",
+      "newId": "by-chapter-the-9-books-muslim-44",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/45.json",
+      "oldId": "45",
+      "newId": "by-chapter-the-9-books-muslim-45",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/46.json",
+      "oldId": "46",
+      "newId": "by-chapter-the-9-books-muslim-46",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/47.json",
+      "oldId": "47",
+      "newId": "by-chapter-the-9-books-muslim-47",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/48.json",
+      "oldId": "48",
+      "newId": "by-chapter-the-9-books-muslim-48",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/49.json",
+      "oldId": "49",
+      "newId": "by-chapter-the-9-books-muslim-49",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/50.json",
+      "oldId": "50",
+      "newId": "by-chapter-the-9-books-muslim-50",
+      "duplicateGroupSize": 6,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/51.json",
+      "oldId": "51",
+      "newId": "by-chapter-the-9-books-muslim-51",
+      "duplicateGroupSize": 6,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/52.json",
+      "oldId": "52",
+      "newId": "by-chapter-the-9-books-muslim-52",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/53.json",
+      "oldId": "53",
+      "newId": "by-chapter-the-9-books-muslim-53",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/54.json",
+      "oldId": "54",
+      "newId": "by-chapter-the-9-books-muslim-54",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/55.json",
+      "oldId": "55",
+      "newId": "by-chapter-the-9-books-muslim-55",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/56.json",
+      "oldId": "56",
+      "newId": "by-chapter-the-9-books-muslim-56",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/muslim/introduction.json",
+      "oldId": "introduction",
+      "newId": "by-chapter-the-9-books-muslim-introduction",
+      "duplicateGroupSize": 5,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/01.json",
+      "oldId": "01",
+      "newId": "by-chapter-the-9-books-nasai-01",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/02.json",
+      "oldId": "02",
+      "newId": "by-chapter-the-9-books-nasai-02",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/03.json",
+      "oldId": "03",
+      "newId": "by-chapter-the-9-books-nasai-03",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/04.json",
+      "oldId": "04",
+      "newId": "by-chapter-the-9-books-nasai-04",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/05.json",
+      "oldId": "05",
+      "newId": "by-chapter-the-9-books-nasai-05",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/06.json",
+      "oldId": "06",
+      "newId": "by-chapter-the-9-books-nasai-06",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/07.json",
+      "oldId": "07",
+      "newId": "by-chapter-the-9-books-nasai-07",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/08.json",
+      "oldId": "08",
+      "newId": "by-chapter-the-9-books-nasai-08",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/09.json",
+      "oldId": "09",
+      "newId": "by-chapter-the-9-books-nasai-09",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/10.json",
+      "oldId": "10",
+      "newId": "by-chapter-the-9-books-nasai-10",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/11.json",
+      "oldId": "11",
+      "newId": "by-chapter-the-9-books-nasai-11",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/12.json",
+      "oldId": "12",
+      "newId": "by-chapter-the-9-books-nasai-12",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/13.json",
+      "oldId": "13",
+      "newId": "by-chapter-the-9-books-nasai-13",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/14.json",
+      "oldId": "14",
+      "newId": "by-chapter-the-9-books-nasai-14",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/15.json",
+      "oldId": "15",
+      "newId": "by-chapter-the-9-books-nasai-15",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/16.json",
+      "oldId": "16",
+      "newId": "by-chapter-the-9-books-nasai-16",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/17.json",
+      "oldId": "17",
+      "newId": "by-chapter-the-9-books-nasai-17",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/18.json",
+      "oldId": "18",
+      "newId": "by-chapter-the-9-books-nasai-18",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/19.json",
+      "oldId": "19",
+      "newId": "by-chapter-the-9-books-nasai-19",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/20.json",
+      "oldId": "20",
+      "newId": "by-chapter-the-9-books-nasai-20",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/21.json",
+      "oldId": "21",
+      "newId": "by-chapter-the-9-books-nasai-21",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/22.json",
+      "oldId": "22",
+      "newId": "by-chapter-the-9-books-nasai-22",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/23.json",
+      "oldId": "23",
+      "newId": "by-chapter-the-9-books-nasai-23",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/24.json",
+      "oldId": "24",
+      "newId": "by-chapter-the-9-books-nasai-24",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/25.json",
+      "oldId": "25",
+      "newId": "by-chapter-the-9-books-nasai-25",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/26.json",
+      "oldId": "26",
+      "newId": "by-chapter-the-9-books-nasai-26",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/27.json",
+      "oldId": "27",
+      "newId": "by-chapter-the-9-books-nasai-27",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/28.json",
+      "oldId": "28",
+      "newId": "by-chapter-the-9-books-nasai-28",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/29.json",
+      "oldId": "29",
+      "newId": "by-chapter-the-9-books-nasai-29",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/30.json",
+      "oldId": "30",
+      "newId": "by-chapter-the-9-books-nasai-30",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/31.json",
+      "oldId": "31",
+      "newId": "by-chapter-the-9-books-nasai-31",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/32.json",
+      "oldId": "32",
+      "newId": "by-chapter-the-9-books-nasai-32",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/33.json",
+      "oldId": "33",
+      "newId": "by-chapter-the-9-books-nasai-33",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/34.json",
+      "oldId": "34",
+      "newId": "by-chapter-the-9-books-nasai-34",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/35.json",
+      "oldId": "35",
+      "newId": "by-chapter-the-9-books-nasai-35",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/36.json",
+      "oldId": "36",
+      "newId": "by-chapter-the-9-books-nasai-36",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/37.json",
+      "oldId": "37",
+      "newId": "by-chapter-the-9-books-nasai-37",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/38.json",
+      "oldId": "38",
+      "newId": "by-chapter-the-9-books-nasai-38",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/39.json",
+      "oldId": "39",
+      "newId": "by-chapter-the-9-books-nasai-39",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/40.json",
+      "oldId": "40",
+      "newId": "by-chapter-the-9-books-nasai-40",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/41.json",
+      "oldId": "41",
+      "newId": "by-chapter-the-9-books-nasai-41",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/42.json",
+      "oldId": "42",
+      "newId": "by-chapter-the-9-books-nasai-42",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/43.json",
+      "oldId": "43",
+      "newId": "by-chapter-the-9-books-nasai-43",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/44.json",
+      "oldId": "44",
+      "newId": "by-chapter-the-9-books-nasai-44",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/45.json",
+      "oldId": "45",
+      "newId": "by-chapter-the-9-books-nasai-45",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/46.json",
+      "oldId": "46",
+      "newId": "by-chapter-the-9-books-nasai-46",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/47.json",
+      "oldId": "47",
+      "newId": "by-chapter-the-9-books-nasai-47",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/48.json",
+      "oldId": "48",
+      "newId": "by-chapter-the-9-books-nasai-48",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/49.json",
+      "oldId": "49",
+      "newId": "by-chapter-the-9-books-nasai-49",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/50.json",
+      "oldId": "50",
+      "newId": "by-chapter-the-9-books-nasai-50",
+      "duplicateGroupSize": 6,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/nasai/51.json",
+      "oldId": "51",
+      "newId": "by-chapter-the-9-books-nasai-51",
+      "duplicateGroupSize": 6,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/01.json",
+      "oldId": "01",
+      "newId": "by-chapter-the-9-books-tirmidhi-01",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/02.json",
+      "oldId": "02",
+      "newId": "by-chapter-the-9-books-tirmidhi-02",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/03.json",
+      "oldId": "03",
+      "newId": "by-chapter-the-9-books-tirmidhi-03",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/04.json",
+      "oldId": "04",
+      "newId": "by-chapter-the-9-books-tirmidhi-04",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/05.json",
+      "oldId": "05",
+      "newId": "by-chapter-the-9-books-tirmidhi-05",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/06.json",
+      "oldId": "06",
+      "newId": "by-chapter-the-9-books-tirmidhi-06",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/07.json",
+      "oldId": "07",
+      "newId": "by-chapter-the-9-books-tirmidhi-07",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/08.json",
+      "oldId": "08",
+      "newId": "by-chapter-the-9-books-tirmidhi-08",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/09.json",
+      "oldId": "09",
+      "newId": "by-chapter-the-9-books-tirmidhi-09",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/10.json",
+      "oldId": "10",
+      "newId": "by-chapter-the-9-books-tirmidhi-10",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/11.json",
+      "oldId": "11",
+      "newId": "by-chapter-the-9-books-tirmidhi-11",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/12.json",
+      "oldId": "12",
+      "newId": "by-chapter-the-9-books-tirmidhi-12",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/13.json",
+      "oldId": "13",
+      "newId": "by-chapter-the-9-books-tirmidhi-13",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/14.json",
+      "oldId": "14",
+      "newId": "by-chapter-the-9-books-tirmidhi-14",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/15.json",
+      "oldId": "15",
+      "newId": "by-chapter-the-9-books-tirmidhi-15",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/16.json",
+      "oldId": "16",
+      "newId": "by-chapter-the-9-books-tirmidhi-16",
+      "duplicateGroupSize": 13,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/17.json",
+      "oldId": "17",
+      "newId": "by-chapter-the-9-books-tirmidhi-17",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/18.json",
+      "oldId": "18",
+      "newId": "by-chapter-the-9-books-tirmidhi-18",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/19.json",
+      "oldId": "19",
+      "newId": "by-chapter-the-9-books-tirmidhi-19",
+      "duplicateGroupSize": 12,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/20.json",
+      "oldId": "20",
+      "newId": "by-chapter-the-9-books-tirmidhi-20",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/21.json",
+      "oldId": "21",
+      "newId": "by-chapter-the-9-books-tirmidhi-21",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/22.json",
+      "oldId": "22",
+      "newId": "by-chapter-the-9-books-tirmidhi-22",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/23.json",
+      "oldId": "23",
+      "newId": "by-chapter-the-9-books-tirmidhi-23",
+      "duplicateGroupSize": 11,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/24.json",
+      "oldId": "24",
+      "newId": "by-chapter-the-9-books-tirmidhi-24",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/25.json",
+      "oldId": "25",
+      "newId": "by-chapter-the-9-books-tirmidhi-25",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/26.json",
+      "oldId": "26",
+      "newId": "by-chapter-the-9-books-tirmidhi-26",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/27.json",
+      "oldId": "27",
+      "newId": "by-chapter-the-9-books-tirmidhi-27",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/28.json",
+      "oldId": "28",
+      "newId": "by-chapter-the-9-books-tirmidhi-28",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/29.json",
+      "oldId": "29",
+      "newId": "by-chapter-the-9-books-tirmidhi-29",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/30.json",
+      "oldId": "30",
+      "newId": "by-chapter-the-9-books-tirmidhi-30",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/31.json",
+      "oldId": "31",
+      "newId": "by-chapter-the-9-books-tirmidhi-31",
+      "duplicateGroupSize": 10,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/32.json",
+      "oldId": "32",
+      "newId": "by-chapter-the-9-books-tirmidhi-32",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/33.json",
+      "oldId": "33",
+      "newId": "by-chapter-the-9-books-tirmidhi-33",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/34.json",
+      "oldId": "34",
+      "newId": "by-chapter-the-9-books-tirmidhi-34",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/35.json",
+      "oldId": "35",
+      "newId": "by-chapter-the-9-books-tirmidhi-35",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/36.json",
+      "oldId": "36",
+      "newId": "by-chapter-the-9-books-tirmidhi-36",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/37.json",
+      "oldId": "37",
+      "newId": "by-chapter-the-9-books-tirmidhi-37",
+      "duplicateGroupSize": 9,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/38.json",
+      "oldId": "38",
+      "newId": "by-chapter-the-9-books-tirmidhi-38",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/39.json",
+      "oldId": "39",
+      "newId": "by-chapter-the-9-books-tirmidhi-39",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/40.json",
+      "oldId": "40",
+      "newId": "by-chapter-the-9-books-tirmidhi-40",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/41.json",
+      "oldId": "41",
+      "newId": "by-chapter-the-9-books-tirmidhi-41",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/42.json",
+      "oldId": "42",
+      "newId": "by-chapter-the-9-books-tirmidhi-42",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/43.json",
+      "oldId": "43",
+      "newId": "by-chapter-the-9-books-tirmidhi-43",
+      "duplicateGroupSize": 8,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/44.json",
+      "oldId": "44",
+      "newId": "by-chapter-the-9-books-tirmidhi-44",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/45.json",
+      "oldId": "45",
+      "newId": "by-chapter-the-9-books-tirmidhi-45",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/46.json",
+      "oldId": "46",
+      "newId": "by-chapter-the-9-books-tirmidhi-46",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/47.json",
+      "oldId": "47",
+      "newId": "by-chapter-the-9-books-tirmidhi-47",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/48.json",
+      "oldId": "48",
+      "newId": "by-chapter-the-9-books-tirmidhi-48",
+      "duplicateGroupSize": 7,
+      "changed": true
+    },
+    {
+      "sourcePath": "hadith/db/by_chapter/the_9_books/tirmidhi/49.json",
+      "oldId": "49",
+      "newId": "by-chapter-the-9-books-tirmidhi-49",
+      "duplicateGroupSize": 7,
+      "changed": true
+    }
+  ],
+  "duplicateFinalIds": [],
+  "productionApproved": false,
+  "canPushNoorCdnMain": false,
+  "canPromoteToProduction": false,
+  "allowedTarget": "noor-cdn/staging-ilm-mate-v1",
+  "blockedTargets": [
+    "noor-cdn/main",
+    "production CDN"
+  ]
+}
