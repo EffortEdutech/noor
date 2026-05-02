@@ -1,7 +1,7 @@
 {
   "sprint": "27.8-hotfix",
   "title": "Git-safe noor-cdn staging pack",
-  "generatedAt": "2026-05-02T03:24:46.157Z",
+  "generatedAt": "2026-05-02T08:15:02.279Z",
   "status": "git-safe-staging-ready",
   "sourceRoot": "content-pipeline/publish/ilm-mate-v1-staging-cdn/noor-cdn",
   "outputRoot": "content-pipeline/publish/ilm-mate-v1-staging-cdn-git-safe/noor-cdn",
@@ -20,110 +20,110 @@
   "safetyLimitBytes": 94371840,
   "searchWasSharded": true,
   "searchShardManifest": "manifest/search-index-manifest.json",
-  "files": 956,
-  "jsonFiles": 955,
-  "totalBytes": 587171623,
-  "totalMegabytes": 559.97,
+  "files": 1453,
+  "jsonFiles": 1452,
+  "totalBytes": 668503361,
+  "totalMegabytes": 637.53,
   "largestFiles": [
     {
-      "path": "search/shards/search-index-0011.json",
-      "bytes": 25160750,
+      "path": "search/shards/search-index-0013.json",
+      "bytes": 25160636,
       "megabytes": 24
     },
     {
+      "path": "search/shards/search-index-0009.json",
+      "bytes": 25158847,
+      "megabytes": 23.99
+    },
+    {
       "path": "search/shards/search-index-0010.json",
-      "bytes": 25158531,
+      "bytes": 25157140,
+      "megabytes": 23.99
+    },
+    {
+      "path": "search/shards/search-index-0011.json",
+      "bytes": 25156276,
       "megabytes": 23.99
     },
     {
       "path": "search/shards/search-index-0007.json",
-      "bytes": 25156070,
+      "bytes": 25156100,
       "megabytes": 23.99
     },
     {
       "path": "search/shards/search-index-0012.json",
-      "bytes": 25153764,
+      "bytes": 25152978,
       "megabytes": 23.99
     },
     {
-      "path": "search/shards/search-index-0013.json",
-      "bytes": 25151383,
-      "megabytes": 23.99
-    },
-    {
-      "path": "search/shards/search-index-0008.json",
-      "bytes": 25149884,
+      "path": "search/shards/search-index-0006.json",
+      "bytes": 25150037,
       "megabytes": 23.98
     },
     {
       "path": "search/shards/search-index-0004.json",
-      "bytes": 25149822,
-      "megabytes": 23.98
-    },
-    {
-      "path": "search/shards/search-index-0006.json",
-      "bytes": 25149775,
-      "megabytes": 23.98
-    },
-    {
-      "path": "search/shards/search-index-0009.json",
-      "bytes": 25149603,
-      "megabytes": 23.98
-    },
-    {
-      "path": "search/shards/search-index-0005.json",
-      "bytes": 25149388,
+      "bytes": 25148625,
       "megabytes": 23.98
     },
     {
       "path": "search/shards/search-index-0001.json",
-      "bytes": 25146560,
+      "bytes": 25148350,
       "megabytes": 23.98
     },
     {
-      "path": "search/shards/search-index-0002.json",
-      "bytes": 25145587,
+      "path": "search/shards/search-index-0005.json",
+      "bytes": 25147275,
       "megabytes": 23.98
     },
     {
       "path": "search/shards/search-index-0003.json",
-      "bytes": 25145158,
+      "bytes": 25146180,
       "megabytes": 23.98
     },
     {
-      "path": "hadith/bukhari/items.json",
-      "bytes": 9933225,
-      "megabytes": 9.47
+      "path": "search/shards/search-index-0008.json",
+      "bytes": 25144209,
+      "megabytes": 23.98
     },
     {
-      "path": "hadith/muslim/items.json",
-      "bytes": 9349439,
-      "megabytes": 8.92
+      "path": "search/shards/search-index-0002.json",
+      "bytes": 25144191,
+      "megabytes": 23.98
+    },
+    {
+      "path": "hadith/by-book__the-9-books__bukhari/items.json",
+      "bytes": 12314546,
+      "megabytes": 11.74
+    },
+    {
+      "path": "hadith/by-book__the-9-books__muslim/items.json",
+      "bytes": 11804758,
+      "megabytes": 11.26
+    },
+    {
+      "path": "hadith/by-book__the-9-books__nasai/items.json",
+      "bytes": 8537248,
+      "megabytes": 8.14
+    },
+    {
+      "path": "hadith/by-book__the-9-books__abudawud/items.json",
+      "bytes": 8276174,
+      "megabytes": 7.89
+    },
+    {
+      "path": "hadith/by-book__the-9-books__tirmidhi/items.json",
+      "bytes": 8051079,
+      "megabytes": 7.68
     },
     {
       "path": "search/search-index-lite.json",
-      "bytes": 7153427,
-      "megabytes": 6.82
+      "bytes": 7269960,
+      "megabytes": 6.93
     },
     {
       "path": "search/search-index.json",
-      "bytes": 7153427,
-      "megabytes": 6.82
-    },
-    {
-      "path": "hadith/tirmidhi/items.json",
-      "bytes": 6693324,
-      "megabytes": 6.38
-    },
-    {
-      "path": "hadith/nasai/items.json",
-      "bytes": 6639576,
-      "megabytes": 6.33
-    },
-    {
-      "path": "hadith/abudawud/items.json",
-      "bytes": 6508714,
-      "megabytes": 6.21
+      "bytes": 7269960,
+      "megabytes": 6.93
     }
   ],
   "overLimitFiles": [],
@@ -131,11 +131,11 @@
   "shardManifest": {
     "name": "NOOR CDN Search Index",
     "format": "sharded-v1",
-    "generatedAt": "2026-05-02T03:24:45.854Z",
+    "generatedAt": "2026-05-02T08:15:01.763Z",
     "source": "ilm-mate-v1-staging-cdn",
-    "totalEntries": 147277,
+    "totalEntries": 145664,
     "byType": {
-      "hadith": 103625,
+      "hadith": 102012,
       "quran": 6236,
       "tafseer": 37416
     },
@@ -144,9 +144,9 @@
     "safetyLimitBytes": 94371840,
     "originalMonolithicIndex": {
       "path": "search/search-index.json",
-      "bytes": 347697861,
-      "megabytes": 331.59,
-      "sha256": "25f24b15bd738fde5ec7dcd9b5405748e10a56cf5e7715eb9049ce7ab714d709",
+      "bytes": 348135612,
+      "megabytes": 332.01,
+      "sha256": "62d575fbff05a7e553cd6f40fa7ec285121ae2fa858e41725654e78bca2ee055",
       "omittedFromGitSafePack": true,
       "reason": "GitHub blocks individual files larger than 100 MB."
     },
@@ -154,130 +154,130 @@
       "path": "search/search-index.json",
       "mode": "lite-sample",
       "entries": 5000,
-      "bytes": 7153427,
-      "sha256": "251dd84b26c8dc16d6be57d2e40dcb561f7cea54943e5c9438cbd54db739e6f7",
+      "bytes": 7269960,
+      "sha256": "cdca4e2f377bced0bbb6f4ee8a97e547f03b603ee783ae3e5b83704d3956469b",
       "note": "Temporary compatibility file for existing Sprint 26 browser loader. Full index is in shards."
     },
     "liteIndex": {
       "path": "search/search-index-lite.json",
       "entries": 5000,
-      "bytes": 7153427,
-      "sha256": "251dd84b26c8dc16d6be57d2e40dcb561f7cea54943e5c9438cbd54db739e6f7"
+      "bytes": 7269960,
+      "sha256": "cdca4e2f377bced0bbb6f4ee8a97e547f03b603ee783ae3e5b83704d3956469b"
     },
     "shards": [
       {
         "number": 1,
         "path": "search/shards/search-index-0001.json",
-        "entries": 19256,
-        "bytes": 25146560,
+        "entries": 16789,
+        "bytes": 25148350,
         "megabytes": 23.98,
-        "sha256": "2bac1944493d8498f60417bb5b0f37244b10c962bd833ec45b645a2754df9fc3"
+        "sha256": "54ee6fb3c3ee7068f8b36b2ac3156b394aed20b950db2fa9e05ef6233ca85bee"
       },
       {
         "number": 2,
         "path": "search/shards/search-index-0002.json",
-        "entries": 19986,
-        "bytes": 25145587,
+        "entries": 18992,
+        "bytes": 25144191,
         "megabytes": 23.98,
-        "sha256": "b1d5214c7b79b94291c78c8a2d8acd1cfe84fbc861048705139d6ad6f0d342de"
+        "sha256": "b00ca726878416609b2f831165ee2c409e2c7b4cd482b265872aa55583023481"
       },
       {
         "number": 3,
         "path": "search/shards/search-index-0003.json",
-        "entries": 20383,
-        "bytes": 25145158,
+        "entries": 19223,
+        "bytes": 25146180,
         "megabytes": 23.98,
-        "sha256": "12d7fe3f970b5d2598be2f4098993a356368d7625d252483e1f25136c72d2492"
+        "sha256": "c51046b01b1daed4ed607cd47d0d555edba7861725d98264b3242d8dace1062d"
       },
       {
         "number": 4,
         "path": "search/shards/search-index-0004.json",
-        "entries": 15311,
-        "bytes": 25149822,
+        "entries": 16845,
+        "bytes": 25148625,
         "megabytes": 23.98,
-        "sha256": "2864be1790724f882603f1e4bcc31ec9ac486ff1c4cad050433ef6980f6e9e83"
+        "sha256": "1d4338c705cfaed5a4ac9a261d1c2e86343ee1a4e431bdd6b12a7c01ce07d2d0"
       },
       {
         "number": 5,
         "path": "search/shards/search-index-0005.json",
-        "entries": 15700,
-        "bytes": 25149388,
+        "entries": 17974,
+        "bytes": 25147275,
         "megabytes": 23.98,
-        "sha256": "cbbe2b82bab57e2488690a64c6ba2fad732bbc02a971fea64ee16d94bc71649d"
+        "sha256": "a20d969ec63f5d6619af8ef2af946b53af746a992959faef27ee6206ec22ac4d"
       },
       {
         "number": 6,
         "path": "search/shards/search-index-0006.json",
-        "entries": 15854,
-        "bytes": 25149775,
+        "entries": 15724,
+        "bytes": 25150037,
         "megabytes": 23.98,
-        "sha256": "c6ee24d2cebb1e9bb39bd40a2df0fcedbe1669110c0dcf61b7949c45be5ef3ca"
+        "sha256": "db55c9fd30ba0cc76108ed47bdb34ccf5e57ed10ecda9eff3664a0c565938fbb"
       },
       {
         "number": 7,
         "path": "search/shards/search-index-0007.json",
-        "entries": 8945,
-        "bytes": 25156070,
+        "entries": 8451,
+        "bytes": 25156100,
         "megabytes": 23.99,
-        "sha256": "145fa789d13339b05501fb11bb424b15e049dc3d5b30e5b2c9dbfb77cacc7dfc"
+        "sha256": "27daa7b5f16d429aa9375ed4abad28c1813a6e782a64c8cb09aa9bbfd3c4e161"
       },
       {
         "number": 8,
         "path": "search/shards/search-index-0008.json",
-        "entries": 5283,
-        "bytes": 25149884,
+        "entries": 5254,
+        "bytes": 25144209,
         "megabytes": 23.98,
-        "sha256": "d098515b135d48a4a5792f705a63750353ee6d604dacb23341376a5e93319049"
+        "sha256": "f19eed908458084e148fd9f12b706e7d1f6c1e39d36c9c0c7740eaa2fc1b14ce"
       },
       {
         "number": 9,
         "path": "search/shards/search-index-0009.json",
-        "entries": 5810,
-        "bytes": 25149603,
-        "megabytes": 23.98,
-        "sha256": "3390d3004cc9cc62542bee11bb9b583ddb0d3d026a5de45b542bcbf10e6e4670"
+        "entries": 5775,
+        "bytes": 25158847,
+        "megabytes": 23.99,
+        "sha256": "de3d28de8ac3d6d254dbda1d9adc622f7b0fd3556ef51c3ce07a7354b9c70944"
       },
       {
         "number": 10,
         "path": "search/shards/search-index-0010.json",
-        "entries": 5340,
-        "bytes": 25158531,
+        "entries": 5426,
+        "bytes": 25157140,
         "megabytes": 23.99,
-        "sha256": "4f2ad80b5c7dc6fe0c951bb889e0b037dbf1e585f3839d2e34459fc41e607c5d"
+        "sha256": "02afe440026b16ec1dda5a1574c6c215fe82a78fa9b24eac193858ec3977a267"
       },
       {
         "number": 11,
         "path": "search/shards/search-index-0011.json",
-        "entries": 4920,
-        "bytes": 25160750,
-        "megabytes": 24,
-        "sha256": "286bd3140ce1ee2a411ec0d5df8164c2df7ceb11990ee7533cebb070adbffa9b"
+        "entries": 4830,
+        "bytes": 25156276,
+        "megabytes": 23.99,
+        "sha256": "29c55cbfee42d0a68e661a2b6f32b485f138ea7e6db390b4d758b513d4fb4f35"
       },
       {
         "number": 12,
         "path": "search/shards/search-index-0012.json",
-        "entries": 5062,
-        "bytes": 25153764,
+        "entries": 5128,
+        "bytes": 25152978,
         "megabytes": 23.99,
-        "sha256": "17d3272352031daffaa09963ad90d147bde1fad296c28f28ba1a8c534cac89d7"
+        "sha256": "3679da95996d670746994d18fbc86be6e778e149dae22ff4bf4d6d63fcd3f0c9"
       },
       {
         "number": 13,
         "path": "search/shards/search-index-0013.json",
         "entries": 5066,
-        "bytes": 25151383,
-        "megabytes": 23.99,
-        "sha256": "622046cb185541f274c25bf74e978a3468150bbf1260070ce195781f78356f98"
+        "bytes": 25160636,
+        "megabytes": 24,
+        "sha256": "fd14643b9623ab3b359421d38e1fbdc64051b1b09433b25954e423ff3c60decb"
       },
       {
         "number": 14,
         "path": "search/shards/search-index-0014.json",
-        "entries": 361,
-        "bytes": 2006601,
-        "megabytes": 1.91,
-        "sha256": "037fb705d226ce7bcb9adc56054638ec25534f4c5182e37458ba4113e7925c7d"
+        "entries": 187,
+        "bytes": 1209401,
+        "megabytes": 1.15,
+        "sha256": "a625cf1931746459e934e7ba46171239a064bc09ade68d7b0d16cdb7717a3442"
       }
     ],
-    "fullIndexEntryCountFromShards": 147277
+    "fullIndexEntryCountFromShards": 145664
   }
 }

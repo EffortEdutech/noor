@@ -84,7 +84,10 @@
     "check:cdn-staging-git-safe": "node scripts/check-noor-cdn-git-safe-staging-pack.mjs",
     "cdn:staging-env": "node scripts/write-noor-staging-cdn-env.mjs",
     "cdn:test-staging": "node scripts/test-noor-cdn-staging-runtime.mjs",
-    "check:cdn-staging-runtime": "node scripts/check-noor-cdn-staging-runtime.mjs"
+    "check:cdn-staging-runtime": "node scripts/check-noor-cdn-staging-runtime.mjs",
+    "ilm:hadith:view-model": "node scripts/build-ilm-mate-hadith-view-model.mjs",
+    "check:ilm-hadith-view-model": "node scripts/check-ilm-mate-hadith-view-model.mjs",
+    "check:sprint27-9-2": "pnpm check:ilm-hadith-view-model"
   },
   "devDependencies": {
     "@types/react": "19.0.10",
