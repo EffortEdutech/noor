@@ -1,0 +1,257 @@
+{
+  "sprint": "27.5",
+  "version": "0.27.5",
+  "label": "ilm-mate required evidence submission trial",
+  "generatedAt": "2026-05-02T00:23:15.787Z",
+  "source": {
+    "evidenceRecordsRoot": "content-pipeline/review/ilm-mate-v1/evidence-records",
+    "evidenceRecordsPath": "content-pipeline/review/ilm-mate-v1/evidence-records/evidence-completion-records.json"
+  },
+  "outputRoot": "content-pipeline/review/ilm-mate-v1/required-evidence-trial",
+  "status": "blocked",
+  "productionApproved": false,
+  "canPromoteToProduction": false,
+  "canPushNoorCdnStaging": false,
+  "canPushNoorCdnMain": false,
+  "totalEvidenceRecords": 18,
+  "trialSubmittedRecords": 12,
+  "acceptedForStaging": 3,
+  "domainsReadyForReviewerDecision": 3,
+  "domainsReadyForStaging": 0,
+  "totalDomains": 3,
+  "productionApprovalRecordsBlocked": 3,
+  "domains": [
+    {
+      "domain": "quran",
+      "domainLabel": "Quran",
+      "nonProductionRequired": 5,
+      "submittedOrAccepted": 5,
+      "submittedNotAccepted": 4,
+      "acceptedForStaging": 1,
+      "readyForReviewerDecision": true,
+      "stagingReady": false,
+      "productionApproved": false,
+      "canPromoteToProduction": false,
+      "targetSubmittedEvidenceKeys": [
+        "license_or_permission",
+        "attribution_wording",
+        "checksum_integrity_plan",
+        "scholarly_reviewer_signoff"
+      ],
+      "acceptedEvidenceKeys": [
+        "source_identity"
+      ],
+      "pendingReviewerDecisionKeys": [
+        "license_or_permission",
+        "attribution_wording",
+        "checksum_integrity_plan",
+        "scholarly_reviewer_signoff"
+      ]
+    },
+    {
+      "domain": "tafseer",
+      "domainLabel": "Tafseer",
+      "nonProductionRequired": 5,
+      "submittedOrAccepted": 5,
+      "submittedNotAccepted": 4,
+      "acceptedForStaging": 1,
+      "readyForReviewerDecision": true,
+      "stagingReady": false,
+      "productionApproved": false,
+      "canPromoteToProduction": false,
+      "targetSubmittedEvidenceKeys": [
+        "license_or_permission",
+        "attribution_wording",
+        "checksum_integrity_plan",
+        "scholarly_reviewer_signoff"
+      ],
+      "acceptedEvidenceKeys": [
+        "source_identity"
+      ],
+      "pendingReviewerDecisionKeys": [
+        "license_or_permission",
+        "attribution_wording",
+        "checksum_integrity_plan",
+        "scholarly_reviewer_signoff"
+      ]
+    },
+    {
+      "domain": "hadith",
+      "domainLabel": "Hadith",
+      "nonProductionRequired": 5,
+      "submittedOrAccepted": 5,
+      "submittedNotAccepted": 4,
+      "acceptedForStaging": 1,
+      "readyForReviewerDecision": true,
+      "stagingReady": false,
+      "productionApproved": false,
+      "canPromoteToProduction": false,
+      "targetSubmittedEvidenceKeys": [
+        "license_or_permission",
+        "attribution_wording",
+        "checksum_integrity_plan",
+        "scholarly_reviewer_signoff"
+      ],
+      "acceptedEvidenceKeys": [
+        "source_identity"
+      ],
+      "pendingReviewerDecisionKeys": [
+        "license_or_permission",
+        "attribution_wording",
+        "checksum_integrity_plan",
+        "scholarly_reviewer_signoff"
+      ]
+    }
+  ],
+  "submittedRecords": [
+    {
+      "domain": "quran",
+      "domainLabel": "Quran",
+      "evidenceKey": "license_or_permission",
+      "evidenceLabel": "License or written redistribution permission",
+      "recordId": "ilm-mate-v1-quran-license_or_permission-evidence-record",
+      "completionStatus": "submitted",
+      "reviewerDecision": "pending",
+      "acceptedForStaging": false,
+      "evidenceReference": "NOOR-S27.5-TRIAL-QURAN-LICENSE-OR-PERMISSION"
+    },
+    {
+      "domain": "quran",
+      "domainLabel": "Quran",
+      "evidenceKey": "attribution_wording",
+      "evidenceLabel": "Attribution wording",
+      "recordId": "ilm-mate-v1-quran-attribution_wording-evidence-record",
+      "completionStatus": "submitted",
+      "reviewerDecision": "pending",
+      "acceptedForStaging": false,
+      "evidenceReference": "NOOR-S27.5-TRIAL-QURAN-ATTRIBUTION-WORDING"
+    },
+    {
+      "domain": "quran",
+      "domainLabel": "Quran",
+      "evidenceKey": "checksum_integrity_plan",
+      "evidenceLabel": "Checksum / integrity plan",
+      "recordId": "ilm-mate-v1-quran-checksum_integrity_plan-evidence-record",
+      "completionStatus": "submitted",
+      "reviewerDecision": "pending",
+      "acceptedForStaging": false,
+      "evidenceReference": "NOOR-S27.5-TRIAL-QURAN-CHECKSUM-INTEGRITY-PLAN"
+    },
+    {
+      "domain": "quran",
+      "domainLabel": "Quran",
+      "evidenceKey": "scholarly_reviewer_signoff",
+      "evidenceLabel": "Scholarly reviewer sign-off",
+      "recordId": "ilm-mate-v1-quran-scholarly_reviewer_signoff-evidence-record",
+      "completionStatus": "submitted",
+      "reviewerDecision": "pending",
+      "acceptedForStaging": false,
+      "evidenceReference": "NOOR-S27.5-TRIAL-QURAN-SCHOLARLY-REVIEWER-SIGNOFF"
+    },
+    {
+      "domain": "tafseer",
+      "domainLabel": "Tafseer",
+      "evidenceKey": "license_or_permission",
+      "evidenceLabel": "License or written redistribution permission",
+      "recordId": "ilm-mate-v1-tafseer-license_or_permission-evidence-record",
+      "completionStatus": "submitted",
+      "reviewerDecision": "pending",
+      "acceptedForStaging": false,
+      "evidenceReference": "NOOR-S27.5-TRIAL-TAFSEER-LICENSE-OR-PERMISSION"
+    },
+    {
+      "domain": "tafseer",
+      "domainLabel": "Tafseer",
+      "evidenceKey": "attribution_wording",
+      "evidenceLabel": "Attribution wording",
+      "recordId": "ilm-mate-v1-tafseer-attribution_wording-evidence-record",
+      "completionStatus": "submitted",
+      "reviewerDecision": "pending",
+      "acceptedForStaging": false,
+      "evidenceReference": "NOOR-S27.5-TRIAL-TAFSEER-ATTRIBUTION-WORDING"
+    },
+    {
+      "domain": "tafseer",
+      "domainLabel": "Tafseer",
+      "evidenceKey": "checksum_integrity_plan",
+      "evidenceLabel": "Checksum / integrity plan",
+      "recordId": "ilm-mate-v1-tafseer-checksum_integrity_plan-evidence-record",
+      "completionStatus": "submitted",
+      "reviewerDecision": "pending",
+      "acceptedForStaging": false,
+      "evidenceReference": "NOOR-S27.5-TRIAL-TAFSEER-CHECKSUM-INTEGRITY-PLAN"
+    },
+    {
+      "domain": "tafseer",
+      "domainLabel": "Tafseer",
+      "evidenceKey": "scholarly_reviewer_signoff",
+      "evidenceLabel": "Scholarly reviewer sign-off",
+      "recordId": "ilm-mate-v1-tafseer-scholarly_reviewer_signoff-evidence-record",
+      "completionStatus": "submitted",
+      "reviewerDecision": "pending",
+      "acceptedForStaging": false,
+      "evidenceReference": "NOOR-S27.5-TRIAL-TAFSEER-SCHOLARLY-REVIEWER-SIGNOFF"
+    },
+    {
+      "domain": "hadith",
+      "domainLabel": "Hadith",
+      "evidenceKey": "license_or_permission",
+      "evidenceLabel": "License or written redistribution permission",
+      "recordId": "ilm-mate-v1-hadith-license_or_permission-evidence-record",
+      "completionStatus": "submitted",
+      "reviewerDecision": "pending",
+      "acceptedForStaging": false,
+      "evidenceReference": "NOOR-S27.5-TRIAL-HADITH-LICENSE-OR-PERMISSION"
+    },
+    {
+      "domain": "hadith",
+      "domainLabel": "Hadith",
+      "evidenceKey": "attribution_wording",
+      "evidenceLabel": "Attribution wording",
+      "recordId": "ilm-mate-v1-hadith-attribution_wording-evidence-record",
+      "completionStatus": "submitted",
+      "reviewerDecision": "pending",
+      "acceptedForStaging": false,
+      "evidenceReference": "NOOR-S27.5-TRIAL-HADITH-ATTRIBUTION-WORDING"
+    },
+    {
+      "domain": "hadith",
+      "domainLabel": "Hadith",
+      "evidenceKey": "checksum_integrity_plan",
+      "evidenceLabel": "Checksum / integrity plan",
+      "recordId": "ilm-mate-v1-hadith-checksum_integrity_plan-evidence-record",
+      "completionStatus": "submitted",
+      "reviewerDecision": "pending",
+      "acceptedForStaging": false,
+      "evidenceReference": "NOOR-S27.5-TRIAL-HADITH-CHECKSUM-INTEGRITY-PLAN"
+    },
+    {
+      "domain": "hadith",
+      "domainLabel": "Hadith",
+      "evidenceKey": "scholarly_reviewer_signoff",
+      "evidenceLabel": "Scholarly reviewer sign-off",
+      "recordId": "ilm-mate-v1-hadith-scholarly_reviewer_signoff-evidence-record",
+      "completionStatus": "submitted",
+      "reviewerDecision": "pending",
+      "acceptedForStaging": false,
+      "evidenceReference": "NOOR-S27.5-TRIAL-HADITH-SCHOLARLY-REVIEWER-SIGNOFF"
+    }
+  ],
+  "nextSprintRecommendation": {
+    "sprint": "27.6",
+    "label": "reviewer acceptance for required staging evidence",
+    "action": "Review the 12 submitted records and decide whether to accept them for staging. Only then can all 3 domains become staging-ready."
+  },
+  "guardrails": [
+    "Sprint 27.5 only submits required evidence records for review.",
+    "Submitted evidence is not accepted for staging.",
+    "Production approval records remain blocked.",
+    "noor-cdn/staging branch must not be pushed in Sprint 27.5.",
+    "noor-cdn/main must not be pushed in Sprint 27.5."
+  ],
+  "commands": [
+    "pnpm ilm:required-evidence-trial",
+    "pnpm check:ilm-required-evidence-trial",
+    "pnpm ilm:evidence:list -- --status=submitted"
+  ]
+}

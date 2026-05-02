@@ -1,0 +1,13 @@
+domain,domainLabel,evidenceKey,evidenceLabel,recordId,completionStatus,reviewerDecision,acceptedForStaging,evidenceReference
+quran,Quran,license_or_permission,License or written redistribution permission,ilm-mate-v1-quran-license_or_permission-evidence-record,submitted,pending,false,NOOR-S27.5-TRIAL-QURAN-LICENSE-OR-PERMISSION
+quran,Quran,attribution_wording,Attribution wording,ilm-mate-v1-quran-attribution_wording-evidence-record,submitted,pending,false,NOOR-S27.5-TRIAL-QURAN-ATTRIBUTION-WORDING
+quran,Quran,checksum_integrity_plan,Checksum / integrity plan,ilm-mate-v1-quran-checksum_integrity_plan-evidence-record,submitted,pending,false,NOOR-S27.5-TRIAL-QURAN-CHECKSUM-INTEGRITY-PLAN
+quran,Quran,scholarly_reviewer_signoff,Scholarly reviewer sign-off,ilm-mate-v1-quran-scholarly_reviewer_signoff-evidence-record,submitted,pending,false,NOOR-S27.5-TRIAL-QURAN-SCHOLARLY-REVIEWER-SIGNOFF
+tafseer,Tafseer,license_or_permission,License or written redistribution permission,ilm-mate-v1-tafseer-license_or_permission-evidence-record,submitted,pending,false,NOOR-S27.5-TRIAL-TAFSEER-LICENSE-OR-PERMISSION
+tafseer,Tafseer,attribution_wording,Attribution wording,ilm-mate-v1-tafseer-attribution_wording-evidence-record,submitted,pending,false,NOOR-S27.5-TRIAL-TAFSEER-ATTRIBUTION-WORDING
+tafseer,Tafseer,checksum_integrity_plan,Checksum / integrity plan,ilm-mate-v1-tafseer-checksum_integrity_plan-evidence-record,submitted,pending,false,NOOR-S27.5-TRIAL-TAFSEER-CHECKSUM-INTEGRITY-PLAN
+tafseer,Tafseer,scholarly_reviewer_signoff,Scholarly reviewer sign-off,ilm-mate-v1-tafseer-scholarly_reviewer_signoff-evidence-record,submitted,pending,false,NOOR-S27.5-TRIAL-TAFSEER-SCHOLARLY-REVIEWER-SIGNOFF
+hadith,Hadith,license_or_permission,License or written redistribution permission,ilm-mate-v1-hadith-license_or_permission-evidence-record,submitted,pending,false,NOOR-S27.5-TRIAL-HADITH-LICENSE-OR-PERMISSION
+hadith,Hadith,attribution_wording,Attribution wording,ilm-mate-v1-hadith-attribution_wording-evidence-record,submitted,pending,false,NOOR-S27.5-TRIAL-HADITH-ATTRIBUTION-WORDING
+hadith,Hadith,checksum_integrity_plan,Checksum / integrity plan,ilm-mate-v1-hadith-checksum_integrity_plan-evidence-record,submitted,pending,false,NOOR-S27.5-TRIAL-HADITH-CHECKSUM-INTEGRITY-PLAN
+hadith,Hadith,scholarly_reviewer_signoff,Scholarly reviewer sign-off,ilm-mate-v1-hadith-scholarly_reviewer_signoff-evidence-record,submitted,pending,false,NOOR-S27.5-TRIAL-HADITH-SCHOLARLY-REVIEWER-SIGNOFF

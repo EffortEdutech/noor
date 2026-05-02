@@ -1,0 +1,4 @@
+domain,domainLabel,nonProductionRequired,submittedOrAccepted,submittedNotAccepted,acceptedForStaging,readyForReviewerDecision,stagingReady,productionApproved,canPromoteToProduction
+quran,Quran,5,5,4,1,true,false,false,false
+tafseer,Tafseer,5,5,4,1,true,false,false,false
+hadith,Hadith,5,5,4,1,true,false,false,false
