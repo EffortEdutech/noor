@@ -98,7 +98,10 @@
     "qa:staging-browser:update": "node scripts/update-staging-browser-qa-result.mjs",
     "check:qa-staging-browser": "node scripts/check-staging-browser-qa-checklist.mjs",
     "check:sprint27-11": "pnpm check:cdn-staging-acceptance && pnpm check:cdn-staging-runtime && pnpm check:qa-staging-browser",
-    "check:sprint27-12": "pnpm roadmap:status && pnpm check:release && pnpm check:roadmap && pnpm check:pack && pnpm check:sprint27-11"
+    "check:sprint27-12": "pnpm roadmap:status && pnpm check:release && pnpm check:roadmap && pnpm check:pack && pnpm check:sprint27-11",
+    "production:approval-gate": "node scripts/run-production-cdn-approval-gate.mjs",
+    "check:production-approval-gate": "node scripts/check-production-cdn-approval-gate.mjs",
+    "check:sprint27-13": "pnpm check:sprint27-12 && pnpm check:production-approval-gate"
   },
   "devDependencies": {
     "@types/react": "19.0.10",

@@ -1,0 +1,135 @@
+{
+  "sprint": "27.13",
+  "title": "Production CDN Promotion Approval Gate",
+  "generatedAt": "2026-05-02T16:49:34.361Z",
+  "productionPromotion": "approved_for_next_sprint",
+  "approvalStatus": "approved_for_promotion",
+  "productionPromotionAllowed": true,
+  "promotionExecuted": false,
+  "noorCdnMainTouched": false,
+  "currentRuntimeDefault": "staging_for_qa",
+  "approvedBy": "Darya Malak",
+  "approvedAt": "2026-05-02T16:49:34.362Z",
+  "approvalNote": "Founder approval for Sprint 27.14 production CDN promotion.",
+  "sourceBranch": "noor-cdn/staging-ilm-mate-v1",
+  "targetBranch": "noor-cdn/main",
+  "requiredNextSprint": "Sprint 27.14 - Promote noor-cdn staging to production main",
+  "sourceReports": {
+    "stagingAcceptance": "content-pipeline/review/ilm-mate-v1/staging-cdn-acceptance/staging-cdn-acceptance-report.json",
+    "stagingBrowserQa": "content-pipeline/review/ilm-mate-v1/staging-browser-qa/staging-browser-qa-report.json",
+    "legacyPromotionGate": "content-pipeline/production-cdn/noor-production-cdn-promotion.json"
+  },
+  "noorCdnGit": {
+    "repoRoot": "../noor-cdn",
+    "branch": "staging-ilm-mate-v1",
+    "head": "163c137",
+    "clean": true,
+    "statusShort": ""
+  },
+  "gates": [
+    {
+      "id": "staging-acceptance",
+      "title": "Sprint 27.10 staging CDN acceptance is passed",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "acceptedForStaging": true,
+        "requiredFailures": []
+      }
+    },
+    {
+      "id": "browser-qa",
+      "title": "Sprint 27.11 browser QA is passed",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "status": "accepted_for_staging_browser_qa",
+        "requiredFailed": 0,
+        "requiredPending": 0
+      }
+    },
+    {
+      "id": "quran",
+      "title": "Quran staging CDN has 114 surahs and 6,236 ayat",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "surahIndexCount": 114,
+        "surahFiles": 114,
+        "ayat": 6236
+      }
+    },
+    {
+      "id": "tafseer",
+      "title": "Tafseer staging CDN index and files are available",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "indexExists": true,
+        "indexEntries": 6,
+        "tafseerFiles": 684,
+        "sampledEntryCount": 15145,
+        "sampleFilesChecked": 250
+      }
+    },
+    {
+      "id": "hadith",
+      "title": "Hadith by_book and by_chapter staging views are available and unique",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "collectionsPathExists": true,
+        "collections": 630,
+        "byBook": 627,
+        "byChapter": 607,
+        "duplicateCollectionIds": [],
+        "itemFiles": 630,
+        "sampledItems": 102012,
+        "emptyItemFileSamples": [],
+        "emptyItemFileCountInSample": 0,
+        "duplicateItemIdSamples": []
+      }
+    },
+    {
+      "id": "runtime-staging",
+      "title": "Runtime env points to staging branch and not production main",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "containsStaging": true,
+        "containsMain": false
+      }
+    },
+    {
+      "id": "noor-cdn-staging-clean",
+      "title": "Local noor-cdn repository is clean on staging branch",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "repoRoot": "../noor-cdn",
+        "branch": "staging-ilm-mate-v1",
+        "head": "163c137",
+        "statusShort": "(clean)"
+      }
+    },
+    {
+      "id": "legacy-production-block-still-safe",
+      "title": "Legacy production promotion file remains blocked until Sprint 27.14 executes promotion",
+      "severity": "required",
+      "status": "pass",
+      "details": {
+        "status": "blocked",
+        "productionPromotionAllowed": false
+      }
+    }
+  ],
+  "requiredFailures": [],
+  "manualApprovalCommand": "pnpm production:approval-gate -- --approve --approver \"Darya Malak\" --note \"Founder approval for Sprint 27.14 production CDN promotion.\"",
+  "safetyRules": [
+    "Sprint 27.13 does not copy files into noor-cdn/main.",
+    "Sprint 27.13 does not push noor-cdn/main.",
+    "Sprint 27.13 only records approval for Sprint 27.14 production promotion.",
+    "Sprint 27.14 must run a separate promotion command/check before noor-cdn/main is touched."
+  ],
+  "nextAction": "Approved for Sprint 27.14 production CDN promotion. Do not push noor-cdn/main until Sprint 27.14."
+}

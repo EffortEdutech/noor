@@ -27,10 +27,12 @@ const requiredFiles = [
   'apps/web/app/learn/tafseer/page.tsx',
   'apps/web/components/SearchPanel.tsx',
   'apps/web/components/ProductionCdnPromotionCard.tsx',
+  'apps/web/components/ProductionCdnApprovalGateCard.tsx',
   'apps/web/components/NoorCdnStagingAcceptanceCard.tsx',
   'apps/web/components/NoorStagingBrowserQaCard.tsx',
   'apps/web/lib/app-version.ts',
   'apps/web/lib/production-cdn-promotion.ts',
+  'apps/web/lib/production-cdn-approval-gate.ts',
   'apps/web/lib/release-notes.ts',
   'apps/web/lib/roadmap.ts',
   'apps/web/public/version.json',
@@ -39,6 +41,8 @@ const requiredFiles = [
   'scripts/build-noor-cdn-search-index.mjs',
   'scripts/promote-noor-production-cdn.mjs',
   'scripts/check-noor-production-promotion.mjs',
+  'scripts/run-production-cdn-approval-gate.mjs',
+  'scripts/check-production-cdn-approval-gate.mjs',
   'scripts/check-noor-pack.mjs',
   'scripts/check-noor-release.mjs',
   'scripts/generate-noor-roadmap.mjs',
@@ -52,6 +56,8 @@ const requiredFiles = [
   'content-pipeline/production-cdn/noor-production-cdn-promotion.json',
   'content-pipeline/production-cdn/noor-production-cdn-promotion.md',
   'content-pipeline/production-cdn/.env.noor-production-cdn.example',
+  'content-pipeline/production-cdn/approval-gate/noor-production-cdn-approval-gate.json',
+  'content-pipeline/production-cdn/approval-gate/noor-production-cdn-approval-gate.md',
   'content-pipeline/roadmap/noor-roadmap-status.json',
   'content-pipeline/roadmap/noor-roadmap-status.md',
   'content-pipeline/review/ilm-mate-v1/staging-cdn-acceptance/staging-cdn-acceptance-report.json',
@@ -63,6 +69,7 @@ const requiredFiles = [
   'docs/SPRINT_27_10_STAGING_CDN_ACCEPTANCE.md',
   'docs/SPRINT_27_11_STAGING_BROWSER_QA.md',
   'docs/SPRINT_27_12_RELEASE_METADATA.md',
+  'docs/SPRINT_27_13_PRODUCTION_CDN_APPROVAL_GATE.md',
   '.github/workflows/noor-ci.yml',
   'RELEASE_NOTES.md',
   'CHANGELOG.md'
@@ -92,7 +99,10 @@ for (const script of [
   'cdn:verify',
   'check:sprint27-10',
   'check:sprint27-11',
-  'check:sprint27-12'
+  'check:sprint27-12',
+  'production:approval-gate',
+  'check:production-approval-gate',
+  'check:sprint27-13'
 ]) {
   if (!pkg.scripts?.[script]) fail(`package.json missing script: ${script}`);
 }
@@ -111,6 +121,7 @@ const settings = read('apps/web/app/settings/page.tsx');
 for (const expected of [
   'RoadmapControlCard',
   'ProductionCdnPromotionCard',
+  'ProductionCdnApprovalGateCard',
   'ScholarlyReviewConsoleCard',
   'QuranSourceGateCard',
   'QuranImportCard',
@@ -128,6 +139,15 @@ const promotion = readJson('content-pipeline/production-cdn/noor-production-cdn-
 if (promotion.status !== 'blocked') fail('Production CDN promotion must remain blocked.');
 if (promotion.productionPromotionAllowed !== false || promotion.runtimeDefault !== 'bundled') {
   fail('Production CDN promotion must keep bundled runtime default until review approval.');
+}
+
+
+const productionApprovalGate = readJson('content-pipeline/production-cdn/approval-gate/noor-production-cdn-approval-gate.json');
+if (productionApprovalGate.sprint !== '27.13') fail('Sprint 27.13 approval gate file must declare sprint 27.13.');
+if (productionApprovalGate.approvalStatus !== 'approved_for_promotion') fail('Sprint 27.13 production approval gate must be approved before check:pack passes.');
+if (productionApprovalGate.productionPromotionAllowed !== true) fail('Sprint 27.13 production promotion approval must allow the next promotion sprint.');
+if (productionApprovalGate.promotionExecuted !== false || productionApprovalGate.noorCdnMainTouched !== false) {
+  fail('Sprint 27.13 must approve promotion without touching noor-cdn/main.');
 }
 
 const stagingAcceptance = readJson('content-pipeline/review/ilm-mate-v1/staging-cdn-acceptance/staging-cdn-acceptance-report.json');
@@ -199,4 +219,4 @@ if (!cdnSearchCandidates.some((file) => existsSync(file))) {
   fail('Generated CDN search index missing. Run pnpm content:prepare and pnpm search:build-cdn-index.');
 }
 
-console.log('NOOR Sprint 0-27.12 pack check passed.');
+console.log('NOOR Sprint 0-27.13 pack check passed.');

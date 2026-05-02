@@ -8,6 +8,7 @@ import { ContentPipelineCard } from '../../components/ContentPipelineCard';
 import { HadithImportCard } from '../../components/HadithImportCard';
 import { LocalBackupCard } from '../../components/LocalBackupCard';
 import { ProductionCdnPromotionCard } from '../../components/ProductionCdnPromotionCard';
+import { ProductionCdnApprovalGateCard } from '../../components/ProductionCdnApprovalGateCard';
 import { PwaStatusCard } from '../../components/PwaStatusCard';
 import { QuranImportCard } from '../../components/QuranImportCard';
 import { QuranSourceGateCard } from '../../components/QuranSourceGateCard';
@@ -62,6 +63,7 @@ export default async function SettingsPage() {
 
       <RoadmapControlCard />
       <ProductionCdnPromotionCard />
+      <ProductionCdnApprovalGateCard />
       <ScholarlyReviewConsoleCard />
       <IlmMateReviewConsoleCard />
       <IlmMateReviewActionsCard />
