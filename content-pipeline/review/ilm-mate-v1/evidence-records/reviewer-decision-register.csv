@@ -1,17 +1,23 @@
 "recordId","domain","evidenceKey","reviewerDecision","completionStatus","reviewerName","dateReviewed","acceptedForStaging","productionApproved","decisionNotes"
-"ilm-mate-v1-quran-source_identity-evidence-record","quran","source_identity","pending","submitted","","","false","false","Sprint 27.2 sample submission only. Source identity evidence is submitted for future reviewer assessment, not accepted for staging yet."
+"ilm-mate-v1-quran-source_identity-evidence-record","quran","source_identity","accepted-for-staging","accepted-for-staging","NOOR Sprint 27.3 Review Trial","2026-05-01","true","false","Sprint 27.2 sample submission only. Source identity evidence is submitted for future reviewer assessment, not accepted for staging yet.
+
+Sprint 27.3 reviewer decision trial accepted this source identity evidence for staging review only. Decision reference: NOOR-S27.3-REVIEW-QURAN-SOURCE-IDENTITY. This is not production approval."
 "ilm-mate-v1-quran-license_or_permission-evidence-record","quran","license_or_permission","pending","not-submitted","","","false","false",""
 "ilm-mate-v1-quran-attribution_wording-evidence-record","quran","attribution_wording","pending","not-submitted","","","false","false",""
 "ilm-mate-v1-quran-checksum_integrity_plan-evidence-record","quran","checksum_integrity_plan","pending","not-submitted","","","false","false",""
 "ilm-mate-v1-quran-scholarly_reviewer_signoff-evidence-record","quran","scholarly_reviewer_signoff","pending","not-submitted","","","false","false",""
 "ilm-mate-v1-quran-production_promotion_approval-evidence-record","quran","production_promotion_approval","pending","blocked","","","false","false",""
-"ilm-mate-v1-tafseer-source_identity-evidence-record","tafseer","source_identity","pending","submitted","","","false","false","Sprint 27.2 sample submission only. Source identity evidence is submitted for future reviewer assessment, not accepted for staging yet."
+"ilm-mate-v1-tafseer-source_identity-evidence-record","tafseer","source_identity","accepted-for-staging","accepted-for-staging","NOOR Sprint 27.3 Review Trial","2026-05-01","true","false","Sprint 27.2 sample submission only. Source identity evidence is submitted for future reviewer assessment, not accepted for staging yet.
+
+Sprint 27.3 reviewer decision trial accepted this source identity evidence for staging review only. Decision reference: NOOR-S27.3-REVIEW-TAFSEER-SOURCE-IDENTITY. This is not production approval."
 "ilm-mate-v1-tafseer-license_or_permission-evidence-record","tafseer","license_or_permission","pending","not-submitted","","","false","false",""
 "ilm-mate-v1-tafseer-attribution_wording-evidence-record","tafseer","attribution_wording","pending","not-submitted","","","false","false",""
 "ilm-mate-v1-tafseer-checksum_integrity_plan-evidence-record","tafseer","checksum_integrity_plan","pending","not-submitted","","","false","false",""
 "ilm-mate-v1-tafseer-scholarly_reviewer_signoff-evidence-record","tafseer","scholarly_reviewer_signoff","pending","not-submitted","","","false","false",""
 "ilm-mate-v1-tafseer-production_promotion_approval-evidence-record","tafseer","production_promotion_approval","pending","blocked","","","false","false",""
-"ilm-mate-v1-hadith-source_identity-evidence-record","hadith","source_identity","pending","submitted","","","false","false","Sprint 27.2 sample submission only. Source identity evidence is submitted for future reviewer assessment, not accepted for staging yet."
+"ilm-mate-v1-hadith-source_identity-evidence-record","hadith","source_identity","accepted-for-staging","accepted-for-staging","NOOR Sprint 27.3 Review Trial","2026-05-01","true","false","Sprint 27.2 sample submission only. Source identity evidence is submitted for future reviewer assessment, not accepted for staging yet.
+
+Sprint 27.3 reviewer decision trial accepted this source identity evidence for staging review only. Decision reference: NOOR-S27.3-REVIEW-HADITH-SOURCE-IDENTITY. This is not production approval."
 "ilm-mate-v1-hadith-license_or_permission-evidence-record","hadith","license_or_permission","pending","not-submitted","","","false","false",""
 "ilm-mate-v1-hadith-attribution_wording-evidence-record","hadith","attribution_wording","pending","not-submitted","","","false","false",""
 "ilm-mate-v1-hadith-checksum_integrity_plan-evidence-record","hadith","checksum_integrity_plan","pending","not-submitted","","","false","false",""

@@ -1,0 +1,4 @@
+"recordId","domain","evidenceKey","beforeStatus","afterStatus","beforeDecision","afterDecision","reviewerName","dateReviewed","acceptedForStaging","productionApproved","decisionReference"
+"ilm-mate-v1-quran-source_identity-evidence-record","quran","source_identity","submitted","accepted-for-staging","pending","accepted-for-staging","NOOR Sprint 27.3 Review Trial","2026-05-01","true","false","NOOR-S27.3-REVIEW-QURAN-SOURCE-IDENTITY"
+"ilm-mate-v1-tafseer-source_identity-evidence-record","tafseer","source_identity","submitted","accepted-for-staging","pending","accepted-for-staging","NOOR Sprint 27.3 Review Trial","2026-05-01","true","false","NOOR-S27.3-REVIEW-TAFSEER-SOURCE-IDENTITY"
+"ilm-mate-v1-hadith-source_identity-evidence-record","hadith","source_identity","submitted","accepted-for-staging","pending","accepted-for-staging","NOOR Sprint 27.3 Review Trial","2026-05-01","true","false","NOOR-S27.3-REVIEW-HADITH-SOURCE-IDENTITY"

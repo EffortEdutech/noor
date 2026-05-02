@@ -2,7 +2,7 @@
   "id": "noor-ilm-mate-v1-evidence-completion-workflow",
   "version": "0.27.0",
   "label": "ilm-mate migrated content evidence completion workflow",
-  "generatedAt": "2026-05-01T23:45:30.796Z",
+  "generatedAt": "2026-05-01T23:59:53.785Z",
   "sourceEvidenceIntakePack": "content-pipeline/review/ilm-mate-v1/evidence-intake/evidence-intake-pack.json",
   "outputRoot": "content-pipeline/review/ilm-mate-v1/evidence-records",
   "policy": {
@@ -65,7 +65,7 @@
   },
   "summary": {
     "totalRecords": 18,
-    "acceptedForStaging": 0,
+    "acceptedForStaging": 3,
     "blocked": 3,
     "missingOrDraft": 12,
     "domainsReadyForStaging": 0,
@@ -75,13 +75,13 @@
         "domainLabel": "Quran",
         "requiredEvidenceRecords": 6,
         "nonProductionRequired": 5,
-        "nonProductionAccepted": 0,
-        "acceptedForStaging": 0,
-        "submittedOrUnderReview": 1,
+        "nonProductionAccepted": 1,
+        "acceptedForStaging": 1,
+        "submittedOrUnderReview": 0,
         "needsMoreInformation": 0,
         "rejected": 0,
         "blocked": 1,
-        "completionPercent": 0,
+        "completionPercent": 20,
         "stagingReady": false,
         "productionApproved": false,
         "canPromoteToProduction": false
@@ -91,13 +91,13 @@
         "domainLabel": "Tafseer",
         "requiredEvidenceRecords": 6,
         "nonProductionRequired": 5,
-        "nonProductionAccepted": 0,
-        "acceptedForStaging": 0,
-        "submittedOrUnderReview": 1,
+        "nonProductionAccepted": 1,
+        "acceptedForStaging": 1,
+        "submittedOrUnderReview": 0,
         "needsMoreInformation": 0,
         "rejected": 0,
         "blocked": 1,
-        "completionPercent": 0,
+        "completionPercent": 20,
         "stagingReady": false,
         "productionApproved": false,
         "canPromoteToProduction": false
@@ -107,13 +107,13 @@
         "domainLabel": "Hadith",
         "requiredEvidenceRecords": 6,
         "nonProductionRequired": 5,
-        "nonProductionAccepted": 0,
-        "acceptedForStaging": 0,
-        "submittedOrUnderReview": 1,
+        "nonProductionAccepted": 1,
+        "acceptedForStaging": 1,
+        "submittedOrUnderReview": 0,
         "needsMoreInformation": 0,
         "rejected": 0,
         "blocked": 1,
-        "completionPercent": 0,
+        "completionPercent": 20,
         "stagingReady": false,
         "productionApproved": false,
         "canPromoteToProduction": false
@@ -130,5 +130,5 @@
     "Re-run pnpm check:ilm-evidence-records after editing records."
   ],
   "lastUpdatedBy": "Sprint 27.1 evidence update helper",
-  "lastUpdatedAt": "2026-05-01T23:45:30.796Z"
+  "lastUpdatedAt": "2026-05-01T23:59:53.785Z"
 }

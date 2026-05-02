@@ -3,13 +3,13 @@
     "recordId": "ilm-mate-v1-quran-source_identity-evidence-record",
     "domain": "quran",
     "evidenceKey": "source_identity",
-    "reviewerDecision": "pending",
-    "completionStatus": "submitted",
-    "reviewerName": "",
-    "dateReviewed": "",
-    "acceptedForStaging": false,
+    "reviewerDecision": "accepted-for-staging",
+    "completionStatus": "accepted-for-staging",
+    "reviewerName": "NOOR Sprint 27.3 Review Trial",
+    "dateReviewed": "2026-05-01",
+    "acceptedForStaging": true,
     "productionApproved": false,
-    "decisionNotes": "Sprint 27.2 sample submission only. Source identity evidence is submitted for future reviewer assessment, not accepted for staging yet."
+    "decisionNotes": "Sprint 27.2 sample submission only. Source identity evidence is submitted for future reviewer assessment, not accepted for staging yet.\n\nSprint 27.3 reviewer decision trial accepted this source identity evidence for staging review only. Decision reference: NOOR-S27.3-REVIEW-QURAN-SOURCE-IDENTITY. This is not production approval."
   },
   {
     "recordId": "ilm-mate-v1-quran-license_or_permission-evidence-record",
@@ -75,13 +75,13 @@
     "recordId": "ilm-mate-v1-tafseer-source_identity-evidence-record",
     "domain": "tafseer",
     "evidenceKey": "source_identity",
-    "reviewerDecision": "pending",
-    "completionStatus": "submitted",
-    "reviewerName": "",
-    "dateReviewed": "",
-    "acceptedForStaging": false,
+    "reviewerDecision": "accepted-for-staging",
+    "completionStatus": "accepted-for-staging",
+    "reviewerName": "NOOR Sprint 27.3 Review Trial",
+    "dateReviewed": "2026-05-01",
+    "acceptedForStaging": true,
     "productionApproved": false,
-    "decisionNotes": "Sprint 27.2 sample submission only. Source identity evidence is submitted for future reviewer assessment, not accepted for staging yet."
+    "decisionNotes": "Sprint 27.2 sample submission only. Source identity evidence is submitted for future reviewer assessment, not accepted for staging yet.\n\nSprint 27.3 reviewer decision trial accepted this source identity evidence for staging review only. Decision reference: NOOR-S27.3-REVIEW-TAFSEER-SOURCE-IDENTITY. This is not production approval."
   },
   {
     "recordId": "ilm-mate-v1-tafseer-license_or_permission-evidence-record",
@@ -147,13 +147,13 @@
     "recordId": "ilm-mate-v1-hadith-source_identity-evidence-record",
     "domain": "hadith",
     "evidenceKey": "source_identity",
-    "reviewerDecision": "pending",
-    "completionStatus": "submitted",
-    "reviewerName": "",
-    "dateReviewed": "",
-    "acceptedForStaging": false,
+    "reviewerDecision": "accepted-for-staging",
+    "completionStatus": "accepted-for-staging",
+    "reviewerName": "NOOR Sprint 27.3 Review Trial",
+    "dateReviewed": "2026-05-01",
+    "acceptedForStaging": true,
     "productionApproved": false,
-    "decisionNotes": "Sprint 27.2 sample submission only. Source identity evidence is submitted for future reviewer assessment, not accepted for staging yet."
+    "decisionNotes": "Sprint 27.2 sample submission only. Source identity evidence is submitted for future reviewer assessment, not accepted for staging yet.\n\nSprint 27.3 reviewer decision trial accepted this source identity evidence for staging review only. Decision reference: NOOR-S27.3-REVIEW-HADITH-SOURCE-IDENTITY. This is not production approval."
   },
   {
     "recordId": "ilm-mate-v1-hadith-license_or_permission-evidence-record",
