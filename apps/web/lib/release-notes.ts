@@ -8,6 +8,21 @@ export type NoorReleaseNote = {
 
 export const NOOR_RELEASE_NOTES: NoorReleaseNote[] = [
   {
+    version: '0.27.12',
+    date: '2026-05-02',
+    title: 'Sprint 27.12 — Release metadata and staging CDN QA',
+    summary:
+      'Updates NOOR release metadata after the Sprint 27 staging CDN acceptance sequence while keeping production CDN promotion blocked.',
+    highlights: [
+      'Settings reports NOOR v0.27.12 and Sprint 27.12 release metadata',
+      'Release notes and changelog reflect the Sprint 27.9–27.11 staging CDN work',
+      'Roadmap metadata is updated from Sprint 26 to Sprint 27.12',
+      'Sprint 27.10 staging CDN acceptance and Sprint 27.11 browser QA remain required checks',
+      'noor-cdn/staging-ilm-mate-v1 remains the testing CDN branch',
+      'noor-cdn/main and production CDN promotion remain blocked'
+    ]
+  },
+  {
     version: '0.26.0',
     date: '2026-05-01',
     title: 'Sprint 26 — CDN search index',

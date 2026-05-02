@@ -1,16 +1,16 @@
 # NOOR Master Roadmap
 
-Version: 0.26.0
+Version: 0.27.12
 
 ## Current phase
 
-Phase 3 — Production content pipeline and source governance.
+Phase 3 — Staging CDN validation and release governance.
 
 ## Current sprint
 
-### Sprint 26 — CDN search index
+### Sprint 27.12 — Release metadata and staging CDN QA
 
-Generate and consume a lightweight search index from published CDN Quran, tafseer and hadith content while preserving bundled fallback safety.
+Update NOOR version metadata, changelog, release notes and roadmap after staging CDN acceptance and browser QA, while keeping production CDN promotion blocked.
 
 ## Completed foundation
 
@@ -22,26 +22,30 @@ Generate and consume a lightweight search index from published CDN Quran, tafsee
 - Sprint 23 — Hadith importer adapter v1
 - Sprint 24 — Scholarly review console
 - Sprint 25 — Production CDN v1 promotion
+- Sprint 26 — CDN search index
+- Sprint 27.9.2 — Hadith view model navigation
+- Sprint 27.9.3 — Tafseer/Hadith CDN reader stabilization
+- Sprint 27.10 — Staging CDN acceptance checklist
+- Sprint 27.11 — Staging browser QA
 
 ## Next sprints
 
-- Sprint 27 — Reader experience from approved content
 - Sprint 28 — Quality assurance and regression hardening
 - Sprint 29 — Public beta release candidate
+- Sprint 30 — Production content promotion review
 
-## Sprint 26 commands
+## Sprint 27.12 commands
 
 ```powershell
-pnpm content:prepare
-pnpm search:build-cdn-index
-pnpm cdn:pack
-pnpm cdn:verify
 pnpm roadmap:status
 pnpm check:release
 pnpm check:roadmap
 pnpm check:pack
+pnpm check:sprint27-10
+pnpm check:sprint27-11
+pnpm check:sprint27-12
 ```
 
 ## Production rule
 
-NOOR must not promote production content until Quran, tafseer and hadith source review gates are approved with license, attribution, checksum/integrity evidence and scholarly reviewer sign-off. External CDN runtime testing is allowed with demo/partial CDN content and bundled fallback enabled.
+NOOR must not promote production content until Quran, tafseer and hadith source review gates are approved with license, attribution, checksum/integrity evidence and scholarly reviewer sign-off. External staging CDN runtime testing is allowed through `noor-cdn/staging-ilm-mate-v1` with production promotion blocked.

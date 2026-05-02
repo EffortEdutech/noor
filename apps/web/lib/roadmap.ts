@@ -8,17 +8,22 @@ export type NoorRoadmapSprint = {
 };
 
 export const NOOR_MASTER_ROADMAP = {
-  version: '0.26.0',
+  version: '0.27.12',
   label: 'NOOR Master Blueprint & Roadmap',
-  currentPhase: 'Phase 3 — Production content pipeline and source governance',
+  currentPhase: 'Phase 3 — Staging CDN validation and release governance',
   generatedRoot: 'content-pipeline/roadmap',
   currentSprint: {
-    sprint: 'Sprint 26',
-    title: 'CDN search index',
+    sprint: 'Sprint 27.12',
+    title: 'Release metadata and staging CDN QA',
     status: 'current',
-    objective: 'Generate and consume a lightweight search index from published CDN Quran, tafseer and hadith content while preserving bundled fallback safety.'
+    objective: 'Update NOOR version metadata, changelog, release notes and roadmap after staging CDN acceptance and browser QA, while keeping production CDN promotion blocked.'
   } satisfies NoorRoadmapSprint,
   completedSprints: [
+    { sprint: 'Sprint 27.11', title: 'Staging browser QA', status: 'complete', objective: 'Verify Quran, Tafseer, Hadith and Explore browser behavior against staging CDN.' },
+    { sprint: 'Sprint 27.10', title: 'Staging CDN acceptance checklist', status: 'complete', objective: 'Accept staging CDN for reviewer/runtime testing while production remains blocked.' },
+    { sprint: 'Sprint 27.9.3', title: 'Tafseer/Hadith CDN reader stabilization', status: 'complete', objective: 'Add Tafseer CDN index support and Hadith view model verification.' },
+    { sprint: 'Sprint 27.9.2', title: 'Hadith view model navigation', status: 'complete', objective: 'Separate Hadith by-book and by-chapter behavior to avoid duplicate display keys.' },
+    { sprint: 'Sprint 26', title: 'CDN search index', status: 'complete', objective: 'Generate and consume a lightweight search index from published CDN Quran, tafseer and hadith content while preserving bundled fallback safety.' },
     { sprint: 'Sprint 25', title: 'Production CDN v1 promotion', status: 'complete', objective: 'Generate a safe production CDN v1 promotion candidate and environment preview while keeping runtime defaults bundled until scholarly review and source gates are approved.' },
     { sprint: 'Sprint 24', title: 'Scholarly review console', status: 'complete', objective: 'Add reviewer checklist, sign-off metadata and source approval evidence UI.' },
     { sprint: 'Sprint 23', title: 'Hadith importer adapter v1', status: 'complete', objective: 'Normalize hadith fixture output while production remains blocked.' },
@@ -29,25 +34,24 @@ export const NOOR_MASTER_ROADMAP = {
     { sprint: 'Sprint 18', title: 'Roadmap control center', status: 'complete', objective: 'Make roadmap status visible and testable.' }
   ] satisfies NoorRoadmapSprint[],
   futureSprints: [
-    { sprint: 'Sprint 27', title: 'Reader experience from approved content', status: 'next', objective: 'Connect approved content into richer reading, tafseer and hadith study journeys.' },
-    { sprint: 'Sprint 28', title: 'Quality assurance and regression hardening', status: 'future', objective: 'Add content QA reports, route regression checks and release hardening.' },
-    { sprint: 'Sprint 29', title: 'Public beta release candidate', status: 'future', objective: 'Prepare NOOR for controlled public beta.' }
+    { sprint: 'Sprint 28', title: 'Quality assurance and regression hardening', status: 'next', objective: 'Add deeper content QA reports, route regression checks, deduplication audits and release hardening.' },
+    { sprint: 'Sprint 29', title: 'Public beta release candidate', status: 'future', objective: 'Prepare NOOR for controlled public beta.' },
+    { sprint: 'Sprint 30', title: 'Production content promotion review', status: 'future', objective: 'Prepare production promotion only after reviewer/source gates are formally approved.' }
   ] satisfies NoorRoadmapSprint[],
   docs: [
     'docs/NOOR_MASTER_ROADMAP.md',
     'docs/NOOR_PRODUCTION_CDN_PROMOTION.md',
-    'docs/SPRINT_25_SCOPE.md',
-    'docs/LOCAL_TESTING_SPRINT_25.md'
+    'docs/SPRINT_27_10_STAGING_CDN_ACCEPTANCE.md',
+    'docs/SPRINT_27_11_STAGING_BROWSER_QA.md',
+    'docs/SPRINT_27_12_RELEASE_METADATA.md'
   ],
   commands: [
     'pnpm roadmap:status',
-    'pnpm review:console',
-    'pnpm check:review-console',
-    'pnpm production:promote',
-    'pnpm check:production-promotion',
-    'pnpm search:build-cdn-index',
-    'pnpm check:roadmap',
     'pnpm check:release',
-    'pnpm check:pack'
+    'pnpm check:roadmap',
+    'pnpm check:pack',
+    'pnpm check:sprint27-10',
+    'pnpm check:sprint27-11',
+    'pnpm check:sprint27-12'
   ]
 };

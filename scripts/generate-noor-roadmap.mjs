@@ -2,22 +2,44 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 
 const roadmap = {
-  version: '0.26.0',
+  version: '0.27.12',
   generatedAt: new Date().toISOString(),
-  currentPhase: 'Phase 3 — Production content pipeline and source governance',
+  currentPhase: 'Phase 3 — Staging CDN validation and release governance',
   currentSprint: {
-    sprint: 'Sprint 26',
-    title: 'CDN search index',
+    sprint: 'Sprint 27.12',
+    title: 'Release metadata and staging CDN QA',
     status: 'current',
-    objective: 'Generate and consume a lightweight search index from published CDN Quran, tafseer and hadith content while preserving bundled fallback safety.'
+    objective: 'Update NOOR version metadata, changelog, release notes and roadmap after staging CDN acceptance and browser QA, while keeping production CDN promotion blocked.'
   },
-  completedSprints: ['Sprint 18','Sprint 19','Sprint 20','Sprint 21','Sprint 22','Sprint 23','Sprint 24','Sprint 25'],
-  futureSprints: [
-    { sprint: 'Sprint 27', title: 'Reader experience from approved content', status: 'next' },
-    { sprint: 'Sprint 28', title: 'Quality assurance and regression hardening', status: 'future' },
-    { sprint: 'Sprint 29', title: 'Public beta release candidate', status: 'future' }
+  completedSprints: [
+    'Sprint 18',
+    'Sprint 19',
+    'Sprint 20',
+    'Sprint 21',
+    'Sprint 22',
+    'Sprint 23',
+    'Sprint 24',
+    'Sprint 25',
+    'Sprint 26',
+    'Sprint 27.9.2',
+    'Sprint 27.9.3',
+    'Sprint 27.10',
+    'Sprint 27.11'
   ],
-  commands: ['pnpm roadmap:status','pnpm review:console','pnpm check:review-console','pnpm production:promote','pnpm check:production-promotion','pnpm search:build-cdn-index','pnpm check:release','pnpm check:roadmap','pnpm check:pack']
+  futureSprints: [
+    { sprint: 'Sprint 28', title: 'Quality assurance and regression hardening', status: 'next' },
+    { sprint: 'Sprint 29', title: 'Public beta release candidate', status: 'future' },
+    { sprint: 'Sprint 30', title: 'Production content promotion review', status: 'future' }
+  ],
+  commands: [
+    'pnpm roadmap:status',
+    'pnpm check:release',
+    'pnpm check:roadmap',
+    'pnpm check:pack',
+    'pnpm check:sprint27-10',
+    'pnpm check:sprint27-11',
+    'pnpm check:sprint27-12'
+  ]
 };
 
 const outputRoot = 'content-pipeline/roadmap';
@@ -51,4 +73,4 @@ ${roadmap.futureSprints.map((sprint) => `- ${sprint.sprint} — ${sprint.title} 
 ${roadmap.commands.map((command) => `- \`${command}\``).join('\n')}
 `;
 writeFileSync(path.join(outputRoot, 'noor-roadmap-status.md'), markdown, 'utf8');
-console.log('NOOR Sprint 26 roadmap status generated.');
+console.log('NOOR Sprint 27.12 roadmap status generated.');

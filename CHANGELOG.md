@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.27.12 — Sprint 27.12 Release metadata and staging CDN QA
+
+- Updated NOOR app version metadata from Sprint 26 to Sprint 27.12.
+- Added release notes for the Sprint 27 staging CDN acceptance sequence.
+- Confirmed staging CDN acceptance, staging runtime checks and browser QA are part of the release gate.
+- Preserved production safety: `noor-cdn/main` remains untouched and production CDN promotion remains blocked.
+- Updated roadmap metadata so Sprint 27.12 is current, Sprint 27.11 is complete and Sprint 28 is next.
+
 ## v0.26.0 — Sprint 26 CDN search index
 
 - Added CDN search index support for Quran, Tafseer and Hadith content.
