@@ -40,12 +40,14 @@ export const NOOR_DATA_SOURCE_OPTIONS: NoorDataSourceOption[] = [
   {
     id: 'cdn',
     label: 'External CDN',
-    badge: 'Future production',
-    description: 'Loads data from configured external CDN bases, with fallback to bundled demo content.'
+    badge: 'Production default',
+    description: 'Loads approved production content from the configured CDN bases, with fallback to bundled demo content.'
   }
 ];
 
 const DEFAULT_NOOR_CDN_BASE = 'https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn';
+const PRODUCTION_NOOR_DATA_MODE: NoorDataMode = 'cdn';
+const DEVELOPMENT_NOOR_DATA_MODE: NoorDataMode = 'mock';
 
 function env(name: string, fallback: string): string {
   return typeof process !== 'undefined' && process.env?.[name]
@@ -55,6 +57,14 @@ function env(name: string, fallback: string): string {
 
 function trimBase(value: string): string {
   return value.replace(/\/+$/, '');
+}
+
+function getDefaultNoorDataMode(): NoorDataMode {
+  if (typeof process !== 'undefined' && process.env?.NODE_ENV === 'production') {
+    return PRODUCTION_NOOR_DATA_MODE;
+  }
+
+  return DEVELOPMENT_NOOR_DATA_MODE;
 }
 
 export function normalizeNoorDataMode(value?: string | null): NoorDataMode {
@@ -71,7 +81,7 @@ export function joinNoorCdnPath(base: string, path: string): string {
 
 export function getNoorDataConfig(sourceOverride?: NoorDataMode | string | null): NoorDataConfig {
   const mode = normalizeNoorDataMode(
-    sourceOverride ?? env('NEXT_PUBLIC_NOOR_DATA_MODE', 'mock')
+    sourceOverride ?? env('NEXT_PUBLIC_NOOR_DATA_MODE', getDefaultNoorDataMode())
   );
 
   if (mode === 'local-cdn') {

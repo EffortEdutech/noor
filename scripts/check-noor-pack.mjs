@@ -82,7 +82,17 @@ const requiredFiles = [
   'docs/SPRINT_27_14_PRODUCTION_CDN_PROMOTION.md',
   '.github/workflows/noor-ci.yml',
   'RELEASE_NOTES.md',
-  'CHANGELOG.md'
+  'CHANGELOG.md',
+  'docs/SPRINT_27_15_PRODUCTION_CDN_RUNTIME_QA.md',
+  'docs/SPRINT_27_16_PRODUCTION_MODE_DEFAULT.md',
+  'scripts/generate-noor-production-env-finalization.mjs',
+  'scripts/check-noor-production-env-finalization.mjs',
+  'scripts/apply-sprint27-16-package-scripts.mjs',
+  'content-pipeline/production-cdn/environment-finalization/noor-production-env-finalization.json',
+  'content-pipeline/production-cdn/environment-finalization/noor-production-env-finalization.md',
+  'content-pipeline/production-cdn/environment-finalization/.env.production.noor-cdn-main.example',
+  'content-pipeline/production-cdn/environment-finalization/.env.local.production-noor-cdn-main.example',
+  'content-pipeline/production-cdn/environment-finalization/vercel-production-env.md'
 ];
 
 const missing = requiredFiles.filter((file) => !existsSync(file));
@@ -117,7 +127,10 @@ for (const script of [
   'check:production-cdn-promotion-plan',
   'production:cdn-record-promotion',
   'check:production-cdn-promoted',
-  'check:sprint27-14'
+  'check:sprint27-14',
+  'production:env-finalization',
+  'check:production-env-finalization',
+  'check:sprint27-16'
 ]) {
   if (!pkg.scripts?.[script]) fail(`package.json missing script: ${script}`);
 }
@@ -246,4 +259,25 @@ if (!cdnSearchCandidates.some((file) => existsSync(file))) {
   fail('Generated CDN search index missing. Run pnpm content:prepare and pnpm search:build-cdn-index.');
 }
 
-console.log('NOOR Sprint 0-27.14 pack check passed.');
+
+const productionEnvFinalization = readJson('content-pipeline/production-cdn/environment-finalization/noor-production-env-finalization.json');
+if (productionEnvFinalization.sprint !== '27.16') fail('Sprint 27.16 production environment finalization file must declare sprint 27.16.');
+if (productionEnvFinalization.status !== 'production_runtime_default_finalized') fail('Sprint 27.16 production environment finalization must be finalized.');
+if (productionEnvFinalization.productionRuntimeDefault !== 'cdn') fail('Sprint 27.16 production runtime default must be cdn.');
+if (productionEnvFinalization.developmentRuntimeDefault !== 'mock') fail('Sprint 27.16 development runtime default must remain mock.');
+if (productionEnvFinalization.requiredFailures?.length > 0) fail('Sprint 27.16 production environment finalization must have no required failures.');
+
+const noorDataConfigSource = read('packages/noor-data/src/config.ts');
+for (const expected of [
+  "const PRODUCTION_NOOR_DATA_MODE: NoorDataMode = 'cdn'",
+  "const DEVELOPMENT_NOOR_DATA_MODE: NoorDataMode = 'mock'",
+  'function getDefaultNoorDataMode()',
+  'process.env?.NODE_ENV',
+  "sourceOverride ?? env('NEXT_PUBLIC_NOOR_DATA_MODE', getDefaultNoorDataMode())",
+  'https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn'
+]) {
+  if (!noorDataConfigSource.includes(expected)) fail(`Sprint 27.16 production mode default missing: ${expected}`);
+}
+
+
+console.log('NOOR Sprint 0-27.16 pack check passed.');

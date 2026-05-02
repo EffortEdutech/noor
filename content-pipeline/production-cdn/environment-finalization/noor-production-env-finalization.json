@@ -1,0 +1,64 @@
+{
+  "sprint": "27.16",
+  "title": "Production Mode Default / Environment Finalization",
+  "generatedAt": "2026-05-02T23:17:14.136Z",
+  "status": "production_runtime_default_finalized",
+  "productionRuntimeDefault": "cdn",
+  "developmentRuntimeDefault": "mock",
+  "canonicalProductionCdnBase": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn",
+  "rawProductionCdnBase": "https://raw.githubusercontent.com/EffortEdutech/noor-cdn/main/noor-cdn",
+  "noorCdnBranch": "main",
+  "productionFallbackEnabled": true,
+  "localDeveloperOverrideStillAllowed": true,
+  "requiredFailures": [],
+  "checks": [
+    {
+      "id": "promotion-executed",
+      "required": true,
+      "passed": true,
+      "detail": "noor-cdn/main has been promoted from the approved staging branch."
+    },
+    {
+      "id": "smoke-test-passed",
+      "required": true,
+      "passed": true,
+      "detail": "Production CDN public endpoints have passed the Sprint 27.15 smoke test."
+    },
+    {
+      "id": "browser-qa-passed",
+      "required": true,
+      "passed": true,
+      "detail": "Production browser QA has been accepted for runtime usage."
+    },
+    {
+      "id": "production-default-cdn",
+      "required": true,
+      "passed": true,
+      "detail": "Production builds default to external CDN while development remains mock fallback."
+    },
+    {
+      "id": "main-cdn-base",
+      "required": true,
+      "passed": true,
+      "detail": "Default production CDN base points to noor-cdn@main."
+    },
+    {
+      "id": "fallback-safety",
+      "required": true,
+      "passed": true,
+      "detail": "Bundled fallback remains enabled for runtime safety."
+    }
+  ],
+  "environmentVariables": {
+    "NEXT_PUBLIC_NOOR_DATA_MODE": "cdn",
+    "NEXT_PUBLIC_NOOR_MANIFEST_CDN_BASE": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn",
+    "NEXT_PUBLIC_NOOR_QURAN_CDN_BASE": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn",
+    "NEXT_PUBLIC_NOOR_TAFSEER_CDN_BASE": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn",
+    "NEXT_PUBLIC_NOOR_HADITH_CDN_BASE": "https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn"
+  },
+  "notes": [
+    "Sprint 27.16 changes the production build default from mock fallback to external CDN.",
+    "Local development remains mock by default unless the developer explicitly switches source in Settings or sets env variables.",
+    "Production CDN content remains noor-cdn/main, already promoted and verified in Sprints 27.14 and 27.15."
+  ]
+}
