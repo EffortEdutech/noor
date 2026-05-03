@@ -117,7 +117,9 @@
     "check:production-env-finalization": "node scripts/check-noor-production-env-finalization.mjs",
     "check:sprint27-16": "pnpm check:sprint27-15 && pnpm production:env-finalization && pnpm check:production-env-finalization && pnpm check:pack",
     "check:real-reading-ux": "node scripts/check-sprint28-1-real-reading-ux.mjs",
-    "check:sprint28-1": "pnpm check:sprint27-16 && pnpm check:real-reading-ux && pnpm typecheck && pnpm build"
+    "check:sprint28-1": "pnpm check:sprint27-16 && pnpm check:real-reading-ux && pnpm typecheck && pnpm build",
+    "check:quran-reader-ux-v2": "node scripts/check-sprint28-2-quran-reader-ux-v2.mjs",
+    "check:sprint28-2": "pnpm check:sprint28-1 && pnpm check:quran-reader-ux-v2 && pnpm typecheck && pnpm build"
   },
   "devDependencies": {
     "@types/react": "19.0.10",
