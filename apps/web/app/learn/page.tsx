@@ -1,29 +1,41 @@
 import { NoorCard, PageHeader } from '@noor/ui';
 
-const modules = [
+const primaryPaths = [
   {
-    title: 'Quran',
-    badge: 'Read + Study',
+    title: 'Read Quran',
+    badge: 'Start here',
     href: '/learn/quran',
-    body: 'Surah index, Arabic text, transliteration, English and Malay translations.'
+    body: 'Open the Surah index, choose a Surah, and read with translation, tafseer support and local progress.'
   },
   {
-    title: 'Tafseer',
-    badge: 'Understand',
+    title: 'Understand with Tafseer',
+    badge: 'Meaning',
     href: '/learn/tafseer',
-    body: 'Resolver-ready tafseer entries, starting with demo explanations linked to ayat.'
+    body: 'Use Tafseer to understand the meaning behind the ayat. The best experience is connected back to the Quran reader.'
   },
   {
-    title: 'Hadith',
+    title: 'Learn from Hadith',
     badge: 'Sunnah',
     href: '/learn/hadith',
-    body: 'Collection and item resolver with sample Hadith for Sprint 2 testing.'
+    body: 'Browse Hadith by book or chapter and save reminders that help you practise what you learn.'
+  }
+];
+
+const guideCards = [
+  {
+    title: 'I want to read today',
+    href: '/learn/quran/1',
+    body: 'Begin with Al-Fatihah or continue from your saved reading point on the Today page.'
   },
   {
-    title: 'Journeys',
-    badge: 'Guided Path',
+    title: 'I need guidance by topic',
+    href: '/explore',
+    body: 'Search mercy, patience, protection, intention, prayer, rizq or other topics across the content library.'
+  },
+  {
+    title: 'I want a structured path',
     href: '/journeys',
-    body: 'Small structured learning paths that combine Quran, Hadith, reflection and action.'
+    body: 'Follow small guided steps that combine Quran, Hadith, reflection and action.'
   }
 ];
 
@@ -32,16 +44,54 @@ export default function LearnPage() {
     <main className="noor-page">
       <PageHeader
         kicker="Learn"
-        title="Read with understanding."
-        subtitle="NOOR separates user experience from content delivery so Quran, Tafseer, Hadith and guided journeys can grow without making the app heavy."
+        title="Choose your path."
+        subtitle="NOOR is centred on reading, understanding, remembering and returning. Start with Quran, then let Tafseer and Hadith support the journey."
       />
+
+      <section className="noor-hero-grid">
+        <NoorCard variant="gold" className="noor-link-card">
+          <span className="noor-badge emerald">Recommended</span>
+          <h2>Begin with Quran reading</h2>
+          <p className="noor-subtitle">
+            The Quran reader is the heart of NOOR. Read comfortably, study meaning, mark your current ayah and save reminders.
+          </p>
+          <a className="noor-button" href="/learn/quran">Open Quran reader</a>
+        </NoorCard>
+
+        <NoorCard variant="soft">
+          <span className="noor-kicker">How NOOR should feel</span>
+          <h2>Not a database. A companion.</h2>
+          <p className="noor-subtitle">
+            Each section should answer a real user need: what to read, what it means, how to practise it, and how to return tomorrow.
+          </p>
+        </NoorCard>
+      </section>
+
       <section className="noor-grid">
-        {modules.map((module) => (
+        {primaryPaths.map((module) => (
           <a href={module.href} key={module.title}>
             <NoorCard className="noor-link-card">
               <span className="noor-badge gold">{module.badge}</span>
               <h2>{module.title}</h2>
               <p className="noor-subtitle">{module.body}</p>
+            </NoorCard>
+          </a>
+        ))}
+      </section>
+
+      <section className="noor-section-heading">
+        <div>
+          <span className="noor-kicker">Helpful starting points</span>
+          <h2>What do you want to do now?</h2>
+        </div>
+      </section>
+
+      <section className="noor-grid">
+        {guideCards.map((card) => (
+          <a href={card.href} key={card.title}>
+            <NoorCard variant="soft" className="noor-link-card">
+              <h3>{card.title}</h3>
+              <p className="noor-subtitle">{card.body}</p>
             </NoorCard>
           </a>
         ))}

@@ -13,7 +13,7 @@
   --noor-shadow: 0 22px 70px rgba(0, 0, 0, 0.28);
 }
 * { box-sizing: border-box; }
-html { min-height: 100%; background: var(--noor-bg); }
+html { min-height: 100%; background: var(--noor-bg); scroll-behavior: smooth; }
 body {
   min-height: 100%; margin: 0;
   background:
@@ -67,6 +67,7 @@ code { color: #ffe8a6; }
   color: var(--noor-ink); padding: 10px 15px; cursor: pointer; font-weight: 800;
 }
 .noor-button.secondary { border-color: var(--noor-line); background: rgba(255,255,255,0.06); }
+.noor-button.primary { border-color: rgba(216, 183, 90, 0.42); background: linear-gradient(135deg, rgba(216, 183, 90, 0.26), rgba(47, 191, 155, 0.16)); }
 .noor-link-card { display: grid; gap: 10px; min-height: 148px; transition: transform 160ms ease, border-color 160ms ease; }
 .noor-link-card:hover { transform: translateY(-2px); border-color: rgba(216, 183, 90, 0.36); }
 .noor-arabic { direction: rtl; font-family: "Amiri", "Scheherazade New", "Noto Naskh Arabic", serif; font-size: clamp(28px, 6vw, 42px); line-height: 2.05; text-align: right; }
@@ -91,15 +92,61 @@ code { color: #ffe8a6; }
   .noor-topbar { margin: -24px -28px 24px; padding: 16px 28px; }
 }
 
-/* Sprint 3: local progress + bookmark library */
 .noor-mini-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
 .noor-stat { display: grid; gap: 3px; min-height: 86px; border: 1px solid var(--noor-line); border-radius: 18px; padding: 12px; background: rgba(255, 255, 255, 0.045); }
 .noor-stat strong { color: var(--noor-gold); font-size: 24px; line-height: 1.1; }
 .noor-stat span { color: var(--noor-muted); font-size: 13px; line-height: 1.35; }
 .noor-card-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .noor-small { font-size: 13px; }
-.noor-anchor-wrap { scroll-margin-top: 92px; }
+.noor-anchor-wrap { scroll-margin-top: 112px; }
 .noor-history-item { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--noor-line); }
 .noor-history-item:last-child { border-bottom: 0; padding-bottom: 0; }
 .noor-history-item span { display: grid; gap: 4px; }
 .noor-history-item small { color: var(--noor-muted); line-height: 1.35; }
+
+/* Sprint 28.1: real reading UX foundation */
+.noor-hero-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr); gap: 14px; align-items: stretch; }
+.noor-section-heading { display: flex; align-items: end; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-top: 6px; }
+.noor-section-heading h2 { margin: 6px 0 0; font-size: clamp(22px, 4vw, 32px); }
+.noor-intention-card h2,
+.noor-reader-hero h2 { margin: 10px 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(26px, 4vw, 40px); }
+.noor-reader-facts { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+.noor-reader-facts span { border: 1px solid var(--noor-line); background: rgba(255,255,255,0.06); color: var(--noor-ink); border-radius: 999px; padding: 7px 10px; font-size: 12px; font-weight: 800; text-transform: capitalize; }
+.noor-reader-mode-preview { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0; }
+.noor-surah-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+.noor-surah-card { min-height: 230px; }
+.noor-reader-toolbar {
+  position: sticky; top: 76px; z-index: 12; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+  border: 1px solid var(--noor-line); border-radius: 24px; padding: 8px; background: rgba(7, 16, 20, 0.86); backdrop-filter: blur(18px);
+}
+.noor-reader-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.noor-reader-tab {
+  min-height: 40px; border-radius: 999px; border: 1px solid var(--noor-line); background: rgba(255,255,255,0.06); color: var(--noor-muted); padding: 8px 14px; cursor: pointer; font-weight: 900;
+}
+.noor-reader-tab[data-active="true"] { color: var(--noor-ink); border-color: rgba(216, 183, 90, 0.38); background: linear-gradient(135deg, rgba(216, 183, 90, 0.22), rgba(47, 191, 155, 0.13)); }
+.noor-reader-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.noor-reader-side { display: grid; gap: 14px; align-content: start; }
+.noor-reader-main { min-width: 0; }
+.noor-ayah-card { display: grid; gap: 14px; }
+.noor-ayah-arabic { padding: 10px 0 4px; letter-spacing: 0.01em; }
+.noor-ayah-card-memorise .noor-ayah-arabic { font-size: clamp(36px, 8vw, 62px) !important; }
+.noor-study-note { border: 1px solid rgba(216, 183, 90, 0.18); background: rgba(216, 183, 90, 0.08); border-radius: 18px; padding: 12px; color: var(--noor-muted); line-height: 1.6; }
+.noor-tafseer-inline h3,
+.noor-tafseer-entry h2 { margin: 10px 0; }
+.noor-hadith-card { display: grid; gap: 13px; }
+.noor-hadith-arabic { padding: 8px 0; }
+.noor-reader-preferences .noor-grid.compact { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+.noor-stack.tight { gap: 8px; }
+
+@media (min-width: 920px) {
+  .noor-reader-layout { grid-template-columns: minmax(0, 1fr) 310px; align-items: start; }
+  .noor-reader-main { order: 1; }
+  .noor-reader-side { order: 2; position: sticky; top: 150px; }
+}
+
+@media (max-width: 760px) {
+  .noor-hero-grid { grid-template-columns: 1fr; }
+  .noor-reader-toolbar { top: 68px; }
+  .noor-bottom-nav a { font-size: 10px; }
+  .noor-card { padding: 16px; }
+}

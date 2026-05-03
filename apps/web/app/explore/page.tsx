@@ -6,8 +6,8 @@ export default function ExplorePage() {
     <main className="noor-page">
       <PageHeader
         kicker="Explore"
-        title="Search across Quran, Tafseer and Hadith."
-        subtitle="Sprint 4 upgrades Explore with ranked local search, content filters, quick topics, suggestions and recent searches. The same contract can later connect to the full CDN search index."
+        title="Find guidance by topic."
+        subtitle="Search Quran, Tafseer and Hadith together. Try mercy, patience, intention, protection, prayer or any reminder you need today."
       />
       <SearchPanel />
     </main>

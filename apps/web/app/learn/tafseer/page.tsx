@@ -53,36 +53,38 @@ export default async function TafseerPage({ searchParams }: TafseerPageProps) {
     <main className="noor-page">
       <PageHeader
         kicker="Tafseer"
-        title="Tafseer CDN library"
-        subtitle={`Read Tafseer from the active runtime source: ${contentSource}.`}
+        title="Understand the Quran."
+        subtitle="Tafseer helps explain the ayat you are reading. Use this library for browsing, or open a Surah and switch the Quran reader to Study mode."
       />
 
-      <section className="noor-card noor-stack">
-        <div className="noor-row" style={{ alignItems: 'center', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
-          <div>
-            <span className="noor-badge gold">Sprint 27.9.3</span>
-            <h2>Tafseer book index</h2>
-            <p className="noor-subtitle">
-              This page now reads a Tafseer index from the CDN metadata folder, then loads the selected book and Surah through the NOOR data resolver.
-            </p>
-          </div>
-          <div className="noor-row" style={{ gap: '0.5rem', flexWrap: 'wrap' }}>
-            <span className="noor-badge">Books: {books.length}</span>
-            <span className="noor-badge emerald">Selected Surah: {selectedSurah}</span>
-          </div>
-        </div>
+      <section className="noor-hero-grid">
+        <NoorCard variant="gold" className="noor-link-card">
+          <span className="noor-badge emerald">Best experience</span>
+          <h2>Study tafseer inside the Quran reader</h2>
+          <p className="noor-subtitle">
+            Open a Surah, choose Study mode, then read the tafseer note beside the ayah context.
+          </p>
+          <Link className="noor-button" href="/learn/quran/1">Open Quran Study mode</Link>
+        </NoorCard>
+
+        <NoorCard variant="soft">
+          <span className="noor-kicker">Browse tafseer</span>
+          <h2>{selectedBook?.label ?? 'No Tafseer book found'}</h2>
+          <p className="noor-subtitle">
+            Showing Surah {selectedSurah}. Choose another book or Surah below when available.
+          </p>
+        </NoorCard>
       </section>
 
       <section className="noor-grid">
         {books.map((book) => (
-          <NoorCard key={book.id}>
+          <NoorCard key={book.id} className="noor-link-card">
             <span className="noor-badge gold">{book.language}</span>
             <h2>{book.label}</h2>
-            <p className="noor-subtitle">Book ID: {book.id}</p>
             <p className="noor-subtitle">Surahs: {book.surahCount} · Entries: {book.entryCount}</p>
             <p className="noor-subtitle">Coverage: {book.firstSurah}–{book.lastSurah}</p>
             <Link className="noor-button secondary" href={buildTafseerHref(book.id, book.firstSurah)}>
-              Open Tafseer book
+              Open this tafseer
             </Link>
           </NoorCard>
         ))}
@@ -91,10 +93,10 @@ export default async function TafseerPage({ searchParams }: TafseerPageProps) {
       {selectedBook ? (
         <section className="noor-card noor-stack">
           <div>
-            <span className="noor-badge gold">Selected book</span>
+            <span className="noor-badge gold">Choose Surah</span>
             <h2>{selectedBook.label}</h2>
             <p className="noor-subtitle">
-              Choose a Surah available in this Tafseer source. Showing Surah {selectedSurah}.
+              Select a Surah available in this source. Each entry should support understanding, not replace direct Quran reading.
             </p>
           </div>
 
@@ -118,19 +120,24 @@ export default async function TafseerPage({ searchParams }: TafseerPageProps) {
             <span className="noor-badge">No entries</span>
             <h2>No Tafseer entries found for this selection</h2>
             <p className="noor-subtitle">
-              If you expected staging CDN data, regenerate metadata/tafseer-index.json, push it to noor-cdn staging, and restart the dev server with the raw GitHub staging URL.
+              Try another book or Surah. Future content cycles can improve tafseer coverage and language support.
             </p>
           </NoorCard>
         ) : null}
 
         {entries.map((entry, index) => (
-          <NoorCard key={`${entry.id}-${index}`}>
+          <NoorCard key={`${entry.id}-${index}`} className="noor-tafseer-entry">
             <div className="noor-row">
-              <span className="noor-badge gold">{entry.sourceLabel}</span>
+              <span className="noor-badge gold">Understand this passage</span>
               <span className="noor-reference">{entry.surah}:{entry.fromAyah}-{entry.toAyah}</span>
             </div>
             <h2>{entry.title}</h2>
             <p className="noor-subtitle">{entry.body}</p>
+            <div className="noor-card-actions" style={{ marginTop: 14 }}>
+              <Link className="noor-button secondary" href={`/learn/quran/${entry.surah}#ayah-${entry.fromAyah}`}>
+                Read in Quran context
+              </Link>
+            </div>
           </NoorCard>
         ))}
       </section>

@@ -7,9 +7,9 @@ export function ReaderPreferencesPanel({ compact = false }: { compact?: boolean 
   const { preferences, updatePreferences, reset } = useReaderPreferences();
 
   return (
-    <NoorCard variant={compact ? 'soft' : 'default'}>
+    <NoorCard variant={compact ? 'soft' : 'default'} className="noor-reader-preferences">
       <div className="noor-row">
-        <span className="noor-badge gold">Reader preferences</span>
+        <span className="noor-badge gold">Reading display</span>
         <button className="noor-button secondary" type="button" onClick={reset}>
           Reset
         </button>
@@ -17,15 +17,19 @@ export function ReaderPreferencesPanel({ compact = false }: { compact?: boolean 
 
       {!compact ? (
         <p className="noor-subtitle" style={{ marginTop: 10 }}>
-          These settings are saved locally on this device and applied immediately to the Quran reader.
+          Choose how the Quran reader feels on this device. These preferences are saved locally and can be changed anytime.
         </p>
-      ) : null}
+      ) : (
+        <p className="noor-subtitle" style={{ marginTop: 10 }}>
+          Adjust translation, Arabic size and study helpers.
+        </p>
+      )}
 
       <div className="noor-divider" />
 
       <div className="noor-grid compact">
         <label className="noor-form-field">
-          <span className="noor-reference">Translation view</span>
+          <span className="noor-reference">Translation</span>
           <select
             className="noor-input"
             value={preferences.languageMode}
@@ -68,7 +72,7 @@ export function ReaderPreferencesPanel({ compact = false }: { compact?: boolean 
             checked={preferences.showTransliteration}
             onChange={(event) => updatePreferences({ showTransliteration: event.target.checked })}
           />
-          <span>Show transliteration when available</span>
+          <span>Show transliteration</span>
         </label>
 
         <label className="noor-row" style={{ justifyContent: 'flex-start' }}>
@@ -77,7 +81,7 @@ export function ReaderPreferencesPanel({ compact = false }: { compact?: boolean 
             checked={preferences.showTafseer}
             onChange={(event) => updatePreferences({ showTafseer: event.target.checked })}
           />
-          <span>Show tafseer notes in ayah cards</span>
+          <span>Show tafseer in Study mode</span>
         </label>
 
         <label className="noor-row" style={{ justifyContent: 'flex-start' }}>
@@ -86,7 +90,7 @@ export function ReaderPreferencesPanel({ compact = false }: { compact?: boolean 
             checked={preferences.focusMode}
             onChange={(event) => updatePreferences({ focusMode: event.target.checked })}
           />
-          <span>Focus mode card highlight</span>
+          <span>Highlight reader cards</span>
         </label>
       </div>
     </NoorCard>

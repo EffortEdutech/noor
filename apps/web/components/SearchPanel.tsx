@@ -68,12 +68,6 @@ function getSearchIndexEndpoint(source: RuntimeSearchSource) {
   return `${trimBase(externalBase)}/search/search-index.json`;
 }
 
-function getSourceLabel(source: RuntimeSearchSource) {
-  if (source === 'cdn') return 'External CDN';
-  if (source === 'local-cdn') return 'Local CDN';
-  return 'Bundled demo content';
-}
-
 async function fetchSearchIndex(endpoint: string): Promise<NoorSearchIndexEntry[]> {
   const response = await fetch(endpoint, { cache: 'no-store' });
   if (!response.ok) {
@@ -128,7 +122,7 @@ export function SearchPanel() {
   const [selectedTopic, setSelectedTopic] = useState<string | undefined>('mercy');
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const [cdnSearchIndex, setCdnSearchIndex] = useState<NoorSearchIndexEntry[] | null>(null);
-  const [searchSourceLabel, setSearchSourceLabel] = useState('Bundled demo content');
+  const [searchReadyLabel, setSearchReadyLabel] = useState('Guidance search ready');
 
   useEffect(() => {
     setRecentSearches(readRecentSearches());
@@ -137,32 +131,31 @@ export function SearchPanel() {
   useEffect(() => {
     let cancelled = false;
     const source = readRuntimeSearchSource();
-    const sourceLabel = getSourceLabel(source);
     const endpoint = getSearchIndexEndpoint(source);
 
     if (!endpoint) {
       setCdnSearchIndex(null);
-      setSearchSourceLabel('Bundled demo content');
+      setSearchReadyLabel('Guidance search ready');
       return;
     }
 
-    setSearchSourceLabel(`${sourceLabel} search index loading…`);
+    setSearchReadyLabel('Preparing guidance search…');
 
     fetchSearchIndex(endpoint)
       .then((index) => {
         if (cancelled) return;
         if (index.length > 0) {
           setCdnSearchIndex(index);
-          setSearchSourceLabel(`${sourceLabel} search index`);
+          setSearchReadyLabel('Guidance search ready');
         } else {
           setCdnSearchIndex(null);
-          setSearchSourceLabel('Bundled demo content');
+          setSearchReadyLabel('Guidance search ready');
         }
       })
       .catch(() => {
         if (cancelled) return;
         setCdnSearchIndex(null);
-        setSearchSourceLabel('Bundled demo content fallback');
+        setSearchReadyLabel('Guidance search ready');
       });
 
     return () => {
@@ -206,17 +199,18 @@ export function SearchPanel() {
     <div className="noor-stack">
       <NoorCard variant="soft">
         <div className="noor-row" style={{ justifyContent: 'space-between', marginBottom: 14 }}>
-          <span className="noor-badge emerald">Search source: {searchSourceLabel}</span>
-          {cdnSearchIndex ? (
-            <span className="noor-badge gold">{cdnSearchIndex.length} CDN entries</span>
-          ) : (
-            <span className="noor-badge">Fallback active</span>
-          )}
+          <div>
+            <span className="noor-badge emerald">{searchReadyLabel}</span>
+            <p className="noor-subtitle" style={{ marginTop: 10 }}>
+              Ask with simple words. NOOR will search across Quran, Tafseer and Hadith where available.
+            </p>
+          </div>
+          <span className="noor-badge gold">{cdnSearchIndex?.length ?? 'Local'} entries</span>
         </div>
 
         <div className="noor-grid" style={{ alignItems: 'end' }}>
           <label className="noor-form-field">
-            <span className="noor-kicker">Explore search</span>
+            <span className="noor-kicker">What guidance are you looking for?</span>
             <input
               className="noor-input"
               value={query}
@@ -227,17 +221,17 @@ export function SearchPanel() {
               onKeyDown={(event) => {
                 if (event.key === 'Enter') rememberSearch();
               }}
-              placeholder="Try mercy, guidance, ikhlas, intention, protection..."
+              placeholder="Try mercy, patience, intention, protection, prayer..."
             />
           </label>
 
           <button className="noor-button" type="button" onClick={() => rememberSearch()}>
-            Search
+            Search guidance
           </button>
         </div>
 
         <div className="noor-stack" style={{ gap: 10, marginTop: 16 }}>
-          <span className="noor-kicker">Content filters</span>
+          <span className="noor-kicker">Filter by source</span>
           <div className="noor-row" style={{ justifyContent: 'flex-start' }}>
             {NOOR_SEARCH_TYPES.map((item) => (
               <SearchTypeToggle
@@ -295,13 +289,13 @@ export function SearchPanel() {
           <span className="noor-kicker">Results</span>
           <p className="noor-subtitle">
             {results.length > 0
-              ? `${results.length} ranked result${results.length === 1 ? '' : 's'} from ${searchSourceLabel}.`
+              ? `${results.length} ranked reminder${results.length === 1 ? '' : 's'} found.`
               : 'No result found for the current search and filters.'}
           </p>
         </div>
         {suggestions.length > 0 ? (
           <span className="noor-badge gold">
-            Suggestions: {suggestions.map((item) => item.label).join(', ')}
+            Try also: {suggestions.map((item) => item.label).join(', ')}
           </span>
         ) : null}
       </div>
@@ -321,15 +315,6 @@ export function SearchPanel() {
 
             <p className="noor-subtitle">{result.excerpt}</p>
 
-            <div className="noor-row" style={{ justifyContent: 'flex-start', gap: 6 }}>
-              <span className="noor-badge">Score {result.score}</span>
-              {result.matchedFields.slice(0, 3).map((field) => (
-                <span className="noor-badge" key={`${result.type}-${result.id}-${field}`}>
-                  {field}
-                </span>
-              ))}
-            </div>
-
             {result.tags.length > 0 ? (
               <div className="noor-row" style={{ justifyContent: 'flex-start', gap: 6 }}>
                 {Array.from(new Set(result.tags)).slice(0, 4).map((tag) => (
@@ -342,7 +327,7 @@ export function SearchPanel() {
 
             {result.href ? (
               <a className="noor-button secondary" href={result.href} onClick={() => rememberSearch()}>
-                Open
+                Open reminder
               </a>
             ) : null}
           </NoorCard>
@@ -351,11 +336,9 @@ export function SearchPanel() {
 
       {results.length === 0 ? (
         <NoorCard>
-          <h3 style={{ marginTop: 0 }}>No matching content yet</h3>
+          <h3 style={{ marginTop: 0 }}>Try a broader word</h3>
           <p className="noor-subtitle">
-            Try a broader search such as mercy, guidance, ikhlas, intention, refuge, straight path,
-            Allah, Al-Fatihah, foundations, prayer, protection, or journey. Sprint 26 connects this
-            same interface to the generated CDN search index when available.
+            Examples: mercy, guidance, intention, refuge, straight path, Allah, prayer, protection, patience or remembrance.
           </p>
         </NoorCard>
       ) : null}

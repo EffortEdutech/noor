@@ -105,7 +105,7 @@ function dedupeHadithItems(items: HadithItemWithCanonical[]) {
 function collectionBadgeLabel(view: HadithCollectionResolved['resolvedView']) {
   if (view === 'by_chapter') return 'By chapter';
   if (view === 'by_book') return 'By book';
-  return 'Legacy';
+  return 'Collection';
 }
 
 export default async function HadithPage({ searchParams }: HadithPageProps) {
@@ -142,62 +142,60 @@ export default async function HadithPage({ searchParams }: HadithPageProps) {
     : [];
   const items = dedupeHadithItems(rawItems);
 
-  const hasViewMetadata = byBookCollections.length > 0 || byChapterCollections.length > 0;
-
   return (
     <main className="noor-page">
       <PageHeader
         kicker="Hadith"
-        title="Hadith library"
-        subtitle={`Read Hadith by book or by chapter. Runtime content source: ${contentSource}.`}
+        title="Read guidance from the Sunnah."
+        subtitle="Browse Hadith by book or chapter, save what you want to return to, and use Hadith as practical guidance beside Quran reading."
       />
 
-      <section className="noor-card noor-stack">
-        <div className="noor-row" style={{ alignItems: 'center', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' }}>
-          <div>
-            <span className="noor-badge emerald">Sprint 27.9.3</span>
-            <h2>Hadith navigation view</h2>
-            <p className="noor-subtitle">
-              by_book and by_chapter are separate navigation views. The same canonical hadith may exist in both source structures, but the reader displays one selected view at a time.
-            </p>
-          </div>
-          <div className="noor-row" style={{ gap: '0.5rem', flexWrap: 'wrap' }}>
+      <section className="noor-hero-grid">
+        <NoorCard variant="gold" className="noor-link-card">
+          <span className="noor-badge emerald">Hadith reader</span>
+          <h2>Choose a collection, then read slowly</h2>
+          <p className="noor-subtitle">
+            The goal is not only to list narrations. The reader should help users discover, understand, save and practise reminders.
+          </p>
+          <div className="noor-card-actions">
             <Link className={`noor-button ${activeView === 'by_book' ? 'primary' : 'secondary'}`} href={buildCollectionHref('by_book')}>
-              View by book ({byBookCollections.length})
+              By book ({byBookCollections.length || legacyCollections.length})
             </Link>
             <Link className={`noor-button ${activeView === 'by_chapter' ? 'primary' : 'secondary'}`} href={buildCollectionHref('by_chapter')}>
-              View by chapter ({byChapterCollections.length})
+              By chapter ({byChapterCollections.length})
             </Link>
           </div>
-        </div>
+        </NoorCard>
 
-        <div className="noor-row" style={{ gap: '0.5rem', flexWrap: 'wrap' }}>
-          <span className="noor-badge">Total collections: {collections.length}</span>
-          <span className="noor-badge emerald">By book: {byBookCollections.length}</span>
-          <span className="noor-badge gold">By chapter: {byChapterCollections.length}</span>
-          {legacyCollections.length > 0 ? <span className="noor-badge">Legacy: {legacyCollections.length}</span> : null}
-        </div>
-
-        {!hasViewMetadata ? (
+        <NoorCard variant="soft">
+          <span className="noor-kicker">Selected collection</span>
+          <h2>{selectedCollection?.name ?? 'No Hadith collection found'}</h2>
           <p className="noor-subtitle">
-            This Hadith collection index does not expose by_book/by_chapter metadata yet. If you expected the staging CDN data, restart the dev server and make sure .env.local uses the raw GitHub staging URL, not a stale cached CDN URL.
+            Showing {items.length} item{items.length === 1 ? '' : 's'} from the current view.
           </p>
-        ) : null}
-
-        {activeView === 'by_chapter' && byChapterCollections.length === 0 ? (
-          <p className="noor-subtitle">
-            No by_chapter collections were found in the active runtime source. This usually means the app is reading an older/stale hadith/collections.json file.
-          </p>
-        ) : null}
+          <div className="noor-reader-facts">
+            <span>{collections.length} collections</span>
+            <span>{byBookCollections.length || legacyCollections.length} by book</span>
+            <span>{byChapterCollections.length} by chapter</span>
+          </div>
+        </NoorCard>
       </section>
+
+      {activeView === 'by_chapter' && byChapterCollections.length === 0 ? (
+        <NoorCard>
+          <span className="noor-badge">No chapter view yet</span>
+          <p className="noor-subtitle">
+            This content source does not currently expose chapter navigation. Use the book view for now.
+          </p>
+        </NoorCard>
+      ) : null}
 
       <section className="noor-grid">
         {visibleCollections.map((collection) => (
-          <NoorCard key={collection.renderKey}>
+          <NoorCard key={collection.renderKey} className="noor-link-card">
             <span className="noor-badge emerald">{collectionBadgeLabel(collection.resolvedView)}</span>
             <h2>{collection.name}</h2>
             <p className="noor-subtitle">{collection.description}</p>
-            <p className="noor-subtitle">Language: {collection.language}</p>
             {collection.sourceScope ? <p className="noor-subtitle">Scope: {collection.sourceScope}</p> : null}
             {typeof collection.itemCount === 'number' ? <p className="noor-subtitle">Items: {collection.itemCount}</p> : null}
             <Link className="noor-button secondary" href={buildCollectionHref(activeView, collection.id)}>
@@ -207,14 +205,21 @@ export default async function HadithPage({ searchParams }: HadithPageProps) {
         ))}
       </section>
 
+      <section className="noor-section-heading">
+        <div>
+          <span className="noor-kicker">Hadith reminders</span>
+          <h2>{selectedCollection?.name ?? 'Reader'}</h2>
+        </div>
+        <Link className="noor-button secondary" href="/explore">Search by topic</Link>
+      </section>
+
       <section className="noor-stack">
-        <NoorCard>
-          <span className="noor-badge emerald">Selected collection</span>
-          <h2>{selectedCollection?.name ?? 'No Hadith collection found'}</h2>
-          <p className="noor-subtitle">
-            Showing {items.length} item(s){rawItems.length !== items.length ? ` after removing ${rawItems.length - items.length} duplicate canonical view item(s)` : ''}.
-          </p>
-        </NoorCard>
+        {items.length === 0 ? (
+          <NoorCard>
+            <h2>No Hadith items found</h2>
+            <p className="noor-subtitle">Try another collection or view.</p>
+          </NoorCard>
+        ) : null}
 
         {items.map((hadith, index) => (
           <HadithCard key={hadith.viewItemId ?? `${hadith.collectionId}-${hadith.id}-${index}`} hadith={hadith} />

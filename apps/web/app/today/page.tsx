@@ -14,30 +14,36 @@ export default async function TodayPage() {
     <main className="noor-page">
       <PageHeader
         kicker="Today with NOOR"
-        title="Assalamualaikum 🌙"
-        subtitle="A gentle daily path: continue reading, continue a guided journey, save one light, and carry one reminder into your day."
+        title="Return to the light."
+        subtitle="A calm daily path: continue your Quran reading, understand one reminder, save what touches the heart, and carry it into your day."
       />
 
-      <section className="noor-grid">
+      <section className="noor-hero-grid">
         <ContinueReadingCard />
-        <ContinueJourneyCard fallbackJourney={featuredJourney} />
+        <NoorCard variant="soft" className="noor-intention-card">
+          <span className="noor-badge gold">Today’s intention</span>
+          <h2>Read a little. Understand a little. Act on one thing.</h2>
+          <p className="noor-subtitle">
+            NOOR is designed for a small consistent routine, not a heavy study session every time.
+          </p>
+          <div className="noor-card-actions">
+            <a className="noor-button" href="/learn/quran">Open Quran</a>
+            <a className="noor-button secondary" href="/explore">Find guidance</a>
+          </div>
+        </NoorCard>
       </section>
 
       <section className="noor-grid">
-        <NoorCard variant="gold">
-          <div className="noor-row">
-            <div>
-              <span className="noor-kicker">Your light today</span>
-              <h2 style={{ margin: '8px 0 0' }}>3 small steps</h2>
-            </div>
-            <span className="noor-badge emerald">Sprint 5</span>
-          </div>
-          <p className="noor-subtitle" style={{ marginTop: 12 }}>
-            Read one ayah, continue one journey step, and save one reminder so NOOR can guide your next visit.
-          </p>
-        </NoorCard>
-
+        <ContinueJourneyCard fallbackJourney={featuredJourney} />
         <ReadingProgressPanel />
+      </section>
+
+      <section className="noor-section-heading">
+        <div>
+          <span className="noor-kicker">Daily reminders</span>
+          <h2>One ayah and one hadith for your day</h2>
+        </div>
+        <a className="noor-button secondary" href="/library">Open saved light</a>
       </section>
 
       <DailyAyahCard ayah={daily.ayah} />
@@ -45,24 +51,24 @@ export default async function TodayPage() {
 
       <section className="noor-grid">
         <NoorCard className="noor-link-card">
-          <span className="noor-badge emerald">Continue</span>
-          <h3>Open Quran reader</h3>
-          <p className="noor-subtitle">Mark any ayah as current reading progress.</p>
-          <a className="noor-button" href="/learn/quran/1">Read Surah Al-Fatihah</a>
+          <span className="noor-badge emerald">Read</span>
+          <h3>Quran reader</h3>
+          <p className="noor-subtitle">Read with translation, study with tafseer, or switch to memorisation focus.</p>
+          <a className="noor-button" href="/learn/quran/1">Start with Al-Fatihah</a>
         </NoorCard>
 
         <NoorCard className="noor-link-card">
-          <span className="noor-badge gold">Journey</span>
-          <h3>Open guided paths</h3>
-          <p className="noor-subtitle">Follow small structured steps for Quran, Hadith and reflection.</p>
-          <a className="noor-button secondary" href="/journeys">Open Journeys</a>
+          <span className="noor-badge gold">Understand</span>
+          <h3>Tafseer support</h3>
+          <p className="noor-subtitle">Use tafseer to understand the ayah while keeping the Quran as the centre.</p>
+          <a className="noor-button secondary" href="/learn/tafseer">Open Tafseer</a>
         </NoorCard>
 
         <NoorCard className="noor-link-card">
-          <span className="noor-badge gold">Library</span>
-          <h3>Review saved light</h3>
-          <p className="noor-subtitle">Open your locally saved bookmarks, journey progress and reading history.</p>
-          <a className="noor-button secondary" href="/library">Open Library</a>
+          <span className="noor-badge emerald">Sunnah</span>
+          <h3>Hadith guidance</h3>
+          <p className="noor-subtitle">Read Hadith as practical guidance connected to daily reflection.</p>
+          <a className="noor-button secondary" href="/learn/hadith">Open Hadith</a>
         </NoorCard>
       </section>
     </main>
