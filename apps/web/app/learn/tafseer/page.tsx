@@ -67,11 +67,28 @@ export default async function TafseerPage({ searchParams }: TafseerPageProps) {
           <Link className="noor-button" href="/learn/quran/1">Open Quran Study mode</Link>
         </NoorCard>
 
+        <NoorCard variant="soft" className="noor-tafseer-workflow-card">
+          <span className="noor-kicker">Tafseer study workflow</span>
+          <h2>Read → Understand → Respond</h2>
+          <p className="noor-subtitle">
+            Start with the ayah, read the explanation, then choose one action, du‘a, correction, or gratitude to carry into the day.
+          </p>
+        </NoorCard>
+      </section>
+
+      <section className="noor-hero-grid">
         <NoorCard variant="soft">
           <span className="noor-kicker">Browse tafseer</span>
           <h2>{selectedBook?.label ?? 'No Tafseer book found'}</h2>
           <p className="noor-subtitle">
             Showing Surah {selectedSurah}. Choose another book or Surah below when available.
+          </p>
+        </NoorCard>
+
+        <NoorCard>
+          <span className="noor-kicker">How to benefit</span>
+          <p className="noor-subtitle">
+            The tafseer library is for deeper browsing. For daily reading, the clearest path is still Quran reader → Study mode → Understand this ayah.
           </p>
         </NoorCard>
       </section>
@@ -132,6 +149,20 @@ export default async function TafseerPage({ searchParams }: TafseerPageProps) {
               <span className="noor-reference">{entry.surah}:{entry.fromAyah}-{entry.toAyah}</span>
             </div>
             <h2>{entry.title}</h2>
+            <div className="noor-understanding-flow" aria-label="Read, understand, respond workflow">
+              <div>
+                <strong>Read</strong>
+                <span>Surah {entry.surah}</span>
+              </div>
+              <div>
+                <strong>Understand</strong>
+                <span>{entry.sourceLabel}</span>
+              </div>
+              <div>
+                <strong>Respond</strong>
+                <span>One action today</span>
+              </div>
+            </div>
             <p className="noor-subtitle">{entry.body}</p>
             <div className="noor-card-actions" style={{ marginTop: 14 }}>
               <Link className="noor-button secondary" href={`/learn/quran/${entry.surah}#ayah-${entry.fromAyah}`}>

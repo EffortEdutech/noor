@@ -5,6 +5,7 @@ import { BookmarkButton, NoorCard } from '@noor/ui';
 import { useState } from 'react';
 import { getArabicFontSize, useReaderPreferences } from '../lib/reader-preferences';
 import { MarkReadingProgressButton } from './MarkReadingProgressButton';
+import { TafseerUnderstandingPanel } from './TafseerUnderstandingPanel';
 
 export type QuranReaderMode = 'read' | 'study' | 'memorise';
 
@@ -51,7 +52,7 @@ export function AyahStudyCard({
   const showEnglish = showTranslation && (preferences.languageMode === 'both' || preferences.languageMode === 'en');
   const showMalay = showTranslation && (preferences.languageMode === 'both' || preferences.languageMode === 'ms');
   const showTransliteration = mode !== 'memorise' && preferences.showTransliteration && ayah.transliteration;
-  const showTafseer = mode === 'study' && preferences.showTafseer && tafseer;
+  const showTafseer = mode === 'study' && preferences.showTafseer && Boolean(tafseer);
 
   async function handleCopyAyah() {
     const copied = await copyText([
@@ -118,15 +119,12 @@ export function AyahStudyCard({
           </div>
         ) : null}
 
-        {showTafseer ? (
-          <div className="noor-card is-soft noor-tafseer-inline" style={{ marginTop: 14 }}>
-            <span className="noor-badge gold">Understand this ayah</span>
-            <h3>{tafseer.title}</h3>
-            <p className="noor-subtitle">{tafseer.body}</p>
-            <div className="noor-reflection-prompt">
-              <strong>Reflection:</strong> What is one action, du‘a, or correction this ayah invites from me today?
-            </div>
-          </div>
+        {showTafseer && tafseer ? (
+          <TafseerUnderstandingPanel
+            ayah={ayah}
+            tafseer={tafseer}
+            surahTitle={surahTitle}
+          />
         ) : null}
 
         {mode !== 'study' && tafseer ? (
