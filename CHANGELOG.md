@@ -36,3 +36,21 @@
 - Added `hadith:import`.
 - Added `check:hadith-import`.
 - Added hadith import source schema and sample fixture.
+
+## v0.16.0 — Sprint 16 CDN promotion handoff
+
+- Added CDN promotion handoff support.
+- Added promotion environment handoff metadata.
+- Added CDN promotion validation for manual runtime switching.
+
+## v0.21.0 — Sprint 21 Quran production source selection gate
+
+- Added Quran production source selection gate.
+- Kept Quran production import blocked until source, license, attribution, checksum and reviewer sign-off are approved.
+- Added Quran source gate validation for safe production content handling.
+
+## v0.14.0 — Sprint 14 CDN publishing
+
+- Added zero-budget CDN publish pack support.
+- Added CDN publish pack verification.
+- Added CDN publishing metadata for the NOOR content pipeline.

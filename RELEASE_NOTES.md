@@ -44,3 +44,33 @@ Adds the first scholarly review console layer for Quran, tafseer and hadith sour
 ## v0.23.0 â€” Sprint 23 Hadith importer adapter v1
 
 Adds the first hadith importer adapter path using a non-production fixture, generated NOOR CDN-style hadith routes, audit report and production gate checks.
+
+## v0.16.0 — Sprint 16 CDN promotion handoff
+
+Records the CDN promotion handoff layer used by the NOOR content pipeline.
+
+### Highlights
+
+- Generated CDN promotion environment values.
+- Added manual apply checklist after CDN smoke test.
+- Preserved safe runtime switching through explicit environment settings.
+
+## v0.21.0 — Sprint 21 Quran production source selection gate
+
+Records the Quran production source selection gate used by the NOOR content pipeline.
+
+### Highlights
+
+- Added Quran production source selection gate.
+- Preserved blocked production import status until formal approval.
+- Required license, attribution, checksum and scholarly reviewer sign-off before Quran production import.
+
+## v0.14.0 — Sprint 14 CDN publishing
+
+Records the CDN publishing layer used by the NOOR content pipeline.
+
+### Highlights
+
+- Added CDN publish pack generation.
+- Added CDN publish verification.
+- Added noor-cdn-gh-pages publish pack metadata.

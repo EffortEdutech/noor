@@ -9,7 +9,7 @@ export default function LibraryPage() {
       <PageHeader
         kicker="Library"
         title="Your saved light."
-        subtitle="Bookmarks, reading progress and journey progress are stored locally on this device for the zero-budget starter phase."
+        subtitle="Return to the ayat, hadith, reflections and reading points you saved on this device."
       />
       <ReadingProgressPanel />
       <JourneyProgressPanel />

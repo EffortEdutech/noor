@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs';
+﻿import { existsSync, readFileSync } from 'node:fs';
 
 const IMPORT_VERSION = '0.22.0';
 const MIN_APP_VERSION = '0.22.0';
@@ -66,7 +66,8 @@ if (report.importedEntryCount !== 3) fail(`Expected 3 imported tafseer entries, 
 if (report.productionReady !== false) fail('Sprint 22 fixture output must not be productionReady.');
 if (report.productionGate?.status !== 'blocked') fail('Sprint 22 Tafseer import production gate must be blocked.');
 
-const books = readJson('content-pipeline/imported/tafseer-v0.22/noor-cdn/metadata/tafseer-books.json');
+const bookIndex = readJson('content-pipeline/imported/tafseer-v0.22/noor-cdn/metadata/tafseer-books.json');
+const books = Array.isArray(bookIndex) ? bookIndex : bookIndex.books;
 if (!Array.isArray(books) || books.length !== 1) fail('Imported tafseer book index must contain 1 book.');
 
 const entries = readJson('content-pipeline/imported/tafseer-v0.22/noor-cdn/tafseer/demo-tafseer-import/surahs/001.json');
@@ -90,3 +91,4 @@ if (!ciWorkflow.includes('pnpm tafseer:import') || !ciWorkflow.includes('pnpm ch
 }
 
 console.log(`NOOR Tafseer importer check passed for import adapter v${IMPORT_VERSION} under NOOR v${appVersion}.`);
+
