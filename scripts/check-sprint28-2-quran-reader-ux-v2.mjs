@@ -33,7 +33,7 @@ assertIncludes(quranExperience, 'Next Surah', 'next surah navigation');
 
 assertIncludes(ayahCard, 'Copy ayah', 'copy ayah action');
 assertIncludes(ayahCard, 'Copy reference', 'copy reference action');
-assertIncludes(ayahCard, 'noor-reflection-prompt', 'reflection prompt');
+assertIncludes(ayahCard, 'noor-reader-mode-helper', 'reader mode helper copy');
 assertIncludes(ayahCard, 'getModeHelper', 'mode helper copy');
 
 assertIncludes(readerPage, 'Read, study or memorise with a focused reader', 'reader page product copy');
