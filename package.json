@@ -125,7 +125,9 @@
     "check:hadith-reader-ux-v1": "node scripts/check-sprint28-4-hadith-reader-ux-v1.mjs",
     "check:sprint28-4": "pnpm check:sprint28-3 && pnpm check:hadith-reader-ux-v1 && pnpm typecheck && pnpm build",
     "check:explore-guidance-discovery-ux": "node scripts/check-sprint28-5-explore-guidance-discovery-ux.mjs",
-    "check:sprint28-5": "pnpm check:sprint28-4 && pnpm check:explore-guidance-discovery-ux && pnpm typecheck && pnpm build"
+    "check:sprint28-5": "pnpm check:sprint28-4 && pnpm check:explore-guidance-discovery-ux && pnpm typecheck && pnpm build",
+    "check:guidance-topic-detail-journey": "node scripts/check-sprint28-6-guidance-topic-detail-journey.mjs",
+    "check:sprint28-6": "pnpm check:sprint28-5 && pnpm check:guidance-topic-detail-journey && pnpm typecheck && pnpm build"
   },
   "devDependencies": {
     "@types/react": "19.0.10",

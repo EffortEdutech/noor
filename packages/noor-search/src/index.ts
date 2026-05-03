@@ -342,3 +342,140 @@ export function getNoorSearchSuggestions(query: string, limit = 6) {
     })
     .slice(0, limit);
 }
+
+export type NoorGuidanceJourneyStep = {
+  id: 'quran' | 'tafseer' | 'hadith';
+  label: string;
+  title: string;
+  body: string;
+  href: string;
+  actionLabel: string;
+};
+
+export type NoorGuidanceTopicJourney = {
+  id: string;
+  label: string;
+  arabicKeyword: string;
+  prompt: string;
+  summary: string;
+  question: string;
+  action: string;
+  suggestedSearches: string[];
+  readerSteps: NoorGuidanceJourneyStep[];
+};
+
+function buildTopicReaderSteps(topicId: string, quranHref: string, tafseerHref: string): NoorGuidanceJourneyStep[] {
+  const encodedTopic = encodeURIComponent(topicId);
+  return [
+    {
+      id: 'quran',
+      label: 'Read',
+      title: 'Begin with the Quran',
+      body: 'Start by reading slowly. Let the ayah set the direction before moving into explanation or reflection.',
+      href: quranHref,
+      actionLabel: 'Open Quran reader'
+    },
+    {
+      id: 'tafseer',
+      label: 'Understand',
+      title: 'Continue with Tafseer',
+      body: 'Read the explanation so the topic is understood with care, context and humility.',
+      href: tafseerHref,
+      actionLabel: 'Open Tafseer understanding'
+    },
+    {
+      id: 'hadith',
+      label: 'Reflect',
+      title: 'Reflect with Hadith',
+      body: 'Move into Prophetic reminders and choose one action that can be practiced today.',
+      href: '/learn/hadith?mode=reflect&topic=' + encodedTopic + '#hadith-reader',
+      actionLabel: 'Open Hadith reader'
+    }
+  ];
+}
+
+export const NOOR_GUIDANCE_TOPIC_JOURNEYS: NoorGuidanceTopicJourney[] = [
+  {
+    id: 'mercy',
+    label: 'Mercy',
+    arabicKeyword: 'رحمة',
+    prompt: 'When I need hope in Allah’s mercy',
+    summary: 'A guided path for hope, compassion, forgiveness and returning to Allah.',
+    question: 'Where do I need to remember that Allah’s mercy is wider than my fear?',
+    action: 'Make one sincere du‘a for mercy, then show mercy to one person before the day ends.',
+    suggestedSearches: ['mercy', 'forgiveness', 'hope'],
+    readerSteps: buildTopicReaderSteps('mercy', '/learn/quran/1#ayah-1', '/learn/tafseer?surah=1#ayah-1')
+  },
+  {
+    id: 'patience',
+    label: 'Patience',
+    arabicKeyword: 'صبر',
+    prompt: 'When I am tested and need sabr',
+    summary: 'A guided path for hardship, steadiness, trials and trust.',
+    question: 'What test needs patience from me today instead of panic or complaint?',
+    action: 'Name the test, pause before reacting, and make one patient choice with your words or actions.',
+    suggestedSearches: ['patience', 'sabr', 'trial'],
+    readerSteps: buildTopicReaderSteps('patience', '/learn/quran', '/learn/tafseer')
+  },
+  {
+    id: 'rizq',
+    label: 'Rizq',
+    arabicKeyword: 'رزق',
+    prompt: 'When I worry about provision',
+    summary: 'A guided path for sustenance, trust, gratitude and effort.',
+    question: 'Where can I combine trust in Allah with honest effort today?',
+    action: 'Write one blessing you already have, then take one responsible step toward your work or provision.',
+    suggestedSearches: ['rizq', 'provision', 'gratitude'],
+    readerSteps: buildTopicReaderSteps('rizq', '/learn/quran', '/learn/tafseer')
+  },
+  {
+    id: 'intention',
+    label: 'Intention',
+    arabicKeyword: 'نية',
+    prompt: 'When I want to purify my intention',
+    summary: 'A guided path for sincerity, deeds, worship and the heart.',
+    question: 'Which action today needs to be returned from people’s praise back to Allah?',
+    action: 'Renew your intention quietly before one task, and avoid announcing it unless there is benefit.',
+    suggestedSearches: ['intention', 'sincerity', 'heart'],
+    readerSteps: buildTopicReaderSteps('intention', '/learn/quran/112', '/learn/tafseer?surah=112')
+  },
+  {
+    id: 'protection',
+    label: 'Protection',
+    arabicKeyword: 'حفظ',
+    prompt: 'When I seek refuge and safety',
+    summary: 'A guided path for refuge, remembrance, evil and safety.',
+    question: 'What fear should I bring back to Allah through refuge and remembrance?',
+    action: 'Read a short protection reminder and make one du‘a for safety with presence.',
+    suggestedSearches: ['protection', 'refuge', 'remembrance'],
+    readerSteps: buildTopicReaderSteps('protection', '/learn/quran/113#ayah-1', '/learn/tafseer?surah=113#ayah-1')
+  },
+  {
+    id: 'prayer',
+    label: 'Prayer',
+    arabicKeyword: 'صلاة',
+    prompt: 'When I want to return to prayer',
+    summary: 'A guided path for salah, du‘a, guidance and nearness.',
+    question: 'Which prayer can I improve today through presence, timing or humility?',
+    action: 'Choose one prayer today to perform more slowly, with one du‘a after it.',
+    suggestedSearches: ['prayer', 'salah', 'dua'],
+    readerSteps: buildTopicReaderSteps('prayer', '/learn/quran/1#ayah-5', '/learn/tafseer?surah=1#ayah-5')
+  },
+  {
+    id: 'repentance',
+    label: 'Repentance',
+    arabicKeyword: 'توبة',
+    prompt: 'When I want to come back to Allah',
+    summary: 'A guided path for tawbah, forgiveness, humility and renewal.',
+    question: 'What can I leave, repair or ask forgiveness for today?',
+    action: 'Make sincere istighfar, stop one harmful action, and repair one right if you are able.',
+    suggestedSearches: ['repentance', 'tawbah', 'forgiveness'],
+    readerSteps: buildTopicReaderSteps('repentance', '/learn/quran/1#ayah-3', '/learn/tafseer?surah=1#ayah-3')
+  }
+];
+
+export function getNoorGuidanceTopicJourney(topicId: string) {
+  const normalized = topicId.trim().toLowerCase();
+  return NOOR_GUIDANCE_TOPIC_JOURNEYS.find((topic) => topic.id === normalized);
+}
+

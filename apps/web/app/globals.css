@@ -356,3 +356,98 @@ code { color: #ffe8a6; }
     min-height: 148px;
   }
 }
+
+/* Sprint 28.6: Guidance Topic Detail Journey */
+.noor-topic-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+}
+
+.noor-topic-detail-card {
+  display: grid;
+  gap: 8px;
+  min-height: 190px;
+  border: 1px solid var(--noor-line);
+  border-radius: 22px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.noor-topic-detail-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(216, 183, 90, 0.38);
+  background: linear-gradient(145deg, rgba(216, 183, 90, 0.16), rgba(47, 191, 155, 0.1));
+}
+
+.noor-topic-detail-card strong {
+  font-size: 18px;
+}
+
+.noor-topic-detail-card span {
+  line-height: 1.45;
+}
+
+.noor-topic-detail-card small {
+  color: var(--noor-muted);
+  line-height: 1.5;
+}
+
+.noor-topic-detail-card em {
+  color: var(--noor-gold);
+  font-style: normal;
+  font-weight: 900;
+  margin-top: auto;
+}
+
+.noor-topic-journey-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.noor-topic-journey-hero-card,
+.noor-topic-response-card {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+.noor-topic-journey-hero-card h2,
+.noor-topic-response-card h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 4vw, 38px);
+}
+
+.noor-topic-reader-path {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.noor-topic-reader-step {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  min-height: 250px;
+}
+
+.noor-topic-reader-step h3 {
+  margin: 0;
+  font-size: 21px;
+}
+
+.noor-topic-reader-step .noor-button {
+  margin-top: auto;
+}
+
+@media (max-width: 860px) {
+  .noor-topic-journey-hero-grid,
+  .noor-topic-reader-path {
+    grid-template-columns: 1fr;
+  }
+}
+
