@@ -21,7 +21,7 @@ export default async function SurahReaderPage({ params }: { params: Promise<{ su
       <PageHeader
         kicker="Quran reader"
         title={content.surah.nameTransliteration}
-        subtitle={`${content.surah.nameEnglish} · ${content.surah.revelation} · ${content.surah.ayahCount} ayat`}
+        subtitle={`${content.surah.nameEnglish} · ${content.surah.revelation} · ${content.surah.ayahCount} ayat · Read, study or memorise with a focused reader.`}
       />
 
       <QuranReadingExperience content={content} tafseer={tafseer} />

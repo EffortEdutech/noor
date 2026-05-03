@@ -150,3 +150,26 @@ code { color: #ffe8a6; }
   .noor-bottom-nav a { font-size: 10px; }
   .noor-card { padding: 16px; }
 }
+
+/* Sprint 28.2: Quran Reader UX v2 */
+.noor-reader-toolbar-v2 { align-items: center; }
+.noor-reader-jump-form { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.noor-reader-jump-label { color: var(--noor-muted); font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.12em; }
+.noor-reader-jump-input { width: 88px; min-height: 42px; padding: 9px 12px; border-radius: 999px; text-align: center; font-weight: 900; }
+.noor-reader-session-card { min-height: 100%; }
+.noor-reader-mode-helper { margin: 0; color: var(--noor-muted); line-height: 1.6; font-size: 14px; }
+.noor-reader-map-card { max-height: 420px; overflow: hidden; }
+.noor-ayah-map { display: grid; grid-template-columns: repeat(auto-fill, minmax(42px, 1fr)); gap: 7px; margin-top: 14px; max-height: 300px; overflow: auto; padding-right: 3px; }
+.noor-ayah-map-button { min-height: 38px; border-radius: 14px; border: 1px solid var(--noor-line); background: rgba(255,255,255,0.055); color: var(--noor-ink); cursor: pointer; font-weight: 900; }
+.noor-ayah-map-button:hover,
+.noor-ayah-map-button[aria-current="true"] { border-color: rgba(216, 183, 90, 0.42); background: linear-gradient(135deg, rgba(216, 183, 90, 0.2), rgba(47, 191, 155, 0.13)); }
+.noor-reflection-prompt { margin-top: 12px; border: 1px solid rgba(47, 191, 155, 0.2); background: rgba(47, 191, 155, 0.08); border-radius: 16px; padding: 12px; color: var(--noor-muted); line-height: 1.6; }
+.noor-copy-status { margin: 0; color: #aaf7e1; font-size: 13px; font-weight: 800; }
+
+@media (max-width: 760px) {
+  .noor-reader-toolbar-v2 { display: grid; }
+  .noor-reader-tabs,
+  .noor-reader-jump-form { width: 100%; }
+  .noor-reader-tab { flex: 1; }
+  .noor-reader-jump-input { flex: 1; width: auto; }
+}

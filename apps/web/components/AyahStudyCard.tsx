@@ -2,6 +2,7 @@
 
 import type { QuranAyah, TafseerEntry } from '@noor/content';
 import { BookmarkButton, NoorCard } from '@noor/ui';
+import { useState } from 'react';
 import { getArabicFontSize, useReaderPreferences } from '../lib/reader-preferences';
 import { MarkReadingProgressButton } from './MarkReadingProgressButton';
 
@@ -11,6 +12,23 @@ function getModeBadge(mode: QuranReaderMode) {
   if (mode === 'memorise') return 'Memorise focus';
   if (mode === 'study') return 'Study with meaning';
   return 'Read calmly';
+}
+
+function getModeHelper(mode: QuranReaderMode) {
+  if (mode === 'memorise') return 'Repeat, listen to your own recitation, then check the meaning in Read or Study mode.';
+  if (mode === 'study') return 'Read the meaning slowly, open the tafseer note, then write or save one reflection.';
+  return 'Read the Arabic and translation together. Mark this ayah if this is where you stop today.';
+}
+
+async function copyText(value: string) {
+  if (typeof navigator === 'undefined' || !navigator.clipboard) return false;
+
+  try {
+    await navigator.clipboard.writeText(value);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 export function AyahStudyCard({
@@ -25,12 +43,34 @@ export function AyahStudyCard({
   mode?: QuranReaderMode;
 }) {
   const { preferences } = useReaderPreferences();
+  const [copyStatus, setCopyStatus] = useState('');
   const href = `/learn/quran/${ayah.surah}#ayah-${ayah.ayah}`;
+  const english = ayah.translations.en ?? '';
+  const malay = ayah.translations.ms ?? '';
   const showTranslation = mode !== 'memorise';
   const showEnglish = showTranslation && (preferences.languageMode === 'both' || preferences.languageMode === 'en');
   const showMalay = showTranslation && (preferences.languageMode === 'both' || preferences.languageMode === 'ms');
   const showTransliteration = mode !== 'memorise' && preferences.showTransliteration && ayah.transliteration;
   const showTafseer = mode === 'study' && preferences.showTafseer && tafseer;
+
+  async function handleCopyAyah() {
+    const copied = await copyText([
+      `${surahTitle} ${ayah.key}`,
+      ayah.arabic,
+      english ? `English: ${english}` : '',
+      malay ? `Malay: ${malay}` : '',
+      `NOOR: ${href}`
+    ].filter(Boolean).join('\n\n'));
+
+    setCopyStatus(copied ? 'Ayah copied.' : 'Copy unavailable. Please select the text manually.');
+    window.setTimeout(() => setCopyStatus(''), 1600);
+  }
+
+  async function handleCopyReference() {
+    const copied = await copyText(`${surahTitle} ${ayah.key}`);
+    setCopyStatus(copied ? 'Reference copied.' : 'Copy unavailable.');
+    window.setTimeout(() => setCopyStatus(''), 1600);
+  }
 
   return (
     <div id={`ayah-${ayah.ayah}`} className="noor-anchor-wrap">
@@ -44,6 +84,8 @@ export function AyahStudyCard({
           <span className="noor-badge gold">{getModeBadge(mode)}</span>
           {tafseer ? <span className="noor-badge">Tafseer available</span> : null}
         </div>
+
+        <p className="noor-reader-mode-helper">{getModeHelper(mode)}</p>
 
         <div
           className="noor-arabic noor-ayah-arabic"
@@ -59,13 +101,13 @@ export function AyahStudyCard({
 
         {showEnglish ? (
           <p className="noor-translation">
-            <strong>English:</strong> {ayah.translations.en}
+            <strong>English:</strong> {english}
           </p>
         ) : null}
 
         {showMalay ? (
           <p className="noor-translation">
-            <strong>Malay:</strong> {ayah.translations.ms}
+            <strong>Malay:</strong> {malay}
           </p>
         ) : null}
 
@@ -81,6 +123,9 @@ export function AyahStudyCard({
             <span className="noor-badge gold">Understand this ayah</span>
             <h3>{tafseer.title}</h3>
             <p className="noor-subtitle">{tafseer.body}</p>
+            <div className="noor-reflection-prompt">
+              <strong>Reflection:</strong> What is one action, du‘a, or correction this ayah invites from me today?
+            </div>
           </div>
         ) : null}
 
@@ -93,7 +138,7 @@ export function AyahStudyCard({
             item={{
               id: `ayah-${ayah.key}`,
               type: 'ayah',
-              title: ayah.translations.en ?? ayah.arabic,
+              title: english || ayah.arabic,
               reference: ayah.key,
               href
             }}
@@ -103,11 +148,15 @@ export function AyahStudyCard({
             ayah={ayah.ayah}
             ayahKey={ayah.key}
             title={`${surahTitle} · Ayah ${ayah.ayah}`}
-            subtitle={ayah.translations.en}
+            subtitle={english}
             href={href}
           />
+          <button className="noor-button secondary" type="button" onClick={handleCopyAyah}>Copy ayah</button>
+          <button className="noor-button secondary" type="button" onClick={handleCopyReference}>Copy reference</button>
           <a className="noor-button secondary" href="/studio">Create share card</a>
         </div>
+
+        {copyStatus ? <p className="noor-copy-status">{copyStatus}</p> : null}
       </NoorCard>
     </div>
   );
