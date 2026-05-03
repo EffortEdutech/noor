@@ -36,3 +36,9 @@
 - Added `hadith:import`.
 - Added `check:hadith-import`.
 - Added hadith import source schema and sample fixture.
+
+## v0.16.0 — Sprint 16 CDN promotion handoff
+
+- Added CDN promotion handoff support.
+- Added promotion environment handoff metadata.
+- Added CDN promotion validation for manual runtime switching.

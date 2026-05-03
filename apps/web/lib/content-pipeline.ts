@@ -1,4 +1,4 @@
-export type NoorPipelineStep = {
+﻿export type NoorPipelineStep = {
   id: string;
   label: string;
   status: 'ready' | 'blocked' | 'manual' | 'planned';
@@ -64,11 +64,11 @@ export const NOOR_CDN_PROMOTION = {
   defaultPromotionBase: 'https://effortedutech.github.io/noor-cdn',
   fallbackPromotionBase: 'https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main',
   promotionRoot: 'content-pipeline/promotion',
-  generatedEnvFile: 'content-pipeline/promotion/.env.noor-cdn.example',
+  generatedEnvFile: 'content-pipeline/promotion/noor-cdn.env.local',
   generatedPromotionFile: 'content-pipeline/promotion/noor-cdn-promotion.json',
   generatedChecklistFile: 'content-pipeline/promotion/noor-cdn-promotion-checklist.md',
   envKeys: [
-    'NEXT_PUBLIC_NOOR_CONTENT_SOURCE',
+    'NEXT_PUBLIC_NOOR_DATA_MODE',
     'NEXT_PUBLIC_NOOR_QURAN_CDN_BASE',
     'NEXT_PUBLIC_NOOR_TAFSEER_CDN_BASE',
     'NEXT_PUBLIC_NOOR_HADITH_CDN_BASE',
@@ -202,3 +202,5 @@ export const NOOR_SCHOLARLY_REVIEW_CONSOLE = {
     { id: 'promotion', label: 'Promotion decision', status: blocked, note: 'The console does not promote production content; it only records review readiness.' }
   ] satisfies NoorPipelineStep[]
 };
+
+
