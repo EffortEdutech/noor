@@ -29,6 +29,7 @@ export const NOOR_CDN_PUBLISHING = {
   version: '0.14.0',
   label: 'Zero-budget CDN publish pack',
   publishRoot: 'noor-cdn',
+  publishPackRoot: 'content-pipeline/publish/noor-cdn-gh-pages',
   githubPagesBase: 'https://effortedutech.github.io/noor-cdn',
   jsDelivrBase: 'https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main',
   commands: ['pnpm cdn:pack', 'pnpm cdn:verify', 'pnpm check:cdn-publish'],
@@ -202,5 +203,6 @@ export const NOOR_SCHOLARLY_REVIEW_CONSOLE = {
     { id: 'promotion', label: 'Promotion decision', status: blocked, note: 'The console does not promote production content; it only records review readiness.' }
   ] satisfies NoorPipelineStep[]
 };
+
 
 

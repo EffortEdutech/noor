@@ -64,3 +64,13 @@ Records the Quran production source selection gate used by the NOOR content pipe
 - Added Quran production source selection gate.
 - Preserved blocked production import status until formal approval.
 - Required license, attribution, checksum and scholarly reviewer sign-off before Quran production import.
+
+## v0.14.0 — Sprint 14 CDN publishing
+
+Records the CDN publishing layer used by the NOOR content pipeline.
+
+### Highlights
+
+- Added CDN publish pack generation.
+- Added CDN publish verification.
+- Added noor-cdn-gh-pages publish pack metadata.

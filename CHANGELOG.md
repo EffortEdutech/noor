@@ -48,3 +48,9 @@
 - Added Quran production source selection gate.
 - Kept Quran production import blocked until source, license, attribution, checksum and reviewer sign-off are approved.
 - Added Quran source gate validation for safe production content handling.
+
+## v0.14.0 — Sprint 14 CDN publishing
+
+- Added zero-budget CDN publish pack support.
+- Added CDN publish pack verification.
+- Added CDN publishing metadata for the NOOR content pipeline.
