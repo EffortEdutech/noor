@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --noor-bg: #071014;
   --noor-surface: #101c22;
   --noor-card: #13232b;
@@ -106,7 +106,7 @@ code { color: #ffe8a6; }
 
 /* Sprint 28.1: real reading UX foundation */
 .noor-hero-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr); gap: 14px; align-items: stretch; }
-.noor-section-heading { display: flex; align-items: end; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-top: 6px; }
+.noor-section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-top: 6px; }
 .noor-section-heading h2 { margin: 6px 0 0; font-size: clamp(22px, 4vw, 32px); }
 .noor-intention-card h2,
 .noor-reader-hero h2 { margin: 10px 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(26px, 4vw, 40px); }
@@ -173,3 +173,18 @@ code { color: #ffe8a6; }
   .noor-reader-tab { flex: 1; }
   .noor-reader-jump-input { flex: 1; width: auto; }
 }
+
+/* Sprint 28.3: Tafseer Understanding Panel */
+.noor-tafseer-understanding-panel { display: grid; gap: 14px; margin-top: 14px; border-color: rgba(47, 191, 155, 0.2); }
+.noor-tafseer-understanding-panel h3 { margin: 10px 0 0; font-size: clamp(20px, 3vw, 28px); }
+.noor-tafseer-body { margin: 0; color: var(--noor-ink); line-height: 1.78; }
+.noor-understanding-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.noor-understanding-flow div { border: 1px solid var(--noor-line); border-radius: 18px; padding: 12px; background: rgba(255,255,255,0.045); }
+.noor-understanding-flow strong { display: block; color: var(--noor-gold); font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; }
+.noor-understanding-flow span { display: block; margin-top: 6px; color: var(--noor-muted); line-height: 1.45; font-size: 13px; }
+.noor-tafseer-workflow-card h2 { margin: 10px 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(24px, 4vw, 36px); }
+
+@media (max-width: 760px) {
+  .noor-understanding-flow { grid-template-columns: 1fr; }
+}
+
