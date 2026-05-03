@@ -52,37 +52,65 @@ export const NOOR_SEARCH_TOPICS: NoorSearchTopic[] = [
   {
     id: 'mercy',
     label: 'Mercy',
-    query: 'mercy rahman rahim pemurah mengasihani compassion',
-    description: 'Allah’s mercy and compassion.',
-    tags: ['mercy', 'rahman', 'rahim']
+    query: 'mercy rahman rahim pemurah mengasihani compassion forgiveness hope',
+    description: 'Allah’s mercy, compassion, forgiveness and hope.',
+    tags: ['mercy', 'rahman', 'rahim', 'forgiveness']
   },
   {
-    id: 'guidance',
-    label: 'Guidance',
-    query: 'guide straight path jalan lurus hidayah prayer',
-    description: 'Seeking guidance and the straight path.',
-    tags: ['guidance', 'straight-path']
+    id: 'patience',
+    label: 'Patience',
+    query: 'patience sabr steadfast trial hardship difficulty endurance trust',
+    description: 'Steadiness during hardship, testing and delay.',
+    tags: ['patience', 'sabr', 'steadfastness', 'trial']
   },
   {
-    id: 'tawhid',
-    label: 'Tawhid',
-    query: 'one eternal refuge esa ikhlas foundations',
-    description: 'Oneness of Allah and sincerity of faith.',
-    tags: ['tawhid', 'ikhlas']
+    id: 'rizq',
+    label: 'Rizq',
+    query: 'rizq provision sustenance wealth livelihood trust gratitude effort',
+    description: 'Provision, livelihood, gratitude, effort and trust in Allah.',
+    tags: ['rizq', 'provision', 'sustenance', 'trust']
   },
   {
     id: 'intention',
     label: 'Intention',
-    query: 'intention niat actions deeds journey',
-    description: 'The heart behind every action.',
-    tags: ['intention', 'niyyah']
+    query: 'intention niat niyyah sincerity actions deeds heart worship',
+    description: 'The heart behind every action and act of worship.',
+    tags: ['intention', 'niyyah', 'sincerity']
   },
   {
     id: 'protection',
     label: 'Protection',
-    query: 'protection refuge falaq nas evil remembrance',
-    description: 'Seeking refuge and protection.',
-    tags: ['protection', 'refuge']
+    query: 'protection refuge falaq nas evil safety remembrance shelter',
+    description: 'Seeking refuge, safety and protection from evil.',
+    tags: ['protection', 'refuge', 'remembrance']
+  },
+  {
+    id: 'prayer',
+    label: 'Prayer',
+    query: 'prayer salah solat dua supplication worship guidance straight path',
+    description: 'Prayer, du‘a, worship, guidance and nearness to Allah.',
+    tags: ['prayer', 'salah', 'dua', 'worship']
+  },
+  {
+    id: 'repentance',
+    label: 'Repentance',
+    query: 'repentance tawbah taubah forgive forgiveness return mercy sin renewal',
+    description: 'Returning to Allah with repentance, forgiveness and renewal.',
+    tags: ['repentance', 'tawbah', 'forgiveness', 'return']
+  },
+  {
+    id: 'guidance',
+    label: 'Guidance',
+    query: 'guide straight path jalan lurus hidayah prayer direction',
+    description: 'Seeking guidance and the straight path.',
+    tags: ['guidance', 'straight-path', 'hidayah']
+  },
+  {
+    id: 'tawhid',
+    label: 'Tawhid',
+    query: 'one eternal refuge esa ikhlas foundations sincerity',
+    description: 'Oneness of Allah and sincerity of faith.',
+    tags: ['tawhid', 'ikhlas', 'oneness']
   }
 ];
 
@@ -152,7 +180,7 @@ function buildCandidates(): SearchCandidate[] {
       title: entry.title,
       excerpt: entry.body,
       reference: `${entry.surah}:${entry.fromAyah}-${entry.toAyah}`,
-      href: `/learn/quran/${entry.surah}#ayah-${entry.fromAyah}`,
+      href: `/learn/tafseer?surah=${entry.surah}#ayah-${entry.fromAyah}`,
       sourceLabel: entry.sourceLabel,
       tags: entry.tags,
       priority: 3,
@@ -168,13 +196,17 @@ function buildCandidates(): SearchCandidate[] {
 
   for (const collectionItems of Object.values(DEMO_HADITH_ITEMS)) {
     for (const hadith of collectionItems) {
+      const firstTopic = hadith.tags[0];
+      const params = new URLSearchParams({ mode: 'reflect' });
+      if (firstTopic) params.set('topic', firstTopic.toLowerCase());
+
       candidates.push({
         id: hadith.id,
         type: 'hadith',
         title: `Hadith ${hadith.number}`,
         excerpt: hadith.translations.en ?? hadith.translations.ms ?? '',
         reference: hadith.sourceLabel,
-        href: '/learn/hadith',
+        href: `/learn/hadith?${params.toString()}#hadith-reader`,
         sourceLabel: hadith.narrator ? `Narrator: ${hadith.narrator}` : hadith.sourceLabel,
         tags: hadith.tags,
         priority: 2,

@@ -3,13 +3,14 @@
 import { NoorCard } from '@noor/ui';
 import { NOOR_CONTENT_SOURCE_LOCAL_STORAGE_KEY } from '../lib/runtime-content-source-constants';
 import {
-  getNoorSearchTypeLabel,
   getNoorSearchSuggestions,
+  getNoorSearchTypeLabel,
   NOOR_SEARCH_TOPICS,
   NOOR_SEARCH_TYPES,
   searchNoorIndex,
   searchNoorLocal,
   type NoorSearchIndexEntry,
+  type NoorSearchResult,
   type NoorSearchType
 } from '@noor/search';
 import { useEffect, useMemo, useState } from 'react';
@@ -23,6 +24,89 @@ const activeButtonStyle = {
 };
 
 const DEFAULT_EXTERNAL_CDN_BASE = 'https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn';
+
+const NOOR_DISCOVERY_SOURCE_TYPES: NoorSearchType[] = ['quran', 'tafseer', 'hadith'];
+
+const SOURCE_GROUPS: Array<{
+  type: NoorSearchType;
+  title: string;
+  helper: string;
+}> = [
+  {
+    type: 'quran',
+    title: 'Quran',
+    helper: 'Begin with the ayah and read it in context.'
+  },
+  {
+    type: 'tafseer',
+    title: 'Tafseer',
+    helper: 'Continue into explanation and guided understanding.'
+  },
+  {
+    type: 'hadith',
+    title: 'Hadith',
+    helper: 'Reflect on Prophetic reminders connected to the topic.'
+  }
+];
+
+const GUIDANCE_TOPIC_PROMPTS = [
+  {
+    id: 'mercy',
+    icon: 'رحمة',
+    title: 'Mercy',
+    prompt: 'When I need hope in Allah’s mercy',
+    query: 'mercy',
+    description: 'For hope, compassion, forgiveness and returning to Allah.'
+  },
+  {
+    id: 'patience',
+    icon: 'صبر',
+    title: 'Patience',
+    prompt: 'When I am tested and need sabr',
+    query: 'patience',
+    description: 'For hardship, steadiness, trials and trust.'
+  },
+  {
+    id: 'rizq',
+    icon: 'رزق',
+    title: 'Rizq',
+    prompt: 'When I worry about provision',
+    query: 'rizq',
+    description: 'For sustenance, trust, gratitude and effort.'
+  },
+  {
+    id: 'intention',
+    icon: 'نية',
+    title: 'Intention',
+    prompt: 'When I want to purify my intention',
+    query: 'intention',
+    description: 'For sincerity, deeds, worship and the heart.'
+  },
+  {
+    id: 'protection',
+    icon: 'حفظ',
+    title: 'Protection',
+    prompt: 'When I seek refuge and safety',
+    query: 'protection',
+    description: 'For refuge, remembrance, evil and safety.'
+  },
+  {
+    id: 'prayer',
+    icon: 'صلاة',
+    title: 'Prayer',
+    prompt: 'When I want to return to prayer',
+    query: 'prayer',
+    description: 'For salah, du‘a, guidance and nearness.'
+  },
+  {
+    id: 'repentance',
+    icon: 'توبة',
+    title: 'Repentance',
+    prompt: 'When I want to come back to Allah',
+    query: 'repentance',
+    description: 'For tawbah, forgiveness, humility and renewal.'
+  }
+];
 
 type RuntimeSearchSource = 'mock' | 'local-cdn' | 'cdn';
 
@@ -91,6 +175,101 @@ function writeRecentSearches(items: string[]) {
   localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(items.slice(0, 8)));
 }
 
+function parseReference(result: NoorSearchResult) {
+  const raw = `${result.reference} ${result.id}`;
+  const match = raw.match(/(?:^|\D)(\d{1,3})(?::(\d{1,3}))?/);
+  if (!match) return undefined;
+
+  const surah = Number.parseInt(match[1], 10);
+  const ayah = match[2] ? Number.parseInt(match[2], 10) : undefined;
+  if (!Number.isFinite(surah) || surah < 1 || surah > 114) return undefined;
+
+  return {
+    surah,
+    ayah: ayah && Number.isFinite(ayah) && ayah > 0 ? ayah : undefined
+  };
+}
+
+function buildQuranReaderHref(result: NoorSearchResult) {
+  if (result.href?.startsWith('/learn/quran')) return result.href;
+
+  const parsed = parseReference(result);
+  if (!parsed) return '/learn/quran';
+
+  return `/learn/quran/${parsed.surah}${parsed.ayah ? `#ayah-${parsed.ayah}` : ''}`;
+}
+
+function buildTafseerHref(result: NoorSearchResult) {
+  const parsed = parseReference(result);
+  if (!parsed) return '/learn/tafseer';
+
+  const params = new URLSearchParams({ surah: String(parsed.surah) });
+  return `/learn/tafseer?${params.toString()}${parsed.ayah ? `#ayah-${parsed.ayah}` : ''}`;
+}
+
+function buildHadithReaderHref(result: NoorSearchResult) {
+  const firstTag = result.tags.find((tag) => tag.length > 1);
+  const params = new URLSearchParams({ mode: 'reflect' });
+  if (firstTag) params.set('topic', firstTag.toLowerCase());
+  return `/learn/hadith?${params.toString()}#hadith-reader`;
+}
+
+function getPrimaryAction(result: NoorSearchResult) {
+  if (result.type === 'tafseer') {
+    return {
+      label: 'Open Tafseer understanding',
+      href: buildTafseerHref(result)
+    };
+  }
+
+  if (result.type === 'hadith') {
+    return {
+      label: 'Open Hadith reader',
+      href: buildHadithReaderHref(result)
+    };
+  }
+
+  return {
+    label: 'Open Quran reader',
+    href: buildQuranReaderHref(result)
+  };
+}
+
+function getSupportingActions(result: NoorSearchResult) {
+  if (result.type === 'quran') {
+    return [
+      {
+        label: 'Understand with Tafseer',
+        href: buildTafseerHref(result)
+      },
+      {
+        label: 'Hadith reminders',
+        href: buildHadithReaderHref(result)
+      }
+    ];
+  }
+
+  if (result.type === 'tafseer') {
+    return [
+      {
+        label: 'Read Quran context',
+        href: buildQuranReaderHref(result)
+      }
+    ];
+  }
+
+  if (result.type === 'hadith') {
+    return [
+      {
+        label: 'Explore Quran and Tafseer',
+        href: `/explore?topic=${encodeURIComponent(result.tags[0] ?? result.title)}`
+      }
+    ];
+  }
+
+  return [];
+}
+
 function SearchTypeToggle({
   type,
   active,
@@ -116,9 +295,7 @@ function SearchTypeToggle({
 
 export function SearchPanel() {
   const [query, setQuery] = useState('mercy');
-  const [selectedTypes, setSelectedTypes] = useState<NoorSearchType[]>(
-    NOOR_SEARCH_TYPES.map((item) => item.id)
-  );
+  const [selectedTypes, setSelectedTypes] = useState<NoorSearchType[]>(NOOR_DISCOVERY_SOURCE_TYPES);
   const [selectedTopic, setSelectedTopic] = useState<string | undefined>('mercy');
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const [cdnSearchIndex, setCdnSearchIndex] = useState<NoorSearchIndexEntry[] | null>(null);
@@ -126,6 +303,16 @@ export function SearchPanel() {
 
   useEffect(() => {
     setRecentSearches(readRecentSearches());
+
+    const params = new URLSearchParams(window.location.search);
+    const topic = params.get('topic')?.trim();
+    if (topic) {
+      const matchingTopic = NOOR_SEARCH_TOPICS.find(
+        (item) => item.id === topic.toLowerCase() || item.label.toLowerCase() === topic.toLowerCase()
+      );
+      setSelectedTopic(matchingTopic?.id);
+      setQuery(matchingTopic?.label ?? topic);
+    }
   }, []);
 
   useEffect(() => {
@@ -165,11 +352,20 @@ export function SearchPanel() {
 
   const suggestions = useMemo(() => getNoorSearchSuggestions(query), [query]);
   const results = useMemo(() => {
-    const options = { types: selectedTypes, topic: selectedTopic, limit: 24 };
+    const options = { types: selectedTypes, topic: selectedTopic, limit: 36 };
     return cdnSearchIndex
       ? searchNoorIndex(query, cdnSearchIndex, options)
       : searchNoorLocal(query, options);
   }, [cdnSearchIndex, query, selectedTypes, selectedTopic]);
+
+  const groupedResults = useMemo(
+    () =>
+      SOURCE_GROUPS.map((group) => ({
+        ...group,
+        results: results.filter((result) => result.type === group.type)
+      })).filter((group) => group.results.length > 0),
+    [results]
+  );
 
   function rememberSearch(value = query) {
     const trimmed = value.trim();
@@ -202,10 +398,10 @@ export function SearchPanel() {
           <div>
             <span className="noor-badge emerald">{searchReadyLabel}</span>
             <p className="noor-subtitle" style={{ marginTop: 10 }}>
-              Ask with simple words. NOOR will search across Quran, Tafseer and Hadith where available.
+              Search in simple words, or begin from a prompt below. Each result gives you a clear next step into reading, understanding or reflection.
             </p>
           </div>
-          <span className="noor-badge gold">{cdnSearchIndex?.length ?? 'Local'} entries</span>
+          <span className="noor-badge gold">Quran · Tafseer · Hadith</span>
         </div>
 
         <div className="noor-grid" style={{ alignItems: 'end' }}>
@@ -221,7 +417,7 @@ export function SearchPanel() {
               onKeyDown={(event) => {
                 if (event.key === 'Enter') rememberSearch();
               }}
-              placeholder="Try mercy, patience, intention, protection, prayer..."
+              placeholder="Try mercy, patience, rizq, intention, protection, prayer..."
             />
           </label>
 
@@ -230,34 +426,36 @@ export function SearchPanel() {
           </button>
         </div>
 
-        <div className="noor-stack" style={{ gap: 10, marginTop: 16 }}>
-          <span className="noor-kicker">Filter by source</span>
-          <div className="noor-row" style={{ justifyContent: 'flex-start' }}>
-            {NOOR_SEARCH_TYPES.map((item) => (
-              <SearchTypeToggle
-                key={item.id}
-                type={item.id}
-                active={selectedTypes.includes(item.id)}
-                onToggle={() => toggleType(item.id)}
-              />
+        <div className="noor-stack" style={{ gap: 10, marginTop: 18 }}>
+          <span className="noor-kicker">Choose a guidance prompt</span>
+          <div className="noor-topic-prompt-grid">
+            {GUIDANCE_TOPIC_PROMPTS.map((topic) => (
+              <button
+                key={topic.id}
+                className="noor-topic-prompt-card"
+                data-active={selectedTopic === topic.id}
+                type="button"
+                onClick={() => applyTopic(topic.id, topic.query)}
+              >
+                <span className="noor-topic-prompt-icon">{topic.icon}</span>
+                <strong>{topic.title}</strong>
+                <span>{topic.prompt}</span>
+                <small>{topic.description}</small>
+              </button>
             ))}
           </div>
         </div>
 
         <div className="noor-stack" style={{ gap: 10, marginTop: 16 }}>
-          <span className="noor-kicker">Quick topics</span>
+          <span className="noor-kicker">Show me</span>
           <div className="noor-row" style={{ justifyContent: 'flex-start' }}>
-            {NOOR_SEARCH_TOPICS.map((topic) => (
-              <button
-                key={topic.id}
-                className="noor-button secondary"
-                type="button"
-                onClick={() => applyTopic(topic.id, topic.label)}
-                style={selectedTopic === topic.id ? activeButtonStyle : undefined}
-                title={topic.description}
-              >
-                {topic.label}
-              </button>
+            {NOOR_DISCOVERY_SOURCE_TYPES.map((type) => (
+              <SearchTypeToggle
+                key={type}
+                type={type}
+                active={selectedTypes.includes(type)}
+                onToggle={() => toggleType(type)}
+              />
             ))}
           </div>
         </div>
@@ -284,62 +482,111 @@ export function SearchPanel() {
         ) : null}
       </NoorCard>
 
-      <div className="noor-row">
+      <div className="noor-result-summary">
         <div>
-          <span className="noor-kicker">Results</span>
+          <span className="noor-kicker">Guidance results</span>
           <p className="noor-subtitle">
             {results.length > 0
-              ? `${results.length} ranked reminder${results.length === 1 ? '' : 's'} found.`
-              : 'No result found for the current search and filters.'}
+              ? `${results.length} reminder${results.length === 1 ? '' : 's'} found, grouped by Quran, Tafseer and Hadith.`
+              : 'No result yet for the current search and filters.'}
           </p>
         </div>
         {suggestions.length > 0 ? (
-          <span className="noor-badge gold">
-            Try also: {suggestions.map((item) => item.label).join(', ')}
-          </span>
+          <div className="noor-suggestion-row" aria-label="Suggested searches">
+            {suggestions.map((item) => (
+              <button
+                key={item.id}
+                className="noor-badge gold"
+                type="button"
+                onClick={() => applyTopic(item.id, item.label)}
+              >
+                Try {item.label}
+              </button>
+            ))}
+          </div>
         ) : null}
       </div>
 
-      <div className="noor-grid">
-        {results.map((result) => (
-          <NoorCard key={`${result.type}-${result.id}`} className="noor-link-card">
-            <div className="noor-row">
-              <span className="noor-badge emerald">{getNoorSearchTypeLabel(result.type)}</span>
-              <span className="noor-reference">{result.reference}</span>
-            </div>
-
+      {groupedResults.map((group) => (
+        <section className="noor-result-group" key={group.type}>
+          <div className="noor-result-group-header">
             <div>
-              <strong>{result.title}</strong>
-              {result.sourceLabel ? <p className="noor-muted">{result.sourceLabel}</p> : null}
+              <span className="noor-badge emerald">{group.title}</span>
+              <h2>{group.results.length} result{group.results.length === 1 ? '' : 's'}</h2>
             </div>
+            <p className="noor-subtitle">{group.helper}</p>
+          </div>
 
-            <p className="noor-subtitle">{result.excerpt}</p>
+          <div className="noor-grid">
+            {group.results.map((result) => {
+              const primaryAction = getPrimaryAction(result);
+              const supportingActions = getSupportingActions(result);
 
-            {result.tags.length > 0 ? (
-              <div className="noor-row" style={{ justifyContent: 'flex-start', gap: 6 }}>
-                {Array.from(new Set(result.tags)).slice(0, 4).map((tag) => (
-                  <span className="noor-badge" key={`${result.type}-${result.id}-${tag}`}>
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            ) : null}
+              return (
+                <NoorCard key={`${result.type}-${result.id}`} className="noor-link-card noor-explore-result-card">
+                  <div className="noor-row">
+                    <span className="noor-badge emerald">{getNoorSearchTypeLabel(result.type)}</span>
+                    <span className="noor-reference">{result.reference}</span>
+                  </div>
 
-            {result.href ? (
-              <a className="noor-button secondary" href={result.href} onClick={() => rememberSearch()}>
-                Open reminder
-              </a>
-            ) : null}
-          </NoorCard>
-        ))}
-      </div>
+                  <div>
+                    <strong>{result.title}</strong>
+                    {result.sourceLabel ? <p className="noor-muted">{result.sourceLabel}</p> : null}
+                  </div>
+
+                  <p className="noor-subtitle">{result.excerpt}</p>
+
+                  {result.tags.length > 0 ? (
+                    <div className="noor-row" style={{ justifyContent: 'flex-start', gap: 6 }}>
+                      {Array.from(new Set(result.tags)).slice(0, 4).map((tag) => (
+                        <span className="noor-badge" key={`${result.type}-${result.id}-${tag}`}>
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                  ) : null}
+
+                  <div className="noor-result-card-actions">
+                    <a className="noor-button" href={primaryAction.href} onClick={() => rememberSearch()}>
+                      {primaryAction.label}
+                    </a>
+                    {supportingActions.map((action) => (
+                      <a
+                        key={`${result.type}-${result.id}-${action.href}`}
+                        className="noor-button secondary"
+                        href={action.href}
+                        onClick={() => rememberSearch()}
+                      >
+                        {action.label}
+                      </a>
+                    ))}
+                  </div>
+                </NoorCard>
+              );
+            })}
+          </div>
+        </section>
+      ))}
 
       {results.length === 0 ? (
-        <NoorCard>
-          <h3 style={{ marginTop: 0 }}>Try a broader word</h3>
+        <NoorCard className="noor-empty-guidance-card">
+          <span className="noor-badge gold">No result yet</span>
+          <h3>Try a wider doorway into guidance</h3>
           <p className="noor-subtitle">
-            Examples: mercy, guidance, intention, refuge, straight path, Allah, prayer, protection, patience or remembrance.
+            Use a broader word, remove one filter, or begin from a topic prompt. Good starting points are mercy, patience, rizq, intention, protection, prayer and repentance.
           </p>
+          <div className="noor-card-actions">
+            {GUIDANCE_TOPIC_PROMPTS.slice(0, 5).map((topic) => (
+              <button
+                key={`empty-${topic.id}`}
+                className="noor-button secondary"
+                type="button"
+                onClick={() => applyTopic(topic.id, topic.query)}
+              >
+                {topic.title}
+              </button>
+            ))}
+          </div>
         </NoorCard>
       ) : null}
     </div>

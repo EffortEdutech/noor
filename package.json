@@ -123,7 +123,9 @@
     "check:tafseer-understanding-panel": "node scripts/check-sprint28-3-tafseer-understanding-panel.mjs",
     "check:sprint28-3": "pnpm check:sprint28-2 && pnpm check:tafseer-understanding-panel && pnpm typecheck && pnpm build",
     "check:hadith-reader-ux-v1": "node scripts/check-sprint28-4-hadith-reader-ux-v1.mjs",
-    "check:sprint28-4": "pnpm check:sprint28-3 && pnpm check:hadith-reader-ux-v1 && pnpm typecheck && pnpm build"
+    "check:sprint28-4": "pnpm check:sprint28-3 && pnpm check:hadith-reader-ux-v1 && pnpm typecheck && pnpm build",
+    "check:explore-guidance-discovery-ux": "node scripts/check-sprint28-5-explore-guidance-discovery-ux.mjs",
+    "check:sprint28-5": "pnpm check:sprint28-4 && pnpm check:explore-guidance-discovery-ux && pnpm typecheck && pnpm build"
   },
   "devDependencies": {
     "@types/react": "19.0.10",
