@@ -42,3 +42,9 @@
 - Added CDN promotion handoff support.
 - Added promotion environment handoff metadata.
 - Added CDN promotion validation for manual runtime switching.
+
+## v0.21.0 — Sprint 21 Quran production source selection gate
+
+- Added Quran production source selection gate.
+- Kept Quran production import blocked until source, license, attribution, checksum and reviewer sign-off are approved.
+- Added Quran source gate validation for safe production content handling.

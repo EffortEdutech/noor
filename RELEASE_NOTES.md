@@ -54,3 +54,13 @@ Records the CDN promotion handoff layer used by the NOOR content pipeline.
 - Generated CDN promotion environment values.
 - Added manual apply checklist after CDN smoke test.
 - Preserved safe runtime switching through explicit environment settings.
+
+## v0.21.0 — Sprint 21 Quran production source selection gate
+
+Records the Quran production source selection gate used by the NOOR content pipeline.
+
+### Highlights
+
+- Added Quran production source selection gate.
+- Preserved blocked production import status until formal approval.
+- Required license, attribution, checksum and scholarly reviewer sign-off before Quran production import.
