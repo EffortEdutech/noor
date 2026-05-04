@@ -1,7 +1,7 @@
+import type { ReactNode } from 'react';
 import {
   DailyAyahCard,
   DailyHadithCard,
-  KnowledgeSettingsPanel,
   NoorCard
 } from '@noor/ui';
 import { getDailyNoorContent } from '@noor/data';
@@ -12,129 +12,138 @@ import { ReadingProgressPanel } from '../../components/ReadingProgressPanel';
 import { ReflectionNotesPanel } from '../../components/ReflectionNotesPanel';
 import { UniversalKnowledgeBar } from '../../components/UniversalKnowledgeBar';
 
-const pageStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 14,
-  paddingBottom: 80
-} as const;
-
-const headerStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: 4
-} as const;
-
-const titleStyle = {
-  margin: 0,
-  color: '#0f172a',
-  fontSize: 22,
-  fontWeight: 800,
-  letterSpacing: '-0.02em'
-} as const;
-
-const subtitleStyle = {
-  margin: '6px 0 0',
-  color: '#64748b',
-  fontSize: 13,
-  lineHeight: 1.6
-} as const;
+function LearningSection({
+  icon,
+  title,
+  summary,
+  preview,
+  children,
+  defaultOpen = false
+}: {
+  icon: string;
+  title: string;
+  summary: string;
+  preview: string[];
+  children: ReactNode;
+  defaultOpen?: boolean;
+}) {
+  return (
+    <details className="noor-learning-section" open={defaultOpen}>
+      <summary>
+        <span className="noor-learning-icon" aria-hidden="true">{icon}</span>
+        <span className="noor-learning-summary-main">
+          <strong>{title}</strong>
+          <span>{summary}</span>
+          <span className="noor-learning-preview">
+            {preview.map((item) => <em key={item}>{item}</em>)}
+          </span>
+        </span>
+        <span className="noor-learning-chevron" aria-hidden="true">▸</span>
+      </summary>
+      <div className="noor-learning-body">{children}</div>
+    </details>
+  );
+}
 
 export default async function TodayPage() {
   const daily = await getDailyNoorContent();
 
   return (
-    <main className="noor-page noor-learning-page" style={pageStyle}>
-      <div style={headerStyle}>
-        <h1 style={titleStyle}>Today</h1>
-        <p style={subtitleStyle}>A calm daily learning space. Open one section, learn one thing, then continue.</p>
-      </div>
+    <main className="noor-page noor-learning-page">
+      <header className="noor-production-header">
+        <span className="noor-kicker">Today</span>
+        <h1>Open one learning section.</h1>
+        <p>
+          Today is a calm starting point. It shows the available learning sections first, then lets you open only the part you want to read.
+        </p>
+      </header>
 
-      <KnowledgeSettingsPanel
-        title="Today’s learning sections"
-        subtitle="The page shows the structure first. Details stay hidden until you choose to open them."
-        sections={[
-          {
-            id: 'today-start',
-            icon: '🧭',
-            title: 'Continue',
-            summary: 'Resume your reading or guidance path without searching through the whole app.',
-            chips: ['Reading progress', 'Guidance path'],
-            children: (
-              <div className="noor-clean-grid two">
-                <ContinueReadingCard />
-                <ContinueGuidancePathCard />
-              </div>
-            )
-          },
-          {
-            id: 'today-guidance',
-            icon: '📖',
-            title: 'Daily learning',
-            summary: 'Read one ayah and one hadith as a small guided session for today.',
-            chips: ['Daily ayah', 'Daily hadith', 'Short session'],
-            children: (
-              <div className="noor-clean-stack">
-                <DailyGuidedSessionCard />
-                <div className="noor-clean-grid two">
-                  <DailyAyahCard ayah={daily.ayah} />
-                  <DailyHadithCard hadith={daily.hadith} />
-                </div>
-              </div>
-            )
-          },
-          {
-            id: 'today-reflect',
-            icon: '✍️',
-            title: 'Reflection',
-            summary: 'Review recent notes and progress after the main reading is clear.',
-            chips: ['Recent notes', 'Progress'],
-            children: (
-              <div className="noor-clean-grid two">
-                <ReflectionNotesPanel limit={3} />
-                <ReadingProgressPanel />
-              </div>
-            )
-          },
-          {
-            id: 'today-deeper',
-            icon: '🌿',
-            title: 'Go deeper',
-            summary: 'Open Quran, Tafseer, Hadith, or a journey only when you are ready for more.',
-            chips: ['Quran', 'Tafseer', 'Hadith', 'Journeys'],
-            children: (
-              <div className="noor-clean-stack">
-                <UniversalKnowledgeBar
-                  title="Find a need, topic or reference"
-                  subtitle="Use this when you want to move beyond today’s guided path."
-                />
-                <div className="noor-clean-grid three">
-                  <NoorCard className="noor-link-card noor-quiet-action-card">
-                    <span className="noor-badge emerald">Read</span>
-                    <h3>Quran reader</h3>
-                    <p className="noor-subtitle">Read with translation, tafseer support, and memorisation focus.</p>
-                    <a className="noor-button" href="/learn/quran/1">Start with Al-Fatihah</a>
-                  </NoorCard>
+      <section className="noor-learning-intro" aria-label="Today recommendation">
+        <div>
+          <span className="noor-kicker">Recommended first</span>
+          <h2>Continue your current path before opening more content.</h2>
+          <p>
+            A serious learning interface should reduce decisions. Begin with continuation, then move to daily reading, reflection, or deeper study.
+          </p>
+        </div>
+        <a className="noor-button primary" href="#today-continue">Start</a>
+      </section>
 
-                  <NoorCard className="noor-link-card noor-quiet-action-card">
-                    <span className="noor-badge gold">Understand</span>
-                    <h3>Tafseer support</h3>
-                    <p className="noor-subtitle">Understand the ayah while keeping the Quran as the centre.</p>
-                    <a className="noor-button secondary" href="/learn/tafseer">Open Tafseer</a>
-                  </NoorCard>
+      <section className="noor-learning-list" aria-label="Today learning sections">
+        <div id="today-continue">
+          <LearningSection
+            icon="🧭"
+            title="Continue"
+            summary="Resume from the last meaningful place instead of browsing the whole app again."
+            preview={["Reading", "Guidance path"]}
+            defaultOpen
+          >
+            <div className="noor-learning-card-grid two">
+              <ContinueReadingCard />
+              <ContinueGuidancePathCard />
+            </div>
+          </LearningSection>
+        </div>
 
-                  <NoorCard className="noor-link-card noor-quiet-action-card">
-                    <span className="noor-badge emerald">Sunnah</span>
-                    <h3>Hadith guidance</h3>
-                    <p className="noor-subtitle">Read Hadith as practical guidance connected to reflection.</p>
-                    <a className="noor-button secondary" href="/learn/hadith">Open Hadith</a>
-                  </NoorCard>
-                </div>
-              </div>
-            )
-          }
-        ]}
-      />
+        <LearningSection
+          icon="📖"
+          title="Daily reading"
+          summary="Read one short daily session. Keep the Quran and Hadith visible only after you choose to open this section."
+          preview={["Ayah", "Hadith", "Short session"]}
+        >
+          <div className="noor-clean-stack">
+            <DailyGuidedSessionCard />
+            <div className="noor-learning-card-grid two">
+              <DailyAyahCard ayah={daily.ayah} />
+              <DailyHadithCard hadith={daily.hadith} />
+            </div>
+          </div>
+        </LearningSection>
+
+        <LearningSection
+          icon="✍️"
+          title="Reflect"
+          summary="Review your notes and progress after reading, not before."
+          preview={["Notes", "Progress"]}
+        >
+          <div className="noor-learning-card-grid two">
+            <ReflectionNotesPanel limit={3} />
+            <ReadingProgressPanel />
+          </div>
+        </LearningSection>
+
+        <LearningSection
+          icon="🌿"
+          title="Go deeper"
+          summary="Open Quran, Tafseer, Hadith or a journey when today’s main step is already clear."
+          preview={["Quran", "Tafseer", "Hadith", "Journeys"]}
+        >
+          <UniversalKnowledgeBar
+            title="Search only when you know what you want"
+            subtitle="Use this for a topic, question, Surah, ayah reference, or Hadith reminder."
+          />
+          <div className="noor-learning-card-grid three">
+            <NoorCard className="noor-link-card">
+              <span className="noor-badge emerald">Read</span>
+              <h3>Quran reader</h3>
+              <p>Open a calm Quran reading surface with Surah and Ayah navigation.</p>
+              <a className="noor-button secondary" href="/learn/quran/1">Start Al-Fatihah</a>
+            </NoorCard>
+            <NoorCard className="noor-link-card">
+              <span className="noor-badge gold">Understand</span>
+              <h3>Tafseer</h3>
+              <p>Read explanation after the ayah is clear.</p>
+              <a className="noor-button secondary" href="/learn/tafseer">Open Tafseer</a>
+            </NoorCard>
+            <NoorCard className="noor-link-card">
+              <span className="noor-badge emerald">Sunnah</span>
+              <h3>Hadith</h3>
+              <p>Connect Prophetic guidance with practice and reflection.</p>
+              <a className="noor-button secondary" href="/learn/hadith">Open Hadith</a>
+            </NoorCard>
+          </div>
+        </LearningSection>
+      </section>
     </main>
   );
 }

@@ -9,5 +9,4 @@ export * from './components/HadithCard';
 export * from './components/SourceConnectionsPanel';
 export * from './components/KnowledgePageCompass';
 export * from './components/KnowledgeAccordion';
-
 export * from './components/KnowledgeSettingsPanel';

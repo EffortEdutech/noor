@@ -1,0 +1,567 @@
+/*
+  Sprint 28.5N — Quran Clean Reader Navigation
+  Purpose: Quran reading must open last visited Surah/Ayah or Al-Fatihah,
+  and Surah/Ayah navigation must stay hidden until the user taps the floating control.
+*/
+
+.noor-quran-v2-page,
+.noor-quran-v2-reader {
+  min-height: 100vh;
+  color: #17211b;
+  background:
+    radial-gradient(circle at top left, rgba(15, 118, 110, 0.08), transparent 32rem),
+    linear-gradient(180deg, #fbfaf6 0%, #f5f1e8 100%);
+  padding: clamp(18px, 3vw, 36px);
+  padding-bottom: 140px;
+}
+
+.noor-quran-v2-landing,
+.noor-quran-v2-note,
+.noor-quran-v2-reader-head,
+.noor-quran-v2-modebar,
+.noor-quran-v2-ayah,
+.noor-quran-v2-panel {
+  box-sizing: border-box;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  background: rgba(255, 255, 255, 0.94);
+  color: #17211b;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+}
+
+.noor-quran-v2-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 28px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #e8f5ef;
+  color: #0f6b54;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.noor-quran-v2-landing {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+  gap: clamp(18px, 3vw, 32px);
+  align-items: stretch;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: clamp(22px, 4vw, 40px);
+  border-radius: 30px;
+}
+
+.noor-quran-v2-landing-copy h1,
+.noor-quran-v2-reader-head h1 {
+  margin: 16px 0 12px;
+  color: #101814;
+  font-size: clamp(2rem, 5vw, 4.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
+}
+
+.noor-quran-v2-landing-copy p,
+.noor-quran-v2-note p,
+.noor-quran-v2-reader-head p,
+.noor-quran-v2-modebar p,
+.noor-quran-v2-panel p {
+  margin: 0;
+  color: #52625a;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.noor-quran-v2-continue {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  min-height: 220px;
+  padding: 26px;
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  border-radius: 26px;
+  background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
+  color: #ffffff;
+  text-decoration: none;
+  box-shadow: 0 22px 45px rgba(15, 118, 110, 0.22);
+}
+
+.noor-quran-v2-continue span {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.noor-quran-v2-continue strong {
+  color: #ffffff;
+  font-size: clamp(1.35rem, 3vw, 2.1rem);
+  line-height: 1.15;
+}
+
+.noor-quran-v2-continue small {
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.96rem;
+  line-height: 1.45;
+}
+
+.noor-quran-v2-continue em {
+  margin-top: 10px;
+  color: #fff6d6;
+  font-family: var(--font-arabic, serif);
+  font-size: 2rem;
+  font-style: normal;
+  line-height: 1.4;
+  text-align: right;
+}
+
+.noor-quran-v2-note {
+  max-width: 1120px;
+  margin: 18px auto 0;
+  padding: 20px 24px;
+  border-radius: 24px;
+}
+
+.noor-quran-v2-note h2 {
+  margin: 0 0 8px;
+  color: #17211b;
+  font-size: 1.1rem;
+}
+
+.noor-quran-v2-reader {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: none;
+}
+
+.noor-quran-v2-reader-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  padding: clamp(20px, 3vw, 32px);
+  border-radius: 28px;
+}
+
+.noor-quran-v2-reader-head h1 {
+  font-family: var(--font-arabic, serif);
+  text-align: right;
+}
+
+.noor-quran-v2-modebar {
+  position: sticky;
+  top: 12px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 12px;
+  border-radius: 22px;
+  backdrop-filter: blur(14px);
+}
+
+.noor-quran-v2-modes {
+  display: inline-flex;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 999px;
+  background: #eef1ed;
+}
+
+.noor-quran-v2-modes button {
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 15px;
+  background: transparent;
+  color: #52625a;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.noor-quran-v2-modes button[data-active='true'] {
+  background: #ffffff;
+  color: #0f6b54;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+}
+
+.noor-quran-v2-modebar p {
+  text-align: right;
+  font-size: 0.9rem;
+}
+
+.noor-quran-v2-modebar strong {
+  color: #0f6b54;
+}
+
+.noor-quran-v2-reading-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 920px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.noor-quran-v2-ayah {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: clamp(20px, 3.4vw, 36px);
+  border-radius: 30px;
+  scroll-margin-top: 110px;
+}
+
+.noor-quran-v2-ayah:target {
+  border-color: rgba(15, 118, 110, 0.45);
+  box-shadow: 0 18px 45px rgba(15, 118, 110, 0.16);
+}
+
+.noor-quran-v2-ayah-ref {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.noor-quran-v2-ayah-ref span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 34px;
+  border-radius: 999px;
+  background: #eef7f2;
+  color: #0f6b54;
+  font-weight: 900;
+}
+
+.noor-quran-v2-arabic {
+  color: #111816;
+  font-family: var(--font-arabic, serif);
+  font-weight: 500;
+  text-align: right;
+  direction: rtl;
+}
+
+.noor-quran-v2-translation {
+  max-width: 74ch;
+  margin: 0;
+  color: #27362f;
+  font-size: 1.02rem;
+  line-height: 1.82;
+}
+
+.noor-quran-v2-translation-secondary {
+  color: #52625a;
+}
+
+.noor-quran-v2-study {
+  border-top: 1px solid rgba(15, 23, 42, 0.1);
+  padding-top: 14px;
+}
+
+.noor-quran-v2-study > summary {
+  list-style: none;
+  cursor: pointer;
+  color: #0f6b54;
+  font-weight: 900;
+}
+
+.noor-quran-v2-study > summary::-webkit-details-marker {
+  display: none;
+}
+
+.noor-quran-v2-study > summary::after {
+  content: 'Open';
+  float: right;
+  color: #52625a;
+  font-weight: 800;
+}
+
+.noor-quran-v2-study[open] > summary::after {
+  content: 'Close';
+}
+
+.noor-quran-v2-study-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.noor-quran-v2-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.noor-quran-v2-float {
+  position: fixed;
+  right: clamp(16px, 4vw, 34px);
+  bottom: clamp(18px, 4vw, 34px);
+  z-index: 90;
+}
+
+.noor-quran-v2-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 88;
+  background: rgba(15, 23, 42, 0.18);
+  backdrop-filter: blur(2px);
+}
+
+.noor-quran-v2-button {
+  position: relative;
+  z-index: 91;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 190px;
+  border: 0;
+  border-radius: 22px;
+  padding: 14px 18px;
+  background: #0f766e;
+  color: #ffffff;
+  box-shadow: 0 20px 40px rgba(15, 118, 110, 0.28);
+  cursor: pointer;
+}
+
+.noor-quran-v2-button span {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.noor-quran-v2-button strong {
+  color: #ffffff;
+  font-size: 0.95rem;
+  line-height: 1.25;
+}
+
+.noor-quran-v2-panel {
+  position: fixed;
+  right: clamp(16px, 4vw, 34px);
+  bottom: 98px;
+  z-index: 92;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: min(430px, calc(100vw - 32px));
+  max-height: min(76vh, 720px);
+  overflow: hidden;
+  padding: 20px;
+  border-radius: 28px;
+}
+
+.noor-quran-v2-panel-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.noor-quran-v2-panel-head h2 {
+  margin: 8px 0 6px;
+  color: #17211b;
+  font-size: 1.28rem;
+  line-height: 1.2;
+}
+
+.noor-quran-v2-close {
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 999px;
+  background: #ffffff;
+  color: #17211b;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.noor-quran-v2-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 110px;
+  gap: 12px;
+}
+
+.noor-quran-v2-fields label,
+.noor-quran-v2-search {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.noor-quran-v2-fields span,
+.noor-quran-v2-search span {
+  color: #52625a;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.noor-quran-v2-fields select,
+.noor-quran-v2-search input {
+  min-height: 46px;
+  width: 100%;
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  border-radius: 14px;
+  padding: 0 12px;
+  background: #ffffff;
+  color: #17211b;
+  font: inherit;
+}
+
+.noor-quran-v2-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 260px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.noor-quran-v2-list button {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 16px;
+  padding: 10px;
+  background: #ffffff;
+  color: #17211b;
+  text-align: left;
+  cursor: pointer;
+}
+
+.noor-quran-v2-list button[data-active='true'] {
+  border-color: rgba(15, 118, 110, 0.38);
+  background: #eef7f2;
+}
+
+.noor-quran-v2-surah-no {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  border-radius: 12px;
+  background: #f0ede5;
+  color: #344139;
+  font-weight: 900;
+}
+
+.noor-quran-v2-surah-name {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.noor-quran-v2-surah-name strong {
+  color: #17211b;
+  font-size: 0.95rem;
+}
+
+.noor-quran-v2-surah-name small {
+  color: #52625a;
+  font-size: 0.8rem;
+}
+
+.noor-quran-v2-surah-arabic {
+  color: #0f6b54;
+  font-family: var(--font-arabic, serif);
+  font-size: 1.12rem;
+  white-space: nowrap;
+}
+
+.noor-quran-v2-panel-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.noor-quran-v2-primary {
+  min-height: 48px;
+  border: 0;
+  border-radius: 16px;
+  background: #0f766e;
+  color: #ffffff;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.noor-quran-v2-secondary-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.noor-quran-v2-secondary-actions button {
+  flex: 1;
+  min-height: 42px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 14px;
+  background: #ffffff;
+  color: #17211b;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.noor-quran-v2-secondary-actions button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@media (max-width: 820px) {
+  .noor-quran-v2-landing {
+    grid-template-columns: 1fr;
+  }
+
+  .noor-quran-v2-reader-head,
+  .noor-quran-v2-modebar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .noor-quran-v2-modebar p {
+    text-align: left;
+  }
+
+  .noor-quran-v2-panel {
+    left: 12px;
+    right: 12px;
+    bottom: 88px;
+    width: auto;
+    max-height: 76vh;
+  }
+
+  .noor-quran-v2-button {
+    min-width: 170px;
+  }
+
+  .noor-quran-v2-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .noor-quran-v2-list button {
+    grid-template-columns: 44px minmax(0, 1fr);
+  }
+
+  .noor-quran-v2-list .noor-quran-v2-surah-arabic {
+    grid-column: 2;
+  }
+}
