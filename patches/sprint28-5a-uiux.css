@@ -1,0 +1,150 @@
+/* Sprint 28.5A: Knowledge Navigation UI/UX foundation */
+.noor-knowledge-bar-card {
+  display: grid;
+  gap: 16px;
+  border-color: rgba(216, 183, 90, 0.28);
+  background:
+    linear-gradient(150deg, rgba(216, 183, 90, 0.13), rgba(47, 191, 155, 0.08)),
+    rgba(19, 35, 43, 0.96);
+}
+
+.noor-knowledge-bar-header h2 {
+  margin: 10px 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 4vw, 40px);
+}
+
+.noor-knowledge-bar-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.noor-knowledge-bar-input {
+  min-height: 52px;
+  border-radius: 999px;
+  padding-left: 18px;
+}
+
+.noor-knowledge-intent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.noor-knowledge-intent-card {
+  display: grid;
+  gap: 6px;
+  min-height: 96px;
+  text-align: left;
+  border: 1px solid var(--noor-line);
+  border-radius: 18px;
+  padding: 13px;
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--noor-ink);
+  cursor: pointer;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.noor-knowledge-intent-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(216, 183, 90, 0.38);
+  background: linear-gradient(145deg, rgba(216, 183, 90, 0.16), rgba(47, 191, 155, 0.1));
+}
+
+.noor-knowledge-intent-card strong {
+  color: var(--noor-gold);
+}
+
+.noor-knowledge-intent-card span {
+  color: var(--noor-muted);
+  line-height: 1.45;
+  font-size: 13px;
+}
+
+.noor-knowledge-bar-hints {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.noor-knowledge-bar-hints span {
+  border: 1px solid var(--noor-line);
+  border-radius: 999px;
+  padding: 7px 10px;
+  color: var(--noor-muted);
+  font-size: 12px;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.noor-source-connections {
+  display: grid;
+  gap: 12px;
+  margin-top: 6px;
+  border: 1px solid rgba(47, 191, 155, 0.18);
+  border-radius: 20px;
+  padding: 13px;
+  background: rgba(47, 191, 155, 0.055);
+}
+
+.noor-source-connections.compact {
+  margin-top: 8px;
+}
+
+.noor-source-connections-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.noor-source-connection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+  gap: 10px;
+}
+
+.noor-source-connection-card {
+  display: grid;
+  gap: 7px;
+  min-height: 132px;
+  border: 1px solid var(--noor-line);
+  border-radius: 18px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.045);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.noor-source-connection-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(216, 183, 90, 0.36);
+  background: linear-gradient(145deg, rgba(216, 183, 90, 0.13), rgba(47, 191, 155, 0.09));
+}
+
+.noor-source-connection-card strong {
+  font-size: 16px;
+  color: var(--noor-ink);
+}
+
+.noor-source-connection-card span:not(.noor-badge) {
+  color: var(--noor-muted);
+  line-height: 1.45;
+  font-size: 13px;
+}
+
+@media (max-width: 760px) {
+  .noor-knowledge-bar-form {
+    grid-template-columns: 1fr;
+  }
+
+  .noor-knowledge-bar-card .noor-button {
+    width: 100%;
+  }
+
+  .noor-source-connection-grid {
+    grid-template-columns: 1fr;
+  }
+}

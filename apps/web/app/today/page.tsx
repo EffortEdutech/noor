@@ -7,6 +7,7 @@ import { DailyGuidedSessionCard } from '../../components/DailyGuidedSessionCard'
 import { NoorHomeDashboard } from '../../components/NoorHomeDashboard';
 import { ReadingProgressPanel } from '../../components/ReadingProgressPanel';
 import { ReflectionNotesPanel } from '../../components/ReflectionNotesPanel';
+import { UniversalKnowledgeBar } from '../../components/UniversalKnowledgeBar';
 
 export default async function TodayPage() {
   const [daily, featuredJourney] = await Promise.all([
@@ -20,6 +21,11 @@ export default async function TodayPage() {
         kicker="Today with NOOR"
         title="Continue your journey with the light."
         subtitle="Your home dashboard now connects reading progress, guidance topics, reflection notes and daily sessions into one calm path."
+      />
+
+      <UniversalKnowledgeBar
+        title="Begin today by need, reference or topic."
+        subtitle="Jump to an ayah, open a topic, or continue into Quran, Tafseer and Hadith guidance."
       />
 
       <NoorHomeDashboard />

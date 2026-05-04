@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getTafseerEntries, getTafseerIndex } from '@noor/data';
-import { NoorCard, PageHeader } from '@noor/ui';
+import { NoorCard, PageHeader, SourceConnectionsPanel } from '@noor/ui';
 import { getServerNoorContentSource } from '../../../lib/runtime-content-source';
 
 export const dynamic = 'force-dynamic';
@@ -31,6 +31,10 @@ function buildTafseerHref(bookId: string, surah: number) {
   });
 
   return `/learn/tafseer?${params.toString()}`;
+}
+
+function getPrimaryTopic(tags: string[]) {
+  return tags.find((tag) => tag.trim().length > 1)?.toLowerCase() ?? 'guidance';
 }
 
 export default async function TafseerPage({ searchParams }: TafseerPageProps) {
@@ -142,35 +146,68 @@ export default async function TafseerPage({ searchParams }: TafseerPageProps) {
           </NoorCard>
         ) : null}
 
-        {entries.map((entry, index) => (
-          <NoorCard key={`${entry.id}-${index}`} className="noor-tafseer-entry">
-            <div className="noor-row">
-              <span className="noor-badge gold">Understand this passage</span>
-              <span className="noor-reference">{entry.surah}:{entry.fromAyah}-{entry.toAyah}</span>
-            </div>
-            <h2>{entry.title}</h2>
-            <div className="noor-understanding-flow" aria-label="Read, understand, respond workflow">
-              <div>
-                <strong>Read</strong>
-                <span>Surah {entry.surah}</span>
+        {entries.map((entry, index) => {
+          const primaryTopic = getPrimaryTopic(entry.tags);
+
+          return (
+            <NoorCard key={`${entry.id}-${index}`} className="noor-tafseer-entry">
+              <div className="noor-row">
+                <span className="noor-badge gold">Understand this passage</span>
+                <span className="noor-reference">{entry.surah}:{entry.fromAyah}-{entry.toAyah}</span>
               </div>
-              <div>
-                <strong>Understand</strong>
-                <span>{entry.sourceLabel}</span>
+              <h2>{entry.title}</h2>
+              <div className="noor-understanding-flow" aria-label="Read, understand, respond workflow">
+                <div>
+                  <strong>Read</strong>
+                  <span>Surah {entry.surah}</span>
+                </div>
+                <div>
+                  <strong>Understand</strong>
+                  <span>{entry.sourceLabel}</span>
+                </div>
+                <div>
+                  <strong>Respond</strong>
+                  <span>One action today</span>
+                </div>
               </div>
-              <div>
-                <strong>Respond</strong>
-                <span>One action today</span>
+              <p className="noor-subtitle">{entry.body}</p>
+
+              <SourceConnectionsPanel
+                compact
+                subtitle="This tafseer explains an ayah or passage. Continue back to Quran context, related topic, or Hadith reminders."
+                connections={[
+                  {
+                    label: 'Quran',
+                    badge: 'Quran',
+                    title: 'Read in Quran context',
+                    description: `Open Surah ${entry.surah} from ayah ${entry.fromAyah}.`,
+                    href: `/learn/quran/${entry.surah}#ayah-${entry.fromAyah}`
+                  },
+                  {
+                    label: 'Topic',
+                    badge: 'Topic',
+                    title: `Explore ${primaryTopic}`,
+                    description: 'Search Quran, Tafseer and Hadith together through this theme.',
+                    href: `/explore?topic=${encodeURIComponent(primaryTopic)}`
+                  },
+                  {
+                    label: 'Hadith',
+                    badge: 'Hadith',
+                    title: 'Find related Hadith reminders',
+                    description: 'Continue from explanation into Prophetic application.',
+                    href: `/learn/hadith?mode=reflect&topic=${encodeURIComponent(primaryTopic)}#hadith-reader`
+                  }
+                ]}
+              />
+
+              <div className="noor-card-actions" style={{ marginTop: 14 }}>
+                <Link className="noor-button secondary" href={`/learn/quran/${entry.surah}#ayah-${entry.fromAyah}`}>
+                  Read in Quran context
+                </Link>
               </div>
-            </div>
-            <p className="noor-subtitle">{entry.body}</p>
-            <div className="noor-card-actions" style={{ marginTop: 14 }}>
-              <Link className="noor-button secondary" href={`/learn/quran/${entry.surah}#ayah-${entry.fromAyah}`}>
-                Read in Quran context
-              </Link>
-            </div>
-          </NoorCard>
-        ))}
+            </NoorCard>
+          );
+        })}
       </section>
     </main>
   );

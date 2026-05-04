@@ -1,7 +1,7 @@
 'use client';
 
 import type { QuranAyah, TafseerEntry } from '@noor/content';
-import { BookmarkButton, NoorCard } from '@noor/ui';
+import { BookmarkButton, NoorCard, SourceConnectionsPanel } from '@noor/ui';
 import { useState } from 'react';
 import { getArabicFontSize, useReaderPreferences } from '../lib/reader-preferences';
 import { MarkReadingProgressButton } from './MarkReadingProgressButton';
@@ -19,6 +19,18 @@ function getModeHelper(mode: QuranReaderMode) {
   if (mode === 'memorise') return 'Repeat, listen to your own recitation, then check the meaning in Read or Study mode.';
   if (mode === 'study') return 'Read the meaning slowly, open the tafseer note, then write or save one reflection.';
   return 'Read the Arabic and translation together. Mark this ayah if this is where you stop today.';
+}
+
+function getPrimaryTopic(tafseer: TafseerEntry | undefined, english: string) {
+  const tag = tafseer?.tags?.find((item) => item.trim().length > 1);
+  if (tag) return tag.toLowerCase();
+
+  const fallback = english
+    .replace(/[^\w\s-]/g, ' ')
+    .split(/\s+/)
+    .find((word) => word.length > 4);
+
+  return fallback?.toLowerCase() ?? 'guidance';
 }
 
 async function copyText(value: string) {
@@ -48,6 +60,7 @@ export function AyahStudyCard({
   const href = `/learn/quran/${ayah.surah}#ayah-${ayah.ayah}`;
   const english = ayah.translations.en ?? '';
   const malay = ayah.translations.ms ?? '';
+  const primaryTopic = getPrimaryTopic(tafseer, english);
   const showTranslation = mode !== 'memorise';
   const showEnglish = showTranslation && (preferences.languageMode === 'both' || preferences.languageMode === 'en');
   const showMalay = showTranslation && (preferences.languageMode === 'both' || preferences.languageMode === 'ms');
@@ -130,6 +143,36 @@ export function AyahStudyCard({
         {mode !== 'study' && tafseer ? (
           <p className="noor-muted noor-small">Tip: switch to Study mode to read the tafseer note for this ayah.</p>
         ) : null}
+
+        <SourceConnectionsPanel
+          compact
+          subtitle="This ayah is the centre. Continue into explanation, Prophetic reminders, or a guided topic path."
+          connections={[
+            {
+              label: 'Tafseer',
+              badge: tafseer ? 'Tafseer' : 'Understand',
+              title: tafseer ? `Understand with ${tafseer.sourceLabel}` : 'Open Tafseer library',
+              description: tafseer
+                ? `This tafseer covers ${tafseer.surah}:${tafseer.fromAyah}-${tafseer.toAyah}.`
+                : 'Look for available tafseer notes connected to this Surah.',
+              href: `/learn/tafseer?surah=${ayah.surah}#ayah-${ayah.ayah}`
+            },
+            {
+              label: 'Hadith',
+              badge: 'Hadith',
+              title: 'Find Prophetic reminders',
+              description: `Explore Hadith reminders related to ${primaryTopic}.`,
+              href: `/learn/hadith?mode=reflect&topic=${encodeURIComponent(primaryTopic)}#hadith-reader`
+            },
+            {
+              label: 'Topic',
+              badge: 'Topic',
+              title: 'Open as guidance topic',
+              description: 'Search Quran, Tafseer and Hadith together through a human need or theme.',
+              href: `/explore?topic=${encodeURIComponent(primaryTopic)}`
+            }
+          ]}
+        />
 
         <div className="noor-card-actions noor-ayah-actions" style={{ marginTop: 14 }}>
           <BookmarkButton

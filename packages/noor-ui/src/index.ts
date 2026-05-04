@@ -6,3 +6,4 @@ export * from './components/AyahCard';
 export * from './components/DailyAyahCard';
 export * from './components/DailyHadithCard';
 export * from './components/HadithCard';
+export * from './components/SourceConnectionsPanel';

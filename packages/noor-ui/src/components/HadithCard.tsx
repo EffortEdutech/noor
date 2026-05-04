@@ -1,6 +1,7 @@
 import type { HadithItem } from '@noor/content';
 import { HadithActionButtons } from './HadithActionButtons';
 import { NoorCard } from './NoorCard';
+import { SourceConnectionsPanel } from './SourceConnectionsPanel';
 
 type HadithReaderMode = 'read' | 'reflect' | 'practice';
 
@@ -53,6 +54,7 @@ export function HadithCard({ hadith, mode = 'read', index }: HadithCardProps) {
   const referenceText = hadith.sourceLabel;
   const copyText = buildCopyText(hadith);
   const topicHref = buildTopicHref(hadith);
+  const firstTopic = hadith.tags[0]?.toLowerCase();
 
   return (
     <NoorCard className="noor-hadith-card noor-hadith-card-v1">
@@ -88,6 +90,36 @@ export function HadithCard({ hadith, mode = 'read', index }: HadithCardProps) {
           ))}
         </div>
       ) : null}
+
+      <SourceConnectionsPanel
+        compact
+        subtitle="This Hadith should not stand alone. Continue into topic, Quran/Tafseer context, or one practical action."
+        connections={[
+          {
+            label: 'Topic',
+            badge: 'Topic',
+            title: firstTopic ? `Explore #${firstTopic}` : 'Explore related topic',
+            description: firstTopic
+              ? 'Open a guided path that groups Quran, Tafseer and Hadith around this theme.'
+              : 'Use Explore to find the wider guidance path for this narration.',
+            href: topicHref ?? '/explore'
+          },
+          {
+            label: 'Quran',
+            badge: 'Quran',
+            title: 'Find Quran foundation',
+            description: 'Search for ayat and tafseer that connect with the meaning of this narration.',
+            href: firstTopic ? `/explore?topic=${encodeURIComponent(firstTopic)}` : '/explore'
+          },
+          {
+            label: 'Practise',
+            badge: 'Practise',
+            title: 'Turn into one action',
+            description: 'Save the narration, reflect on it, then practise one small Sunnah action today.',
+            href: '/library'
+          }
+        ]}
+      />
 
       <HadithActionButtons
         bookmarkItem={{

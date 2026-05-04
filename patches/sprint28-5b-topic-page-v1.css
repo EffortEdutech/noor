@@ -1,0 +1,222 @@
+/* Sprint 28.5B: Topic Page v1 */
+.noor-topic-page-v1 {
+  scroll-padding-top: 120px;
+}
+
+.noor-topic-v1-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(260px, 0.92fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.noor-topic-v1-hero-card,
+.noor-topic-v1-response-card {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+.noor-topic-v1-hero-card h2,
+.noor-topic-v1-response-card h2,
+.noor-topic-source-heading h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 4vw, 40px);
+  line-height: 1.06;
+}
+
+.noor-topic-v1-path {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.noor-topic-v1-path-step {
+  display: grid;
+  gap: 8px;
+  min-height: 150px;
+  border: 1px solid var(--noor-line);
+  border-radius: 20px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.045);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.noor-topic-v1-path-step:hover {
+  transform: translateY(-2px);
+  border-color: rgba(216, 183, 90, 0.38);
+  background: linear-gradient(145deg, rgba(216, 183, 90, 0.15), rgba(47, 191, 155, 0.09));
+}
+
+.noor-topic-v1-path-step > span {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(216, 183, 90, 0.24);
+  background: rgba(216, 183, 90, 0.12);
+  color: #ffe8a6;
+  font-weight: 900;
+}
+
+.noor-topic-v1-path-step strong {
+  font-size: 17px;
+}
+
+.noor-topic-v1-path-step small {
+  color: var(--noor-muted);
+  line-height: 1.45;
+}
+
+.noor-topic-source-stack {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  align-items: stretch;
+}
+
+.noor-topic-source-section {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  border: 1px solid var(--noor-line);
+  border-radius: 24px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.noor-topic-source-quran {
+  border-color: rgba(216, 183, 90, 0.22);
+}
+
+.noor-topic-source-tafseer {
+  border-color: rgba(47, 191, 155, 0.2);
+}
+
+.noor-topic-source-hadith {
+  border-color: rgba(244, 239, 226, 0.14);
+}
+
+.noor-topic-source-heading {
+  display: grid;
+  gap: 9px;
+}
+
+.noor-topic-source-result-card {
+  display: grid;
+  gap: 12px;
+  min-height: 310px;
+  box-shadow: none;
+}
+
+.noor-topic-result-body {
+  display: grid;
+  gap: 7px;
+}
+
+.noor-topic-result-body strong {
+  font-size: 18px;
+}
+
+.noor-topic-source-empty-card {
+  display: grid;
+  gap: 12px;
+  min-height: 210px;
+  align-content: start;
+}
+
+.noor-topic-source-empty-card .noor-button {
+  margin-top: auto;
+  width: fit-content;
+}
+
+.noor-topic-supporting-list {
+  display: grid;
+  gap: 8px;
+}
+
+.noor-topic-supporting-link {
+  display: grid;
+  gap: 4px;
+  border: 1px solid var(--noor-line);
+  border-radius: 16px;
+  padding: 11px;
+  background: rgba(255, 255, 255, 0.035);
+  transition: transform 160ms ease, border-color 160ms ease;
+}
+
+.noor-topic-supporting-link:hover {
+  transform: translateY(-1px);
+  border-color: rgba(216, 183, 90, 0.3);
+}
+
+.noor-topic-supporting-link span {
+  color: var(--noor-gold);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.noor-topic-supporting-link strong {
+  color: var(--noor-ink);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.noor-topic-reflection-anchor {
+  scroll-margin-top: 120px;
+}
+
+.noor-topic-related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+}
+
+.noor-topic-related-card {
+  display: grid;
+  gap: 8px;
+  min-height: 154px;
+  border: 1px solid var(--noor-line);
+  border-radius: 20px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.045);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.noor-topic-related-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(216, 183, 90, 0.38);
+  background: linear-gradient(145deg, rgba(216, 183, 90, 0.14), rgba(47, 191, 155, 0.08));
+}
+
+.noor-topic-related-card strong {
+  font-size: 17px;
+}
+
+.noor-topic-related-card small {
+  color: var(--noor-muted);
+  line-height: 1.45;
+}
+
+@media (max-width: 940px) {
+  .noor-topic-v1-hero-grid,
+  .noor-topic-source-stack {
+    grid-template-columns: 1fr;
+  }
+
+  .noor-topic-source-result-card {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .noor-topic-v1-path {
+    grid-template-columns: 1fr;
+  }
+
+  .noor-topic-v1-path-step {
+    min-height: 128px;
+  }
+}
