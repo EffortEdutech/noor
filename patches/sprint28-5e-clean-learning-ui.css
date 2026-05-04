@@ -1,0 +1,347 @@
+
+/* Sprint 28.5E: Clean Learning UI Reset
+   Purpose: move NOOR away from heavy dark dashboard cards into a calm, settings-style learning surface. */
+:root {
+  --noor-bg: #f7f4ee;
+  --noor-surface: #ffffff;
+  --noor-card: #ffffff;
+  --noor-gold: #9a6a18;
+  --noor-gold-soft: rgba(154, 106, 24, 0.10);
+  --noor-emerald: #0f766e;
+  --noor-emerald-soft: rgba(15, 118, 110, 0.10);
+  --noor-ink: #15211e;
+  --noor-muted: #66736d;
+  --noor-line: rgba(44, 55, 50, 0.12);
+  --noor-radius: 18px;
+  --noor-shadow: 0 14px 40px rgba(31, 41, 35, 0.08);
+}
+
+html { background: var(--noor-bg); }
+body {
+  background:
+    radial-gradient(circle at top left, rgba(246, 220, 154, 0.38), transparent 28rem),
+    radial-gradient(circle at top right, rgba(187, 231, 220, 0.44), transparent 26rem),
+    linear-gradient(180deg, #fbfaf7 0%, var(--noor-bg) 44%, #f2eee5 100%);
+  color: var(--noor-ink);
+}
+
+.noor-app-frame { max-width: 1120px; }
+.noor-topbar {
+  background: rgba(255, 255, 255, 0.84);
+  border-bottom: 1px solid var(--noor-line);
+  box-shadow: 0 8px 26px rgba(31, 41, 35, 0.05);
+}
+.noor-mark {
+  color: var(--noor-emerald);
+  background: #ffffff;
+  border-color: rgba(15, 118, 110, 0.18);
+}
+.noor-brand-title { color: var(--noor-ink); }
+.noor-brand-subtitle { color: var(--noor-muted); }
+
+.noor-page-header,
+.noor-card,
+.noor-settings-shell {
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid var(--noor-line);
+  box-shadow: var(--noor-shadow);
+}
+.noor-page-header {
+  border-radius: 24px;
+  padding: 20px;
+}
+.noor-title {
+  color: var(--noor-ink);
+  font-size: clamp(28px, 4vw, 46px);
+  line-height: 1.04;
+}
+.noor-subtitle,
+.noor-muted { color: var(--noor-muted); }
+.noor-card {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--noor-ink);
+}
+.noor-card.is-soft {
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow: none;
+}
+.noor-card.is-gold {
+  background: linear-gradient(135deg, rgba(255, 250, 232, 0.92), rgba(255, 255, 255, 0.9));
+  border-color: rgba(154, 106, 24, 0.18);
+}
+.noor-badge {
+  color: var(--noor-ink);
+  background: #f6f3ec;
+  border-color: var(--noor-line);
+}
+.noor-badge.gold {
+  color: #7c4d09;
+  background: #fff5d8;
+  border-color: rgba(154, 106, 24, 0.18);
+}
+.noor-badge.emerald {
+  color: #075e57;
+  background: #e8f7f3;
+  border-color: rgba(15, 118, 110, 0.16);
+}
+.noor-button {
+  color: #ffffff;
+  background: #0f766e;
+  border-color: #0f766e;
+  box-shadow: 0 8px 18px rgba(15, 118, 110, 0.16);
+}
+.noor-button.secondary {
+  color: var(--noor-ink);
+  background: #ffffff;
+  border-color: var(--noor-line);
+  box-shadow: none;
+}
+.noor-input {
+  background: #ffffff;
+  color: var(--noor-ink);
+  border-color: var(--noor-line);
+}
+.noor-bottom-nav {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--noor-line);
+  box-shadow: 0 18px 52px rgba(31, 41, 35, 0.14);
+}
+.noor-bottom-nav a { color: var(--noor-muted); }
+.noor-bottom-nav a[data-active="true"] {
+  color: var(--noor-ink);
+  background: #f0faf7;
+  border-color: rgba(15, 118, 110, 0.16);
+}
+
+.noor-learning-page { gap: 16px; }
+.noor-clean-stack { display: grid; gap: 14px; }
+.noor-clean-grid { display: grid; gap: 14px; }
+.noor-clean-grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.noor-clean-grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.noor-settings-shell {
+  border-radius: 26px;
+  padding: 14px;
+}
+.noor-settings-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.9fr);
+  gap: 16px;
+  align-items: start;
+  padding: 6px 6px 14px;
+}
+.noor-settings-overview h2 {
+  margin: 6px 0;
+  color: var(--noor-ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 3vw, 34px);
+  line-height: 1.1;
+}
+.noor-settings-overview p {
+  margin: 0;
+  color: var(--noor-muted);
+  line-height: 1.65;
+}
+.noor-settings-jump-list {
+  display: grid;
+  gap: 8px;
+}
+.noor-settings-jump-list a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  border: 1px solid var(--noor-line);
+  border-radius: 14px;
+  background: rgba(248, 246, 240, 0.86);
+  color: var(--noor-ink);
+  padding: 8px 10px;
+  font-weight: 800;
+  font-size: 13px;
+}
+.noor-settings-jump-list span,
+.noor-settings-number {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: #e8f7f3;
+  color: #075e57;
+  font-weight: 900;
+}
+.noor-settings-section-list {
+  display: grid;
+  gap: 10px;
+}
+.noor-settings-section {
+  border: 1px solid var(--noor-line);
+  border-radius: 20px;
+  background: #ffffff;
+  overflow: clip;
+  scroll-margin-top: 118px;
+}
+.noor-settings-section[open] {
+  border-color: rgba(15, 118, 110, 0.22);
+  box-shadow: 0 12px 34px rgba(31, 41, 35, 0.07);
+}
+.noor-settings-summary {
+  position: sticky;
+  top: 76px;
+  z-index: 8;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  cursor: pointer;
+  list-style: none;
+}
+.noor-settings-summary::-webkit-details-marker { display: none; }
+.noor-settings-summary-copy {
+  display: grid;
+  gap: 4px;
+}
+.noor-settings-summary-copy small {
+  color: var(--noor-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 900;
+  font-size: 11px;
+}
+.noor-settings-summary-copy strong {
+  color: var(--noor-ink);
+  font-size: 17px;
+}
+.noor-settings-summary-copy em {
+  color: var(--noor-muted);
+  font-style: normal;
+  line-height: 1.42;
+  font-size: 13px;
+}
+.noor-settings-inline-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  border: 1px solid var(--noor-line);
+  border-radius: 999px;
+  padding: 7px 10px;
+  background: #f8f6f0;
+  color: var(--noor-ink);
+  font-size: 12px;
+  font-weight: 900;
+}
+.noor-settings-chevron {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: #f4f1e9;
+  color: var(--noor-muted);
+  transition: transform 160ms ease;
+}
+.noor-settings-section[open] .noor-settings-chevron { transform: rotate(180deg); }
+.noor-settings-body {
+  border-top: 1px solid var(--noor-line);
+  padding: 16px;
+  background: #fffefa;
+}
+
+.noor-learning-choice-grid,
+.noor-topic-row-list,
+.noor-source-row-list {
+  display: grid;
+  gap: 10px;
+}
+.noor-learning-choice-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.noor-learning-choice-card,
+.noor-topic-row {
+  display: grid;
+  gap: 8px;
+  border: 1px solid var(--noor-line);
+  border-radius: 18px;
+  background: #ffffff;
+  color: var(--noor-ink);
+  padding: 14px;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+.noor-learning-choice-card:hover,
+.noor-topic-row:hover {
+  transform: translateY(-1px);
+  border-color: rgba(15, 118, 110, 0.22);
+  box-shadow: 0 10px 26px rgba(31, 41, 35, 0.08);
+}
+.noor-learning-choice-card span {
+  color: var(--noor-emerald);
+  font-weight: 900;
+}
+.noor-learning-choice-card strong { font-size: 18px; }
+.noor-learning-choice-card small,
+.noor-topic-row small,
+.noor-topic-row em {
+  color: var(--noor-muted);
+  line-height: 1.5;
+  font-style: normal;
+}
+.noor-topic-row {
+  grid-template-columns: auto minmax(160px, 0.65fr) minmax(0, 1fr);
+  align-items: center;
+}
+.noor-topic-row-list.compact .noor-topic-row { grid-template-columns: auto minmax(0, 1fr); }
+.noor-topic-row-list.compact .noor-topic-row em { grid-column: 2; }
+.noor-topic-prompt-icon {
+  background: #fff5d8;
+  border-color: rgba(154, 106, 24, 0.18);
+  color: #7c4d09 !important;
+}
+.noor-source-row-card {
+  display: grid;
+  gap: 10px;
+  box-shadow: none;
+}
+.noor-topic-focus-panel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+.noor-topic-focus-panel h2 {
+  margin: 0 0 8px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 3vw, 34px);
+}
+.noor-topic-focus-panel p {
+  margin: 0 0 12px;
+  color: var(--noor-muted);
+  line-height: 1.7;
+}
+.noor-design-note-card { box-shadow: none; }
+.noor-quiet-action-card { min-height: auto; }
+
+@media (max-width: 860px) {
+  .noor-settings-overview,
+  .noor-learning-choice-grid,
+  .noor-clean-grid.two,
+  .noor-clean-grid.three {
+    grid-template-columns: 1fr;
+  }
+  .noor-settings-summary {
+    top: 68px;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+  .noor-settings-inline-action {
+    grid-column: 2 / 4;
+    justify-content: flex-start;
+    width: fit-content;
+  }
+  .noor-topic-row,
+  .noor-topic-focus-panel {
+    grid-template-columns: 1fr;
+  }
+}

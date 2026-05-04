@@ -1,0 +1,174 @@
+/* Sprint 28.5C: In-page Knowledge Navigation & Dopamine UX */
+.noor-page-dopamine { gap: 20px; }
+
+.noor-page-compass {
+  display: grid;
+  gap: 14px;
+  border: 1px solid rgba(216, 183, 90, 0.22);
+  border-radius: 28px;
+  padding: 16px;
+  background:
+    linear-gradient(150deg, rgba(216, 183, 90, 0.12), rgba(47, 191, 155, 0.06)),
+    rgba(255, 255, 255, 0.045);
+  box-shadow: var(--noor-shadow);
+}
+.noor-page-compass.compact { box-shadow: none; }
+.noor-page-compass-intro { display: grid; gap: 7px; }
+.noor-page-compass-intro h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 4vw, 38px);
+  line-height: 1.05;
+}
+.noor-page-compass-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 8px;
+}
+.noor-page-compass-step {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "index title"
+    "index helper";
+  gap: 4px 9px;
+  min-height: 92px;
+  border: 1px solid var(--noor-line);
+  border-radius: 20px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.045);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+.noor-page-compass-step:hover,
+.noor-page-compass-step[data-active="true"] {
+  transform: translateY(-2px);
+  border-color: rgba(216, 183, 90, 0.38);
+  background: linear-gradient(145deg, rgba(216, 183, 90, 0.16), rgba(47, 191, 155, 0.1));
+}
+.noor-page-compass-step-index {
+  grid-area: index;
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(216, 183, 90, 0.24);
+  background: rgba(216, 183, 90, 0.12);
+  color: #ffe8a6;
+  font-weight: 900;
+}
+.noor-page-compass-step strong { grid-area: title; font-size: 15px; }
+.noor-page-compass-step small {
+  grid-area: helper;
+  color: var(--noor-muted);
+  line-height: 1.4;
+  font-size: 12px;
+}
+.noor-page-compass-recommended {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid rgba(47, 191, 155, 0.2);
+  border-radius: 22px;
+  padding: 12px;
+  background: rgba(47, 191, 155, 0.08);
+}
+.noor-page-compass-recommended strong {
+  display: block;
+  color: var(--noor-ink);
+  margin-bottom: 4px;
+}
+.noor-page-compass-recommended p {
+  margin: 0;
+  color: var(--noor-muted);
+  line-height: 1.45;
+  font-size: 13px;
+}
+.noor-focus-section { display: grid; gap: 14px; }
+.noor-knowledge-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.noor-knowledge-choice-card {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  min-height: 230px;
+  border: 1px solid var(--noor-line);
+  border-radius: 24px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+.noor-knowledge-choice-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(216, 183, 90, 0.38);
+  background: linear-gradient(145deg, rgba(216, 183, 90, 0.16), rgba(47, 191, 155, 0.1));
+}
+.noor-knowledge-choice-card h3 { margin: 0; font-size: clamp(22px, 3vw, 30px); }
+.noor-knowledge-choice-card p { margin: 0; color: var(--noor-muted); line-height: 1.55; }
+.noor-knowledge-choice-card strong,
+.noor-topic-journey-card em {
+  color: var(--noor-gold);
+  font-style: normal;
+  margin-top: auto;
+}
+.noor-knowledge-delivery-note { display: grid; gap: 10px; }
+.noor-knowledge-delivery-note h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(24px, 4vw, 36px);
+}
+.noor-topic-begin-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(260px, 0.92fr);
+  gap: 14px;
+  align-items: stretch;
+}
+.noor-topic-knowledge-section { display: grid; gap: 14px; }
+.noor-knowledge-source-list { display: grid; gap: 10px; }
+.noor-knowledge-source-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+.noor-knowledge-source-number {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 16px;
+  border: 1px solid rgba(216, 183, 90, 0.24);
+  background: rgba(216, 183, 90, 0.12);
+  color: #ffe8a6;
+  font-weight: 900;
+}
+.noor-guidance-path-flow-dopamine {
+  position: sticky;
+  top: 80px;
+  z-index: 10;
+  padding: 8px;
+  border: 1px solid var(--noor-line);
+  border-radius: 24px;
+  background: rgba(7, 16, 20, 0.86);
+  backdrop-filter: blur(18px);
+}
+.noor-topic-journey-grid-curated .noor-topic-journey-card,
+.noor-topic-journey-grid-quiet .noor-topic-journey-card { min-height: 210px; }
+.noor-topic-journey-grid-quiet { opacity: 0.9; }
+.noor-secondary-choice-grid { opacity: 0.96; }
+@media (max-width: 860px) {
+  .noor-page-compass-recommended,
+  .noor-topic-begin-grid,
+  .noor-knowledge-choice-grid,
+  .noor-knowledge-source-card { grid-template-columns: 1fr; }
+  .noor-guidance-path-flow-dopamine { position: static; }
+}
+@media (max-width: 600px) {
+  .noor-page-compass { padding: 14px; border-radius: 24px; }
+  .noor-page-compass-steps { grid-template-columns: 1fr; }
+  .noor-knowledge-choice-card { min-height: 180px; }
+}

@@ -1,99 +1,90 @@
-import { NoorCard, PageHeader } from '@noor/ui';
+import { PageHeader } from '@noor/ui';
 
-const primaryPaths = [
+const learningSections = [
   {
-    title: 'Read Quran',
-    badge: 'Start here',
+    icon: '📖',
+    title: 'Quran Reading',
+    description: 'Start with the Quran text. Read calmly, jump by reference, and continue one Surah at a time.',
+    previewItems: ['Surah', 'Ayah', 'Read mode', 'Continue'],
     href: '/learn/quran',
-    body: 'Open the Surah index, choose a Surah, and read with translation, tafseer support and local progress.'
+    action: 'Open Quran reader',
+    bodyTitle: 'Begin with the foundation',
+    body: 'This is the primary learning path. The Quran reader should feel clean, focused and easy to navigate. Use it when the user knows a Surah, an ayah reference, or simply wants to read today.'
   },
   {
-    title: 'Understand with Tafseer',
-    badge: 'Meaning',
+    icon: '🕯️',
+    title: 'Tafseer Understanding',
+    description: 'Open meaning only when the user wants depth. Tafseer should support the ayah, not crowd the reader.',
+    previewItems: ['Meaning', 'Context', 'Range notes'],
     href: '/learn/tafseer',
-    body: 'Use Tafseer to understand the meaning behind the ayat. The best experience is connected back to the Quran reader.'
+    action: 'Open Tafseer',
+    bodyTitle: 'Understand after reading',
+    body: 'Tafseer belongs after the user has seen the ayah. It should explain what the ayah means, what range it covers, and how it connects to other guidance.'
   },
   {
-    title: 'Learn from Hadith',
-    badge: 'Sunnah',
+    icon: '🌿',
+    title: 'Hadith Guidance',
+    description: 'Connect prophetic guidance to Quranic topics, not as isolated database records.',
+    previewItems: ['Collection', 'Chapter', 'Topic', 'Practice'],
     href: '/learn/hadith',
-    body: 'Browse Hadith by book or chapter and save reminders that help you practise what you learn.'
-  }
-];
-
-const guideCards = [
-  {
-    title: 'I want to read today',
-    href: '/learn/quran/1',
-    body: 'Begin with Al-Fatihah or continue from your saved reading point on the Today page.'
+    action: 'Open Hadith',
+    bodyTitle: 'Learn how guidance is practised',
+    body: 'Hadith should be presented as guidance, with source reference and practical connection. Users should see why the hadith matters and what it helps them practise.'
   },
   {
-    title: 'I need guidance by topic',
-    href: '/explore',
-    body: 'Search mercy, patience, protection, intention, prayer, rizq or other topics across the content library.'
-  },
-  {
-    title: 'I want a structured path',
+    icon: '🧭',
+    title: 'Guided Journeys',
+    description: 'Small paths that combine Quran, Tafseer, Hadith, reflection and one action.',
+    previewItems: ['Step by step', 'Topic', 'Reflection'],
     href: '/journeys',
-    body: 'Follow small guided steps that combine Quran, Hadith, reflection and action.'
+    action: 'Open Journeys',
+    bodyTitle: 'Learn one step at a time',
+    body: 'Journeys should be used when the user wants learning structure. One topic, one short session, one reflection, one action.'
   }
 ];
 
 export default function LearnPage() {
   return (
-    <main className="noor-page">
+    <main className="noor-page noor-learning-page">
       <PageHeader
         kicker="Learn"
-        title="Choose your path."
-        subtitle="NOOR is centred on reading, understanding, remembering and returning. Start with Quran, then let Tafseer and Hadith support the journey."
+        title="Choose one learning path."
+        subtitle="NOOR should not show everything at once. Open one subject, learn one step, then continue."
       />
 
-      <section className="noor-hero-grid">
-        <NoorCard variant="gold" className="noor-link-card">
-          <span className="noor-badge emerald">Recommended</span>
-          <h2>Begin with Quran reading</h2>
-          <p className="noor-subtitle">
-            The Quran reader is the heart of NOOR. Read comfortably, study meaning, mark your current ayah and save reminders.
-          </p>
-          <a className="noor-button" href="/learn/quran">Open Quran reader</a>
-        </NoorCard>
-
-        <NoorCard variant="soft">
-          <span className="noor-kicker">How NOOR should feel</span>
-          <h2>Not a database. A companion.</h2>
-          <p className="noor-subtitle">
-            Each section should answer a real user need: what to read, what it means, how to practise it, and how to return tomorrow.
-          </p>
-        </NoorCard>
-      </section>
-
-      <section className="noor-grid">
-        {primaryPaths.map((module) => (
-          <a href={module.href} key={module.title}>
-            <NoorCard className="noor-link-card">
-              <span className="noor-badge gold">{module.badge}</span>
-              <h2>{module.title}</h2>
-              <p className="noor-subtitle">{module.body}</p>
-            </NoorCard>
-          </a>
-        ))}
-      </section>
-
-      <section className="noor-section-heading">
+      <section className="noor-learning-intro" aria-label="Learning direction">
         <div>
-          <span className="noor-kicker">Helpful starting points</span>
-          <h2>What do you want to do now?</h2>
+          <span className="noor-kicker">Recommended</span>
+          <h2>Start with Quran, then open understanding only when needed.</h2>
+          <p>
+            This page is a learning hub. It shows the structure first, and keeps detail hidden until you choose a section.
+          </p>
         </div>
+        <a className="noor-button primary" href="/learn/quran">Start Quran reading</a>
       </section>
 
-      <section className="noor-grid">
-        {guideCards.map((card) => (
-          <a href={card.href} key={card.title}>
-            <NoorCard variant="soft" className="noor-link-card">
-              <h3>{card.title}</h3>
-              <p className="noor-subtitle">{card.body}</p>
-            </NoorCard>
-          </a>
+      <section className="noor-learning-list" aria-label="NOOR learning paths">
+        {learningSections.map((section, index) => (
+          <details className="noor-learning-section" key={section.title} open={index === 0}>
+            <summary>
+              <span className="noor-learning-icon" aria-hidden="true">{section.icon}</span>
+              <span className="noor-learning-summary-main">
+                <strong>{section.title}</strong>
+                <span>{section.description}</span>
+                <span className="noor-learning-preview">
+                  {section.previewItems.map((item) => (
+                    <em key={item}>{item}</em>
+                  ))}
+                </span>
+              </span>
+              <span className="noor-learning-chevron" aria-hidden="true">▸</span>
+            </summary>
+            <div className="noor-learning-body">
+              <h3>{section.bodyTitle}</h3>
+              <p>{section.body}</p>
+              <a className="noor-button secondary" href={section.href}>{section.action}</a>
+            </div>
+          </details>
         ))}
       </section>
     </main>

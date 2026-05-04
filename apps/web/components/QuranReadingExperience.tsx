@@ -1,11 +1,9 @@
 'use client';
 
 import type { SurahContent, TafseerEntry } from '@noor/content';
-import { NoorCard } from '@noor/ui';
 import { useEffect, useMemo, useState } from 'react';
 import { AyahStudyCard, type QuranReaderMode } from './AyahStudyCard';
-import { ReaderPreferencesPanel } from './ReaderPreferencesPanel';
-import { ReadingProgressPanel } from './ReadingProgressPanel';
+import { FloatingQuranNavigator, type QuranNavigatorSurah } from './FloatingQuranNavigator';
 
 const READER_MODE_STORAGE_KEY = 'noor.quran.readerMode.v2';
 
@@ -17,17 +15,17 @@ const READER_MODES: {
   {
     id: 'read',
     label: 'Read',
-    helper: 'A calm flow for daily tilawah with translation close by.'
+    helper: 'Calm Quran reading with translation close by.'
   },
   {
     id: 'study',
     label: 'Study',
-    helper: 'Open meaning, tafseer notes and reflection prompts beside the ayah.'
+    helper: 'Open tafseer notes, connections and reflection prompts.'
   },
   {
     id: 'memorise',
     label: 'Memorise',
-    helper: 'Reduce distraction and focus on the Arabic text and repetition.'
+    helper: 'Reduce noise and give more space to the Arabic text.'
   }
 ];
 
@@ -48,14 +46,16 @@ function getAyahFromHash() {
 
 export function QuranReadingExperience({
   content,
-  tafseer
+  tafseer,
+  allSurahs
 }: {
   content: SurahContent;
   tafseer: TafseerEntry[];
+  allSurahs: QuranNavigatorSurah[];
 }) {
   const totalAyahs = content.ayahs.length;
   const [mode, setMode] = useState<QuranReaderMode>('read');
-  const [jumpAyah, setJumpAyah] = useState(1);
+  const [currentAyah, setCurrentAyah] = useState(1);
   const selectedMode = READER_MODES.find((item) => item.id === mode) ?? READER_MODES[0];
 
   const previousSurah = content.surah.number > 1 ? content.surah.number - 1 : undefined;
@@ -69,10 +69,14 @@ export function QuranReadingExperience({
     try {
       setMode(normalizeReaderMode(window.localStorage.getItem(READER_MODE_STORAGE_KEY)));
       const initialAyah = getAyahFromHash();
-      if (initialAyah >= 1 && initialAyah <= totalAyahs) setJumpAyah(initialAyah);
+      if (initialAyah >= 1 && initialAyah <= totalAyahs) {
+        setCurrentAyah(initialAyah);
+        window.setTimeout(() => scrollToAyah(initialAyah, false), 120);
+      }
     } catch {
-      // Keep the default read mode when localStorage is unavailable.
+      // Keep default read mode when storage is unavailable.
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [totalAyahs]);
 
   function updateMode(nextMode: QuranReaderMode) {
@@ -84,15 +88,15 @@ export function QuranReadingExperience({
     }
   }
 
-  function scrollToAyah(nextAyah: number) {
+  function scrollToAyah(nextAyah: number, smooth = true) {
     const normalized = Math.min(Math.max(Number(nextAyah) || 1, 1), totalAyahs);
-    setJumpAyah(normalized);
+    setCurrentAyah(normalized);
 
     if (typeof document === 'undefined') return;
     const target = document.getElementById(`ayah-${normalized}`);
     if (!target) return;
 
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    target.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
 
     if (typeof window !== 'undefined') {
       window.history.replaceState(null, '', `#ayah-${normalized}`);
@@ -100,34 +104,23 @@ export function QuranReadingExperience({
   }
 
   return (
-    <div className="noor-stack" id="reader-top">
-      <section className="noor-hero-grid">
-        <NoorCard variant="gold" className="noor-reader-hero">
-          <span className="noor-badge emerald">You are reading</span>
-          <h2>{content.surah.nameTransliteration}</h2>
-          <p className="noor-subtitle">
-            Read at your own pace. Jump to any ayah, choose your reading intention, save what touches the heart, and return tomorrow without losing your place.
+    <div className="noor-quran-reader-shell" id="reader-top">
+      <section className="noor-quran-reader-intro" aria-label="Quran reading session">
+        <div>
+          <span className="noor-kicker">Reading session</span>
+          <h2>{content.surah.nameArabic}</h2>
+          <p>
+            {content.surah.ayahCount} ayat · {content.surah.revelation} · {tafseerCount} tafseer note{tafseerCount === 1 ? '' : 's'} available
           </p>
-          <div className="noor-reader-facts">
-            <span>{content.surah.ayahCount} ayat</span>
-            <span>{content.surah.revelation}</span>
-            <span>{tafseerCount} tafseer note{tafseerCount === 1 ? '' : 's'}</span>
-          </div>
-        </NoorCard>
-
-        <NoorCard variant="soft" className="noor-reader-session-card">
-          <span className="noor-kicker">Current intention</span>
-          <h2>{selectedMode.label}</h2>
-          <p className="noor-subtitle">{selectedMode.helper}</p>
-          <div className="noor-card-actions" style={{ marginTop: 14 }}>
-            <a className="noor-button secondary" href="/learn/quran">Surah index</a>
-            {previousSurah ? <a className="noor-button secondary" href={`/learn/quran/${previousSurah}`}>Previous Surah</a> : null}
-            {nextSurah ? <a className="noor-button secondary" href={`/learn/quran/${nextSurah}`}>Next Surah</a> : null}
-          </div>
-        </NoorCard>
+        </div>
+        <div className="noor-quran-reader-actions">
+          <a className="noor-button secondary" href="/learn/quran">Surah list</a>
+          {previousSurah ? <a className="noor-button secondary" href={`/learn/quran/${previousSurah}`}>Previous</a> : null}
+          {nextSurah ? <a className="noor-button secondary" href={`/learn/quran/${nextSurah}`}>Next</a> : null}
+        </div>
       </section>
 
-      <nav className="noor-reader-toolbar noor-reader-toolbar-v2" aria-label="Quran reader controls">
+      <nav className="noor-reader-mode-bar" aria-label="Reading mode">
         <div className="noor-reader-tabs" role="tablist" aria-label="Reading mode">
           {READER_MODES.map((item) => (
             <button
@@ -142,66 +135,28 @@ export function QuranReadingExperience({
             </button>
           ))}
         </div>
-
-        <form
-          className="noor-reader-jump-form"
-          onSubmit={(event) => {
-            event.preventDefault();
-            scrollToAyah(jumpAyah);
-          }}
-        >
-          <label className="noor-reader-jump-label" htmlFor="noor-jump-ayah">Ayah</label>
-          <input
-            id="noor-jump-ayah"
-            className="noor-input noor-reader-jump-input"
-            type="number"
-            min={1}
-            max={totalAyahs}
-            value={jumpAyah}
-            onChange={(event) => setJumpAyah(Number(event.target.value))}
-          />
-          <button className="noor-button secondary" type="submit">Jump</button>
-        </form>
-
-        <a className="noor-button secondary" href="#reader-top">Top</a>
+        <span>{selectedMode.helper}</span>
       </nav>
 
-      <section className="noor-reader-layout">
-        <aside className="noor-reader-side">
-          <NoorCard variant="soft" className="noor-reader-map-card">
-            <span className="noor-kicker">Surah map</span>
-            <p className="noor-subtitle">Jump directly to an ayah in this Surah.</p>
-            <div className="noor-ayah-map" aria-label={`${content.surah.nameTransliteration} ayah shortcuts`}>
-              {content.ayahs.map((ayah) => (
-                <button
-                  key={ayah.key}
-                  type="button"
-                  className="noor-ayah-map-button"
-                  aria-current={jumpAyah === ayah.ayah ? 'true' : undefined}
-                  onClick={() => scrollToAyah(ayah.ayah)}
-                >
-                  {ayah.ayah}
-                </button>
-              ))}
-            </div>
-          </NoorCard>
-
-          <ReaderPreferencesPanel compact />
-          <ReadingProgressPanel />
-        </aside>
-
-        <section className="noor-stack noor-reader-main" aria-label={`${content.surah.nameTransliteration} ayat`}>
-          {content.ayahs.map((ayah) => (
-            <AyahStudyCard
-              key={ayah.key}
-              ayah={ayah}
-              tafseer={getTafseerForAyah(tafseer, ayah.ayah)}
-              surahTitle={content.surah.nameTransliteration}
-              mode={mode}
-            />
-          ))}
-        </section>
+      <section className="noor-quran-reader-main" aria-label={`${content.surah.nameTransliteration} ayat`}>
+        {content.ayahs.map((ayah) => (
+          <AyahStudyCard
+            key={ayah.key}
+            ayah={ayah}
+            tafseer={getTafseerForAyah(tafseer, ayah.ayah)}
+            surahTitle={content.surah.nameTransliteration}
+            mode={mode}
+          />
+        ))}
       </section>
+
+      <FloatingQuranNavigator
+        surahs={allSurahs}
+        currentSurah={content.surah.number}
+        currentAyah={currentAyah}
+        totalAyahs={totalAyahs}
+        onJumpAyah={scrollToAyah}
+      />
     </div>
   );
 }

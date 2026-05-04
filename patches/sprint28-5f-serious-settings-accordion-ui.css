@@ -1,0 +1,306 @@
+/* Sprint 28.5F: Serious settings-style learning UI reset */
+:root {
+  --noor-bg: #f6f8fb;
+  --noor-surface: #ffffff;
+  --noor-card: #ffffff;
+  --noor-gold: #b7791f;
+  --noor-gold-soft: rgba(183, 121, 31, 0.10);
+  --noor-emerald: #027a48;
+  --noor-emerald-soft: rgba(2, 122, 72, 0.10);
+  --noor-ink: #101828;
+  --noor-muted: #475467;
+  --noor-line: #d9e2ef;
+  --noor-radius: 22px;
+  --noor-shadow: 0 12px 30px rgba(16, 24, 40, 0.06);
+}
+
+html,
+body {
+  background: var(--noor-bg) !important;
+  color: var(--noor-ink) !important;
+}
+
+body {
+  background:
+    radial-gradient(circle at 12% 0%, rgba(2, 122, 72, 0.07), transparent 24rem),
+    radial-gradient(circle at 88% 0%, rgba(183, 121, 31, 0.06), transparent 24rem),
+    var(--noor-bg) !important;
+}
+
+.noor-app-frame {
+  max-width: 980px;
+}
+
+.noor-topbar,
+.noor-bottom-nav {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border-color: var(--noor-line) !important;
+  box-shadow: 0 16px 40px rgba(16, 24, 40, 0.08) !important;
+}
+
+.noor-brand-title,
+.noor-title,
+.noor-section-heading h2,
+.noor-card h2,
+.noor-card h3,
+.noor-link-card strong {
+  color: var(--noor-ink) !important;
+}
+
+.noor-brand-subtitle,
+.noor-subtitle,
+.noor-muted,
+.noor-card p,
+.noor-card small {
+  color: var(--noor-muted) !important;
+}
+
+.noor-card {
+  background: #ffffff !important;
+  border: 1px solid var(--noor-line) !important;
+  box-shadow: 0 10px 24px rgba(16, 24, 40, 0.045) !important;
+}
+
+.noor-card.is-soft,
+.noor-card.is-gold {
+  background: #ffffff !important;
+  border-color: var(--noor-line) !important;
+  box-shadow: 0 10px 24px rgba(16, 24, 40, 0.045) !important;
+}
+
+.noor-button {
+  color: #ffffff !important;
+  background: #154734 !important;
+  border: 1px solid #154734 !important;
+  box-shadow: none !important;
+}
+
+.noor-button.secondary {
+  color: var(--noor-ink) !important;
+  background: #ffffff !important;
+  border-color: var(--noor-line) !important;
+}
+
+.noor-badge,
+.noor-settings-chip {
+  color: #344054 !important;
+  background: #f8fafc !important;
+  border: 1px solid var(--noor-line) !important;
+}
+
+.noor-badge.emerald {
+  color: #027a48 !important;
+  background: #ecfdf3 !important;
+  border-color: #abefc6 !important;
+}
+
+.noor-badge.gold {
+  color: #92400e !important;
+  background: #fffbeb !important;
+  border-color: #fedf89 !important;
+}
+
+.noor-kicker,
+.noor-reference {
+  color: #667085 !important;
+}
+
+.noor-input {
+  background: #ffffff !important;
+  color: var(--noor-ink) !important;
+  border-color: var(--noor-line) !important;
+}
+
+.noor-settings-panel {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+}
+
+.noor-settings-panel-head {
+  display: grid;
+  gap: 4px;
+  padding: 2px 2px 0;
+}
+
+.noor-settings-panel-head h2 {
+  margin: 0;
+  color: var(--noor-ink);
+  font-size: clamp(21px, 3vw, 30px);
+  letter-spacing: -0.02em;
+}
+
+.noor-settings-panel-head p {
+  margin: 0;
+  color: var(--noor-muted);
+  line-height: 1.55;
+}
+
+.noor-settings-list {
+  display: grid;
+  gap: 14px;
+}
+
+.noor-settings-item {
+  overflow: clip;
+  border: 1px solid var(--noor-line);
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(16, 24, 40, 0.045);
+}
+
+.noor-settings-item[data-open="true"] {
+  border-color: #c7d7ea;
+  box-shadow: 0 16px 36px rgba(16, 24, 40, 0.07);
+}
+
+.noor-settings-trigger {
+  position: sticky;
+  top: 74px;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) 24px;
+  gap: 12px;
+  align-items: start;
+  width: 100%;
+  min-height: 74px;
+  padding: 22px 22px 12px;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: #ffffff;
+  color: var(--noor-ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.noor-settings-item[data-open="true"] .noor-settings-trigger {
+  border-bottom-color: var(--noor-line);
+}
+
+.noor-settings-trigger:hover {
+  background: #fbfdff;
+}
+
+.noor-settings-icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 12px;
+  background: #eef4ff;
+  color: #154734;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.noor-settings-copy {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.noor-settings-eyebrow {
+  width: fit-content;
+  color: #667085;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.noor-settings-copy strong {
+  color: var(--noor-ink);
+  font-size: clamp(18px, 2.5vw, 22px);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.noor-settings-copy span:not(.noor-settings-eyebrow) {
+  color: var(--noor-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.noor-settings-caret {
+  display: grid;
+  place-items: center;
+  color: #667085;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.noor-settings-chip-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 0 22px 22px 72px;
+}
+
+.noor-settings-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  border-radius: 999px;
+  padding: 7px 12px;
+  color: #344054;
+  background: #f8fafc;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.noor-settings-content {
+  background: #ffffff;
+}
+
+.noor-settings-content-inner {
+  display: grid;
+  gap: 14px;
+  padding: 18px 22px 22px;
+}
+
+.noor-settings-content-inner > .noor-grid,
+.noor-settings-content-inner > .noor-hero-grid,
+.noor-settings-content-inner > .noor-guidance-path-grid {
+  margin: 0;
+}
+
+.noor-settings-action-row {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 22px 22px;
+}
+
+.noor-settings-content .noor-section-heading {
+  margin-top: 0;
+}
+
+.noor-settings-content .noor-card,
+.noor-settings-content .noor-link-card,
+.noor-settings-content .noor-explore-result-card {
+  box-shadow: none !important;
+  border-color: #e4eaf3 !important;
+}
+
+@media (max-width: 760px) {
+  .noor-app-frame {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .noor-settings-trigger {
+    top: 68px;
+    grid-template-columns: 34px minmax(0, 1fr) 22px;
+    gap: 10px;
+    padding: 18px 18px 10px;
+  }
+
+  .noor-settings-chip-row {
+    padding: 0 18px 18px 62px;
+  }
+
+  .noor-settings-content-inner {
+    padding: 16px 18px 18px;
+  }
+}

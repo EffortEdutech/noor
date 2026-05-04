@@ -1,0 +1,275 @@
+/* Sprint 28.5I: Final contrast hard reset + serious learning rows */
+:root {
+  --noor-bg: #f6f8fb !important;
+  --noor-surface: #ffffff !important;
+  --noor-card: #ffffff !important;
+  --noor-gold: #8a5a08 !important;
+  --noor-gold-soft: #fff4d6 !important;
+  --noor-emerald: #0f766e !important;
+  --noor-emerald-soft: #e6f7f3 !important;
+  --noor-ink: #0f172a !important;
+  --noor-muted: #475569 !important;
+  --noor-line: #d8e1ec !important;
+  --noor-radius: 20px !important;
+  --noor-shadow: 0 12px 32px rgba(15, 23, 42, 0.07) !important;
+}
+
+html,
+body {
+  background: #f6f8fb !important;
+  color: #0f172a !important;
+}
+
+body {
+  background-image:
+    radial-gradient(circle at top left, rgba(15, 118, 110, 0.045), transparent 32rem),
+    radial-gradient(circle at top right, rgba(138, 90, 8, 0.045), transparent 30rem) !important;
+}
+
+.noor-app-shell,
+.noor-app-frame,
+.noor-page,
+.noor-learning-page {
+  background: transparent !important;
+  color: #0f172a !important;
+}
+
+.noor-topbar {
+  background: rgba(255, 255, 255, 0.94) !important;
+  border-bottom: 1px solid #d8e1ec !important;
+  color: #0f172a !important;
+}
+
+.noor-brand-title,
+.noor-title,
+.noor-page h1,
+.noor-page h2,
+.noor-page h3,
+.noor-page h4,
+.noor-page strong,
+.noor-card h1,
+.noor-card h2,
+.noor-card h3,
+.noor-card strong {
+  color: #0f172a !important;
+}
+
+.noor-brand-subtitle,
+.noor-subtitle,
+.noor-muted,
+.noor-page p,
+.noor-page small,
+.noor-card p,
+.noor-card small {
+  color: #475569 !important;
+}
+
+.noor-card,
+.noor-card.is-soft,
+.noor-card.is-gold,
+.noor-link-card,
+.noor-explore-result-card,
+.noor-source-row-card,
+.noor-empty-guidance-card,
+.noor-study-note,
+.noor-reflection-prompt,
+.noor-hadith-guidance-note {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #d8e1ec !important;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06) !important;
+}
+
+.noor-card.is-gold {
+  background: linear-gradient(180deg, #ffffff, #fffaf0) !important;
+  border-color: #ead7a6 !important;
+}
+
+.noor-kicker,
+.noor-reference {
+  color: #8a5a08 !important;
+}
+
+.noor-badge,
+.noor-reader-facts span {
+  background: #f8fafc !important;
+  color: #334155 !important;
+  border: 1px solid #d8e1ec !important;
+}
+
+.noor-badge.gold {
+  background: #fff4d6 !important;
+  color: #704a00 !important;
+  border-color: #ead7a6 !important;
+}
+
+.noor-badge.emerald {
+  background: #e6f7f3 !important;
+  color: #075e59 !important;
+  border-color: #a7ded5 !important;
+}
+
+.noor-button,
+.noor-button.primary {
+  background: #0f766e !important;
+  border: 1px solid #0f766e !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.noor-button:hover,
+.noor-button.primary:hover {
+  background: #115e59 !important;
+  border-color: #115e59 !important;
+  color: #ffffff !important;
+}
+
+.noor-button.secondary {
+  background: #ffffff !important;
+  border: 1px solid #d8e1ec !important;
+  color: #0f172a !important;
+}
+
+.noor-input,
+input,
+textarea,
+select {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #d8e1ec !important;
+}
+
+.noor-bottom-nav {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border: 1px solid #d8e1ec !important;
+  box-shadow: 0 16px 45px rgba(15, 23, 42, 0.14) !important;
+}
+
+.noor-bottom-nav a {
+  color: #64748b !important;
+}
+
+.noor-bottom-nav a[data-active="true"] {
+  background: #e6f7f3 !important;
+  color: #0f172a !important;
+  border: 1px solid #a7ded5 !important;
+}
+
+/* Serious topic rows: no text collision, no bright-on-bright */
+.noor-topic-row-list {
+  display: grid !important;
+  gap: 10px !important;
+}
+
+.noor-topic-row-list.compact {
+  gap: 10px !important;
+}
+
+.noor-topic-row {
+  display: grid !important;
+  grid-template-columns: 48px minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: 14px !important;
+  min-height: 74px !important;
+  padding: 13px 14px !important;
+  border: 1px solid #d8e1ec !important;
+  border-radius: 18px !important;
+  background: #ffffff !important;
+  color: #0f172a !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+}
+
+.noor-topic-row:hover {
+  border-color: #a7ded5 !important;
+  background: #f8fffd !important;
+}
+
+.noor-topic-prompt-icon {
+  display: inline-grid !important;
+  place-items: center !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 14px !important;
+  background: #e6f7f3 !important;
+  border: 1px solid #a7ded5 !important;
+  color: #075e59 !important;
+  font-family: "Amiri", "Scheherazade New", "Noto Naskh Arabic", ui-serif, serif !important;
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  direction: rtl !important;
+  line-height: 1 !important;
+  overflow: hidden !important;
+}
+
+.noor-topic-row-main,
+.noor-topic-row > span:nth-child(2) {
+  display: grid !important;
+  gap: 4px !important;
+  min-width: 0 !important;
+}
+
+.noor-topic-row strong {
+  display: block !important;
+  color: #0f172a !important;
+  font-size: 15.5px !important;
+  line-height: 1.25 !important;
+  font-weight: 800 !important;
+}
+
+.noor-topic-row small {
+  display: block !important;
+  color: #475569 !important;
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+}
+
+.noor-topic-row em {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: fit-content !important;
+  max-width: 210px !important;
+  min-height: 30px !important;
+  padding: 6px 10px !important;
+  border: 1px solid #d8e1ec !important;
+  border-radius: 999px !important;
+  background: #f8fafc !important;
+  color: #334155 !important;
+  font-size: 12px !important;
+  font-style: normal !important;
+  font-weight: 750 !important;
+  line-height: 1.15 !important;
+  text-align: center !important;
+}
+
+.noor-clean-stack {
+  display: grid !important;
+  gap: 12px !important;
+}
+
+.noor-clean-grid.two,
+.noor-clean-grid.three,
+.noor-clean-grid {
+  display: grid !important;
+  gap: 12px !important;
+}
+
+.noor-clean-grid.two {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+}
+
+.noor-clean-grid.three {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+}
+
+@media (max-width: 680px) {
+  .noor-topic-row {
+    grid-template-columns: 44px minmax(0, 1fr) !important;
+  }
+
+  .noor-topic-row em {
+    grid-column: 2 !important;
+    justify-self: start !important;
+  }
+}
