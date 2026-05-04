@@ -1,8 +1,12 @@
 import { DailyAyahCard, DailyHadithCard, NoorCard, PageHeader } from '@noor/ui';
 import { getDailyNoorContent, getFeaturedJourney } from '@noor/data';
+import { ContinueGuidancePathCard } from '../../components/ContinueGuidancePathCard';
 import { ContinueJourneyCard } from '../../components/ContinueJourneyCard';
 import { ContinueReadingCard } from '../../components/ContinueReadingCard';
+import { DailyGuidedSessionCard } from '../../components/DailyGuidedSessionCard';
+import { NoorHomeDashboard } from '../../components/NoorHomeDashboard';
 import { ReadingProgressPanel } from '../../components/ReadingProgressPanel';
+import { ReflectionNotesPanel } from '../../components/ReflectionNotesPanel';
 
 export default async function TodayPage() {
   const [daily, featuredJourney] = await Promise.all([
@@ -14,24 +18,18 @@ export default async function TodayPage() {
     <main className="noor-page">
       <PageHeader
         kicker="Today with NOOR"
-        title="Return to the light."
-        subtitle="A calm daily path: continue your Quran reading, understand one reminder, save what touches the heart, and carry it into your day."
+        title="Continue your journey with the light."
+        subtitle="Your home dashboard now connects reading progress, guidance topics, reflection notes and daily sessions into one calm path."
       />
+
+      <NoorHomeDashboard />
 
       <section className="noor-hero-grid">
         <ContinueReadingCard />
-        <NoorCard variant="soft" className="noor-intention-card">
-          <span className="noor-badge gold">Today’s intention</span>
-          <h2>Read a little. Understand a little. Act on one thing.</h2>
-          <p className="noor-subtitle">
-            NOOR is designed for a small consistent routine, not a heavy study session every time.
-          </p>
-          <div className="noor-card-actions">
-            <a className="noor-button" href="/learn/quran">Open Quran</a>
-            <a className="noor-button secondary" href="/explore">Find guidance</a>
-          </div>
-        </NoorCard>
+        <ContinueGuidancePathCard />
       </section>
+
+      <DailyGuidedSessionCard />
 
       <section className="noor-grid">
         <ContinueJourneyCard fallbackJourney={featuredJourney} />
@@ -48,6 +46,8 @@ export default async function TodayPage() {
 
       <DailyAyahCard ayah={daily.ayah} />
       <DailyHadithCard hadith={daily.hadith} />
+
+      <ReflectionNotesPanel limit={3} />
 
       <section className="noor-grid">
         <NoorCard className="noor-link-card">

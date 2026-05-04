@@ -2,7 +2,11 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import {
+  NOOR_BOOKMARKS_EVENT,
+  NOOR_GUIDANCE_PATHS_EVENT,
+  NOOR_JOURNEY_PROGRESS_EVENT,
   NOOR_READING_PROGRESS_EVENT,
+  NOOR_REFLECTION_NOTES_EVENT,
   formatRelativeNoorDate,
   getNoorLightStats,
   readReadingHistory,
@@ -13,15 +17,20 @@ import {
   type ReadingProgress
 } from './local-store';
 
+const emptyStats: NoorLightStats = {
+  bookmarkCount: 0,
+  readingSessions: 0,
+  journeyCount: 0,
+  journeyStepsCompleted: 0,
+  reflectionCount: 0,
+  guidancePathCount: 0,
+  guidanceStepsCompleted: 0
+};
+
 export function useReadingProgress() {
   const [progress, setProgress] = useState<ReadingProgress | null>(null);
   const [history, setHistory] = useState<ReadingHistoryItem[]>([]);
-  const [stats, setStats] = useState<NoorLightStats>({
-    bookmarkCount: 0,
-    readingSessions: 0,
-    journeyCount: 0,
-    journeyStepsCompleted: 0
-  });
+  const [stats, setStats] = useState<NoorLightStats>(emptyStats);
 
   const refresh = useCallback(() => {
     setProgress(readReadingProgress());
@@ -32,14 +41,19 @@ export function useReadingProgress() {
   useEffect(() => {
     refresh();
 
-    window.addEventListener(NOOR_READING_PROGRESS_EVENT, refresh);
-    window.addEventListener('noor:bookmarks-updated', refresh);
-    window.addEventListener('storage', refresh);
+    const events = [
+      NOOR_READING_PROGRESS_EVENT,
+      NOOR_BOOKMARKS_EVENT,
+      NOOR_JOURNEY_PROGRESS_EVENT,
+      NOOR_REFLECTION_NOTES_EVENT,
+      NOOR_GUIDANCE_PATHS_EVENT,
+      'storage'
+    ];
+
+    events.forEach((eventName) => window.addEventListener(eventName, refresh));
 
     return () => {
-      window.removeEventListener(NOOR_READING_PROGRESS_EVENT, refresh);
-      window.removeEventListener('noor:bookmarks-updated', refresh);
-      window.removeEventListener('storage', refresh);
+      events.forEach((eventName) => window.removeEventListener(eventName, refresh));
     };
   }, [refresh]);
 

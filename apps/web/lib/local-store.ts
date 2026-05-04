@@ -4,10 +4,14 @@ export const NOOR_BOOKMARKS_KEY = 'noor.bookmarks.v1';
 export const NOOR_READING_PROGRESS_KEY = 'noor.readingProgress.v1';
 export const NOOR_READING_HISTORY_KEY = 'noor.readingHistory.v1';
 export const NOOR_JOURNEY_PROGRESS_KEY = 'noor.journeyProgress.v1';
+export const NOOR_REFLECTION_NOTES_KEY = 'noor.reflectionNotes.v1';
+export const NOOR_GUIDANCE_PATHS_KEY = 'noor.guidancePaths.v1';
 
 export const NOOR_BOOKMARKS_EVENT = 'noor:bookmarks-updated';
 export const NOOR_READING_PROGRESS_EVENT = 'noor:reading-progress-updated';
 export const NOOR_JOURNEY_PROGRESS_EVENT = 'noor:journey-progress-updated';
+export const NOOR_REFLECTION_NOTES_EVENT = 'noor:reflection-notes-updated';
+export const NOOR_GUIDANCE_PATHS_EVENT = 'noor:guidance-paths-updated';
 
 export type ReadingProgress = {
   surah: number;
@@ -43,11 +47,59 @@ export type ToggleJourneyStepInput = {
   totalSteps: number;
 };
 
+export type ReflectionNote = {
+  id: string;
+  topicId: string;
+  topicLabel: string;
+  prompt: string;
+  note: string;
+  action?: string;
+  sourceHref?: string;
+  sourceLabel?: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type GuidancePathProgress = {
+  topicId: string;
+  topicLabel: string;
+  href: string;
+  completedStepIds: string[];
+  currentStepId?: string;
+  totalSteps: number;
+  intention?: string;
+  lastReflection?: string;
+  updatedAt: string;
+};
+
+export type SaveReflectionNoteInput = {
+  topicId: string;
+  topicLabel: string;
+  prompt: string;
+  note: string;
+  action?: string;
+  sourceHref?: string;
+  sourceLabel?: string;
+};
+
+export type SaveGuidancePathInput = {
+  topicId: string;
+  topicLabel: string;
+  href: string;
+  completedStepIds: string[];
+  stepIds: string[];
+  intention?: string;
+  lastReflection?: string;
+};
+
 export type NoorLightStats = {
   bookmarkCount: number;
   readingSessions: number;
   journeyCount: number;
   journeyStepsCompleted: number;
+  reflectionCount: number;
+  guidancePathCount: number;
+  guidanceStepsCompleted: number;
   lastReadAt?: string;
 };
 
@@ -197,17 +249,107 @@ export function getJourneyProgressItems() {
   );
 }
 
+export function readReflectionNotes(): ReflectionNote[] {
+  return safeReadJson<ReflectionNote[]>(NOOR_REFLECTION_NOTES_KEY, []);
+}
+
+export function writeReflectionNotes(items: ReflectionNote[]) {
+  safeWriteJson(NOOR_REFLECTION_NOTES_KEY, items.slice(0, 100));
+  emitNoorEvent(NOOR_REFLECTION_NOTES_EVENT);
+}
+
+export function saveReflectionNote(input: SaveReflectionNoteInput) {
+  const now = new Date().toISOString();
+  const existing = readReflectionNotes();
+  const next: ReflectionNote = {
+    id: `${input.topicId}-${Date.now()}`,
+    topicId: input.topicId,
+    topicLabel: input.topicLabel,
+    prompt: input.prompt,
+    note: input.note.trim(),
+    action: input.action?.trim() || undefined,
+    sourceHref: input.sourceHref,
+    sourceLabel: input.sourceLabel,
+    createdAt: now,
+    updatedAt: now
+  };
+
+  writeReflectionNotes([next, ...existing]);
+  return next;
+}
+
+export function deleteReflectionNote(id: string) {
+  const next = readReflectionNotes().filter((note) => note.id !== id);
+  writeReflectionNotes(next);
+  return next;
+}
+
+export function readGuidancePathMap(): Record<string, GuidancePathProgress> {
+  return safeReadJson<Record<string, GuidancePathProgress>>(NOOR_GUIDANCE_PATHS_KEY, {});
+}
+
+export function writeGuidancePathMap(items: Record<string, GuidancePathProgress>) {
+  safeWriteJson(NOOR_GUIDANCE_PATHS_KEY, items);
+  emitNoorEvent(NOOR_GUIDANCE_PATHS_EVENT);
+}
+
+export function saveGuidancePathProgress(input: SaveGuidancePathInput) {
+  const completedStepIds = input.stepIds.filter((stepId) => input.completedStepIds.includes(stepId));
+  const currentStepId =
+    input.stepIds.find((stepId) => !completedStepIds.includes(stepId)) ??
+    input.stepIds[input.stepIds.length - 1];
+
+  const next: GuidancePathProgress = {
+    topicId: input.topicId,
+    topicLabel: input.topicLabel,
+    href: input.href,
+    completedStepIds,
+    currentStepId,
+    totalSteps: input.stepIds.length,
+    intention: input.intention,
+    lastReflection: input.lastReflection,
+    updatedAt: new Date().toISOString()
+  };
+
+  const map = readGuidancePathMap();
+  writeGuidancePathMap({
+    ...map,
+    [input.topicId]: next
+  });
+  return next;
+}
+
+export function getGuidancePathItems() {
+  return Object.values(readGuidancePathMap()).sort(
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+  );
+}
+
+export function getLatestGuidancePath() {
+  return getGuidancePathItems()[0] ?? null;
+}
+
+export function getGuidancePathCompletionPercent(progress?: GuidancePathProgress | null) {
+  if (!progress || progress.totalSteps <= 0) return 0;
+  return Math.round((progress.completedStepIds.length / progress.totalSteps) * 100);
+}
+
 export function getNoorLightStats(): NoorLightStats {
   const bookmarks = readBookmarks();
   const history = readReadingHistory();
   const progress = readReadingProgress();
   const journeyItems = getJourneyProgressItems();
+  const reflectionNotes = readReflectionNotes();
+  const guidancePaths = getGuidancePathItems();
 
   return {
     bookmarkCount: bookmarks.length,
     readingSessions: history.length,
     journeyCount: journeyItems.length,
     journeyStepsCompleted: journeyItems.reduce((total, item) => total + item.completedStepIds.length, 0),
+    reflectionCount: reflectionNotes.length,
+    guidancePathCount: guidancePaths.length,
+    guidanceStepsCompleted: guidancePaths.reduce((total, item) => total + item.completedStepIds.length, 0),
     lastReadAt: progress?.updatedAt
   };
 }

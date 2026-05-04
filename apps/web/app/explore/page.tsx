@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { NOOR_GUIDANCE_TOPIC_JOURNEYS } from '@noor/search';
 import { NoorCard, PageHeader } from '@noor/ui';
 import { SearchPanel } from '../../components/SearchPanel';
+import { GUIDANCE_TOPIC_DETAILS } from '../../lib/guidance-topics';
 
 export default function ExplorePage() {
   return (
@@ -9,7 +9,7 @@ export default function ExplorePage() {
       <PageHeader
         kicker="Explore"
         title="Discover guidance by need, topic, and source."
-        subtitle="Begin with what your heart is asking for today. Choose a prompt, open a guided topic path, then continue into Quran reading, tafseer understanding, or Hadith reflection."
+        subtitle="Begin with what your heart is asking for today. Choose a prompt, search in simple words, then continue into Quran reading, tafseer understanding, Hadith reflection, or a saved topic journey."
       />
 
       <section className="noor-guidance-path-grid" aria-label="Explore guidance journey">
@@ -17,7 +17,7 @@ export default function ExplorePage() {
           <span className="noor-badge emerald">Start with a need</span>
           <h2>What are you seeking today?</h2>
           <p className="noor-subtitle">
-            Explore mercy, patience, rizq, intention, protection, prayer, repentance and more. NOOR keeps the path connected to reading, understanding and reflection.
+            Explore mercy, patience, rizq, intention, protection, prayer, repentance and more. NOOR keeps the path connected to Quran, Tafseer and Hadith.
           </p>
         </NoorCard>
 
@@ -40,25 +40,22 @@ export default function ExplorePage() {
         </NoorCard>
       </section>
 
-      <section className="noor-stack" aria-label="Guided topic paths">
+      <section className="noor-stack" aria-label="Guidance topic journeys">
         <div className="noor-section-heading">
           <div>
-            <span className="noor-kicker">Guided topic paths</span>
-            <h2>Open a topic journey</h2>
+            <span className="noor-kicker">Guided topic journeys</span>
+            <h2>Open a complete path, not only a search result</h2>
           </div>
-          <p className="noor-subtitle">
-            Each topic gives you a simple Explore-to-Reader path: read, understand, reflect, then respond.
-          </p>
+          <Link className="noor-button secondary" href="/today">Continue from dashboard</Link>
         </div>
 
-        <div className="noor-topic-detail-grid">
-          {NOOR_GUIDANCE_TOPIC_JOURNEYS.map((topic) => (
-            <Link key={topic.id} className="noor-topic-detail-card" href={`/explore/${topic.id}`}>
-              <span className="noor-topic-prompt-icon">{topic.arabicKeyword}</span>
+        <div className="noor-topic-journey-grid">
+          {GUIDANCE_TOPIC_DETAILS.map((topic) => (
+            <Link key={topic.id} className="noor-topic-journey-card" href={topic.exploreHref}>
+              <span className="noor-topic-prompt-icon">{topic.arabic}</span>
               <strong>{topic.label}</strong>
               <span>{topic.prompt}</span>
-              <small>{topic.summary}</small>
-              <em>Open guided path →</em>
+              <small>{topic.description}</small>
             </Link>
           ))}
         </div>
