@@ -66,9 +66,9 @@ export function QuranLastVisitLanding({ surahs }: { surahs: SurahIndexEntry[] })
 
         <a className="noor-quran-v2-continue" href={readerHref}>
           <span>{hasLastVisit ? 'Last visited' : 'Recommended start'}</span>
-          <strong>{activeSurah?.nameTransliteration ?? 'Al-Fatihah'} Â· Ayah {activeAyah}</strong>
-          <small>{activeSurah?.nameEnglish ?? 'The Opening'} Â· {activeSurah?.ayahCount ?? 7} ayat</small>
-          <em>{activeSurah?.nameArabic ?? 'Ø§Ù„ÙØ§ØªØ­Ø©'}</em>
+          <strong>{activeSurah?.nameTransliteration ?? 'Al-Fatihah'} - Ayah {activeAyah}</strong>
+          <small>{activeSurah?.nameEnglish ?? 'The Opening'} - {activeSurah?.ayahCount ?? 7} ayat</small>
+          <em>{activeSurah?.nameArabic ?? 'Al-Fatihah'}</em>
         </a>
       </section>
 
@@ -94,4 +94,6 @@ export function QuranLastVisitLanding({ surahs }: { surahs: SurahIndexEntry[] })
     </main>
   );
 }
+
+
 
