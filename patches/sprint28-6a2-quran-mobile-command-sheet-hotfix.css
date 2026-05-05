@@ -1,0 +1,161 @@
+/* NOOR SPRINT 28.6A.2 HOTFIX - QURAN MOBILE COMMAND SHEET START
+   Mobile UX: avoid double scroll. The panel is fixed; only the Surah list scrolls.
+*/
+
+@media (max-width: 640px) {
+  .noor-quran-v2-scrim {
+    background: rgba(15, 23, 42, 0.34);
+    backdrop-filter: blur(3px);
+  }
+
+  .noor-quran-v2-panel {
+    top: max(12px, env(safe-area-inset-top));
+    right: 10px;
+    left: 10px;
+    bottom: 150px;
+    width: auto;
+    max-height: none;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+    padding: 14px;
+    border-radius: 24px;
+  }
+
+  .noor-quran-v2-panel-head {
+    flex: 0 0 auto;
+    align-items: flex-start;
+    gap: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  }
+
+  .noor-quran-v2-panel-head h2 {
+    margin: 6px 0 2px;
+    font-size: 18px;
+    line-height: 1.16;
+  }
+
+  .noor-quran-v2-panel-head p {
+    display: none;
+  }
+
+  .noor-quran-v2-eyebrow {
+    min-height: 24px;
+    padding: 5px 9px;
+    font-size: 10px;
+  }
+
+  .noor-quran-v2-close {
+    width: 34px;
+    height: 34px;
+  }
+
+  .noor-quran-v2-fields {
+    flex: 0 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 92px;
+    gap: 8px;
+  }
+
+  .noor-quran-v2-fields label,
+  .noor-quran-v2-search {
+    gap: 5px;
+    font-size: 12px;
+  }
+
+  .noor-quran-v2-fields select,
+  .noor-quran-v2-search input {
+    min-height: 38px;
+    border-radius: 12px;
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  .noor-quran-v2-search {
+    flex: 0 0 auto;
+  }
+
+  .noor-quran-v2-list {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: 2px 4px 2px 0;
+    scrollbar-width: thin;
+  }
+
+  .noor-quran-v2-list button {
+    grid-template-columns: 42px minmax(0, 1fr) auto;
+    min-height: 54px;
+    padding: 8px;
+    border-radius: 14px;
+  }
+
+  .noor-quran-v2-surah-no {
+    height: 34px;
+    border-radius: 11px;
+    font-size: 11px;
+  }
+
+  .noor-quran-v2-surah-name strong {
+    font-size: 13px;
+  }
+
+  .noor-quran-v2-surah-name small {
+    font-size: 11px;
+  }
+
+  .noor-quran-v2-surah-arabic {
+    font-size: 18px;
+  }
+
+  .noor-quran-v2-panel-actions {
+    flex: 0 0 auto;
+    gap: 8px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.88), #ffffff);
+  }
+
+  .noor-quran-v2-primary {
+    min-height: 42px;
+    border-radius: 14px;
+  }
+
+  .noor-quran-v2-secondary-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .noor-quran-v2-secondary-actions button {
+    min-height: 36px;
+    border-radius: 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 420px) {
+  .noor-quran-v2-panel {
+    bottom: 146px;
+    padding: 12px;
+    border-radius: 22px;
+  }
+
+  .noor-quran-v2-fields {
+    grid-template-columns: minmax(0, 1fr) 82px;
+  }
+
+  .noor-quran-v2-list button {
+    grid-template-columns: 38px minmax(0, 1fr);
+  }
+
+  .noor-quran-v2-surah-arabic {
+    grid-column: 2;
+    justify-self: start;
+    font-size: 17px;
+  }
+}
+/* NOOR SPRINT 28.6A.2 HOTFIX - QURAN MOBILE COMMAND SHEET END */
