@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import type { SurahIndexEntry } from '@noor/content';
 import { useEffect, useMemo, useState } from 'react';
@@ -66,17 +66,22 @@ export function QuranLastVisitLanding({ surahs }: { surahs: SurahIndexEntry[] })
 
         <a className="noor-quran-v2-continue" href={readerHref}>
           <span>{hasLastVisit ? 'Last visited' : 'Recommended start'}</span>
-          <strong>{activeSurah?.nameTransliteration ?? 'Al-Fatihah'} · Ayah {activeAyah}</strong>
-          <small>{activeSurah?.nameEnglish ?? 'The Opening'} · {activeSurah?.ayahCount ?? 7} ayat</small>
-          <em>{activeSurah?.nameArabic ?? 'الفاتحة'}</em>
+          <strong>{activeSurah?.nameTransliteration ?? 'Al-Fatihah'} Â· Ayah {activeAyah}</strong>
+          <small>{activeSurah?.nameEnglish ?? 'The Opening'} Â· {activeSurah?.ayahCount ?? 7} ayat</small>
+          <em>{activeSurah?.nameArabic ?? 'Ø§Ù„ÙØ§ØªØ­Ø©'}</em>
         </a>
       </section>
 
-      <section className="noor-quran-v2-note" aria-label="How Quran navigation works">
-        <h2>No Surah list blocking the page.</h2>
+      <section className="noor-quran-v2-note" aria-label="Quran reading continuation">
+        <h2>{hasLastVisit ? 'Last viewed Quran page' : 'Start from Al-Fatihah'}</h2>
         <p>
-          Tap the floating Quran navigator to choose Surah and Ayah. The dropdown appears only when needed, then returns you to reading.
+          {hasLastVisit
+            ? `Continue from ${activeSurah?.nameTransliteration ?? 'Quran'} ayah ${activeAyah}.`
+            : 'No previous Quran reading was found. NOOR will open Surah 1, Al-Fatihah, ayah 1.'}
         </p>
+        <a className="noor-button secondary" href={readerHref}>
+          {hasLastVisit ? 'Open last viewed reading' : 'Open Al-Fatihah'}
+        </a>
       </section>
 
       <FloatingQuranNavigator
@@ -89,3 +94,4 @@ export function QuranLastVisitLanding({ surahs }: { surahs: SurahIndexEntry[] })
     </main>
   );
 }
+

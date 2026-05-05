@@ -1,0 +1,59 @@
+/* NOOR SPRINT 28.6A.2 HOTFIX - CHEVRON AND QURAN LANDING START
+   Use conventional expand/collapse icons: collapsed ▸, opened ▾.
+*/
+
+.noor-learning-chevron {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  color: var(--noor-soft-text);
+  font-size: 0 !important;
+  line-height: 1;
+  transform: none !important;
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.noor-learning-chevron::before {
+  content: '▸';
+  display: block;
+  color: currentColor;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.noor-learning-section[open] .noor-learning-chevron {
+  transform: none !important;
+  color: var(--noor-emerald-dark);
+}
+
+.noor-learning-section[open] .noor-learning-chevron::before {
+  content: '▾';
+}
+
+.noor-quran-v2-note {
+  display: grid;
+  gap: 10px;
+}
+
+.noor-quran-v2-note .noor-button {
+  width: fit-content;
+}
+
+@media (max-width: 640px) {
+  .noor-learning-chevron {
+    width: 26px;
+    height: 26px;
+  }
+
+  .noor-learning-chevron::before {
+    font-size: 17px;
+  }
+
+  .noor-quran-v2-note .noor-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+/* NOOR SPRINT 28.6A.2 HOTFIX - CHEVRON AND QURAN LANDING END */
