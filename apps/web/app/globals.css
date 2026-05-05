@@ -1484,3 +1484,80 @@ details.noor-learning-section[open] .noor-learning-chevron::after {
 }
 /* NOOR SPRINT 28.6A.2 HOTFIX - QURAN MOBILE COMMAND SHEET END */
 
+
+
+/* NOOR SPRINT 28.6A.2 HOTFIX - QURAN MOBILE RESULT ONE LINE START
+   Keep each mobile Surah search result inside one row.
+   The Arabic name stays inside the result box and does not wrap to a second line.
+*/
+
+@media (max-width: 640px) {
+  .noor-quran-v2-list button {
+    grid-template-columns: 38px minmax(0, 1fr) minmax(38px, 58px) !important;
+    align-items: center;
+    column-gap: 8px;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .noor-quran-v2-surah-name {
+    min-width: 0;
+    display: flex !important;
+    align-items: baseline;
+    gap: 6px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .noor-quran-v2-surah-name strong {
+    flex: 0 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .noor-quran-v2-surah-name small {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .noor-quran-v2-surah-arabic {
+    grid-column: auto !important;
+    justify-self: end !important;
+    align-self: center;
+    max-width: 58px;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    direction: rtl;
+    line-height: 1.1;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .noor-quran-v2-list button {
+    grid-template-columns: 34px minmax(0, 1fr) minmax(32px, 48px) !important;
+    column-gap: 7px;
+  }
+
+  .noor-quran-v2-surah-name {
+    gap: 5px;
+  }
+
+  .noor-quran-v2-surah-name small {
+    display: none;
+  }
+
+  .noor-quran-v2-surah-arabic {
+    max-width: 48px;
+    font-size: 15px;
+  }
+}
+/* NOOR SPRINT 28.6A.2 HOTFIX - QURAN MOBILE RESULT ONE LINE END */
+
