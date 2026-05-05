@@ -1691,3 +1691,65 @@ details.noor-learning-section[open] .noor-learning-chevron::after {
 }
 /* NOOR SPRINT 28.6A.2 HOTFIX - CHEVRON CSS TRIANGLE FIX END */
 
+/* NOOR HOTFIX - SINGLE LEARNING CHEVRON ONLY START */
+
+/* Hide native browser <summary> arrow */
+.noor-learning-section > summary {
+  list-style: none !important;
+}
+
+.noor-learning-section > summary::marker {
+  content: "" !important;
+  font-size: 0 !important;
+}
+
+.noor-learning-section > summary::-webkit-details-marker {
+  display: none !important;
+}
+
+/* Make the chevron span render only one CSS triangle */
+.noor-learning-chevron {
+  position: relative !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  width: 28px !important;
+  height: 28px !important;
+  overflow: hidden !important;
+  color: var(--noor-soft-text) !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  text-indent: -9999px !important;
+  transform: none !important;
+}
+
+.noor-learning-chevron::before {
+  content: "" !important;
+  display: block !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-top: 6px solid transparent !important;
+  border-bottom: 6px solid transparent !important;
+  border-left: 8px solid currentColor !important;
+  border-right: 0 !important;
+}
+
+.noor-learning-chevron::after {
+  content: "" !important;
+  display: none !important;
+}
+
+/* Open state: one down triangle only */
+.noor-learning-section[open] .noor-learning-chevron {
+  color: var(--noor-emerald-dark) !important;
+  transform: none !important;
+}
+
+.noor-learning-section[open] .noor-learning-chevron::before {
+  content: "" !important;
+  border-left: 6px solid transparent !important;
+  border-right: 6px solid transparent !important;
+  border-top: 8px solid currentColor !important;
+  border-bottom: 0 !important;
+}
+
+/* NOOR HOTFIX - SINGLE LEARNING CHEVRON ONLY END */
