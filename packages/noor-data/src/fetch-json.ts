@@ -23,11 +23,21 @@ export async function fetchJsonWithFallback<T>(
   const timeout = setTimeout(() => controller.abort(), options.timeoutMs ?? 3500);
 
   try {
-    const response = await fetch(url, {
-      signal: controller.signal,
-      next: { revalidate: options.revalidateSeconds ?? 60 * 60 }
-    });
+    const shouldBypassCache = mode === 'local-cdn' || process.env.NODE_ENV === 'development';
 
+    const response = await fetch(
+      url,
+      shouldBypassCache
+        ? {
+            signal: controller.signal,
+            cache: 'no-store'
+          }
+        : {
+            signal: controller.signal,
+            next: { revalidate: options.revalidateSeconds ?? 60 * 60 }
+          }
+    );
+    
     if (!response.ok) {
       if (allowFallback) return fallback;
       throw new Error(`NOOR content request failed: ${response.status} ${response.statusText}`);
