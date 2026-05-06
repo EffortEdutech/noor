@@ -1,0 +1,247 @@
+.float {
+  position: fixed;
+  right: max(18px, calc((100vw - 1060px) / 2 + 18px));
+  bottom: 96px;
+  z-index: 50;
+}
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: rgba(15, 23, 42, 0.32);
+  backdrop-filter: blur(3px);
+}
+
+.panel {
+  position: fixed;
+  right: max(18px, calc((100vw - 1060px) / 2 + 18px));
+  bottom: 170px;
+  z-index: 1;
+  display: grid;
+  gap: 14px;
+  width: min(430px, calc(100vw - 28px));
+  max-height: min(720px, calc(100vh - 210px));
+  overflow: auto;
+  padding: 16px;
+  border: 1px solid var(--noor-line);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 26px 72px rgba(15, 23, 42, 0.24);
+}
+
+.panelHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 12px;
+}
+
+.panelHead span {
+  color: var(--noor-emerald);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.panelHead h2 {
+  margin: 6px 0 4px;
+  color: var(--noor-text);
+  line-height: 1.15;
+}
+
+.panelHead p {
+  margin: 0;
+  color: var(--noor-muted);
+  line-height: 1.5;
+}
+
+.panelHead button {
+  border: 1px solid var(--noor-line);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--noor-text);
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.fields label:first-child {
+  grid-column: 1 / -1;
+}
+
+.fields label {
+  display: grid;
+  gap: 6px;
+}
+
+.fields span {
+  color: var(--noor-muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.fields select {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid var(--noor-line);
+  border-radius: 14px;
+  background: #ffffff;
+  color: var(--noor-text);
+  padding: 9px 11px;
+  outline: none;
+}
+
+.fields select:focus {
+  border-color: var(--noor-emerald);
+  box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+}
+
+.coverageBox {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid #ead7a6;
+  border-radius: 16px;
+  background: var(--noor-gold-soft);
+}
+
+.coverageBox strong {
+  color: #704a00;
+}
+
+.coverageBox span {
+  color: #5f4a1d;
+  line-height: 1.5;
+}
+
+.entryList {
+  display: grid;
+  gap: 8px;
+  max-height: 230px;
+  overflow: auto;
+}
+
+.entryList button {
+  display: grid;
+  gap: 3px;
+  width: 100%;
+  padding: 11px;
+  border: 1px solid var(--noor-line);
+  border-radius: 15px;
+  background: #f8fafc;
+  color: var(--noor-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.entryList button:hover {
+  border-color: #a7ded5;
+  background: var(--noor-emerald-soft);
+}
+
+.entryList span,
+.entryList p {
+  margin: 0;
+  color: var(--noor-muted);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.entryList strong {
+  color: var(--noor-text);
+  line-height: 1.35;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.actions button,
+.primaryAction {
+  min-height: 43px;
+  border: 1px solid var(--noor-line);
+  border-radius: 14px;
+  background: #ffffff;
+  color: var(--noor-text);
+  padding: 10px 12px;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.primaryAction {
+  border-color: var(--noor-emerald) !important;
+  background: var(--noor-emerald) !important;
+  color: #ffffff !important;
+}
+
+.floatButton {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  gap: 2px;
+  width: 64px;
+  height: 64px;
+  border: 1px solid rgba(15, 118, 110, 0.24);
+  border-radius: 999px;
+  background: linear-gradient(145deg, var(--noor-emerald), var(--noor-emerald-dark));
+  color: #ffffff;
+  box-shadow: 0 18px 46px rgba(15, 118, 110, 0.28);
+  cursor: pointer;
+}
+
+.floatButton span {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 18px;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.floatButton strong {
+  font-size: 10px;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 720px) {
+  .float {
+    right: 16px;
+    bottom: 96px;
+  }
+
+  .panel {
+    left: 10px;
+    right: 10px;
+    bottom: 92px;
+    width: auto;
+    max-height: min(76vh, 720px);
+    border-radius: 24px 24px 18px 18px;
+  }
+
+  .fields,
+  .actions {
+    grid-template-columns: 1fr;
+  }
+
+  .floatButton {
+    width: 58px;
+    height: 58px;
+  }
+}

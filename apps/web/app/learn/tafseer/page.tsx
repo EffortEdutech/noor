@@ -1,8 +1,10 @@
 import Link from 'next/link';
-import { getSurahIndex, getTafseerEntries, getTafseerIndex } from '@noor/data';
-import { NoorCard, SourceConnectionsPanel } from '@noor/ui';
-import styles from './tafseer.module.css';
+import type { LanguageCode, QuranAyah, TafseerEntry } from '@noor/content';
+import { getSurahContent, getSurahIndex, getTafseerEntries, getTafseerIndex } from '@noor/data';
+import { NoorCard, PageHeader, SourceConnectionsPanel } from '@noor/ui';
+import { FloatingTafseerNavigator } from '../../../components/FloatingTafseerNavigator';
 import { getServerNoorContentSource } from '../../../lib/runtime-content-source';
+import styles from './TafseerPage.module.css';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,488 +14,391 @@ type TafseerPageProps = {
   searchParams?: Promise<Record<string, SearchParamValue>>;
 };
 
-type TafseerBook = Awaited<ReturnType<typeof getTafseerIndex>>[number];
-type SurahIndexItem = Awaited<ReturnType<typeof getSurahIndex>>[number];
-
-const LANGUAGE_LABELS: Record<string, string> = {
-  ar: 'Arabic',
-  en: 'English',
-  ms: 'Malay',
-  id: 'Indonesian',
-  ur: 'Urdu',
-  zh: 'Chinese',
-  ta: 'Tamil'
-};
+const VALID_LANGUAGES: LanguageCode[] = ['ar', 'en', 'ms', 'id', 'ur', 'zh', 'ta'];
 
 function firstValue(value: SearchParamValue): string | undefined {
   if (Array.isArray(value)) return value[0];
   return value;
 }
 
-function parseNumber(value: SearchParamValue): number | undefined {
+function parseSurah(value: SearchParamValue): number | undefined {
   const raw = firstValue(value);
   if (!raw) return undefined;
-
   const parsed = Number.parseInt(raw, 10);
-  if (!Number.isFinite(parsed)) return undefined;
-
+  if (!Number.isFinite(parsed) || parsed < 1 || parsed > 114) return undefined;
   return parsed;
 }
 
-function parseSurah(value: SearchParamValue): number | undefined {
-  const parsed = parseNumber(value);
-  if (!parsed || parsed < 1 || parsed > 114) return undefined;
-  return parsed;
+function normalizeLanguage(value: SearchParamValue): LanguageCode | undefined {
+  const raw = firstValue(value)?.toLowerCase();
+  if (!raw) return undefined;
+  return VALID_LANGUAGES.includes(raw as LanguageCode) ? (raw as LanguageCode) : undefined;
 }
 
-function clampAyah(value: number | undefined, surah?: SurahIndexItem): number | undefined {
-  if (!value) return undefined;
-  const ayahCount = surah?.ayahCount ?? 286;
-  return Math.min(Math.max(value, 1), ayahCount);
-}
+function buildTafseerHref(bookId: string, surah: number, language?: LanguageCode) {
+  const params = new URLSearchParams({
+    book: bookId,
+    surah: String(surah)
+  });
 
-function languageLabel(language: string) {
-  return LANGUAGE_LABELS[language] ?? language.toUpperCase();
-}
+  if (language) params.set('language', language);
 
-function buildTafseerHref({
-  book,
-  surah,
-  ayah,
-  from,
-  to,
-  language
-}: {
-  book?: string;
-  surah?: number;
-  ayah?: number;
-  from?: number;
-  to?: number;
-  language?: string;
-}) {
-  const params = new URLSearchParams();
-
-  if (book) params.set('book', book);
-  if (surah) params.set('surah', String(surah));
-  if (ayah) params.set('ayah', String(ayah));
-  if (from) params.set('from', String(from));
-  if (to) params.set('to', String(to));
-  if (language) params.set('lang', language);
-
-  const query = params.toString();
-  return query ? `/learn/tafseer?${query}` : '/learn/tafseer';
-}
-
-function formatRange(surah: number, fromAyah: number, toAyah: number) {
-  if (fromAyah === toAyah) return `${surah}:${fromAyah}`;
-  return `${surah}:${fromAyah}-${toAyah}`;
-}
-
-function coverageLabel(fromAyah: number, toAyah: number) {
-  if (fromAyah === toAyah) return 'Ayah explanation';
-  return 'Passage explanation';
+  return `/learn/tafseer?${params.toString()}`;
 }
 
 function getPrimaryTopic(tags: string[]) {
   return tags.find((tag) => tag.trim().length > 1)?.toLowerCase() ?? 'guidance';
 }
 
-function getBookStatus(book: TafseerBook) {
-  if (!book.status) return 'Available';
-  return book.status.charAt(0).toUpperCase() + book.status.slice(1);
+function getCoverageLabel(entry: TafseerEntry, ayahCount?: number) {
+  if (ayahCount && entry.fromAyah === 1 && entry.toAyah >= ayahCount) return 'Surah-level note';
+  if (entry.fromAyah === entry.toAyah) return `Ayah ${entry.fromAyah}`;
+  return `Ayah ${entry.fromAyah}-${entry.toAyah}`;
 }
 
-function chooseActiveLanguage(params: Record<string, SearchParamValue>, books: TafseerBook[]) {
-  const requestedLanguage = firstValue(params.lang);
-  const requestedBookId = firstValue(params.book);
-  const requestedBook = books.find((book) => book.id === requestedBookId);
-  const languages = [...new Set(books.map((book) => book.language))];
-
-  if (requestedLanguage && languages.includes(requestedLanguage as TafseerBook['language'])) {
-    return requestedLanguage;
-  }
-
-  if (requestedBook?.language) return requestedBook.language;
-
-  return books[0]?.language ?? 'en';
+function getRangeText(entry: TafseerEntry) {
+  if (entry.fromAyah === entry.toAyah) return `${entry.surah}:${entry.fromAyah}`;
+  return `${entry.surah}:${entry.fromAyah}-${entry.toAyah}`;
 }
 
-function chooseActiveBook(params: Record<string, SearchParamValue>, books: TafseerBook[], language: string) {
-  const requestedBookId = firstValue(params.book);
-  const requestedBook = books.find((book) => book.id === requestedBookId);
-  const booksInLanguage = books.filter((book) => book.language === language);
-
-  if (requestedBook && requestedBook.language === language) return requestedBook;
-  return booksInLanguage[0] ?? books[0];
+function getAyahContext(ayahs: QuranAyah[] | undefined, entry: TafseerEntry) {
+  if (!ayahs?.length) return [];
+  return ayahs.filter((ayah) => ayah.ayah >= entry.fromAyah && ayah.ayah <= entry.toAyah);
 }
 
-function overlapsRange(entry: { fromAyah: number; toAyah: number }, fromAyah?: number, toAyah?: number) {
-  if (!fromAyah && !toAyah) return true;
-
-  const start = fromAyah ?? toAyah ?? 1;
-  const end = toAyah ?? fromAyah ?? start;
-
-  return entry.fromAyah <= end && entry.toAyah >= start;
-}
-
-function SourceCard({ book }: { book: TafseerBook }) {
-  return (
-    <Link
-      className={`${styles.sourceCard} noor-card`}
-      href={buildTafseerHref({
-        book: book.id,
-        surah: book.firstSurah,
-        ayah: 1,
-        language: book.language
-      })}
-    >
-      <div className={styles.sourceCardHead}>
-        <span className="noor-badge gold">{languageLabel(book.language)}</span>
-        <span className="noor-reference">{getBookStatus(book)}</span>
-      </div>
-      <strong>{book.label}</strong>
-      <span>{book.surahCount} Surahs covered</span>
-      <span>{book.entryCount.toLocaleString()} tafseer entries</span>
-      <span>Coverage: {book.firstSurah} to {book.lastSurah}</span>
-    </Link>
-  );
+function getLeadTranslation(ayahs: QuranAyah[]) {
+  const first = ayahs[0];
+  if (!first) return '';
+  return first.translations.en ?? first.translations.ms ?? '';
 }
 
 export default async function TafseerPage({ searchParams }: TafseerPageProps) {
   const params = (await searchParams) ?? {};
   const contentSource = await getServerNoorContentSource();
-
   const [books, surahs] = await Promise.all([
     getTafseerIndex({ source: contentSource }),
     getSurahIndex({ source: contentSource })
   ]);
 
-  const languages = [...new Set(books.map((book) => book.language))];
-  const activeLanguage = chooseActiveLanguage(params, books);
-  const booksInLanguage = books.filter((book) => book.language === activeLanguage);
-  const selectedBook = chooseActiveBook(params, books, activeLanguage);
+  const selectedLanguage = normalizeLanguage(params.language);
+  const visibleBooks = selectedLanguage ? books.filter((book) => book.language === selectedLanguage) : books;
+  const selectedBookId = firstValue(params.book);
+  const selectedBook =
+    books.find((book) => book.id === selectedBookId) ??
+    visibleBooks[0] ??
+    books[0];
+  const selectedSurah = parseSurah(params.surah) ?? selectedBook?.firstSurah ?? 1;
 
-  const requestedSurah = parseSurah(params.surah);
-  const selectedSurah = requestedSurah ?? selectedBook?.firstSurah ?? 1;
-  const selectedSurahMeta = surahs.find((surah) => surah.number === selectedSurah);
-  const selectedAyah = clampAyah(parseNumber(params.ayah), selectedSurahMeta);
-  const selectedFrom = clampAyah(parseNumber(params.from), selectedSurahMeta) ?? selectedAyah;
-  const selectedTo = clampAyah(parseNumber(params.to), selectedSurahMeta) ?? selectedFrom;
-  const normalizedFrom = selectedFrom && selectedTo ? Math.min(selectedFrom, selectedTo) : selectedFrom;
-  const normalizedTo = selectedFrom && selectedTo ? Math.max(selectedFrom, selectedTo) : selectedTo;
+  const tafseerPayload = selectedBook
+    ? await Promise.all([
+        getTafseerEntries(selectedBook.id, selectedSurah, { source: contentSource }),
+        getSurahContent(selectedSurah, { source: contentSource })
+      ])
+    : ([[], null] as [TafseerEntry[], Awaited<ReturnType<typeof getSurahContent>>]);
 
-  const entries = selectedBook
-    ? await getTafseerEntries(selectedBook.id, selectedSurah, { source: contentSource })
-    : [];
-
-  const passageEntries = entries.filter((entry) => overlapsRange(entry, normalizedFrom, normalizedTo));
-  const visibleEntries = passageEntries.length > 0 ? passageEntries : entries.slice(0, 8);
-  const primaryEntry = visibleEntries[0];
-  const primaryTopic = primaryEntry ? getPrimaryTopic(primaryEntry.tags) : 'guidance';
-  const quranContextHref = `/learn/quran/${selectedSurah}#ayah-${normalizedFrom ?? selectedAyah ?? 1}`;
-  const selectedPassageLabel = normalizedFrom
-    ? formatRange(selectedSurah, normalizedFrom, normalizedTo ?? normalizedFrom)
-    : `Surah ${selectedSurah}`;
-  const availableSurahs = selectedBook?.availableSurahs?.length ? selectedBook.availableSurahs : surahs.map((surah) => surah.number);
+  const [entries, selectedSurahContent] = tafseerPayload;
+  const selectedSurahMeta = selectedSurahContent?.surah ?? surahs.find((surah) => surah.number === selectedSurah);
+  const availableSurahs = selectedBook?.availableSurahs?.length ? selectedBook.availableSurahs : [selectedSurah];
+  const oneAyahEntries = entries.filter((entry) => entry.fromAyah === entry.toAyah).length;
+  const rangeEntries = entries.length - oneAyahEntries;
+  const languages = Array.from(new Set(books.map((book) => book.language))).sort();
 
   return (
-    <main className={`noor-page ${styles.studyPage}`}>
-      <section className={`noor-card is-gold ${styles.hero}`}>
-        <div className={styles.heroCopy}>
-          <span className="noor-kicker">Tafseer study</span>
-          <h1>Understand the Quran through trusted explanation.</h1>
-          <p>
-            Choose a Quran passage, select a tafseer source, then study the explanation with clear source,
-            language, coverage, and next-step connections.
+    <main className={`noor-page ${styles.page}`} id="tafseer-top">
+      <PageHeader
+        kicker="Tafseer"
+        title="Study the meaning behind the ayat."
+        subtitle="Tafseer should show the Quran passage, the source, the coverage range, and the next step for reading, teaching, or reflection."
+      />
+
+      <section className={styles.heroGrid} aria-label="Tafseer study entry points">
+        <NoorCard variant="gold" className={styles.heroCard}>
+          <span className="noor-badge emerald">Study hub</span>
+          <h2>Quran context first, tafseer second.</h2>
+          <p className="noor-subtitle">
+            Use this page to choose a tafseer source and passage. For focused daily reading, open the same passage in Quran Study mode.
           </p>
-          <div className={styles.heroActions}>
-            <Link className="noor-button" href={quranContextHref}>
+          <div className="noor-card-actions">
+            <Link className="noor-button" href={`/learn/quran/${selectedSurah}#ayah-1`}>
               Open Quran context
             </Link>
-            <Link className="noor-button secondary" href="/learn/quran">
-              Start from Quran reader
-            </Link>
-          </div>
-        </div>
-
-        <div className={styles.heroPanel} aria-label="Tafseer source summary">
-          <span className="noor-badge emerald">Current selection</span>
-          <strong>{selectedPassageLabel}</strong>
-          <span>{selectedBook?.label ?? 'No tafseer source found'}</span>
-          <small>{selectedBook ? `${languageLabel(selectedBook.language)} source` : 'Add tafseer content to continue.'}</small>
-        </div>
-      </section>
-
-      <section className={`noor-card ${styles.navigatorCard}`} aria-label="Tafseer navigator">
-        <div className={styles.sectionHead}>
-          <div>
-            <span className="noor-kicker">Quick study</span>
-            <h2>Choose passage and source</h2>
-          </div>
-          <p>Use Surah, ayah or range, source, and language. This replaces the old wall of Surah number buttons.</p>
-        </div>
-
-        <form className={styles.navigatorForm} action="/learn/tafseer" method="get">
-          <label className={styles.field}>
-            <span>Language</span>
-            <select name="lang" defaultValue={activeLanguage}>
-              {languages.map((language) => (
-                <option key={language} value={language}>
-                  {languageLabel(language)}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className={styles.field}>
-            <span>Tafseer source</span>
-            <select name="book" defaultValue={selectedBook?.id ?? ''}>
-              {(booksInLanguage.length ? booksInLanguage : books).map((book) => (
-                <option key={book.id} value={book.id}>
-                  {book.label}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label className={styles.field}>
-            <span>Surah</span>
-            <select name="surah" defaultValue={selectedSurah}>
-              {surahs
-                .filter((surah) => availableSurahs.includes(surah.number))
-                .map((surah) => (
-                  <option key={surah.number} value={surah.number}>
-                    {surah.number}. {surah.nameTransliteration} ({surah.ayahCount})
-                  </option>
-                ))}
-            </select>
-          </label>
-
-          <label className={styles.field}>
-            <span>Ayah</span>
-            <input
-              name="ayah"
-              type="number"
-              min="1"
-              max={selectedSurahMeta?.ayahCount ?? 286}
-              defaultValue={selectedAyah ?? normalizedFrom ?? 1}
-            />
-          </label>
-
-          <label className={styles.field}>
-            <span>Range from</span>
-            <input
-              name="from"
-              type="number"
-              min="1"
-              max={selectedSurahMeta?.ayahCount ?? 286}
-              defaultValue={normalizedFrom ?? ''}
-              placeholder="Optional"
-            />
-          </label>
-
-          <label className={styles.field}>
-            <span>Range to</span>
-            <input
-              name="to"
-              type="number"
-              min="1"
-              max={selectedSurahMeta?.ayahCount ?? 286}
-              defaultValue={normalizedTo ?? ''}
-              placeholder="Optional"
-            />
-          </label>
-
-          <div className={styles.formActions}>
-            <button className="noor-button" type="submit">
-              Open tafseer
-            </button>
-            <Link className="noor-button secondary" href="/learn/tafseer">
-              Reset
-            </Link>
-          </div>
-        </form>
-      </section>
-
-      <section className={styles.workspaceGrid} aria-label="Tafseer workspace">
-        <NoorCard className={styles.contextCard}>
-          <span className="noor-badge emerald">Quran passage</span>
-          <h2>{selectedSurahMeta?.nameTransliteration ?? `Surah ${selectedSurah}`}</h2>
-          <p className="noor-subtitle">
-            {selectedSurahMeta
-              ? `${selectedSurahMeta.nameEnglish} - ${selectedSurahMeta.ayahCount} ayat`
-              : 'Selected Surah context'}
-          </p>
-          <div className={styles.referenceBox}>
-            <strong>{selectedPassageLabel}</strong>
-            <span>
-              Tafseer should always be read as an explanation of a Quran ayah or passage, not as an isolated note.
-            </span>
-          </div>
-          <div className="noor-card-actions">
-            <Link className="noor-button secondary" href={quranContextHref}>
-              Read in Quran context
-            </Link>
+            <a className="noor-button secondary" href="#tafseer-workspace">
+              View tafseer workspace
+            </a>
           </div>
         </NoorCard>
 
-        <NoorCard className={styles.sourceMetaCard}>
-          <span className="noor-badge gold">Source awareness</span>
-          <h2>{selectedBook?.label ?? 'No tafseer source available'}</h2>
-          {selectedBook ? (
-            <div className={styles.metaGrid}>
-              <div>
-                <strong>{languageLabel(selectedBook.language)}</strong>
-                <span>Language</span>
-              </div>
-              <div>
-                <strong>{selectedBook.surahCount}</strong>
-                <span>Surahs</span>
-              </div>
-              <div>
-                <strong>{selectedBook.entryCount.toLocaleString()}</strong>
-                <span>Entries</span>
-              </div>
-              <div>
-                <strong>{getBookStatus(selectedBook)}</strong>
-                <span>Status</span>
-              </div>
+        <NoorCard variant="soft" className={styles.workflowCard}>
+          <span className="noor-kicker">Teacher workflow</span>
+          <h2>Read - Understand - Prepare</h2>
+          <div className={styles.workflowSteps} aria-label="Tafseer learning workflow">
+            <div>
+              <strong>1</strong>
+              <span>Read the ayah in context.</span>
             </div>
-          ) : (
-            <p className="noor-subtitle">No tafseer source could be loaded from the current content source.</p>
-          )}
+            <div>
+              <strong>2</strong>
+              <span>Check which ayah range is explained.</span>
+            </div>
+            <div>
+              <strong>3</strong>
+              <span>Copy the reference into notes or teaching prep later.</span>
+            </div>
+          </div>
         </NoorCard>
       </section>
 
-      <section className={`noor-card ${styles.entriesPanel}`} aria-label="Tafseer explanations">
-        <div className={styles.sectionHead}>
-          <div>
-            <span className="noor-kicker">Explanation</span>
-            <h2>{selectedBook ? `Tafseer for ${selectedPassageLabel}` : 'No tafseer available'}</h2>
-          </div>
-          <p>
-            {normalizedFrom
-              ? 'Showing entries that explain or overlap this selected ayah or range.'
-              : 'Showing available entries for the selected Surah.'}
+      <section className={styles.controlGrid} aria-label="Tafseer source and passage summary">
+        <NoorCard className={styles.sourceCard}>
+          <span className="noor-badge gold">Current source</span>
+          <h2>{selectedBook?.label ?? 'No Tafseer source found'}</h2>
+          <dl className={styles.metaGrid}>
+            <div>
+              <dt>Language</dt>
+              <dd>{selectedBook?.language ?? 'n/a'}</dd>
+            </div>
+            <div>
+              <dt>Coverage</dt>
+              <dd>{selectedBook ? `${selectedBook.firstSurah}-${selectedBook.lastSurah}` : 'n/a'}</dd>
+            </div>
+            <div>
+              <dt>Entries</dt>
+              <dd>{selectedBook?.entryCount ?? 0}</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>{selectedBook?.status ?? 'available'}</dd>
+            </div>
+          </dl>
+        </NoorCard>
+
+        <NoorCard className={styles.sourceCard}>
+          <span className="noor-badge emerald">Current passage</span>
+          <h2>
+            Surah {selectedSurah}
+            {selectedSurahMeta ? ` - ${selectedSurahMeta.nameTransliteration}` : ''}
+          </h2>
+          <p className="noor-subtitle">
+            {entries.length} tafseer entries found. {oneAyahEntries} ayah-specific, {rangeEntries} range-based.
           </p>
-        </div>
-
-        {visibleEntries.length === 0 ? (
-          <div className={styles.emptyState}>
-            <span className="noor-badge">No entries</span>
-            <h3>No tafseer entries found for this selection</h3>
-            <p>
-              Try another source, Surah, ayah, or language. Missing tafseer should guide the user toward available
-              sources instead of becoming a dead end.
-            </p>
-          </div>
-        ) : (
-          <div className={styles.entryList}>
-            {visibleEntries.map((entry) => {
-              const reference = formatRange(entry.surah, entry.fromAyah, entry.toAyah);
-
+          <div className={styles.languageChips} aria-label="Available tafseer languages">
+            <Link className={!selectedLanguage ? styles.activeChip : styles.chip} href={buildTafseerHref(selectedBook?.id ?? '', selectedSurah)}>
+              All languages
+            </Link>
+            {languages.map((language) => {
+              const bookForLanguage = books.find((book) => book.language === language);
+              if (!bookForLanguage) return null;
               return (
-                <article key={entry.id} id={`ayah-${entry.fromAyah}`} className={styles.entryCard}>
-                  <div className={styles.entryMeta}>
-                    <span className="noor-badge gold">{coverageLabel(entry.fromAyah, entry.toAyah)}</span>
-                    <span className="noor-reference">{reference}</span>
-                  </div>
-                  <h3>{entry.title}</h3>
-                  <p>{entry.body}</p>
-                  <div className={styles.entryFooter}>
-                    <span>{entry.sourceLabel}</span>
-                    <span>{languageLabel(entry.language)}</span>
-                  </div>
-                  <div className="noor-card-actions">
-                    <Link className="noor-button secondary" href={`/learn/quran/${entry.surah}#ayah-${entry.fromAyah}`}>
-                      Quran context
-                    </Link>
-                    <Link
-                      className="noor-button secondary"
-                      href={buildTafseerHref({
-                        book: entry.bookId,
-                        surah: entry.surah,
-                        ayah: entry.fromAyah,
-                        language: entry.language
-                      })}
-                    >
-                      Focus this ayah
-                    </Link>
-                  </div>
-                </article>
+                <Link
+                  key={language}
+                  className={selectedLanguage === language ? styles.activeChip : styles.chip}
+                  href={buildTafseerHref(bookForLanguage.id, selectedSurah, language)}
+                >
+                  {language}
+                </Link>
               );
             })}
           </div>
-        )}
+        </NoorCard>
       </section>
 
-      {primaryEntry ? (
-        <SourceConnectionsPanel
-          compact
-          title="Continue learning"
-          subtitle="Move from tafseer back to Quran context, related topic exploration, or hadith reminders."
-          connections={[
-            {
-              label: 'Quran',
-              badge: 'Quran',
-              title: 'Read the passage in Quran context',
-              description: `Open ${formatRange(primaryEntry.surah, primaryEntry.fromAyah, primaryEntry.toAyah)} in the Quran reader.`,
-              href: `/learn/quran/${primaryEntry.surah}#ayah-${primaryEntry.fromAyah}`
-            },
-            {
-              label: 'Topic',
-              badge: 'Topic',
-              title: `Explore ${primaryTopic}`,
-              description: 'Search Quran, Tafseer, and Hadith together through this theme.',
-              href: `/explore?topic=${encodeURIComponent(primaryTopic)}`
-            },
-            {
-              label: 'Hadith',
-              badge: 'Hadith',
-              title: 'Find related Hadith reminders',
-              description: 'Continue from explanation into Prophetic application.',
-              href: `/learn/hadith?mode=reflect&topic=${encodeURIComponent(primaryTopic)}#hadith-reader`
-            }
-          ]}
-        />
+      {selectedBook ? (
+        <section className={styles.pickerPanel} aria-label="Choose tafseer source and Surah">
+          <div className={styles.pickerHeader}>
+            <div>
+              <span className="noor-badge gold">Source and Surah</span>
+              <h2>Choose the book, then choose the passage.</h2>
+              <p className="noor-subtitle">
+                This layout avoids pretending that every tafseer note is one-to-one with one ayah. Each card below shows its actual coverage.
+              </p>
+            </div>
+          </div>
+
+          <div className={styles.bookScroller} aria-label="Tafseer sources">
+            {visibleBooks.map((book) => (
+              <Link
+                key={book.id}
+                className={book.id === selectedBook.id ? styles.activeBookCard : styles.bookCard}
+                href={buildTafseerHref(book.id, book.availableSurahs[0] ?? book.firstSurah, selectedLanguage)}
+              >
+                <span>{book.language}</span>
+                <strong>{book.label}</strong>
+                <small>{book.surahCount} surahs, {book.entryCount} entries</small>
+              </Link>
+            ))}
+          </div>
+
+          <div className={styles.surahScroller} aria-label="Available Surahs in selected tafseer source">
+            {availableSurahs.slice(0, 114).map((surah) => (
+              <Link
+                key={`${selectedBook.id}-${surah}`}
+                className={surah === selectedSurah ? styles.activeSurahButton : styles.surahButton}
+                href={buildTafseerHref(selectedBook.id, surah, selectedLanguage)}
+              >
+                {surah}
+              </Link>
+            ))}
+          </div>
+        </section>
       ) : null}
 
-      <section className={`noor-card ${styles.sourcesPanel}`} aria-label="Available tafseer sources">
-        <div className={styles.sectionHead}>
-          <div>
-            <span className="noor-kicker">Available sources</span>
-            <h2>Choose by source and language</h2>
+      <section className={styles.workspace} id="tafseer-workspace" aria-label="Tafseer workspace">
+        <aside className={styles.contextPanel}>
+          <span className="noor-badge emerald">Quran to Tafseer</span>
+          <h2>{selectedSurahMeta?.nameTransliteration ?? `Surah ${selectedSurah}`}</h2>
+          <p className="noor-subtitle">
+            Tafseer explains a Quran passage. Keep the Quran context visible before reading the explanation.
+          </p>
+          <div className={styles.contextActions}>
+            <Link className="noor-button" href={`/learn/quran/${selectedSurah}#ayah-1`}>
+              Read Surah
+            </Link>
+            <Link className="noor-button secondary" href={`/learn/quran/${selectedSurah}#ayah-1`}>
+              Open Study mode
+            </Link>
           </div>
-          <p>Each source has its own coverage, language, and reading style.</p>
-        </div>
-
-        {languages.length === 0 ? (
-          <div className={styles.emptyState}>
-            <h3>No tafseer source found</h3>
-            <p>Check the content source setting or prepare tafseer content before using this page.</p>
+          <div className={styles.miniMap} aria-label="Tafseer passage map">
+            {entries.length ? (
+              entries.slice(0, 12).map((entry) => (
+                <a key={entry.id} href={`#ayah-${entry.fromAyah}`}>
+                  <span>{getCoverageLabel(entry, selectedSurahMeta?.ayahCount)}</span>
+                  <strong>{getRangeText(entry)}</strong>
+                </a>
+              ))
+            ) : (
+              <p>No passage map is available for this selection.</p>
+            )}
           </div>
-        ) : (
-          <div className={styles.languageGroups}>
-            {languages.map((language) => {
-              const groupBooks = books.filter((book) => book.language === language);
+        </aside>
 
-              return (
-                <div key={language} className={styles.languageGroup}>
-                  <div className={styles.languageHead}>
-                    <strong>{languageLabel(language)}</strong>
-                    <span>{groupBooks.length} source{groupBooks.length === 1 ? '' : 's'}</span>
+        <section className={styles.entryColumn} aria-label="Tafseer entries">
+          {entries.length === 0 ? (
+            <NoorCard>
+              <span className="noor-badge">No entries</span>
+              <h2>No Tafseer entries found for this selection</h2>
+              <p className="noor-subtitle">
+                Try another source or Surah. You can still read the Quran context and return when this source has coverage.
+              </p>
+              <div className="noor-card-actions">
+                <Link className="noor-button" href={`/learn/quran/${selectedSurah}`}>
+                  Read Quran context
+                </Link>
+              </div>
+            </NoorCard>
+          ) : null}
+
+          {entries.map((entry, index) => {
+            const primaryTopic = getPrimaryTopic(entry.tags);
+            const ayahContext = getAyahContext(selectedSurahContent?.ayahs, entry);
+            const leadTranslation = getLeadTranslation(ayahContext);
+
+            return (
+              <article key={`${entry.id}-${index}`} id={`ayah-${entry.fromAyah}`} className={styles.entryCard}>
+                <div className={styles.entryHeader}>
+                  <div>
+                    <span className="noor-badge gold">{getCoverageLabel(entry, selectedSurahMeta?.ayahCount)}</span>
+                    <h2>{entry.title}</h2>
                   </div>
-                  <div className={styles.sourceGrid}>
-                    {groupBooks.map((book) => (
-                      <SourceCard key={book.id} book={book} />
+                  <span className="noor-reference">{getRangeText(entry)}</span>
+                </div>
+
+                <div className={styles.coverageNotice}>
+                  <strong>Coverage notice</strong>
+                  <span>
+                    This tafseer entry explains {getCoverageLabel(entry, selectedSurahMeta?.ayahCount).toLowerCase()} from {entry.sourceLabel}.
+                  </span>
+                </div>
+
+                {ayahContext.length ? (
+                  <details className={styles.ayahDetails}>
+                    <summary>View Quran passage context</summary>
+                    <div className={styles.ayahContextBox}>
+                      <p className={styles.ayahArabic} lang="ar" dir="rtl">
+                        {ayahContext.map((ayah) => ayah.arabic).join(' ')}
+                      </p>
+                      {leadTranslation ? <p>{leadTranslation}</p> : null}
+                      <Link className="noor-button secondary" href={`/learn/quran/${entry.surah}#ayah-${entry.fromAyah}`}>
+                        Open full Quran context
+                      </Link>
+                    </div>
+                  </details>
+                ) : null}
+
+                <div className={styles.entryBody}>{entry.body}</div>
+
+                {entry.tags.length ? (
+                  <div className={styles.tagRow} aria-label="Tafseer topics">
+                    {entry.tags.slice(0, 8).map((tag) => (
+                      <Link key={`${entry.id}-${tag}`} href={`/explore?topic=${encodeURIComponent(tag.toLowerCase())}`}>
+                        {tag}
+                      </Link>
                     ))}
                   </div>
+                ) : null}
+
+                <SourceConnectionsPanel
+                  compact
+                  subtitle="Continue from this explanation into Quran context, topic exploration, or Hadith reminders."
+                  connections={[
+                    {
+                      label: 'Quran',
+                      badge: 'Quran',
+                      title: 'Read the passage in Quran context',
+                      description: `Open Surah ${entry.surah} from ayah ${entry.fromAyah}.`,
+                      href: `/learn/quran/${entry.surah}#ayah-${entry.fromAyah}`
+                    },
+                    {
+                      label: 'Topic',
+                      badge: 'Topic',
+                      title: `Explore ${primaryTopic}`,
+                      description: 'Search Quran, Tafseer and Hadith through this theme.',
+                      href: `/explore?topic=${encodeURIComponent(primaryTopic)}`
+                    },
+                    {
+                      label: 'Hadith',
+                      badge: 'Hadith',
+                      title: 'Find related Hadith reminders',
+                      description: 'Continue from explanation into Prophetic application.',
+                      href: `/learn/hadith?mode=reflect&topic=${encodeURIComponent(primaryTopic)}#hadith-reader`
+                    }
+                  ]}
+                />
+
+                <div className={styles.entryActions}>
+                  <Link className="noor-button secondary" href={`/learn/quran/${entry.surah}#ayah-${entry.fromAyah}`}>
+                    Read Quran context
+                  </Link>
+                  <a className="noor-button secondary" href="#tafseer-top">
+                    Back to source controls
+                  </a>
                 </div>
-              );
-            })}
-          </div>
-        )}
+              </article>
+            );
+          })}
+        </section>
       </section>
+
+      <FloatingTafseerNavigator
+        books={books.map((book) => ({
+          id: book.id,
+          label: book.label,
+          language: book.language,
+          availableSurahs: book.availableSurahs,
+          firstSurah: book.firstSurah
+        }))}
+        surahs={surahs}
+        entries={entries.map((entry) => ({
+          id: entry.id,
+          title: entry.title,
+          surah: entry.surah,
+          fromAyah: entry.fromAyah,
+          toAyah: entry.toAyah,
+          sourceLabel: entry.sourceLabel
+        }))}
+        currentBookId={selectedBook?.id ?? ''}
+        currentSurah={selectedSurah}
+        currentAyahCount={selectedSurahMeta?.ayahCount ?? selectedSurahContent?.ayahs.length ?? 1}
+      />
     </main>
   );
 }
