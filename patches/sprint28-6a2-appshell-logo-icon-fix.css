@@ -1,0 +1,33 @@
+/* NOOR SPRINT 28.6A.2 HOTFIX - APPSHELL LOGO ICON FIX START
+   Use real NOOR app icon instead of text glyphs.
+   This avoids mojibake such as "âœ¦".
+*/
+
+.noor-mark {
+  display: inline-grid !important;
+  place-items: center !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  text-indent: -9999px !important;
+}
+
+.noor-mark-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 42px;
+  max-height: 42px;
+  object-fit: contain;
+  text-indent: 0;
+}
+
+@media (max-width: 520px) {
+  .noor-mark-img {
+    max-width: 34px;
+    max-height: 34px;
+  }
+}
+/* NOOR SPRINT 28.6A.2 HOTFIX - APPSHELL LOGO ICON FIX END */

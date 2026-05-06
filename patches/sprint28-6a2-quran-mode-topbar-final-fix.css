@@ -1,0 +1,125 @@
+/* NOOR SPRINT 28.6A.2 FIX - QURAN MODE IN APP TOPBAR START
+   Final behavior:
+   - Read / Meaning / Study appears in the NOOR AppShell topbar before Settings.
+   - The old sticky Quran modebar is hidden/removed.
+   - ASCII separators are used to avoid mojibake such as A-circumflex.
+*/
+
+.noor-topbar-mode-slot:empty {
+  display: none !important;
+}
+
+.noor-topbar-mode-slot {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.noor-quran-mode-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--noor-line);
+  border-radius: 999px;
+  background: rgba(248, 250, 252, 0.96);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+}
+
+.noor-quran-mode-switcher button {
+  min-height: 32px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--noor-muted);
+  padding: 7px 11px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.noor-quran-mode-switcher button[data-active='true'] {
+  background: var(--noor-emerald);
+  color: #ffffff;
+  box-shadow: 0 8px 16px rgba(15, 118, 110, 0.18);
+}
+
+.noor-quran-mode-switcher button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.14);
+}
+
+.noor-quran-mode-switcher--topbar {
+  flex: 0 0 auto;
+}
+
+.noor-quran-v2-modebar {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  .noor-topbar {
+    gap: 8px;
+  }
+
+  .noor-topbar-actions {
+    gap: 6px;
+    flex: 0 0 auto;
+  }
+
+  .noor-brand {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .noor-brand-subtitle {
+    display: none;
+  }
+
+  .noor-quran-mode-switcher--topbar {
+    gap: 2px;
+    padding: 3px;
+  }
+
+  .noor-quran-mode-switcher--topbar button {
+    min-height: 30px;
+    padding: 7px 8px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 520px) {
+  .noor-brand-title {
+    font-size: 13px;
+  }
+
+  .noor-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 12px;
+  }
+
+  .noor-topbar-actions .noor-badge {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+
+  .noor-quran-mode-switcher--topbar button {
+    padding: 7px 7px;
+  }
+}
+
+@media (max-width: 430px) {
+  .noor-quran-mode-switcher--topbar button {
+    min-width: 0;
+    padding: 7px 6px;
+    font-size: 10.5px;
+  }
+
+  .noor-topbar-actions .noor-badge {
+    padding-inline: 7px;
+  }
+}
+/* NOOR SPRINT 28.6A.2 FIX - QURAN MODE IN APP TOPBAR END */

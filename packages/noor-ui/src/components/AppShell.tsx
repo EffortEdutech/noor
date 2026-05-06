@@ -1,4 +1,4 @@
-import { NOOR_NAV_ITEMS } from '@noor/config';
+﻿import { NOOR_NAV_ITEMS } from '@noor/config';
 import type { ReactNode } from 'react';
 
 function isActive(currentPath: string, href: string) {
@@ -12,13 +12,16 @@ export function AppShell({ children, currentPath }: { children: ReactNode; curre
       <div className="noor-app-frame">
         <header className="noor-topbar">
           <a className="noor-brand" href="/today" aria-label="NOOR home">
-            <span className="noor-mark">✦</span>
+            <span className="noor-mark" aria-hidden="true">
+              <img className="noor-mark-img" src="/icon-192.png?v=noor-logo-192" alt="" width="42" height="42" />
+            </span>
             <span>
               <span className="noor-brand-title">NOOR</span>
               <span className="noor-brand-subtitle">Daily Islamic Companion</span>
             </span>
           </a>
           <nav className="noor-topbar-actions" aria-label="Utility navigation">
+            <div id="noor-quran-reader-mode-slot" className="noor-topbar-mode-slot" />
             <a className="noor-badge" href="/settings">Settings</a>
           </nav>
         </header>
@@ -39,3 +42,5 @@ export function AppShell({ children, currentPath }: { children: ReactNode; curre
     </div>
   );
 }
+
+
