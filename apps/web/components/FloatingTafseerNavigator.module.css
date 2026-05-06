@@ -1,4 +1,4 @@
-.float {
+﻿.float {
   position: fixed;
   right: max(18px, calc((100vw - 1060px) / 2 + 18px));
   bottom: 96px;
@@ -33,7 +33,7 @@
 .panelHead {
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: flex-start;
   gap: 12px;
 }
 
@@ -105,32 +105,36 @@
   box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
 }
 
-.coverageBox {
-  display: grid;
-  gap: 4px;
-  padding: 12px;
-  border: 1px solid #ead7a6;
-  border-radius: 16px;
-  background: var(--noor-gold-soft);
-}
-
-.coverageBox strong {
-  color: #704a00;
-}
-
-.coverageBox span {
-  color: #5f4a1d;
-  line-height: 1.5;
-}
-
-.entryList {
+.structureMap {
   display: grid;
   gap: 8px;
-  max-height: 230px;
+  max-height: 320px;
   overflow: auto;
+  padding-right: 2px;
 }
 
-.entryList button {
+.structureHead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 0 6px;
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.structureHead strong {
+  color: var(--noor-text);
+}
+
+.structureHead span {
+  color: var(--noor-muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.structureMap button {
   display: grid;
   gap: 3px;
   width: 100%;
@@ -143,20 +147,21 @@
   cursor: pointer;
 }
 
-.entryList button:hover {
+.structureMap button:hover,
+.structureMap button[data-active="true"] {
   border-color: #a7ded5;
   background: var(--noor-emerald-soft);
 }
 
-.entryList span,
-.entryList p {
+.structureMap button span,
+.structureMap p {
   margin: 0;
   color: var(--noor-muted);
   font-size: 12px;
   font-weight: 850;
 }
 
-.entryList strong {
+.structureMap button strong {
   color: var(--noor-text);
   line-height: 1.35;
 }
@@ -245,3 +250,4 @@
     height: 58px;
   }
 }
+

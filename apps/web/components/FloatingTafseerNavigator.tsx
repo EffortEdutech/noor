@@ -26,6 +26,12 @@ function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(Number(value) || min, min), max);
 }
 
+function getAyahFromHash() {
+  if (typeof window === 'undefined') return 1;
+  const match = window.location.hash.match(/^#ayah-(\d+)$/);
+  return match ? Number(match[1]) : 1;
+}
+
 function coverageLabel(entry: TafseerNavigatorEntry) {
   if (entry.fromAyah === entry.toAyah) return `Ayah ${entry.fromAyah}`;
   return `Ayah ${entry.fromAyah}-${entry.toAyah}`;
@@ -38,6 +44,7 @@ function buildTafseerHref(bookId: string, surah: number, language?: string, ayah
   });
 
   if (language) params.set('language', language);
+
   const hash = ayah ? `#ayah-${ayah}` : '';
   return `/learn/tafseer?${params.toString()}${hash}`;
 }
@@ -66,7 +73,8 @@ export function FloatingTafseerNavigator({
   useEffect(() => {
     setSelectedBookId(currentBookId);
     setSelectedSurah(currentSurah);
-  }, [currentBookId, currentSurah]);
+    setSelectedAyah((value) => clamp(value || getAyahFromHash(), 1, currentAyahCount || 1));
+  }, [currentBookId, currentSurah, currentAyahCount]);
 
   useEffect(() => {
     function handleEscape(event: KeyboardEvent) {
@@ -95,7 +103,6 @@ export function FloatingTafseerNavigator({
 
   const ayahCount = selectedSurahInfo?.ayahCount ?? currentAyahCount ?? 1;
   const ayahOptions = Array.from({ length: ayahCount }, (_, index) => index + 1);
-
   const canUseVisibleEntries = selectedBook?.id === currentBookId && selectedSurah === currentSurah;
   const coveredEntry = canUseVisibleEntries
     ? entries.find((entry) => selectedAyah >= entry.fromAyah && selectedAyah <= entry.toAyah)
@@ -104,6 +111,7 @@ export function FloatingTafseerNavigator({
   function changeBook(bookId: string) {
     const nextBook = books.find((book) => book.id === bookId);
     setSelectedBookId(bookId);
+
     if (nextBook && !nextBook.availableSurahs.includes(selectedSurah)) {
       setSelectedSurah(nextBook.availableSurahs[0] ?? nextBook.firstSurah ?? 1);
       setSelectedAyah(1);
@@ -118,6 +126,7 @@ export function FloatingTafseerNavigator({
 
   function closeAndScrollToAyah(ayah: number) {
     setOpen(false);
+
     const target = document.getElementById(`ayah-${ayah}`);
     if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -127,6 +136,7 @@ export function FloatingTafseerNavigator({
 
   function goToSelection() {
     if (!selectedBook) return;
+
     const safeAyah = clamp(selectedAyah, 1, ayahCount);
     setSelectedAyah(safeAyah);
     setOpen(false);
@@ -152,9 +162,9 @@ export function FloatingTafseerNavigator({
         <section className={styles.panel} role="dialog" aria-modal="true" aria-label="Tafseer navigation">
           <header className={styles.panelHead}>
             <div>
-              <span>Tafseer navigation</span>
-              <h2>Choose source and passage</h2>
-              <p>Jump by book, Surah, ayah, or tafseer coverage range.</p>
+              <span>Tafseer navigator</span>
+              <h2>Source, Surah, and coverage</h2>
+              <p>Navigation lives here so the page can focus on the tafseer content.</p>
             </div>
             <button type="button" onClick={() => setOpen(false)} aria-label="Close tafseer navigator">
               Close
@@ -197,21 +207,18 @@ export function FloatingTafseerNavigator({
             </label>
           </div>
 
-          <div className={styles.coverageBox}>
-            <strong>Coverage match</strong>
-            {coveredEntry ? (
-              <span>{coverageLabel(coveredEntry)} in {coveredEntry.sourceLabel}</span>
-            ) : (
-              <span>No exact tafseer card is visible for this selected ayah on the current page.</span>
-            )}
-          </div>
+          <div className={styles.structureMap} aria-label="Visible tafseer content structure">
+            <div className={styles.structureHead}>
+              <strong>Visible structure</strong>
+              <span>{entries.length} entries</span>
+            </div>
 
-          <div className={styles.entryList} aria-label="Visible tafseer entries">
             {entries.length ? (
-              entries.slice(0, 10).map((entry) => (
+              entries.slice(0, 18).map((entry) => (
                 <button
                   type="button"
                   key={entry.id}
+                  data-active={coveredEntry?.id === entry.id}
                   onClick={() => closeAndScrollToAyah(entry.fromAyah)}
                 >
                   <span>{coverageLabel(entry)}</span>
@@ -242,7 +249,7 @@ export function FloatingTafseerNavigator({
         aria-label="Open Tafseer navigator"
       >
         <span>T</span>
-        <strong>{currentBook?.language ?? 'tafsir'}</strong>
+        <strong>{currentBook?.language ?? 'nav'}</strong>
       </button>
     </div>
   );
