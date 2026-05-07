@@ -1,4 +1,4 @@
-# Sprint 28.6B-07 to 28.6B-11 - Tafseer UI Refactoring Integrated Pack
+﻿# Sprint 28.6B-07 to 28.6B-11 - Tafseer UI Refactoring Integrated Pack
 
 **Project:** NOOR  
 **Sprint range:** 28.6B-07 to 28.6B-11  
@@ -54,8 +54,8 @@ Implemented:
 - Copy tafseer quote.
 - Open Quran context.
 - Save locally on this device.
-- Collapsible Teaching prep section.
-- Teaching prep fields:
+- Collapsible Ishraq section.
+- Ishraq fields:
   - Main point.
   - Key ayah phrase.
   - Lesson note.
@@ -86,7 +86,7 @@ Implemented:
 - Arabic and Urdu tafseer bodies use RTL direction and right alignment.
 - English, Malay, Indonesian, Chinese, Tamil bodies remain LTR by default.
 - Mixed UI labels remain LTR.
-- CSS triangle is used for the Teaching prep disclosure indicator.
+- CSS triangle is used for the Ishraq disclosure indicator.
 - No risky Unicode chevrons are used.
 - Tafseer Quran passage preview strips a wrongly attached Bismillah from ayah text for non-Fatihah ayah 1.
 
@@ -142,7 +142,7 @@ Check:
 [ ] Arabic/Urdu tafseer body is RTL and right aligned when available.
 [ ] English/Malay/Indonesian tafseer body remains LTR.
 [ ] No double scroll problem on mobile.
-[ ] Teaching prep is collapsed by default.
+[ ] Ishraq is collapsed by default.
 [ ] Copy reference works.
 [ ] Copy Quran passage works.
 [ ] Copy tafseer quote works.
@@ -170,3 +170,4 @@ This integrated pack is done when:
 [ ] Source awareness is clear.
 [ ] RTL typography rules are respected.
 ```
+

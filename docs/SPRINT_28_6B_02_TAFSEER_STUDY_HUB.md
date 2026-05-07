@@ -1,7 +1,7 @@
-# Sprint 28.6B-02 — Tafseer Study Hub Layout
+﻿# Sprint 28.6B-02 â€” Tafseer Study Hub Layout
 
 **Project:** NOOR  
-**Parent sprint:** 28.6B — Tafseer UI Refactoring Foundation  
+**Parent sprint:** 28.6B â€” Tafseer UI Refactoring Foundation  
 **Task:** 28.6B-02  
 **Status:** Patch pack ready  
 **Scope:** Study hub page layout only
@@ -110,7 +110,8 @@ Manual checks:
 After this task is stable, continue with:
 
 ```text
-Task 28.6B-03 — Tafseer Workspace and Teaching Actions
+Task 28.6B-03 â€” Tafseer Workspace and Teaching Actions
 ```
 
-This next task should improve copy reference, save/bookmark placement, teaching preparation prompts, and the focused workspace behavior.
+This next task should improve copy reference, save/bookmark placement, Ishraqaration prompts, and the focused workspace behavior.
+

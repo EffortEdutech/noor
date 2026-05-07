@@ -1,4 +1,4 @@
-# Quran Bismillah Display Rule
+﻿# Quran Bismillah Display Rule
 
 **Project:** NOOR  
 **Rule status:** Locked content display rule  
@@ -11,7 +11,7 @@
 For Surah 2 to Surah 114, if the Quran JSON has:
 
 ```text
-بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+Ø¨ÙØ³Ù’Ù…Ù Ù±Ù„Ù„Ù‘ÙŽÙ‡Ù Ù±Ù„Ø±Ù‘ÙŽØ­Ù’Ù…ÙŽÙ€Ù°Ù†Ù Ù±Ù„Ø±Ù‘ÙŽØ­ÙÙŠÙ…Ù
 ```
 
 at the beginning of ayah 1, NOOR must not treat that Bismillah text as part of ayah 1.
@@ -43,7 +43,7 @@ Do not add or display a Bismillah header for Surah 9.
 Display ayah 1 as ayah 1:
 
 ```text
-1:1 بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+1:1 Ø¨ÙØ³Ù’Ù…Ù Ù±Ù„Ù„Ù‘ÙŽÙ‡Ù Ù±Ù„Ø±Ù‘ÙŽØ­Ù’Ù…ÙŽÙ€Ù°Ù†Ù Ù±Ù„Ø±Ù‘ÙŽØ­ÙÙŠÙ…Ù
 ```
 
 ### 4.2 Surah 2 to Surah 114, except Surah 9
@@ -55,15 +55,15 @@ Then display ayah 1 without Bismillah.
 Example for Surah 2:
 
 ```text
-بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+Ø¨ÙØ³Ù’Ù…Ù Ù±Ù„Ù„Ù‘ÙŽÙ‡Ù Ù±Ù„Ø±Ù‘ÙŽØ­Ù’Ù…ÙŽÙ€Ù°Ù†Ù Ù±Ù„Ø±Ù‘ÙŽØ­ÙÙŠÙ…Ù
 
-2:1 الٓمٓ
+2:1 Ø§Ù„Ù“Ù…Ù“
 ```
 
 Not:
 
 ```text
-2:1 بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ الٓمٓ
+2:1 Ø¨ÙØ³Ù’Ù…Ù Ù±Ù„Ù„Ù‘ÙŽÙ‡Ù Ù±Ù„Ø±Ù‘ÙŽØ­Ù’Ù…ÙŽÙ€Ù°Ù†Ù Ù±Ù„Ø±Ù‘ÙŽØ­ÙÙŠÙ…Ù Ø§Ù„Ù“Ù…Ù“
 ```
 
 ### 4.3 Surah 9
@@ -131,4 +131,5 @@ Surah 9:
 
 This rule is owned by NOOR content governance.
 
-Any future Quran display, Tafseer preview, copy/share, search excerpt, teaching note, or Quran-to-tafseer relationship feature must follow this document.
+Any future Quran display, Tafseer preview, copy/share, search excerpt, Ishraq note, or Quran-to-tafseer relationship feature must follow this document.
+

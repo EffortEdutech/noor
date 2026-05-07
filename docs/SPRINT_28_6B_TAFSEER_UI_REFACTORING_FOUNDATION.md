@@ -1,4 +1,4 @@
-# Sprint 28.6B — Tafseer UI Refactoring Foundation
+﻿# Sprint 28.6B â€” Tafseer UI Refactoring Foundation
 
 **Project:** NOOR  
 **Sprint:** 28.6B  
@@ -214,7 +214,7 @@ Required sections:
 [ ] Tafseer source meta bar
 [ ] Coverage badge
 [ ] Tafseer body
-[ ] Teaching preparation prompt
+[ ] Ishraqaration prompt
 [ ] Action bar
 [ ] Connections panel
 ```
@@ -226,7 +226,7 @@ Main column:
 - Quran passage context
 - Tafseer source + coverage
 - Tafseer body
-- Teaching notes prompt
+- Ishraq notes prompt
 
 Side/lower column:
 - Copy reference
@@ -408,7 +408,7 @@ Required teaching-friendly actions:
 Teaching prompt:
 
 ```text
-Teaching preparation:
+Ishraqaration:
 What is the main point of this explanation?
 Which ayah phrase should be highlighted?
 What action or reflection should learners take?
@@ -421,7 +421,7 @@ No AI-generated summary is introduced in this sprint.
 ## 11. Encoding and UI Safety Rules
 
 ```text
-[ ] Do not add mojibake strings such as Â, Ã, â, âœ, or â€.
+[ ] Do not add mojibake strings such as Ã‚, Ãƒ, Ã¢, Ã¢Å“, or Ã¢â‚¬.
 [ ] Do not use risky Unicode chevrons or decorative glyphs.
 [ ] Use plain words such as Open, Close, Change, Copy, Save.
 [ ] Use CSS triangles or inline SVG for indicators.
@@ -433,7 +433,7 @@ No AI-generated summary is introduced in this sprint.
 
 ## 12. Implementation Breakdown
 
-### Task 28.6B-01 — Sprint Documentation
+### Task 28.6B-01 â€” Sprint Documentation
 
 ```text
 [ ] Add Sprint 28.6B control document.
@@ -441,7 +441,7 @@ No AI-generated summary is introduced in this sprint.
 [ ] Confirm build remains green.
 ```
 
-### Task 28.6B-02 — Tafseer Study Hub
+### Task 28.6B-02 â€” Tafseer Study Hub
 
 ```text
 [ ] Refactor /learn/tafseer header into a study hub.
@@ -450,17 +450,17 @@ No AI-generated summary is introduced in this sprint.
 [ ] Avoid changing CDN/data resolver logic.
 ```
 
-### Task 28.6B-03 — Tafseer Workspace
+### Task 28.6B-03 â€” Tafseer Workspace
 
 ```text
 [ ] Add Quran context card.
 [ ] Add source meta bar.
 [ ] Add coverage badge.
 [ ] Improve tafseer body reading layout.
-[ ] Add teaching preparation prompt.
+[ ] Add Ishraqaration prompt.
 ```
 
-### Task 28.6B-04 — Mobile Command Sheet Foundation
+### Task 28.6B-04 â€” Mobile Command Sheet Foundation
 
 ```text
 [ ] Add mobile-friendly command sheet.
@@ -468,7 +468,7 @@ No AI-generated summary is introduced in this sprint.
 [ ] Ensure no double scroll.
 ```
 
-### Task 28.6B-05 — Quran Reader Bridge
+### Task 28.6B-05 â€” Quran Reader Bridge
 
 ```text
 [ ] Improve "Open Tafseer" link from Study mode.
@@ -476,7 +476,7 @@ No AI-generated summary is introduced in this sprint.
 [ ] Do not overhaul Quran reader yet.
 ```
 
-### Task 28.6B-06 — Polish and QA
+### Task 28.6B-06 â€” Polish and QA
 
 ```text
 [ ] Empty states.
@@ -546,3 +546,4 @@ But:
 ```text
 A serious workspace where Quran passage, tafseer source, explanation, reflection, teaching, and next-step connections are clear.
 ```
+

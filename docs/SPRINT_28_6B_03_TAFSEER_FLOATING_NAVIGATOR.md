@@ -1,4 +1,4 @@
-# Sprint 28.6B-03 - Tafseer Floating Navigator and Study Workspace
+﻿# Sprint 28.6B-03 - Tafseer Floating Navigator and Study Workspace
 
 ## 1. Purpose
 
@@ -78,7 +78,7 @@ This supports the preferred NOOR learning flow:
 ```text
 Read Quran first.
 Then understand through tafseer.
-Then continue to topic, hadith, reflection, or teaching prep.
+Then continue to topic, hadith, reflection, or Ishraq.
 ```
 
 ## 7. Mobile UX
@@ -128,3 +128,4 @@ This task is done when:
 - floating Tafseer navigator works on desktop and mobile
 - no new mojibake appears
 - no risky Unicode icons are introduced in the new Tafseer UI code
+
