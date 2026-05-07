@@ -20,6 +20,7 @@ type TafseerNavigatorEntry = {
   fromAyah: number;
   toAyah: number;
   sourceLabel: string;
+  language: LanguageCode;
 };
 
 function clamp(value: number, min: number, max: number) {
@@ -37,6 +38,20 @@ function coverageLabel(entry: TafseerNavigatorEntry) {
   return `Ayah ${entry.fromAyah}-${entry.toAyah}`;
 }
 
+function languageLabel(language: string | undefined) {
+  const labels: Record<string, string> = {
+    ar: 'Arabic',
+    en: 'English',
+    ms: 'Malay',
+    id: 'Indonesian',
+    ur: 'Urdu',
+    zh: 'Chinese',
+    ta: 'Tamil'
+  };
+
+  return language ? labels[language] ?? language.toUpperCase() : 'Language';
+}
+
 function buildTafseerHref(bookId: string, surah: number, language?: string, ayah?: number) {
   const params = new URLSearchParams({
     book: bookId,
@@ -49,11 +64,16 @@ function buildTafseerHref(bookId: string, surah: number, language?: string, ayah
   return `/learn/tafseer?${params.toString()}${hash}`;
 }
 
+function uniqueLanguages(books: TafseerNavigatorBook[]) {
+  return Array.from(new Set(books.map((book) => book.language))).sort();
+}
+
 export function FloatingTafseerNavigator({
   books,
   surahs,
   entries,
   currentBookId,
+  currentLanguage,
   currentSurah,
   currentAyahCount
 }: {
@@ -61,20 +81,23 @@ export function FloatingTafseerNavigator({
   surahs: SurahIndexEntry[];
   entries: TafseerNavigatorEntry[];
   currentBookId: string;
+  currentLanguage?: LanguageCode;
   currentSurah: number;
   currentAyahCount: number;
 }) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState<LanguageCode | undefined>(currentLanguage);
   const [selectedBookId, setSelectedBookId] = useState(currentBookId);
   const [selectedSurah, setSelectedSurah] = useState(currentSurah);
   const [selectedAyah, setSelectedAyah] = useState(1);
 
   useEffect(() => {
+    setSelectedLanguage(currentLanguage);
     setSelectedBookId(currentBookId);
     setSelectedSurah(currentSurah);
     setSelectedAyah((value) => clamp(value || getAyahFromHash(), 1, currentAyahCount || 1));
-  }, [currentBookId, currentSurah, currentAyahCount]);
+  }, [currentBookId, currentLanguage, currentSurah, currentAyahCount]);
 
   useEffect(() => {
     function handleEscape(event: KeyboardEvent) {
@@ -85,9 +108,17 @@ export function FloatingTafseerNavigator({
     return () => window.removeEventListener('keydown', handleEscape);
   }, []);
 
+  const languages = useMemo(() => uniqueLanguages(books), [books]);
+
+  const booksForLanguage = useMemo(() => {
+    if (!selectedLanguage) return books;
+    const filtered = books.filter((book) => book.language === selectedLanguage);
+    return filtered.length ? filtered : books;
+  }, [books, selectedLanguage]);
+
   const selectedBook = useMemo(() => {
-    return books.find((book) => book.id === selectedBookId) ?? books[0];
-  }, [books, selectedBookId]);
+    return booksForLanguage.find((book) => book.id === selectedBookId) ?? booksForLanguage[0] ?? books[0];
+  }, [books, booksForLanguage, selectedBookId]);
 
   const currentBook = useMemo(() => {
     return books.find((book) => book.id === currentBookId) ?? selectedBook;
@@ -107,14 +138,31 @@ export function FloatingTafseerNavigator({
   const coveredEntry = canUseVisibleEntries
     ? entries.find((entry) => selectedAyah >= entry.fromAyah && selectedAyah <= entry.toAyah)
     : undefined;
+  const selectedRangeLabel = coveredEntry ? coverageLabel(coveredEntry) : `Ayah ${selectedAyah}`;
+
+  function changeLanguage(language: LanguageCode) {
+    setSelectedLanguage(language);
+    const nextBook = books.find((book) => book.language === language) ?? books[0];
+    if (!nextBook) return;
+
+    setSelectedBookId(nextBook.id);
+    const nextSurah = nextBook.availableSurahs.includes(selectedSurah)
+      ? selectedSurah
+      : nextBook.availableSurahs[0] ?? nextBook.firstSurah ?? 1;
+    setSelectedSurah(nextSurah);
+    setSelectedAyah(1);
+  }
 
   function changeBook(bookId: string) {
     const nextBook = books.find((book) => book.id === bookId);
     setSelectedBookId(bookId);
 
-    if (nextBook && !nextBook.availableSurahs.includes(selectedSurah)) {
-      setSelectedSurah(nextBook.availableSurahs[0] ?? nextBook.firstSurah ?? 1);
-      setSelectedAyah(1);
+    if (nextBook) {
+      setSelectedLanguage(nextBook.language);
+      if (!nextBook.availableSurahs.includes(selectedSurah)) {
+        setSelectedSurah(nextBook.availableSurahs[0] ?? nextBook.firstSurah ?? 1);
+        setSelectedAyah(1);
+      }
     }
   }
 
@@ -163,76 +211,100 @@ export function FloatingTafseerNavigator({
           <header className={styles.panelHead}>
             <div>
               <span>Tafseer navigator</span>
-              <h2>Source, Surah, and coverage</h2>
-              <p>Navigation lives here so the page can focus on the tafseer content.</p>
+              <h2>Find source, Surah, ayah, or range</h2>
+              <p>Use this navigator so the page remains a clean reading surface.</p>
             </div>
-            <button type="button" onClick={() => setOpen(false)} aria-label="Close tafseer navigator">
+            <button type="button" onClick={() => setOpen(false)} aria-label="Close Tafseer navigator">
               Close
             </button>
           </header>
 
-          <div className={styles.fields}>
-            <label>
-              <span>Source</span>
-              <select value={selectedBookId} onChange={(event) => changeBook(event.target.value)}>
-                {books.map((book) => (
-                  <option value={book.id} key={book.id}>
-                    {book.label} ({book.language})
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label>
-              <span>Surah</span>
-              <select value={selectedSurah} onChange={(event) => changeSurah(Number(event.target.value))}>
-                {availableSurahs.map((surahNumber) => {
-                  const surah = surahs.find((item) => item.number === surahNumber);
-                  return (
-                    <option value={surahNumber} key={surahNumber}>
-                      {surahNumber}. {surah?.nameTransliteration ?? 'Surah'}
+          <div className={styles.panelBody}>
+            <div className={styles.fields}>
+              <label>
+                <span>Language</span>
+                <select value={selectedLanguage ?? ''} onChange={(event) => changeLanguage(event.target.value as LanguageCode)}>
+                  {languages.map((language) => (
+                    <option value={language} key={language}>
+                      {languageLabel(language)}
                     </option>
-                  );
-                })}
-              </select>
-            </label>
+                  ))}
+                </select>
+              </label>
 
-            <label>
-              <span>Ayah</span>
-              <select value={selectedAyah} onChange={(event) => setSelectedAyah(Number(event.target.value))}>
-                {ayahOptions.map((ayah) => (
-                  <option value={ayah} key={ayah}>{ayah}</option>
-                ))}
-              </select>
-            </label>
-          </div>
+              <label>
+                <span>Source</span>
+                <select value={selectedBook?.id ?? ''} onChange={(event) => changeBook(event.target.value)}>
+                  {booksForLanguage.map((book) => (
+                    <option value={book.id} key={book.id}>
+                      {book.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
 
-          <div className={styles.structureMap} aria-label="Visible tafseer content structure">
-            <div className={styles.structureHead}>
-              <strong>Visible structure</strong>
-              <span>{entries.length} entries</span>
+              <label>
+                <span>Surah</span>
+                <select value={selectedSurah} onChange={(event) => changeSurah(Number(event.target.value))}>
+                  {availableSurahs.map((surahNumber) => {
+                    const surah = surahs.find((item) => item.number === surahNumber);
+                    return (
+                      <option value={surahNumber} key={surahNumber}>
+                        {surahNumber}. {surah?.nameTransliteration ?? 'Surah'}
+                      </option>
+                    );
+                  })}
+                </select>
+              </label>
+
+              <label>
+                <span>Ayah</span>
+                <select value={selectedAyah} onChange={(event) => setSelectedAyah(Number(event.target.value))}>
+                  {ayahOptions.map((ayah) => (
+                    <option value={ayah} key={ayah}>{ayah}</option>
+                  ))}
+                </select>
+              </label>
             </div>
 
-            {entries.length ? (
-              entries.slice(0, 18).map((entry) => (
-                <button
-                  type="button"
-                  key={entry.id}
-                  data-active={coveredEntry?.id === entry.id}
-                  onClick={() => closeAndScrollToAyah(entry.fromAyah)}
-                >
-                  <span>{coverageLabel(entry)}</span>
-                  <strong>{entry.title}</strong>
-                </button>
-              ))
-            ) : (
-              <p>No entries are visible for this source and Surah.</p>
-            )}
+            <div className={styles.selectionSummary}>
+              <span>Selected coverage</span>
+              <strong>{selectedRangeLabel}</strong>
+              <p>
+                {coveredEntry
+                  ? `This ayah is covered by ${coveredEntry.title}.`
+                  : 'Open the selected source to see exact coverage for this ayah.'}
+              </p>
+            </div>
+
+            <div className={styles.structureMap} aria-label="Visible Tafseer structure">
+              <div className={styles.structureHead}>
+                <strong>Visible structure</strong>
+                <span>{entries.length} entries</span>
+              </div>
+
+              {entries.length ? (
+                entries.slice(0, 24).map((entry) => (
+                  <button
+                    type="button"
+                    key={entry.id}
+                    data-active={coveredEntry?.id === entry.id}
+                    onClick={() => closeAndScrollToAyah(entry.fromAyah)}
+                  >
+                    <span>{coverageLabel(entry)}</span>
+                    <strong>{entry.title}</strong>
+                    <em>{entry.sourceLabel}</em>
+                  </button>
+                ))
+              ) : (
+                <p>No entries are visible for this source and Surah.</p>
+              )}
+            </div>
           </div>
 
           <footer className={styles.actions}>
             <button type="button" className={styles.primaryAction} onClick={goToSelection}>
-              Go to tafseer
+              Go to Tafseer
             </button>
             <button type="button" onClick={openQuranContext}>
               Open Quran context

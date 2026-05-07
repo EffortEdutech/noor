@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import type { QuranAyah, SurahContent, TafseerEntry } from '@noor/content';
 import { BookmarkButton } from '@noor/ui';
@@ -307,3 +307,4 @@ export function QuranReadingExperience({
     </>
   );
 }
+

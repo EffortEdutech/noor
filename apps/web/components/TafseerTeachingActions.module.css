@@ -1,0 +1,145 @@
+.actions {
+  display: grid;
+  gap: 10px;
+}
+
+.compactActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.compactActions button,
+.compactActions a,
+.prepActions button,
+.prepActions a {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--noor-line);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--noor-text);
+  padding: 8px 12px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.compactActions button:hover,
+.compactActions a:hover,
+.prepActions button:hover,
+.prepActions a:hover {
+  border-color: #a7ded5;
+  background: var(--noor-emerald-soft);
+  color: #075e59;
+}
+
+.compactActions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.teachingPrep {
+  border: 1px solid var(--noor-line);
+  border-radius: 18px;
+  background: #fbfaf6;
+  overflow: hidden;
+}
+
+.teachingPrep summary {
+  min-height: 44px;
+  padding: 12px 14px;
+  cursor: pointer;
+  color: var(--noor-text);
+  font-weight: 950;
+  list-style: none;
+}
+
+.teachingPrep summary::-webkit-details-marker {
+  display: none;
+}
+
+.teachingPrep summary::after {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-left: 10px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 160ms ease;
+}
+
+.teachingPrep[open] summary::after {
+  transform: rotate(-135deg) translateY(-1px);
+}
+
+.prepGrid {
+  display: grid;
+  gap: 10px;
+  padding: 0 14px 14px;
+}
+
+.prepGrid section {
+  display: grid;
+  gap: 5px;
+  padding: 12px;
+  border: 1px solid rgba(229, 231, 235, 0.9);
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.prepGrid span {
+  color: var(--noor-muted);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.prepGrid p {
+  margin: 0;
+  color: var(--noor-text);
+  line-height: 1.65;
+}
+
+.keyPhrase p {
+  text-align: right;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(20px, 3vw, 28px);
+  line-height: 2;
+  unicode-bidi: plaintext;
+}
+
+.prepActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 14px 14px;
+}
+
+.error {
+  margin: 0;
+  color: var(--noor-danger, #b42318);
+  font-size: 13px;
+  font-weight: 850;
+}
+
+@media (max-width: 640px) {
+  .compactActions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .compactActions button,
+  .compactActions a,
+  .prepActions button,
+  .prepActions a {
+    width: 100%;
+  }
+}

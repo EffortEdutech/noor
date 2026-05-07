@@ -1,68 +1,106 @@
 {
   "manifest": {
-    "id": "noor-cdn-ready-content-v0.12",
-    "version": "0.12.0",
-    "label": "NOOR CDN-ready content preparation pack",
-    "releasedAt": "2026-04-30",
-    "mode": "cdn-ready",
+    "id": "noor-ilm-mate-v1-migrated-staging",
+    "version": "0.26.5",
+    "label": "NOOR migrated ilm-mate content staging pack",
+    "releasedAt": "2026-05-01T09:59:14.073Z",
+    "mode": "staging",
     "datasets": {
       "quran": {
-        "id": "quran-demo-short-surahs-cdn",
-        "label": "Quran demo short surah CDN pack",
-        "status": "partial",
-        "sourceLabel": "NOOR demo content for CDN pipeline testing — replace with verified licensed Quran dataset before production",
+        "id": "quran-ilm-mate-v1",
+        "label": "Quran migrated from ilm-mate",
+        "status": "ready",
+        "sourceLabel": "ilm-mate content/quran",
         "languages": [
           "ar",
           "en",
-          "ms"
+          "ms",
+          "id",
+          "ur"
         ],
-        "itemCount": 22,
-        "updatedAt": "2026-04-30",
-        "notes": "Uses the existing NOOR demo short-surah dataset to verify production CDN folder layout, manifest checks and resolver path compatibility."
+        "itemCount": 6236,
+        "updatedAt": "2026-05-01T09:59:14.073Z",
+        "notes": "Staging migration only. Production approval still blocked pending review."
       },
       "tafseer": {
-        "id": "tafseer-demo-basic-cdn",
-        "label": "Demo tafseer CDN pack",
-        "status": "demo",
-        "sourceLabel": "NOOR demo summaries — not a scholarly tafseer source",
+        "id": "tafseer-ilm-mate-v1",
+        "label": "Tafseer migrated from ilm-mate",
+        "status": "partial",
+        "sourceLabel": "ilm-mate content/tafsir",
         "languages": [
-          "en"
+          "ar",
+          "en",
+          "ur"
         ],
-        "itemCount": 6,
-        "updatedAt": "2026-04-30",
-        "notes": "Used only to verify tafseer book/surah CDN routing and health reporting."
+        "itemCount": 37416,
+        "updatedAt": "2026-05-01T09:59:14.073Z",
+        "notes": "Staging migration only. Empty source entries skipped."
       },
       "hadith": {
-        "id": "hadith-demo-nawawi-cdn",
-        "label": "Demo hadith CDN pack",
-        "status": "demo",
-        "sourceLabel": "Demo Hadith Reference",
+        "id": "hadith-ilm-mate-v1",
+        "label": "Hadith migrated from ilm-mate",
+        "status": "partial",
+        "sourceLabel": "ilm-mate content/hadith",
         "languages": [
+          "ar",
           "en",
-          "ms"
+          "id",
+          "ur"
         ],
-        "itemCount": 2,
-        "updatedAt": "2026-04-30",
-        "notes": "Used only to verify collection and item CDN routing before production data import."
+        "itemCount": 102012,
+        "updatedAt": "2026-05-02T05:01:45.759Z",
+        "notes": "Staging migration only. Sprint 27.9.1 normalized every Hadith collection ID to avoid duplicate React keys and CDN path collisions."
       }
+    },
+    "updatedAt": "2026-05-02T05:01:45.759Z",
+    "hadithIdNormalization": {
+      "sprint": "27.9.1",
+      "status": "normalized",
+      "generatedAt": "2026-05-02T05:01:45.759Z",
+      "rule": "Hadith collection IDs are globally unique across migrated ilm-mate source files."
     }
   },
-  "generatedAt": "2026-05-01T07:48:26.064Z",
+  "generatedAt": "2026-05-02T08:14:05.406Z",
   "isHealthy": true,
   "summary": {
-    "surahIndexedCount": 4,
-    "surahContentCount": 4,
-    "ayahContentCount": 22,
-    "tafseerEntryCount": 6,
-    "tafseerCoveredSurahCount": 4,
-    "hadithCollectionCount": 1,
-    "hadithItemCount": 2
+    "surahIndexedCount": 114,
+    "surahContentCount": 114,
+    "ayahContentCount": 6236,
+    "tafseerEntryCount": 37416,
+    "tafseerCoveredSurahCount": 684,
+    "hadithCollectionCount": 630,
+    "hadithItemCount": 102012
   },
   "issues": [
     {
       "severity": "info",
       "area": "manifest",
-      "message": "Sprint 26 publishes a CDN-ready demo pack with a generated search index. Production promotion still requires verified sources, licensing and scholarly review."
+      "message": "Quran edition spa-montada (Spanish) skipped from translations because NOOR LanguageCode does not yet include Spanish/French."
+    },
+    {
+      "severity": "info",
+      "area": "manifest",
+      "message": "Quran edition fra-hamidullah (French) skipped from translations because NOOR LanguageCode does not yet include Spanish/French."
+    },
+    {
+      "severity": "info",
+      "area": "manifest",
+      "message": "Sprint 26.5 output is staging-only. Do not publish as production CDN until NOOR review approval passes."
+    },
+    {
+      "severity": "info",
+      "area": "hadith",
+      "message": "Sprint 27.9.1 normalized Hadith collection IDs. Duplicate final IDs: 0."
+    },
+    {
+      "severity": "info",
+      "area": "hadith",
+      "message": "Old duplicate groups resolved: 72."
+    },
+    {
+      "severity": "info",
+      "area": "hadith",
+      "message": "This remains staging-only content. Production CDN remains blocked."
     }
   ]
 }
