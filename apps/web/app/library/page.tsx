@@ -3,6 +3,7 @@ import { BookmarksPanel } from '../../components/BookmarksPanel';
 import { JourneyProgressPanel } from '../../components/JourneyProgressPanel';
 import { ReadingProgressPanel } from '../../components/ReadingProgressPanel';
 import { ReflectionNotesPanel } from '../../components/ReflectionNotesPanel';
+import { TalabSavedResultsPanel } from '../../components/TalabSavedResultsPanel';
 
 export default function LibraryPage() {
   return (
@@ -10,9 +11,10 @@ export default function LibraryPage() {
       <PageHeader
         kicker="Library"
         title="Your saved light."
-        subtitle="Return to the ayat, hadith, reflections, guidance paths and reading points you saved on this device."
+        subtitle="Return to the ayat, hadith, Talab notes, reflections, guidance paths and reading points you saved on this device."
       />
       <ReadingProgressPanel />
+      <TalabSavedResultsPanel />
       <JourneyProgressPanel />
       <ReflectionNotesPanel />
       <BookmarksPanel />
