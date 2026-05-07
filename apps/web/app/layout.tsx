@@ -1,12 +1,18 @@
-import type { Metadata, Viewport } from 'next';
+﻿import type { Metadata, Viewport } from 'next';
 import './globals.css';
-import { ClientShell } from '../components/ClientShell';
+import { ClientShell } from '@/components/ClientShell';
+
+const noorAppIcon = '/icons/noor-mark.svg';
 
 export const metadata: Metadata = {
   title: 'NOOR — Daily Islamic Companion',
   description: 'Read Quran, understand Tafseer, discover Hadith, and continue your daily journey.',
   manifest: '/manifest.json',
-  icons: { icon: '/icons/noor-mark.svg' }
+  icons: {
+    icon: [{ url: noorAppIcon, type: 'image/svg+xml' }],
+    shortcut: [noorAppIcon],
+    apple: [{ url: noorAppIcon, type: 'image/svg+xml' }]
+  }
 };
 
 export const viewport: Viewport = {

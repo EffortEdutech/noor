@@ -120,7 +120,7 @@ export function FloatingQuranNavigator({
               <p>Choose the reference, then return directly to reading.</p>
             </div>
             <button type="button" className="noor-quran-v2-close" onClick={() => setOpen(false)} aria-label="Close navigator">
-              ×
+              Close
             </button>
           </header>
 
@@ -130,7 +130,7 @@ export function FloatingQuranNavigator({
               <select value={selectedSurah} onChange={(event) => changeSelectedSurah(Number(event.target.value))}>
                 {surahs.map((surah) => (
                   <option value={surah.number} key={surah.number}>
-                    {surah.number}. {surah.nameTransliteration} — {surah.nameEnglish}
+                    {surah.number}. {surah.nameTransliteration} - {surah.nameEnglish}
                   </option>
                 ))}
               </select>
@@ -162,7 +162,7 @@ export function FloatingQuranNavigator({
                 <span className="noor-quran-v2-surah-no">{String(surah.number).padStart(3, '0')}</span>
                 <span className="noor-quran-v2-surah-name">
                   <strong>{surah.nameTransliteration}</strong>
-                  <small>{surah.nameEnglish} · {surah.ayahCount} ayat</small>
+                  <small>{surah.nameEnglish} - {surah.ayahCount} ayat</small>
                 </span>
                 <span className="noor-quran-v2-surah-arabic">{surah.nameArabic}</span>
               </button>
@@ -183,13 +183,16 @@ export function FloatingQuranNavigator({
 
       <button
         type="button"
-        className="noor-quran-v2-button"
+        className="noor-quran-v2-button noor-floating-icon-button"
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
         aria-label="Open Quran Surah and Ayah navigator"
       >
-        <span>{buttonLabel}</span>
-        <strong>{currentSurahInfo?.nameTransliteration ?? 'Quran'} · {currentSurah || 1}:{currentAyah || 1}</strong>
+        <span className="noor-floating-nav-mark" aria-hidden="true">
+          <img src="/icons/09-spread-mark.png?v=noor-floating-quran" alt="" width="44" height="44" />
+        </span>
+        <span className="noor-floating-nav-label">{buttonLabel}</span>
+        <strong>{currentSurahInfo?.nameTransliteration ?? 'Quran'} - {currentSurah || 1}:{currentAyah || 1}</strong>
       </button>
     </div>
   );

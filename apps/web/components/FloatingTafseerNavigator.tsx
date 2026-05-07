@@ -320,7 +320,9 @@ export function FloatingTafseerNavigator({
         aria-expanded={open}
         aria-label="Open Tafseer navigator"
       >
-        <span>T</span>
+        <span className={styles.floatMark} aria-hidden="true">
+          <img src="/icons/09-spread-mark.png?v=noor-floating-tafseer" alt="" width="44" height="44" />
+        </span>
         <strong>{currentBook?.language ?? 'nav'}</strong>
       </button>
     </div>
