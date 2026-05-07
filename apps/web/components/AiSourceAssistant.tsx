@@ -28,9 +28,108 @@ type AiSourceAssistantProps = {
 
 type LanguageSelection = 'settings' | NoorLanguageCode;
 type StyleSelection = 'settings' | AiWritingStyle;
+type ResultActionStatus = 'copied' | 'saved' | 'cleared' | '';
+
+const TALAB_RESULTS_STORAGE_KEY = 'noor.talab.results.v1';
+const TALAB_RESULTS_LIMIT = 20;
+
+type SavedTalabResult = {
+  id: string;
+  savedAt: string;
+  reference: string;
+  surface: AiSourceContext['surface'];
+  mode: AiActionMode;
+  outputLanguage: string;
+  writingStyle: AiWritingStyle;
+  text: string;
+  sourcesUsed: string[];
+};
 
 function getActionLabel(mode: AiActionMode) {
   return AI_ACTIONS.find((action) => action.mode === mode)?.label ?? 'Generate';
+}
+
+async function copyText(text: string) {
+  if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text);
+    return true;
+  }
+
+  if (typeof document === 'undefined') return false;
+
+  const textArea = document.createElement('textarea');
+  textArea.value = text;
+  textArea.setAttribute('readonly', 'true');
+  textArea.style.position = 'fixed';
+  textArea.style.left = '-9999px';
+  document.body.appendChild(textArea);
+  textArea.select();
+
+  try {
+    document.execCommand('copy');
+    return true;
+  } finally {
+    document.body.removeChild(textArea);
+  }
+}
+
+function buildResultExportText({
+  context,
+  result
+}: {
+  context: AiSourceContext;
+  result: AiReflectionResponse;
+}) {
+  return [
+    'Talab an-Noor',
+    '',
+    `Action: ${getActionLabel(result.mode)}`,
+    `Reference: ${cleanNoorUiText(context.reference)}`,
+    `Surface: ${context.surface}`,
+    `Language: ${cleanNoorUiText(result.outputLanguage)}`,
+    `Writing style: ${getAiWritingStyleLabel(result.writingStyle)}`,
+    '',
+    'Generated note:',
+    result.text,
+    '',
+    'Sources used:',
+    ...(result.sourcesUsed.length ? result.sourcesUsed.map((source) => `- ${cleanNoorUiText(source)}`) : ['- No source list returned.']),
+    '',
+    'Governance reminder:',
+    'This is AI-assisted reflection or teaching preparation from supplied NOOR context. It is not tafseer, not fatwa, and not a substitute for qualified scholarship.'
+  ].join('\n');
+}
+
+function readSavedResults(): SavedTalabResult[] {
+  if (typeof window === 'undefined') return [];
+
+  try {
+    const raw = window.localStorage.getItem(TALAB_RESULTS_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw) as SavedTalabResult[];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveTalabResult(context: AiSourceContext, result: AiReflectionResponse) {
+  if (typeof window === 'undefined') return;
+
+  const nextItem: SavedTalabResult = {
+    id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    savedAt: new Date().toISOString(),
+    reference: cleanNoorUiText(context.reference),
+    surface: context.surface,
+    mode: result.mode,
+    outputLanguage: result.outputLanguage,
+    writingStyle: result.writingStyle,
+    text: result.text,
+    sourcesUsed: result.sourcesUsed.map(cleanNoorUiText)
+  };
+
+  const next = [nextItem, ...readSavedResults()].slice(0, TALAB_RESULTS_LIMIT);
+  window.localStorage.setItem(TALAB_RESULTS_STORAGE_KEY, JSON.stringify(next));
 }
 
 export function AiSourceAssistant({ context, compact = false, variant = 'tafseer' }: AiSourceAssistantProps) {
@@ -40,6 +139,7 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
   const [activeMode, setActiveMode] = useState<AiActionMode | null>(null);
   const [result, setResult] = useState<AiReflectionResponse | null>(null);
   const [error, setError] = useState('');
+  const [resultActionStatus, setResultActionStatus] = useState<ResultActionStatus>('');
 
   const outputLanguageCode = languageSelection === 'settings'
     ? preferences.aiOutputLanguage
@@ -58,10 +158,21 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
     return sourcesGathered.map(cleanNoorUiText).join(' | ');
   }, [sourcesGathered]);
 
+  const resultExportText = useMemo(() => {
+    if (!result) return '';
+    return buildResultExportText({ context, result });
+  }, [context, result]);
+
+  function setTimedResultActionStatus(status: ResultActionStatus) {
+    setResultActionStatus(status);
+    window.setTimeout(() => setResultActionStatus(''), 1600);
+  }
+
   async function generate(mode: AiActionMode) {
     setActiveMode(mode);
     setError('');
     setResult(null);
+    setResultActionStatus('');
 
     try {
       const response = await fetch('/api/ai/reflection', {
@@ -91,6 +202,35 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
     }
   }
 
+  async function handleCopyResult() {
+    if (!resultExportText) return;
+
+    try {
+      const copied = await copyText(resultExportText);
+      if (!copied) throw new Error('Copy unavailable.');
+      setTimedResultActionStatus('copied');
+    } catch {
+      setError('Copy failed. Please select and copy manually.');
+    }
+  }
+
+  function handleSaveResult() {
+    if (!result) return;
+
+    try {
+      saveTalabResult(context, result);
+      setTimedResultActionStatus('saved');
+    } catch {
+      setError('Save failed on this device.');
+    }
+  }
+
+  function handleClearResult() {
+    setResult(null);
+    setError('');
+    setTimedResultActionStatus('cleared');
+  }
+
   return (
     <section
       className={`${styles.assistant} ${compact ? styles.compact : ''}`}
@@ -102,7 +242,7 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
           <span>Talab an-Noor</span>
           <h3>{variant === 'quran' ? 'Study this ayah with source guidance' : 'Prepare from this tafseer'}</h3>
           <p>
-            Generate reflection, teaching notes, or a lesson plan from the selected Quran, tafseer, and supplied related sources only.
+            Generate reflection, Ishraq notes, or a lesson plan from the selected Quran, tafseer, and supplied related sources only.
           </p>
         </div>
         <div className={styles.selectGrid}>
@@ -161,6 +301,15 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
       </div>
 
       {error ? <p className={styles.error}>{error}</p> : null}
+      {resultActionStatus ? (
+        <p className={styles.copyStatus}>
+          {resultActionStatus === 'copied'
+            ? 'Talab result copied.'
+            : resultActionStatus === 'saved'
+              ? 'Talab result saved locally.'
+              : 'Talab result cleared.'}
+        </p>
+      ) : null}
 
       {result ? (
         <article className={styles.result} data-configured={result.configured ? 'true' : 'false'}>
@@ -173,6 +322,19 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
           </p>
           {result.warning ? <p className={styles.warning}>{result.warning}</p> : null}
           <pre lang={outputLanguageCode} dir={outputDirection}>{result.text}</pre>
+
+          <div className={styles.resultActions} aria-label="Talab result actions">
+            <button type="button" onClick={handleCopyResult}>
+              Copy Talab result
+            </button>
+            <button type="button" onClick={handleSaveResult}>
+              Save locally
+            </button>
+            <button type="button" onClick={handleClearResult}>
+              Clear
+            </button>
+          </div>
+
           <details className={styles.sources}>
             <summary>Sources sent to AI</summary>
             <ul>
