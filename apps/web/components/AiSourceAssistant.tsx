@@ -31,6 +31,8 @@ type LanguageSelection = 'settings' | NoorLanguageCode;
 type StyleSelection = 'settings' | AiWritingStyle;
 type ResultActionStatus = 'copied' | 'saved' | 'downloaded' | 'cleared' | '';
 
+const TAFSEER_PREVIEW_LIMIT = 900;
+
 function getActionLabel(mode: AiActionMode) {
   return AI_ACTIONS.find((action) => action.mode === mode)?.label ?? 'Generate';
 }
@@ -59,7 +61,13 @@ async function copyText(text: string) {
   }
 }
 
-function buildResultExportText({ context, result }: { context: AiSourceContext; result: AiReflectionResponse }) {
+function buildResultExportText({
+  context,
+  result
+}: {
+  context: AiSourceContext;
+  result: AiReflectionResponse;
+}) {
   return [
     'Talab an-Noor',
     '',
@@ -83,7 +91,9 @@ function buildResultExportText({ context, result }: { context: AiSourceContext; 
 function renderTranslationRows(context: AiSourceContext) {
   const translations = context.translations?.filter((item) => item.text.trim()) ?? [];
 
-  if (!translations.length) return <p className={styles.emptySource}>No translation supplied for this passage.</p>;
+  if (!translations.length) {
+    return <p className={styles.emptySource}>No translation supplied for this passage.</p>;
+  }
 
   return translations.map((translation) => (
     <p key={`${translation.language}-${translation.text.slice(0, 18)}`} className={styles.translationRow}>
@@ -94,6 +104,13 @@ function renderTranslationRows(context: AiSourceContext) {
 }
 
 function SourceDrawers({ context }: { context: AiSourceContext }) {
+  const [showFullTafseer, setShowFullTafseer] = useState(false);
+  const tafseerBody = cleanNoorUiText(context.tafseer?.body ?? '');
+  const isLongTafseer = tafseerBody.length > TAFSEER_PREVIEW_LIMIT;
+  const displayedTafseer = isLongTafseer && !showFullTafseer
+    ? `${tafseerBody.slice(0, TAFSEER_PREVIEW_LIMIT).trim()}...`
+    : tafseerBody;
+
   return (
     <div className={styles.sourceDrawers} aria-label="Talab an-Noor source material">
       <details>
@@ -103,10 +120,12 @@ function SourceDrawers({ context }: { context: AiSourceContext }) {
 
       <details>
         <summary>Meaning translation</summary>
-        <div className={styles.translationList}>{renderTranslationRows(context)}</div>
+        <div className={styles.translationList}>
+          {renderTranslationRows(context)}
+        </div>
       </details>
 
-      <details open={context.surface === 'quran'}>
+      <details>
         <summary>Tafseer source sent to AI</summary>
         {context.tafseer ? (
           <article className={styles.tafseerSource}>
@@ -116,11 +135,29 @@ function SourceDrawers({ context }: { context: AiSourceContext }) {
               {context.tafseer.language ? <span>{cleanNoorUiText(context.tafseer.language)}</span> : null}
             </div>
             {context.tafseer.title ? <h4>{cleanNoorUiText(context.tafseer.title)}</h4> : null}
-            <p>{cleanNoorUiText(context.tafseer.body)}</p>
+            <p className={styles.tafseerSourceText}>{displayedTafseer}</p>
+            {isLongTafseer ? (
+              <button
+                className={styles.inlineSourceButton}
+                type="button"
+                onClick={() => setShowFullTafseer((current) => !current)}
+              >
+                {showFullTafseer ? 'Show shorter source' : 'Show full source'}
+              </button>
+            ) : null}
           </article>
         ) : (
           <p className={styles.emptySource}>No tafseer source is supplied for this passage yet.</p>
         )}
+      </details>
+
+      <details>
+        <summary>Relationship status</summary>
+        <div className={styles.relationshipStatus}>
+          <p>Related ayat: {(context.relatedAyat?.length ?? 0) > 0 ? `${context.relatedAyat?.length} supplied` : 'not supplied'}</p>
+          <p>Related hadith: {(context.relatedHadith?.length ?? 0) > 0 ? `${context.relatedHadith?.length} supplied` : 'not supplied'}</p>
+          <small>Talab an-Noor must not invent related ayat or hadith. Only verified relationship data supplied by NOOR may be used.</small>
+        </div>
       </details>
     </div>
   );
@@ -143,17 +180,31 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
   const [error, setError] = useState('');
   const [resultActionStatus, setResultActionStatus] = useState<ResultActionStatus>('');
 
-  const outputLanguageCode = languageSelection === 'settings' ? preferences.aiOutputLanguage : languageSelection;
-  const writingStyle = styleSelection === 'settings' ? preferences.aiWritingStyle : styleSelection;
+  const outputLanguageCode = languageSelection === 'settings'
+    ? preferences.aiOutputLanguage
+    : languageSelection;
+
+  const writingStyle = styleSelection === 'settings'
+    ? preferences.aiWritingStyle
+    : styleSelection;
+
   const outputLanguageLabel = getLanguageLabel(outputLanguageCode);
   const outputDirection = getLanguageDirection(outputLanguageCode);
+
   const sourcesGathered = useMemo(() => summarizeSourcesGathered(context), [context]);
-  const contextSummary = useMemo(() => sourcesGathered.map(cleanNoorUiText).join(' | '), [sourcesGathered]);
-  const resultExportText = useMemo(() => (result ? buildResultExportText({ context, result }) : ''), [context, result]);
+
+  const contextSummary = useMemo(() => {
+    return sourcesGathered.map(cleanNoorUiText).join(' | ');
+  }, [sourcesGathered]);
+
+  const resultExportText = useMemo(() => {
+    if (!result) return '';
+    return buildResultExportText({ context, result });
+  }, [context, result]);
 
   function setTimedResultActionStatus(status: ResultActionStatus) {
     setResultActionStatus(status);
-    window.setTimeout(() => setResultActionStatus(''), 2600);
+    window.setTimeout(() => setResultActionStatus(''), 2800);
   }
 
   async function generate(mode: AiActionMode) {
@@ -165,12 +216,23 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
     try {
       const response = await fetch('/api/ai/reflection', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ mode, outputLanguage: outputLanguageLabel, writingStyle, context })
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          mode,
+          outputLanguage: outputLanguageLabel,
+          writingStyle,
+          context
+        })
       });
 
       const data = (await response.json()) as AiReflectionResponse & { error?: string };
-      if (!response.ok || !data.ok) throw new Error(data.error || data.warning || 'AI generation failed.');
+
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error || data.warning || 'AI generation failed.');
+      }
+
       setResult(data);
     } catch (generationError) {
       setError(generationError instanceof Error ? generationError.message : 'AI generation failed.');
@@ -215,7 +277,13 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
     if (!resultExportText || !result) return;
 
     try {
-      const filename = ['talab-an-noor', slugifyTalabFilePart(context.reference), result.mode, new Date().toISOString().slice(0, 10)].join('-') + '.txt';
+      const filename = [
+        'talab-an-noor',
+        slugifyTalabFilePart(context.reference),
+        result.mode,
+        new Date().toISOString().slice(0, 10)
+      ].join('-') + '.txt';
+
       const downloaded = downloadTalabTextFile(filename, resultExportText);
       if (!downloaded) throw new Error('Download unavailable.');
       setTimedResultActionStatus('downloaded');
@@ -231,27 +299,47 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
   }
 
   return (
-    <section className={`${styles.assistant} ${compact ? styles.compact : ''}`} aria-label="Talab an-Noor AI-assisted reflection and teaching preparation" data-variant={variant}>
+    <section
+      className={`${styles.assistant} ${compact ? styles.compact : ''}`}
+      aria-label="Talab an-Noor AI-assisted reflection and teaching preparation"
+      data-variant={variant}
+    >
       <div className={styles.header}>
         <div>
           <span>Talab an-Noor</span>
           <h3>{variant === 'quran' ? 'Study this ayah with source guidance' : 'Prepare from this tafseer'}</h3>
-          <p>Generate reflection, Ishraq notes, or a lesson plan from the selected Quran, tafseer, and supplied related sources only.</p>
+          <p>
+            Generate reflection, Ishraq notes, or a lesson plan from the selected Quran, tafseer, and supplied related sources only.
+          </p>
         </div>
         <div className={styles.selectGrid}>
           <label className={styles.languageSelect}>
             <span>Output language</span>
-            <select value={languageSelection} onChange={(event) => setLanguageSelection(event.target.value as LanguageSelection)}>
+            <select
+              value={languageSelection}
+              onChange={(event) => setLanguageSelection(event.target.value as LanguageSelection)}
+            >
               <option value="settings">Use Settings ({getLanguageLabel(preferences.aiOutputLanguage)})</option>
-              {NOOR_LANGUAGE_OPTIONS.map((language) => <option value={language.code} key={language.code}>{language.label}</option>)}
+              {NOOR_LANGUAGE_OPTIONS.map((language) => (
+                <option value={language.code} key={language.code}>
+                  {language.label}
+                </option>
+              ))}
             </select>
           </label>
 
           <label className={styles.languageSelect}>
             <span>Writing style</span>
-            <select value={styleSelection} onChange={(event) => setStyleSelection(event.target.value as StyleSelection)}>
+            <select
+              value={styleSelection}
+              onChange={(event) => setStyleSelection(event.target.value as StyleSelection)}
+            >
               <option value="settings">Use Settings ({getAiWritingStyleLabel(preferences.aiWritingStyle)})</option>
-              {AI_WRITING_STYLE_OPTIONS.map((style) => <option value={style.id} key={style.id}>{style.label}</option>)}
+              {AI_WRITING_STYLE_OPTIONS.map((style) => (
+                <option value={style.id} key={style.id}>
+                  {style.label}
+                </option>
+              ))}
             </select>
           </label>
         </div>
@@ -260,14 +348,22 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
       <div className={styles.sourcesGathered} aria-label="Sources gathered for AI">
         <strong>Sources gathered</strong>
         <p>{contextSummary}</p>
-        {(context.relatedAyat?.length ?? 0) === 0 || (context.relatedHadith?.length ?? 0) === 0 ? <small>Missing related sources are labelled clearly. Talab an-Noor must not invent related ayat or hadith.</small> : null}
+        {(context.relatedAyat?.length ?? 0) === 0 || (context.relatedHadith?.length ?? 0) === 0 ? (
+          <small>Missing related sources are labelled clearly. Talab an-Noor must not invent related ayat or hadith.</small>
+        ) : null}
       </div>
 
       <SourceDrawers context={context} />
 
       <div className={styles.actions}>
         {AI_ACTIONS.map((action) => (
-          <button key={action.mode} type="button" onClick={() => generate(action.mode)} disabled={Boolean(activeMode)} title={action.helper}>
+          <button
+            key={action.mode}
+            type="button"
+            onClick={() => generate(action.mode)}
+            disabled={Boolean(activeMode)}
+            title={action.helper}
+          >
             {activeMode === action.mode ? 'Generating...' : action.label}
           </button>
         ))}
@@ -276,7 +372,9 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
       {error ? <p className={styles.error}>{error}</p> : null}
       {resultActionStatus ? (
         <>
-          <p className={styles.copyStatus} role="status" aria-live="polite">{getStatusMessage(resultActionStatus)}</p>
+          <p className={styles.copyStatus} role="status" aria-live="polite">
+            {getStatusMessage(resultActionStatus)}
+          </p>
           <div className={styles.statusToast} role="status" aria-live="polite">
             <strong>{getStatusMessage(resultActionStatus)}</strong>
             {resultActionStatus === 'saved' ? <a href="/library">View in Library</a> : null}
@@ -290,20 +388,37 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
             <span>{getActionLabel(result.mode)}</span>
             <strong>{result.configured ? 'Generated' : 'Configuration needed'}</strong>
           </div>
-          <p className={styles.resultMeta}>{result.outputLanguage} | {getAiWritingStyleLabel(result.writingStyle)}</p>
+          <p className={styles.resultMeta}>
+            {result.outputLanguage} | {getAiWritingStyleLabel(result.writingStyle)}
+          </p>
           {result.warning ? <p className={styles.warning}>{result.warning}</p> : null}
           <pre lang={outputLanguageCode} dir={outputDirection}>{result.text}</pre>
 
           <div className={styles.resultActions} aria-label="Talab result actions">
-            <button type="button" onClick={handleCopyResult}>Copy Talab result</button>
-            <button type="button" onClick={handleDownloadResult}>Download .txt</button>
-            <button type="button" onClick={handleSaveResult}>Save in browser</button>
-            <button type="button" onClick={handleClearResult}>Clear</button>
+            <button type="button" onClick={handleCopyResult}>
+              Copy Talab result
+            </button>
+            <button type="button" onClick={handleDownloadResult}>
+              Download .txt
+            </button>
+            <button type="button" onClick={handleSaveResult}>
+              Save in browser
+            </button>
+            <a href="/library">
+              Open Library
+            </a>
+            <button type="button" onClick={handleClearResult}>
+              Clear
+            </button>
           </div>
 
           <details className={styles.sources}>
             <summary>Sources sent to AI</summary>
-            <ul>{result.sourcesUsed.map((source) => <li key={source}>{cleanNoorUiText(source)}</li>)}</ul>
+            <ul>
+              {result.sourcesUsed.map((source) => (
+                <li key={source}>{cleanNoorUiText(source)}</li>
+              ))}
+            </ul>
           </details>
         </article>
       ) : null}

@@ -1,0 +1,292 @@
+.card {
+  display: grid;
+  gap: 16px;
+}
+
+.header {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.header h2 {
+  margin: 8px 0 6px;
+}
+
+.header p {
+  margin: 0;
+  color: var(--noor-muted);
+  line-height: 1.6;
+}
+
+.countBadge {
+  display: grid;
+  min-width: 86px;
+  border: 1px solid #a7ded5;
+  border-radius: 18px;
+  background: var(--noor-emerald-soft);
+  padding: 10px;
+  text-align: center;
+}
+
+.countBadge strong {
+  color: #075e59;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.countBadge span {
+  color: #075e59;
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.latest {
+  display: grid;
+  gap: 3px;
+  border: 1px solid rgba(180, 126, 25, 0.24);
+  border-radius: 16px;
+  background: #fffaf0;
+  padding: 12px;
+}
+
+.latest span {
+  color: var(--noor-gold);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.latest strong {
+  color: var(--noor-text);
+}
+
+.latest small {
+  color: var(--noor-muted);
+  font-weight: 800;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(150px, 190px) minmax(150px, 190px) auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.filters label {
+  display: grid;
+  gap: 6px;
+}
+
+.filters label span {
+  color: var(--noor-muted);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.filters input,
+.filters select {
+  min-height: 42px;
+  border: 1px solid var(--noor-line);
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--noor-text);
+  padding: 9px 11px;
+  font: inherit;
+}
+
+.filters button,
+.actions button,
+.actions a,
+.footerActions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  border: 1px solid #a7ded5;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #075e59;
+  padding: 8px 12px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.filters button:hover,
+.actions button:hover,
+.actions a:hover,
+.footerActions button:hover {
+  background: var(--noor-emerald-soft);
+}
+
+.resultSummary,
+.status {
+  margin: 0;
+  color: var(--noor-muted);
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.status {
+  color: #075e59;
+}
+
+.empty {
+  display: grid;
+  gap: 6px;
+  border: 1px dashed #a7ded5;
+  border-radius: 18px;
+  background: #f8fffd;
+  padding: 16px;
+}
+
+.empty strong {
+  color: var(--noor-text);
+}
+
+.empty p {
+  margin: 0;
+  color: var(--noor-muted);
+  line-height: 1.6;
+}
+
+.list {
+  display: grid;
+  gap: 12px;
+}
+
+.item {
+  display: grid;
+  gap: 10px;
+  border: 1px solid var(--noor-line);
+  border-radius: 18px;
+  background: #ffffff;
+  padding: 14px;
+}
+
+.itemHead {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.itemHead > div {
+  display: grid;
+  gap: 6px;
+}
+
+.itemHead strong {
+  color: var(--noor-text);
+  font-size: 16px;
+}
+
+.itemHead > span {
+  color: var(--noor-muted);
+  font-size: 12px;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.modeBadge {
+  width: fit-content;
+  border: 1px solid rgba(180, 126, 25, 0.24);
+  border-radius: 999px;
+  background: #fffaf0;
+  color: #7a4e12;
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.meta span {
+  border: 1px solid var(--noor-line);
+  border-radius: 999px;
+  background: #f8fafc;
+  color: #334155;
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.preview {
+  margin: 0;
+  color: var(--noor-text);
+  line-height: 1.75;
+  white-space: pre-wrap;
+}
+
+.sources {
+  border-top: 1px solid var(--noor-line);
+  padding-top: 8px;
+}
+
+.sources summary {
+  cursor: pointer;
+  color: var(--noor-muted);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.sources ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  color: var(--noor-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.actions,
+.footerActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.actions button:last-child,
+.footerActions button {
+  border-color: #e4d4b5;
+  color: #7a4e12;
+}
+
+@media (max-width: 760px) {
+  .header,
+  .itemHead {
+    display: grid;
+  }
+
+  .countBadge {
+    width: 100%;
+  }
+
+  .filters {
+    grid-template-columns: 1fr;
+  }
+
+  .filters button,
+  .actions button,
+  .actions a,
+  .footerActions button {
+    width: 100%;
+  }
+
+  .actions,
+  .footerActions {
+    display: grid;
+  }
+}

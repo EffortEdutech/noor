@@ -8,7 +8,6 @@ import type { AiSourceContext } from '../lib/ai/types';
 import { getDisplayArabicForAyah } from '../lib/quran-bismillah';
 import { getArabicFontSize, useReaderPreferences } from '../lib/reader-preferences';
 import { AiSourceAssistant } from './AiSourceAssistant';
-import { TafseerUnderstandingPanel } from './TafseerUnderstandingPanel';
 import { FloatingQuranNavigator, type QuranNavigatorSurah } from './FloatingQuranNavigator';
 import { QURAN_LAST_VISIT_KEY } from './QuranLastVisitLanding';
 
@@ -114,6 +113,7 @@ function QuranAyahLine({
       displayArabic,
       english ? `English: ${english}` : '',
       malay ? `Malay: ${malay}` : '',
+      tafseer ? `Tafseer: ${tafseer.sourceLabel} ${tafseer.surah}:${tafseer.fromAyah}-${tafseer.toAyah}` : '',
       `NOOR: ${href}`
     ].filter(Boolean).join('\n\n'));
 
@@ -146,12 +146,6 @@ function QuranAyahLine({
         <details className="noor-quran-v2-study">
           <summary>Talab an-Noor</summary>
           <div className="noor-quran-v2-study-body">
-            {tafseer ? (
-              <TafseerUnderstandingPanel ayah={ayah} tafseer={tafseer} surahTitle={surahTitle} />
-            ) : (
-              <p>This ayah does not have a demo tafseer note yet.</p>
-            )}
-
             <AiSourceAssistant context={aiContext} compact variant="quran" />
 
             <div className="noor-quran-v2-actions">

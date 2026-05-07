@@ -13,6 +13,10 @@ import {
   slugifyTalabFilePart,
   type TalabSavedResult
 } from '../lib/talab-store';
+import styles from './TalabSavedResultsPanel.module.css';
+
+type ModeFilter = 'all' | TalabSavedResult['mode'];
+type SurfaceFilter = 'all' | TalabSavedResult['surface'];
 
 function getModeLabel(mode: TalabSavedResult['mode']) {
   if (mode === 'reflection') return 'Reflection';
@@ -66,9 +70,27 @@ async function copyText(text: string) {
   }
 }
 
+function itemMatchesSearch(item: TalabSavedResult, query: string) {
+  const normalized = query.trim().toLowerCase();
+  if (!normalized) return true;
+
+  return [
+    item.reference,
+    item.outputLanguage,
+    item.surface,
+    getModeLabel(item.mode),
+    getAiWritingStyleLabel(item.writingStyle),
+    item.text,
+    ...item.sourcesUsed
+  ].some((value) => value.toLowerCase().includes(normalized));
+}
+
 export function TalabSavedResultsPanel({ limit }: { limit?: number }) {
   const [items, setItems] = useState<TalabSavedResult[]>([]);
   const [status, setStatus] = useState('');
+  const [query, setQuery] = useState('');
+  const [modeFilter, setModeFilter] = useState<ModeFilter>('all');
+  const [surfaceFilter, setSurfaceFilter] = useState<SurfaceFilter>('all');
 
   function refresh() {
     setItems(readTalabResults());
@@ -76,7 +98,7 @@ export function TalabSavedResultsPanel({ limit }: { limit?: number }) {
 
   function setTimedStatus(nextStatus: string) {
     setStatus(nextStatus);
-    window.setTimeout(() => setStatus(''), 1800);
+    window.setTimeout(() => setStatus(''), 2200);
   }
 
   useEffect(() => {
@@ -95,10 +117,20 @@ export function TalabSavedResultsPanel({ limit }: { limit?: number }) {
     };
   }, []);
 
+  const filteredItems = useMemo(() => {
+    return items.filter((item) => {
+      if (modeFilter !== 'all' && item.mode !== modeFilter) return false;
+      if (surfaceFilter !== 'all' && item.surface !== surfaceFilter) return false;
+      return itemMatchesSearch(item, query);
+    });
+  }, [items, modeFilter, query, surfaceFilter]);
+
   const visibleItems = useMemo(
-    () => (typeof limit === 'number' ? items.slice(0, limit) : items),
-    [items, limit]
+    () => (typeof limit === 'number' ? filteredItems.slice(0, limit) : filteredItems),
+    [filteredItems, limit]
   );
+
+  const latestSaved = items[0];
 
   async function handleCopy(item: TalabSavedResult) {
     const copied = await copyText(buildSavedResultText(item));
@@ -129,42 +161,108 @@ export function TalabSavedResultsPanel({ limit }: { limit?: number }) {
     setTimedStatus('Saved Talab library cleared.');
   }
 
+  function handleResetFilters() {
+    setQuery('');
+    setModeFilter('all');
+    setSurfaceFilter('all');
+  }
+
   return (
-    <NoorCard className="noor-talab-results-panel">
-      <div className="noor-row">
+    <NoorCard className={styles.card}>
+      <div className={styles.header}>
         <div>
           <span className="noor-badge emerald">Talab an-Noor</span>
           <h2>Saved Talab notes</h2>
+          <p>
+            Reflections, Ishraq notes, and lessons saved in this browser from Quran and Tafseer study.
+          </p>
         </div>
-        <span className="noor-reference">{items.length} saved</span>
+        <div className={styles.countBadge}>
+          <strong>{items.length}</strong>
+          <span>saved</span>
+        </div>
       </div>
 
-      <p className="noor-subtitle">
-        Reflections, Ishraq notes, and lessons saved in this browser from Quran and Tafseer study.
-      </p>
+      {latestSaved ? (
+        <div className={styles.latest}>
+          <span>Latest saved</span>
+          <strong>{latestSaved.reference}</strong>
+          <small>{getModeLabel(latestSaved.mode)} | {formatRelativeNoorDate(latestSaved.savedAt)}</small>
+        </div>
+      ) : null}
 
-      {status ? <p className="noor-copy-status" role="status" aria-live="polite">{status}</p> : null}
+      <div className={styles.filters} aria-label="Saved Talab note filters">
+        <label>
+          <span>Search</span>
+          <input
+            type="search"
+            value={query}
+            placeholder="Search reference, note, source..."
+            onChange={(event) => setQuery(event.target.value)}
+          />
+        </label>
 
-      {visibleItems.length === 0 ? (
-        <p className="noor-subtitle">
-          No Talab note saved yet. Generate a reflection, Ishraq note, or lesson, then choose Save in browser.
-        </p>
+        <label>
+          <span>Type</span>
+          <select value={modeFilter} onChange={(event) => setModeFilter(event.target.value as ModeFilter)}>
+            <option value="all">All types</option>
+            <option value="reflection">Reflection</option>
+            <option value="teaching-notes">Ishraq notes</option>
+            <option value="lesson">Lesson</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Source</span>
+          <select value={surfaceFilter} onChange={(event) => setSurfaceFilter(event.target.value as SurfaceFilter)}>
+            <option value="all">Quran and Tafseer</option>
+            <option value="quran">Quran Reader</option>
+            <option value="tafseer">Tafseer</option>
+          </select>
+        </label>
+
+        <button type="button" onClick={handleResetFilters}>
+          Reset
+        </button>
+      </div>
+
+      <div className={styles.resultSummary}>
+        Showing {visibleItems.length} of {filteredItems.length} matched notes.
+      </div>
+
+      {status ? <p className={styles.status} role="status" aria-live="polite">{status}</p> : null}
+
+      {items.length === 0 ? (
+        <div className={styles.empty}>
+          <strong>No Talab note saved yet.</strong>
+          <p>Generate a reflection, Ishraq note, or lesson, then choose Save in browser. Saved notes will appear here on this device.</p>
+        </div>
+      ) : visibleItems.length === 0 ? (
+        <div className={styles.empty}>
+          <strong>No saved Talab notes match these filters.</strong>
+          <p>Try another search, or reset the filters.</p>
+        </div>
       ) : (
-        <div className="noor-reflection-note-list">
+        <div className={styles.list}>
           {visibleItems.map((item) => (
-            <article key={item.id} className="noor-reflection-note-item">
-              <div className="noor-row">
-                <span className="noor-badge gold">{getModeLabel(item.mode)}</span>
-                <span className="noor-muted noor-small">{formatRelativeNoorDate(item.savedAt)}</span>
+            <article key={item.id} className={styles.item}>
+              <div className={styles.itemHead}>
+                <div>
+                  <span className={styles.modeBadge}>{getModeLabel(item.mode)}</span>
+                  <strong>{item.reference}</strong>
+                </div>
+                <span>{formatRelativeNoorDate(item.savedAt)}</span>
               </div>
 
-              <strong>{item.reference}</strong>
-              <small>
-                {item.outputLanguage} | {getAiWritingStyleLabel(item.writingStyle)} | {item.surface}
-              </small>
-              <p>{item.text.length > 420 ? `${item.text.slice(0, 420).trim()}...` : item.text}</p>
+              <div className={styles.meta}>
+                <span>{item.outputLanguage}</span>
+                <span>{getAiWritingStyleLabel(item.writingStyle)}</span>
+                <span>{item.surface === 'quran' ? 'Quran Reader' : 'Tafseer'}</span>
+              </div>
 
-              <details className="noor-source-details">
+              <p className={styles.preview}>{item.text.length > 520 ? `${item.text.slice(0, 520).trim()}...` : item.text}</p>
+
+              <details className={styles.sources}>
                 <summary>Sources used</summary>
                 <ul>
                   {item.sourcesUsed.map((source) => (
@@ -173,19 +271,19 @@ export function TalabSavedResultsPanel({ limit }: { limit?: number }) {
                 </ul>
               </details>
 
-              <div className="noor-card-actions">
-                <button className="noor-button secondary" type="button" onClick={() => handleCopy(item)}>
+              <div className={styles.actions}>
+                <button type="button" onClick={() => handleCopy(item)}>
                   Copy
                 </button>
-                <button className="noor-button secondary" type="button" onClick={() => handleDownload(item)}>
+                <button type="button" onClick={() => handleDownload(item)}>
                   Download .txt
                 </button>
                 {item.sourceHref ? (
-                  <a className="noor-button secondary" href={item.sourceHref}>
+                  <a href={item.sourceHref}>
                     Reopen source
                   </a>
                 ) : null}
-                <button className="noor-button secondary" type="button" onClick={() => handleRemove(item.id)}>
+                <button type="button" onClick={() => handleRemove(item.id)}>
                   Remove
                 </button>
               </div>
@@ -195,8 +293,8 @@ export function TalabSavedResultsPanel({ limit }: { limit?: number }) {
       )}
 
       {items.length > 0 ? (
-        <div className="noor-card-actions">
-          <button className="noor-button secondary" type="button" onClick={handleClearAll}>
+        <div className={styles.footerActions}>
+          <button type="button" onClick={handleClearAll}>
             Clear saved Talab notes
           </button>
         </div>
