@@ -3,6 +3,7 @@ import type { LanguageCode, QuranAyah, TafseerEntry } from '@noor/content';
 import { getSurahContent, getSurahIndex, getTafseerEntries, getTafseerIndex } from '@noor/data';
 import { FloatingTafseerNavigator } from '../../../components/FloatingTafseerNavigator';
 import { TafseerTeachingActions } from '../../../components/TafseerTeachingActions';
+import type { AiSourceContext } from '../../../lib/ai/types';
 import { getServerNoorContentSource } from '../../../lib/runtime-content-source';
 import styles from './TafseerPage.module.css';
 
@@ -61,9 +62,6 @@ function languageLabel(language: string | undefined) {
   return labels[language] ?? language.toUpperCase();
 }
 
-function getPrimaryTopic(tags: string[]) {
-  return tags.find((tag) => tag.trim().length > 1)?.toLowerCase() ?? 'guidance';
-}
 
 function getRangeText(entry: TafseerEntry) {
   if (entry.fromAyah === entry.toAyah) return `${entry.surah}:${entry.fromAyah}`;
@@ -96,6 +94,18 @@ function getTranslationPreview(ayah: QuranAyah) {
   return ayah.translations.en ?? ayah.translations.ms ?? ayah.translations.id ?? '';
 }
 
+function getTranslationsForAi(ayahs: QuranAyah[]) {
+  return ayahs.flatMap((ayah) => {
+    const translations = [
+      ayah.translations.en ? { language: `English ${ayah.key}`, text: ayah.translations.en } : null,
+      ayah.translations.ms ? { language: `Malay ${ayah.key}`, text: ayah.translations.ms } : null,
+      ayah.translations.id ? { language: `Indonesian ${ayah.key}`, text: ayah.translations.id } : null
+    ];
+
+    return translations.filter((item): item is { language: string; text: string } => Boolean(item));
+  });
+}
+
 function stripLeadingBismillah(arabic: string, surah: number, ayah: number) {
   if (surah === 1 && ayah === 1) return arabic;
 
@@ -113,6 +123,43 @@ function makeQuote(text: string, maxLength = 420) {
   const compact = text.replace(/\s+/g, ' ').trim();
   if (compact.length <= maxLength) return compact;
   return `${compact.slice(0, maxLength).trim()}...`;
+}
+
+function buildAiContext({
+  entry,
+  ayahContext,
+  quranPassage,
+  rangeText,
+  teachingQuote
+}: {
+  entry: TafseerEntry;
+  ayahContext: QuranAyah[];
+  quranPassage: string;
+  rangeText: string;
+  teachingQuote: string;
+}): AiSourceContext {
+  return {
+    surface: 'tafseer',
+    reference: rangeText,
+    surah: entry.surah,
+    fromAyah: entry.fromAyah,
+    toAyah: entry.toAyah,
+    arabic: quranPassage,
+    translations: getTranslationsForAi(ayahContext),
+    tafseer: {
+      sourceLabel: entry.sourceLabel,
+      language: entry.language,
+      title: entry.title,
+      body: entry.body,
+      reference: rangeText
+    },
+    relatedAyat: [],
+    relatedHadith: [],
+    notes: [
+      'Related ayat and hadith are included only when NOOR has verified relationship data for this passage.',
+      `Tafseer quote preview: ${teachingQuote}`
+    ]
+  };
 }
 
 export default async function TafseerPage({ searchParams }: TafseerPageProps) {
@@ -195,7 +242,6 @@ export default async function TafseerPage({ searchParams }: TafseerPageProps) {
         ) : null}
 
         {entries.map((entry, index) => {
-          const primaryTopic = getPrimaryTopic(entry.tags);
           const ayahContext = getAyahContext(selectedSurahContent?.ayahs, entry);
           const previewAyahs = getPreviewAyahs(ayahContext);
           const omittedAyahCount = Math.max(ayahContext.length - previewAyahs.length, 0);
@@ -206,6 +252,13 @@ export default async function TafseerPage({ searchParams }: TafseerPageProps) {
           const quranHref = `/learn/quran/${entry.surah}#ayah-${entry.fromAyah}`;
           const sourceReference = `${entry.sourceLabel} - ${rangeText}`;
           const teachingQuote = makeQuote(entry.body);
+          const aiContext = buildAiContext({
+            entry,
+            ayahContext,
+            quranPassage,
+            rangeText,
+            teachingQuote
+          });
 
           return (
             <article key={`${entry.id}-${index}`} id={`ayah-${entry.fromAyah}`} className={styles.entryCard}>
@@ -269,12 +322,11 @@ export default async function TafseerPage({ searchParams }: TafseerPageProps) {
                 quranPassage={quranPassage}
                 tafseerQuote={teachingQuote}
                 quranHref={quranHref}
-                topicHref={`/explore?topic=${encodeURIComponent(primaryTopic)}`}
                 teachingTitle={entry.title || `Tafseer for ${rangeText}`}
                 keyPhrase={quranPassage ? makeQuote(quranPassage, 180) : rangeText}
                 lessonNote={teachingQuote}
-                reflectionPrompt={`What does ${rangeText} teach about ${primaryTopic}?`}
                 saveKey={`tafseer:${entry.sourceLabel}:${rangeText}`}
+                aiContext={aiContext}
               />
 
               <footer className={styles.sourceFooter} aria-label="Source awareness and compare foundation">
@@ -316,7 +368,7 @@ export default async function TafseerPage({ searchParams }: TafseerPageProps) {
         surahs={surahs}
         entries={entries.map((entry) => ({
           id: entry.id,
-          title: entry.title,
+          title: entry.title || `Tafseer for ${getRangeText(entry)}`,
           surah: entry.surah,
           fromAyah: entry.fromAyah,
           toAyah: entry.toAyah,
@@ -324,11 +376,10 @@ export default async function TafseerPage({ searchParams }: TafseerPageProps) {
           language: entry.language
         }))}
         currentBookId={selectedBook?.id ?? ''}
-        currentLanguage={selectedBook?.language}
+        currentLanguage={sourceLanguage}
         currentSurah={selectedSurah}
-        currentAyahCount={selectedSurahMeta?.ayahCount ?? selectedSurahContent?.ayahs.length ?? 1}
+        currentAyahCount={selectedSurahMeta?.ayahCount ?? 1}
       />
-
     </main>
   );
 }

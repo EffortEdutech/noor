@@ -1,0 +1,112 @@
+.shell {
+  display: grid;
+  gap: 16px;
+}
+
+.tabList {
+  position: sticky;
+  top: 72px;
+  z-index: 25;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 8px;
+  border: 1px solid var(--noor-line);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.96);
+  padding: 8px;
+  box-shadow: var(--noor-shadow-soft);
+  backdrop-filter: blur(14px);
+}
+
+.tabList button {
+  display: grid;
+  gap: 3px;
+  min-height: 58px;
+  border: 1px solid transparent;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--noor-muted);
+  padding: 9px 10px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.tabList button[data-active="true"] {
+  border-color: #a7ded5;
+  background: var(--noor-emerald-soft);
+  color: #075e59;
+}
+
+.tabList span {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.tabList strong {
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+.panels {
+  display: grid;
+  gap: 16px;
+}
+
+.panel {
+  display: grid;
+  gap: 14px;
+}
+
+.panelHeader {
+  display: grid;
+  gap: 8px;
+  border: 1px solid var(--noor-line);
+  border-radius: var(--noor-radius);
+  background: #ffffff;
+  padding: 18px;
+  box-shadow: var(--noor-shadow-soft);
+}
+
+.panelHeader span {
+  color: var(--noor-emerald);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.panelHeader h2 {
+  margin: 0;
+  color: var(--noor-text);
+  font-size: clamp(22px, 3vw, 32px);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.panelHeader p {
+  margin: 0;
+  max-width: 780px;
+  color: var(--noor-muted);
+  line-height: 1.65;
+}
+
+.panelBody {
+  display: grid;
+  gap: 14px;
+}
+
+@media (max-width: 840px) {
+  .tabList {
+    position: static;
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .tabList button {
+    min-width: 148px;
+    scroll-snap-align: start;
+  }
+}

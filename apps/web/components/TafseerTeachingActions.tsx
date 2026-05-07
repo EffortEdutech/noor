@@ -1,7 +1,9 @@
-'use client';
+﻿'use client';
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
+import type { AiSourceContext } from '../lib/ai/types';
+import { AiSourceAssistant } from './AiSourceAssistant';
 import styles from './TafseerTeachingActions.module.css';
 
 type CopyTarget = 'reference' | 'quran' | 'quote' | 'save' | null;
@@ -11,12 +13,11 @@ type TafseerTeachingActionsProps = {
   quranPassage: string;
   tafseerQuote: string;
   quranHref: string;
-  topicHref: string;
   teachingTitle: string;
   keyPhrase: string;
   lessonNote: string;
-  reflectionPrompt: string;
   saveKey: string;
+  aiContext?: AiSourceContext;
 };
 
 async function copyText(text: string) {
@@ -61,10 +62,7 @@ export function TafseerTeachingActions(props: TafseerTeachingActionsProps) {
       props.keyPhrase,
       '',
       'Lesson note:',
-      props.lessonNote,
-      '',
-      'Reflection:',
-      props.reflectionPrompt
+      props.lessonNote
     ].join('\n');
   }, [props]);
 
@@ -92,7 +90,7 @@ export function TafseerTeachingActions(props: TafseerTeachingActionsProps) {
   }
 
   return (
-    <section className={styles.actions} aria-label="Tafseer teaching actions">
+    <section className={styles.actions} aria-label="Tafseer Talab an-Noor actions">
       <div className={styles.compactActions}>
         <button type="button" onClick={() => handleCopy('reference', props.reference)}>
           {copied === 'reference' ? 'Reference copied' : 'Copy reference'}
@@ -110,7 +108,7 @@ export function TafseerTeachingActions(props: TafseerTeachingActionsProps) {
       </div>
 
       <details className={styles.teachingPrep}>
-        <summary>Teaching prep</summary>
+        <summary>Open Talab an-Noor</summary>
         <div className={styles.prepGrid}>
           <section>
             <span>Main point</span>
@@ -124,16 +122,16 @@ export function TafseerTeachingActions(props: TafseerTeachingActionsProps) {
             <span>Lesson note</span>
             <p>{props.lessonNote}</p>
           </section>
-          <section>
-            <span>Action or reflection</span>
-            <p>{props.reflectionPrompt}</p>
-          </section>
         </div>
+
+        {props.aiContext ? (
+          <AiSourceAssistant context={props.aiContext} compact variant="tafseer" />
+        ) : null}
+
         <div className={styles.prepActions}>
           <button type="button" onClick={() => handleCopy('quote', preparedNote)}>
-            Copy teaching note
+            Copy Ishraq note
           </button>
-          <Link href={props.topicHref}>Explore topic</Link>
         </div>
       </details>
 
@@ -141,3 +139,4 @@ export function TafseerTeachingActions(props: TafseerTeachingActionsProps) {
     </section>
   );
 }
+

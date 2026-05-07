@@ -1,11 +1,12 @@
 ﻿'use client';
 
 import type { QuranAyah, SurahContent, TafseerEntry } from '@noor/content';
-import { BookmarkButton } from '@noor/ui';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
+import type { AiSourceContext } from '../lib/ai/types';
+import { getDisplayArabicForAyah } from '../lib/quran-bismillah';
 import { getArabicFontSize, useReaderPreferences } from '../lib/reader-preferences';
-import { MarkReadingProgressButton } from './MarkReadingProgressButton';
+import { AiSourceAssistant } from './AiSourceAssistant';
 import { TafseerUnderstandingPanel } from './TafseerUnderstandingPanel';
 import { FloatingQuranNavigator, type QuranNavigatorSurah } from './FloatingQuranNavigator';
 import { QURAN_LAST_VISIT_KEY } from './QuranLastVisitLanding';
@@ -17,7 +18,7 @@ type ReaderMode = 'read' | 'meaning' | 'study';
 const READER_MODES: Array<{ id: ReaderMode; label: string; helper: string }> = [
   { id: 'read', label: 'Read', helper: 'Arabic first, minimal distraction.' },
   { id: 'meaning', label: 'Meaning', helper: 'Arabic with translation.' },
-  { id: 'study', label: 'Study', helper: 'Open tafseer and actions only when needed.' }
+  { id: 'study', label: 'Talab', helper: 'Enter Talab an-Noor for guided study and Ishraqaration.' }
 ];
 
 function QuranReaderModeSwitcher({
@@ -79,6 +80,14 @@ async function copyText(value: string) {
   }
 }
 
+function getTranslationsForAi(ayah: QuranAyah) {
+  return [
+    ayah.translations.en ? { language: 'English', text: ayah.translations.en } : null,
+    ayah.translations.ms ? { language: 'Malay', text: ayah.translations.ms } : null,
+    ayah.translations.id ? { language: 'Indonesian', text: ayah.translations.id } : null
+  ].filter((item): item is { language: string; text: string } => Boolean(item));
+}
+
 function QuranAyahLine({
   ayah,
   tafseer,
@@ -92,6 +101,7 @@ function QuranAyahLine({
 }) {
   const { preferences } = useReaderPreferences();
   const [copyStatus, setCopyStatus] = useState('');
+  const displayArabic = getDisplayArabicForAyah(ayah);
   const english = ayah.translations.en ?? '';
   const malay = ayah.translations.ms ?? '';
   const showMeaning = mode === 'meaning' || mode === 'study';
@@ -99,10 +109,32 @@ function QuranAyahLine({
   const showMalay = showMeaning && (preferences.languageMode === 'both' || preferences.languageMode === 'ms');
   const href = `/learn/quran/${ayah.surah}#ayah-${ayah.ayah}`;
 
+  const aiContext = useMemo<AiSourceContext>(() => ({
+    surface: 'quran',
+    reference: ayah.key,
+    surah: ayah.surah,
+    fromAyah: ayah.ayah,
+    toAyah: ayah.ayah,
+    arabic: displayArabic,
+    translations: getTranslationsForAi(ayah),
+    tafseer: tafseer ? {
+      sourceLabel: tafseer.sourceLabel,
+      language: tafseer.language,
+      title: tafseer.title,
+      body: tafseer.body,
+      reference: `${tafseer.surah}:${tafseer.fromAyah}-${tafseer.toAyah}`
+    } : undefined,
+    relatedAyat: [],
+    relatedHadith: [],
+    notes: [
+      'Related ayat and hadith are included only when NOOR has verified relationship data for this ayah.'
+    ]
+  }), [ayah, displayArabic, tafseer]);
+
   async function handleCopyAyah() {
     const copied = await copyText([
       `${surahTitle} ${ayah.key}`,
-      ayah.arabic,
+      displayArabic,
       english ? `English: ${english}` : '',
       malay ? `Malay: ${malay}` : '',
       `NOOR: ${href}`
@@ -120,12 +152,14 @@ function QuranAyahLine({
 
       <div
         className="noor-quran-v2-arabic"
+        lang="ar"
+        dir="rtl"
         style={{
           fontSize: getArabicFontSize(preferences.arabicSize),
           lineHeight: preferences.arabicSize === 'large' ? 2.2 : 2.0
         }}
       >
-        {ayah.arabic}
+        {displayArabic}
       </div>
 
       {showEnglish ? <p className="noor-quran-v2-translation">{english}</p> : null}
@@ -133,33 +167,18 @@ function QuranAyahLine({
 
       {mode === 'study' ? (
         <details className="noor-quran-v2-study">
-          <summary>Open study tools for this ayah</summary>
+          <summary>Open Talab an-Noor for this ayah</summary>
           <div className="noor-quran-v2-study-body">
             {tafseer ? (
               <TafseerUnderstandingPanel ayah={ayah} tafseer={tafseer} surahTitle={surahTitle} />
             ) : (
               <p>This ayah does not have a demo tafseer note yet.</p>
             )}
+
+            <AiSourceAssistant context={aiContext} compact variant="quran" />
+
             <div className="noor-quran-v2-actions">
-              <BookmarkButton
-                item={{
-                  id: `ayah-${ayah.key}`,
-                  type: 'ayah',
-                  title: english || ayah.arabic,
-                  reference: ayah.key,
-                  href
-                }}
-              />
-              <MarkReadingProgressButton
-                surah={ayah.surah}
-                ayah={ayah.ayah}
-                ayahKey={ayah.key}
-                title={`${surahTitle} - Ayah ${ayah.ayah}`}
-                subtitle={english}
-                href={href}
-              />
-              <button className="noor-button secondary" type="button" onClick={handleCopyAyah}>Copy ayah</button>
-              <a className="noor-button secondary" href={`/learn/tafseer?surah=${ayah.surah}#ayah-${ayah.ayah}`}>Open Tafseer</a>
+              <button className="noor-button secondary" type="button" onClick={handleCopyAyah}>Copy ayah source note</button>
             </div>
             {copyStatus ? <p className="noor-copy-status">{copyStatus}</p> : null}
           </div>
