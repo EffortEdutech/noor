@@ -3,7 +3,12 @@ import type { LanguageCode, QuranAyah, TafseerEntry } from '@noor/content';
 import { getSurahContent, getSurahIndex, getTafseerEntries, getTafseerIndex } from '@noor/data';
 import { FloatingTafseerNavigator } from '../../../components/FloatingTafseerNavigator';
 import { TafseerTeachingActions } from '../../../components/TafseerTeachingActions';
-import type { AiSourceContext } from '../../../lib/ai/types';
+import {
+  buildTafseerAiContext,
+  cleanNoorUiText,
+  getArabicPassageForAi,
+  stripLeadingBismillah
+} from '../../../lib/ai/source-context';
 import { getServerNoorContentSource } from '../../../lib/runtime-content-source';
 import styles from './TafseerPage.module.css';
 
@@ -17,8 +22,6 @@ type TafseerPageProps = {
 
 const VALID_LANGUAGES = ['ar', 'en', 'ms', 'id', 'ur', 'zh', 'ta'];
 const RTL_LANGUAGES = ['ar', 'ur'];
-const BISMILLAH = 'بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ';
-const BISMILLAH_PATTERN = /^بِسْمِ\s+ٱللَّهِ\s+ٱلرَّحْمَـٰنِ\s+ٱلرَّحِيمِ\s*/u;
 
 function firstValue(value: SearchParamValue): string | undefined {
   if (Array.isArray(value)) return value[0];
@@ -62,7 +65,6 @@ function languageLabel(language: string | undefined) {
   return labels[language] ?? language.toUpperCase();
 }
 
-
 function getRangeText(entry: TafseerEntry) {
   if (entry.fromAyah === entry.toAyah) return `${entry.surah}:${entry.fromAyah}`;
   return `${entry.surah}:${entry.fromAyah}-${entry.toAyah}`;
@@ -94,72 +96,14 @@ function getTranslationPreview(ayah: QuranAyah) {
   return ayah.translations.en ?? ayah.translations.ms ?? ayah.translations.id ?? '';
 }
 
-function getTranslationsForAi(ayahs: QuranAyah[]) {
-  return ayahs.flatMap((ayah) => {
-    const translations = [
-      ayah.translations.en ? { language: `English ${ayah.key}`, text: ayah.translations.en } : null,
-      ayah.translations.ms ? { language: `Malay ${ayah.key}`, text: ayah.translations.ms } : null,
-      ayah.translations.id ? { language: `Indonesian ${ayah.key}`, text: ayah.translations.id } : null
-    ];
-
-    return translations.filter((item): item is { language: string; text: string } => Boolean(item));
-  });
-}
-
-function stripLeadingBismillah(arabic: string, surah: number, ayah: number) {
-  if (surah === 1 && ayah === 1) return arabic;
-
-  const trimmed = arabic.trimStart();
-  if (trimmed.startsWith(BISMILLAH)) return trimmed.slice(BISMILLAH.length).trimStart();
-
-  return trimmed.replace(BISMILLAH_PATTERN, '');
-}
-
 function getArabicPassage(ayahs: QuranAyah[]) {
   return ayahs.map((ayah) => stripLeadingBismillah(ayah.arabic, ayah.surah, ayah.ayah)).join(' ');
 }
 
 function makeQuote(text: string, maxLength = 420) {
-  const compact = text.replace(/\s+/g, ' ').trim();
+  const compact = cleanNoorUiText(text);
   if (compact.length <= maxLength) return compact;
   return `${compact.slice(0, maxLength).trim()}...`;
-}
-
-function buildAiContext({
-  entry,
-  ayahContext,
-  quranPassage,
-  rangeText,
-  teachingQuote
-}: {
-  entry: TafseerEntry;
-  ayahContext: QuranAyah[];
-  quranPassage: string;
-  rangeText: string;
-  teachingQuote: string;
-}): AiSourceContext {
-  return {
-    surface: 'tafseer',
-    reference: rangeText,
-    surah: entry.surah,
-    fromAyah: entry.fromAyah,
-    toAyah: entry.toAyah,
-    arabic: quranPassage,
-    translations: getTranslationsForAi(ayahContext),
-    tafseer: {
-      sourceLabel: entry.sourceLabel,
-      language: entry.language,
-      title: entry.title,
-      body: entry.body,
-      reference: rangeText
-    },
-    relatedAyat: [],
-    relatedHadith: [],
-    notes: [
-      'Related ayat and hadith are included only when NOOR has verified relationship data for this passage.',
-      `Tafseer quote preview: ${teachingQuote}`
-    ]
-  };
 }
 
 export default async function TafseerPage({ searchParams }: TafseerPageProps) {
@@ -247,15 +191,16 @@ export default async function TafseerPage({ searchParams }: TafseerPageProps) {
           const omittedAyahCount = Math.max(ayahContext.length - previewAyahs.length, 0);
           const entryDirection = isRtlLanguage(entry.language) ? 'rtl' : 'ltr';
           const quranPassage = getArabicPassage(previewAyahs);
+          const fullQuranPassage = getArabicPassageForAi(ayahContext);
           const rangeText = getRangeText(entry);
           const rangeKind = getRangeKind(entry, selectedSurahMeta?.ayahCount);
           const quranHref = `/learn/quran/${entry.surah}#ayah-${entry.fromAyah}`;
           const sourceReference = `${entry.sourceLabel} - ${rangeText}`;
           const teachingQuote = makeQuote(entry.body);
-          const aiContext = buildAiContext({
+          const aiContext = buildTafseerAiContext({
             entry,
             ayahContext,
-            quranPassage,
+            quranPassage: fullQuranPassage || quranPassage,
             rangeText,
             teachingQuote
           });

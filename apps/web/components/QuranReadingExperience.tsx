@@ -1,8 +1,9 @@
-﻿'use client';
+'use client';
 
 import type { QuranAyah, SurahContent, TafseerEntry } from '@noor/content';
 import { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { buildQuranAyahAiContext } from '../lib/ai/source-context';
 import type { AiSourceContext } from '../lib/ai/types';
 import { getDisplayArabicForAyah } from '../lib/quran-bismillah';
 import { getArabicFontSize, useReaderPreferences } from '../lib/reader-preferences';
@@ -18,7 +19,7 @@ type ReaderMode = 'read' | 'meaning' | 'study';
 const READER_MODES: Array<{ id: ReaderMode; label: string; helper: string }> = [
   { id: 'read', label: 'Read', helper: 'Arabic first, minimal distraction.' },
   { id: 'meaning', label: 'Meaning', helper: 'Arabic with translation.' },
-  { id: 'study', label: 'Talab', helper: 'Enter Talab an-Noor for guided study and Ishraqaration.' }
+  { id: 'study', label: 'Talab', helper: 'Enter Talab an-Noor for guided study and teaching preparation.' }
 ];
 
 function QuranReaderModeSwitcher({
@@ -80,14 +81,6 @@ async function copyText(value: string) {
   }
 }
 
-function getTranslationsForAi(ayah: QuranAyah) {
-  return [
-    ayah.translations.en ? { language: 'English', text: ayah.translations.en } : null,
-    ayah.translations.ms ? { language: 'Malay', text: ayah.translations.ms } : null,
-    ayah.translations.id ? { language: 'Indonesian', text: ayah.translations.id } : null
-  ].filter((item): item is { language: string; text: string } => Boolean(item));
-}
-
 function QuranAyahLine({
   ayah,
   tafseer,
@@ -109,26 +102,10 @@ function QuranAyahLine({
   const showMalay = showMeaning && (preferences.languageMode === 'both' || preferences.languageMode === 'ms');
   const href = `/learn/quran/${ayah.surah}#ayah-${ayah.ayah}`;
 
-  const aiContext = useMemo<AiSourceContext>(() => ({
-    surface: 'quran',
-    reference: ayah.key,
-    surah: ayah.surah,
-    fromAyah: ayah.ayah,
-    toAyah: ayah.ayah,
-    arabic: displayArabic,
-    translations: getTranslationsForAi(ayah),
-    tafseer: tafseer ? {
-      sourceLabel: tafseer.sourceLabel,
-      language: tafseer.language,
-      title: tafseer.title,
-      body: tafseer.body,
-      reference: `${tafseer.surah}:${tafseer.fromAyah}-${tafseer.toAyah}`
-    } : undefined,
-    relatedAyat: [],
-    relatedHadith: [],
-    notes: [
-      'Related ayat and hadith are included only when NOOR has verified relationship data for this ayah.'
-    ]
+  const aiContext = useMemo<AiSourceContext>(() => buildQuranAyahAiContext({
+    ayah,
+    displayArabic,
+    tafseer
   }), [ayah, displayArabic, tafseer]);
 
   async function handleCopyAyah() {
@@ -167,7 +144,7 @@ function QuranAyahLine({
 
       {mode === 'study' ? (
         <details className="noor-quran-v2-study">
-          <summary>Open Talab an-Noor for this ayah</summary>
+          <summary>Talab an-Noor</summary>
           <div className="noor-quran-v2-study-body">
             {tafseer ? (
               <TafseerUnderstandingPanel ayah={ayah} tafseer={tafseer} surahTitle={surahTitle} />
@@ -326,4 +303,3 @@ export function QuranReadingExperience({
     </>
   );
 }
-

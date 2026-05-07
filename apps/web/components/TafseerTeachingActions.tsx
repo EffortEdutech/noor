@@ -1,12 +1,13 @@
-﻿'use client';
+'use client';
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import type { AiSourceContext } from '../lib/ai/types';
+import { buildIshraqNoteText, cleanNoorUiText } from '../lib/ai/source-context';
 import { AiSourceAssistant } from './AiSourceAssistant';
 import styles from './TafseerTeachingActions.module.css';
 
-type CopyTarget = 'reference' | 'quran' | 'quote' | 'save' | null;
+type CopyTarget = 'reference' | 'quran' | 'quote' | 'ishraq' | 'save' | null;
 
 type TafseerTeachingActionsProps = {
   reference: string;
@@ -40,10 +41,10 @@ async function copyText(text: string) {
 function getSavedPayload(props: TafseerTeachingActionsProps) {
   return {
     type: 'tafseer',
-    reference: props.reference,
+    reference: cleanNoorUiText(props.reference),
     quranPassage: props.quranPassage,
-    tafseerQuote: props.tafseerQuote,
-    title: props.teachingTitle,
+    tafseerQuote: cleanNoorUiText(props.tafseerQuote),
+    title: cleanNoorUiText(props.teachingTitle),
     savedAt: new Date().toISOString()
   };
 }
@@ -52,19 +53,11 @@ export function TafseerTeachingActions(props: TafseerTeachingActionsProps) {
   const [copied, setCopied] = useState<CopyTarget>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const preparedNote = useMemo(() => {
-    return [
-      props.teachingTitle,
-      '',
-      `Reference: ${props.reference}`,
-      '',
-      'Key ayah phrase:',
-      props.keyPhrase,
-      '',
-      'Lesson note:',
-      props.lessonNote
-    ].join('\n');
-  }, [props]);
+  const ishraqNote = useMemo(() => buildIshraqNoteText({
+    reference: props.reference,
+    quranPassage: props.quranPassage,
+    tafseerQuote: props.tafseerQuote
+  }), [props.reference, props.quranPassage, props.tafseerQuote]);
 
   async function handleCopy(target: CopyTarget, text: string) {
     setError(null);
@@ -108,29 +101,15 @@ export function TafseerTeachingActions(props: TafseerTeachingActionsProps) {
       </div>
 
       <details className={styles.teachingPrep}>
-        <summary>Open Talab an-Noor</summary>
-        <div className={styles.prepGrid}>
-          <section>
-            <span>Main point</span>
-            <p>{props.teachingTitle}</p>
-          </section>
-          <section dir="rtl" lang="ar" className={styles.keyPhrase}>
-            <span>Key ayah phrase</span>
-            <p>{props.keyPhrase}</p>
-          </section>
-          <section>
-            <span>Lesson note</span>
-            <p>{props.lessonNote}</p>
-          </section>
-        </div>
+        <summary>Talab an-Noor</summary>
 
         {props.aiContext ? (
           <AiSourceAssistant context={props.aiContext} compact variant="tafseer" />
         ) : null}
 
         <div className={styles.prepActions}>
-          <button type="button" onClick={() => handleCopy('quote', preparedNote)}>
-            Copy Ishraq note
+          <button type="button" onClick={() => handleCopy('ishraq', ishraqNote)}>
+            {copied === 'ishraq' ? 'Ishraq note copied' : 'Copy Ishraq note'}
           </button>
         </div>
       </details>
@@ -139,4 +118,3 @@ export function TafseerTeachingActions(props: TafseerTeachingActionsProps) {
     </section>
   );
 }
-

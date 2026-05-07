@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useMemo, useState } from 'react';
 import {
@@ -17,6 +17,7 @@ import {
   type AiSourceContext,
   type AiWritingStyle
 } from '../lib/ai/types';
+import { cleanNoorUiText, summarizeSourcesGathered } from '../lib/ai/source-context';
 import styles from './AiSourceAssistant.module.css';
 
 type AiSourceAssistantProps = {
@@ -51,14 +52,11 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
   const outputLanguageLabel = getLanguageLabel(outputLanguageCode);
   const outputDirection = getLanguageDirection(outputLanguageCode);
 
+  const sourcesGathered = useMemo(() => summarizeSourcesGathered(context), [context]);
+
   const contextSummary = useMemo(() => {
-    return [
-      context.reference,
-      context.tafseer?.sourceLabel ? `Tafseer: ${context.tafseer.sourceLabel}` : 'Tafseer: not supplied',
-      `${context.relatedAyat?.length ?? 0} related ayat`,
-      `${context.relatedHadith?.length ?? 0} related hadith`
-    ].join(' Â· ');
-  }, [context]);
+    return sourcesGathered.map(cleanNoorUiText).join(' | ');
+  }, [sourcesGathered]);
 
   async function generate(mode: AiActionMode) {
     setActiveMode(mode);
@@ -96,7 +94,7 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
   return (
     <section
       className={`${styles.assistant} ${compact ? styles.compact : ''}`}
-      aria-label="Talab an-Noor AI-assisted reflection and Ishraqaration"
+      aria-label="Talab an-Noor AI-assisted reflection and teaching preparation"
       data-variant={variant}
     >
       <div className={styles.header}>
@@ -104,7 +102,7 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
           <span>Talab an-Noor</span>
           <h3>{variant === 'quran' ? 'Study this ayah with source guidance' : 'Prepare from this tafseer'}</h3>
           <p>
-            Generate reflection, Ishraq notes, or a lesson plan from the selected Quran, tafseer, and supplied related sources only.
+            Generate reflection, teaching notes, or a lesson plan from the selected Quran, tafseer, and supplied related sources only.
           </p>
         </div>
         <div className={styles.selectGrid}>
@@ -140,7 +138,13 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
         </div>
       </div>
 
-      <p className={styles.contextSummary}>{contextSummary}</p>
+      <div className={styles.sourcesGathered} aria-label="Sources gathered for AI">
+        <strong>Sources gathered</strong>
+        <p>{contextSummary}</p>
+        {(context.relatedAyat?.length ?? 0) === 0 || (context.relatedHadith?.length ?? 0) === 0 ? (
+          <small>Missing related sources are labelled clearly. Talab an-Noor must not invent related ayat or hadith.</small>
+        ) : null}
+      </div>
 
       <div className={styles.actions}>
         {AI_ACTIONS.map((action) => (
@@ -165,7 +169,7 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
             <strong>{result.configured ? 'Generated' : 'Configuration needed'}</strong>
           </div>
           <p className={styles.resultMeta}>
-            {result.outputLanguage} Â· {getAiWritingStyleLabel(result.writingStyle)}
+            {result.outputLanguage} | {getAiWritingStyleLabel(result.writingStyle)}
           </p>
           {result.warning ? <p className={styles.warning}>{result.warning}</p> : null}
           <pre lang={outputLanguageCode} dir={outputDirection}>{result.text}</pre>
@@ -173,7 +177,7 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
             <summary>Sources sent to AI</summary>
             <ul>
               {result.sourcesUsed.map((source) => (
-                <li key={source}>{source}</li>
+                <li key={source}>{cleanNoorUiText(source)}</li>
               ))}
             </ul>
           </details>
@@ -182,4 +186,3 @@ export function AiSourceAssistant({ context, compact = false, variant = 'tafseer
     </section>
   );
 }
-

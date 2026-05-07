@@ -61,6 +61,28 @@
   padding: 10px 11px;
 }
 
+.sourcesGathered {
+  display: grid;
+  gap: 4px;
+  border: 1px solid rgba(15, 118, 110, 0.12);
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 10px 12px;
+}
+
+.sourcesGathered strong {
+  color: var(--noor-text);
+  font-size: 13px;
+}
+
+.sourcesGathered p,
+.sourcesGathered small {
+  margin: 0;
+  color: var(--noor-muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
