@@ -41,3 +41,7 @@ content-pipeline/imported/ilm-mate-v1/
 
 # NOOR generated ilm-mate migration staging output
 content-pipeline/imported/ilm-mate-v1/
+
+# Local CDN mirror for development only.
+# Source of truth is https://github.com/EffortEdutech/noor-cdn
+/apps/web/public/noor-cdn/

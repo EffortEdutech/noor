@@ -1,4 +1,4 @@
-.page {
+﻿.page {
   gap: 14px;
   padding-bottom: 36px;
 }
@@ -170,7 +170,7 @@
 .passageHead {
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: flex-start;
   gap: 12px;
 }
 
@@ -357,3 +357,4 @@
     width: 100%;
   }
 }
+

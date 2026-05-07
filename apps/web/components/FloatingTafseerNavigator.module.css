@@ -1,4 +1,4 @@
-.float {
+﻿.float {
   position: fixed;
   right: max(18px, calc((100vw - 1060px) / 2 + 18px));
   bottom: 96px;
@@ -34,7 +34,7 @@
 .panelHead {
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: flex-start;
   gap: 12px;
 }
 
@@ -297,3 +297,4 @@
     height: 58px;
   }
 }
+
