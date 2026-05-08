@@ -21,6 +21,7 @@ export function AppShell({ children, currentPath }: { children: ReactNode; curre
             </span>
           </a>
           <nav className="noor-topbar-actions" aria-label="Utility navigation">
+            <div id="noor-knowledge-nav-slot" className="noor-topbar-knowledge-slot" />
             <div id="noor-quran-reader-mode-slot" className="noor-topbar-mode-slot" />
             <a className="noor-badge" href="/settings">Settings</a>
           </nav>

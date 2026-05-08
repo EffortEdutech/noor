@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { NoorCard, SourceConnectionsPanel } from '@noor/ui';
 import { getNoorSearchTypeLabel, searchNoorLocal, type NoorSearchResult, type NoorSearchType } from '@noor/search';
 import { GuidanceTopicJourneyClient } from '../../../components/GuidanceTopicJourneyClient';
+import { UniversalKnowledgeBar } from '../../../components/UniversalKnowledgeBar';
 import { GUIDANCE_TOPIC_DETAILS, getGuidanceTopic } from '../../../lib/guidance-topics';
 
 export function generateStaticParams() {
@@ -116,14 +117,21 @@ export default async function GuidanceTopicPage({ params }: { params: Promise<{ 
         <span className="noor-kicker">Guided topic</span>
         <h1>{topic.label}</h1>
         <p>
-          This page is arranged as a learning path. Open one layer at a time: need, Quran foundation, tafseer, hadith, reflection, then continuation.
+          This page is a curated knowledge path: need, Quran foundation, tafseer understanding, Hadith guidance,
+          reflection, then continuation.
         </p>
       </header>
 
+      <UniversalKnowledgeBar
+        defaultValue={topic.label}
+        title={`Search within ${topic.label}`}
+        subtitle="Use a related word, question, Quran reference or Hadith keyword to reshape the path."
+      />
+
       <section className="noor-learning-intro" aria-label="Topic recommendation">
         <div>
-          <span className="noor-kicker">Recommended order</span>
-          <h2>Begin with the need. Then read the Quran before explanation or application.</h2>
+          <span className="noor-kicker">Knowledge path</span>
+          <h2>Begin with Quran. Understand with tafseer. Reflect with Hadith.</h2>
           <p>{topic.prompt}</p>
         </div>
         <a className="noor-button primary" href={topic.quranHref}>Open Quran</a>

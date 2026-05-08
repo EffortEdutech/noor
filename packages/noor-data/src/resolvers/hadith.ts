@@ -3,6 +3,12 @@ import { DEMO_HADITH_COLLECTIONS, DEMO_HADITH_ITEMS } from '@noor/content';
 import { getNoorDataConfig, joinNoorCdnPath, type NoorResolverOptions } from '../config';
 import { fetchJsonWithFallback } from '../fetch-json';
 
+function withDevelopmentCacheBust(url: string, mode: string) {
+  if (mode !== 'cdn' || process.env.NODE_ENV !== 'development') return url;
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}dev=${Date.now()}`;
+}
+
 export async function getHadithCollections(
   options: NoorResolverOptions = {}
 ): Promise<HadithCollection[]> {
@@ -23,8 +29,8 @@ export async function getHadithItems(
   const fallback = DEMO_HADITH_ITEMS[collectionId] ?? [];
 
   return fetchJsonWithFallback<HadithItem[]>(
-    joinNoorCdnPath(config.hadithCdnBase, `hadith/${collectionId}/items.json`),
+    withDevelopmentCacheBust(joinNoorCdnPath(config.hadithCdnBase, `hadith/${collectionId}/items.json`), config.mode),
     fallback,
-    { mode: config.mode, allowFallback: options.allowFallback }
+    { mode: config.mode, allowFallback: options.allowFallback, timeoutMs: 15000 }
   );
 }

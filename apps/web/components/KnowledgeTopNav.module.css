@@ -1,0 +1,126 @@
+.wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  border: 1px solid var(--noor-line);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--noor-text);
+  padding: 6px 10px;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.trigger span {
+  position: relative;
+  width: 15px;
+  height: 10px;
+  border-top: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+}
+
+.trigger span::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 15px;
+  border-top: 2px solid currentColor;
+}
+
+.trigger strong {
+  font-size: 12px;
+  line-height: 1;
+}
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(15, 23, 42, 0.18);
+}
+
+.panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 81;
+  display: grid;
+  gap: 12px;
+  width: min(330px, calc(100vw - 24px));
+  padding: 14px;
+  border: 1px solid var(--noor-line);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.18);
+}
+
+.panel h2 {
+  margin: 4px 0 0;
+  color: var(--noor-text);
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.list {
+  display: grid;
+  gap: 8px;
+}
+
+.list a {
+  display: grid;
+  gap: 4px;
+  padding: 11px;
+  border: 1px solid var(--noor-line);
+  border-radius: 15px;
+  background: #ffffff;
+  color: var(--noor-text);
+}
+
+.list a[data-active='true'] {
+  border-color: #a7ded5;
+  background: var(--noor-emerald-soft);
+}
+
+.list strong {
+  color: var(--noor-text);
+  font-size: 14px;
+}
+
+.list span,
+.list small {
+  color: var(--noor-muted);
+  line-height: 1.35;
+}
+
+.list span {
+  font-size: 13px;
+}
+
+.list small {
+  font-size: 12px;
+}
+
+@media (max-width: 520px) {
+  .trigger {
+    padding-inline: 9px;
+  }
+
+  .trigger strong {
+    display: none;
+  }
+
+  .panel {
+    position: fixed;
+    top: 64px;
+    left: 12px;
+    right: 12px;
+    width: auto;
+  }
+}

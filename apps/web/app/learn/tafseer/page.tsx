@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { LanguageCode, QuranAyah, TafseerEntry } from '@noor/content';
 import { getSurahContent, getSurahIndex, getTafseerEntries, getTafseerIndex } from '@noor/data';
 import { FloatingTafseerNavigator } from '../../../components/FloatingTafseerNavigator';
+import { TafseerSingleReader } from '../../../components/TafseerSingleReader';
 import { TafseerTeachingActions } from '../../../components/TafseerTeachingActions';
 import {
   buildTafseerAiContext,
@@ -43,6 +44,11 @@ function normalizeLanguage(value: SearchParamValue): LanguageCode | undefined {
   if (!raw) return undefined;
 
   return VALID_LANGUAGES.includes(raw) ? (raw as LanguageCode) : undefined;
+}
+
+function parsePage(value: SearchParamValue) {
+  const parsed = Number.parseInt(firstValue(value) ?? '1', 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
 }
 
 function isRtlLanguage(language: string | undefined) {
@@ -106,6 +112,26 @@ function makeQuote(text: string, maxLength = 420) {
   return `${compact.slice(0, maxLength).trim()}...`;
 }
 
+function buildTafseerHref({
+  bookId,
+  surah,
+  language,
+  page,
+  ayah
+}: {
+  bookId?: string;
+  surah: number;
+  language?: string;
+  page?: number;
+  ayah?: number;
+}) {
+  const params = new URLSearchParams({ surah: String(surah) });
+  if (bookId) params.set('book', bookId);
+  if (language) params.set('language', language);
+  if (page && page > 1) params.set('page', String(page));
+  return `/learn/tafseer?${params.toString()}${ayah ? `#ayah-${ayah}` : ''}`;
+}
+
 export default async function TafseerPage({ searchParams }: TafseerPageProps) {
   const params = (await searchParams) ?? {};
   const contentSource = await getServerNoorContentSource();
@@ -116,6 +142,7 @@ export default async function TafseerPage({ searchParams }: TafseerPageProps) {
   ]);
 
   const selectedLanguage = normalizeLanguage(params.language);
+  const requestedPage = parsePage(params.page);
   const visibleBooks = selectedLanguage ? books.filter((book) => book.language === selectedLanguage) : books;
   const selectedBookId = firstValue(params.book);
   const selectedBook = books.find((book) => book.id === selectedBookId) ?? visibleBooks[0] ?? books[0];
@@ -131,41 +158,19 @@ export default async function TafseerPage({ searchParams }: TafseerPageProps) {
 
   const [entries, selectedSurahContent] = tafseerPayload;
   const selectedSurahMeta = selectedSurahContent?.surah ?? surahs.find((surah) => surah.number === selectedSurah);
-  const oneAyahEntries = entries.filter((entry) => entry.fromAyah === entry.toAyah).length;
-  const rangeEntries = entries.filter((entry) => entry.fromAyah !== entry.toAyah).length;
   const sourceLanguage = selectedBook?.language;
+  const totalPages = Math.max(1, entries.length);
+  const safePage = Math.min(requestedPage, totalPages);
+  const currentEntry = entries[safePage - 1];
+  const previousHref = currentEntry && safePage > 1
+    ? buildTafseerHref({ bookId: selectedBook?.id, surah: selectedSurah, language: sourceLanguage, page: safePage - 1, ayah: entries[safePage - 2]?.fromAyah })
+    : undefined;
+  const nextHref = currentEntry && safePage < totalPages
+    ? buildTafseerHref({ bookId: selectedBook?.id, surah: selectedSurah, language: sourceLanguage, page: safePage + 1, ayah: entries[safePage]?.fromAyah })
+    : undefined;
 
   return (
     <main className={`noor-page ${styles.page}`} id="tafseer-top">
-      <section className={styles.contextBar} aria-label="Current Tafseer context">
-        <div className={styles.contextTitle}>
-          <span className="noor-kicker">Tafseer reading surface</span>
-          <h1>{selectedSurahMeta?.nameTransliteration ?? `Surah ${selectedSurah}`}</h1>
-          <p>
-            Read the Quran passage, study the tafseer, and keep source details visible without crowding the page.
-          </p>
-        </div>
-
-        <dl className={styles.contextFacts} aria-label="Tafseer source facts">
-          <div>
-            <dt>Book</dt>
-            <dd>{selectedBook?.label ?? 'Not available'}</dd>
-          </div>
-          <div>
-            <dt>Language</dt>
-            <dd>{languageLabel(sourceLanguage)}</dd>
-          </div>
-          <div>
-            <dt>Coverage</dt>
-            <dd>{entries.length} entries</dd>
-          </div>
-          <div>
-            <dt>Structure</dt>
-            <dd>{oneAyahEntries} ayah, {rangeEntries} range</dd>
-          </div>
-        </dl>
-      </section>
-
       <section className={styles.surface} id="tafseer-content" aria-label="Tafseer content">
         {entries.length === 0 ? (
           <article className={styles.emptyState}>
@@ -185,7 +190,8 @@ export default async function TafseerPage({ searchParams }: TafseerPageProps) {
           </article>
         ) : null}
 
-        {entries.map((entry, index) => {
+        {currentEntry ? (() => {
+          const entry = currentEntry;
           const ayahContext = getAyahContext(selectedSurahContent?.ayahs, entry);
           const previewAyahs = getPreviewAyahs(ayahContext);
           const omittedAyahCount = Math.max(ayahContext.length - previewAyahs.length, 0);
@@ -206,100 +212,109 @@ export default async function TafseerPage({ searchParams }: TafseerPageProps) {
           });
 
           return (
-            <article key={`${entry.id}-${index}`} id={`ayah-${entry.fromAyah}`} className={styles.entryCard}>
-              <header className={styles.entryHeader}>
-                <div className={styles.entryTitleBlock}>
-                  <div className={styles.badgeRow} aria-label="Tafseer entry metadata">
-                    <span className="noor-badge gold">{getCoverageText(entry, selectedSurahMeta?.ayahCount)}</span>
-                    <span className={styles.metaBadge}>{rangeText}</span>
-                    <span className={styles.metaBadge}>{languageLabel(entry.language)}</span>
-                  </div>
-                  <h2>{entry.title || `Tafseer for ${rangeText}`}</h2>
-                </div>
-              </header>
-
-              {previewAyahs.length ? (
-                <section className={styles.quranPassage} aria-label={`Quran passage for ${rangeText}`}>
-                  <div className={styles.passageHead}>
-                    <div>
-                      <span>Quran passage</span>
-                      <strong>{rangeText}</strong>
+            <TafseerSingleReader
+              lastVisit={{
+                href: buildTafseerHref({ bookId: selectedBook?.id, surah: selectedSurah, language: sourceLanguage, page: safePage, ayah: entry.fromAyah }),
+                title: entry.title || `Tafseer for ${rangeText}`,
+                subtitle: selectedBook?.label
+              }}
+              previousHref={previousHref}
+              nextHref={nextHref}
+              position={safePage}
+              total={entries.length}
+            >
+              <article key={entry.id} id={`ayah-${entry.fromAyah}`} className={styles.entryCard}>
+                <header className={styles.entryHeader}>
+                  <div className={styles.entryTitleBlock}>
+                    <div className={styles.badgeRow} aria-label="Tafseer entry metadata">
+                      <span className="noor-badge gold">{getCoverageText(entry, selectedSurahMeta?.ayahCount)}</span>
+                      <span className={styles.metaBadge}>{rangeText}</span>
+                      <span className={styles.metaBadge}>{languageLabel(entry.language)}</span>
                     </div>
-                    <Link href={quranHref}>Open full context</Link>
+                    <h2>{entry.title || `Tafseer for ${rangeText}`}</h2>
                   </div>
+                </header>
 
-                  <p className={styles.arabicLine} lang="ar" dir="rtl">
-                    {quranPassage}
-                  </p>
+                {previewAyahs.length ? (
+                  <section className={styles.quranPassage} aria-label={`Quran passage for ${rangeText}`}>
+                    <div className={styles.passageHead}>
+                      <div>
+                        <span>Quran passage</span>
+                        <strong>{rangeText}</strong>
+                      </div>
+                      <Link href={quranHref}>Open full context</Link>
+                    </div>
 
-                  <div className={styles.translationPreview}>
-                    {previewAyahs.map((ayah) => {
-                      const translation = getTranslationPreview(ayah);
-                      return translation ? (
-                        <p key={ayah.key}>
-                          <strong>{ayah.key}</strong>
-                          <span>{translation}</span>
-                        </p>
-                      ) : null;
-                    })}
-                  </div>
-
-                  {omittedAyahCount > 0 ? (
-                    <p className={styles.omittedNote}>
-                      {omittedAyahCount} more ayat are included in this tafseer range. Open the Quran reader for the full passage.
+                    <p className={styles.arabicLine} lang="ar" dir="rtl">
+                      {quranPassage}
                     </p>
-                  ) : null}
+
+                    <div className={styles.translationPreview}>
+                      {previewAyahs.map((ayah) => {
+                        const translation = getTranslationPreview(ayah);
+                        return translation ? (
+                          <p key={ayah.key}>
+                            <strong>{ayah.key}</strong>
+                            <span>{translation}</span>
+                          </p>
+                        ) : null;
+                      })}
+                    </div>
+
+                    {omittedAyahCount > 0 ? (
+                      <p className={styles.omittedNote}>
+                        {omittedAyahCount} more ayat are included in this tafseer range. Open the Quran reader for the full passage.
+                      </p>
+                    ) : null}
+                  </section>
+                ) : null}
+
+                <section
+                  className={styles.tafseerBody}
+                  lang={entry.language}
+                  dir={entryDirection}
+                  data-direction={entryDirection}
+                  aria-label={`Tafseer body from ${entry.sourceLabel}`}
+                >
+                  {entry.body}
                 </section>
-              ) : null}
 
-              <section
-                className={styles.tafseerBody}
-                lang={entry.language}
-                dir={entryDirection}
-                data-direction={entryDirection}
-                aria-label={`Tafseer body from ${entry.sourceLabel}`}
-              >
-                {entry.body}
-              </section>
+                <TafseerTeachingActions
+                  reference={sourceReference}
+                  quranPassage={quranPassage}
+                  tafseerQuote={teachingQuote}
+                  quranHref={quranHref}
+                  teachingTitle={entry.title || `Tafseer for ${rangeText}`}
+                  keyPhrase={quranPassage ? makeQuote(quranPassage, 180) : rangeText}
+                  lessonNote={teachingQuote}
+                  saveKey={`tafseer:${entry.sourceLabel}:${rangeText}`}
+                  aiContext={aiContext}
+                />
 
-              <TafseerTeachingActions
-                reference={sourceReference}
-                quranPassage={quranPassage}
-                tafseerQuote={teachingQuote}
-                quranHref={quranHref}
-                teachingTitle={entry.title || `Tafseer for ${rangeText}`}
-                keyPhrase={quranPassage ? makeQuote(quranPassage, 180) : rangeText}
-                lessonNote={teachingQuote}
-                saveKey={`tafseer:${entry.sourceLabel}:${rangeText}`}
-                aiContext={aiContext}
-              />
-
-              <footer className={styles.sourceFooter} aria-label="Source awareness and compare foundation">
-                <dl>
-                  <div>
-                    <dt>Source</dt>
-                    <dd>{entry.sourceLabel}</dd>
-                  </div>
-                  <div>
-                    <dt>Language</dt>
-                    <dd>{languageLabel(entry.language)}</dd>
-                  </div>
-                  <div>
-                    <dt>Ayah coverage</dt>
-                    <dd>{rangeText}</dd>
-                  </div>
-                  <div>
-                    <dt>Range type</dt>
-                    <dd>{rangeKind}</dd>
-                  </div>
-                </dl>
-                <p>
-                  Compare foundation: this entry can later be compared with other tafseer sources using the same Surah and ayah coverage.
-                </p>
-              </footer>
-            </article>
+                <footer className={styles.sourceFooter} aria-label="Source awareness and compare foundation">
+                  <dl>
+                    <div>
+                      <dt>Source</dt>
+                      <dd>{entry.sourceLabel}</dd>
+                    </div>
+                    <div>
+                      <dt>Language</dt>
+                      <dd>{languageLabel(entry.language)}</dd>
+                    </div>
+                    <div>
+                      <dt>Ayah coverage</dt>
+                      <dd>{rangeText}</dd>
+                    </div>
+                    <div>
+                      <dt>Range type</dt>
+                      <dd>{rangeKind}</dd>
+                    </div>
+                  </dl>
+                </footer>
+              </article>
+            </TafseerSingleReader>
           );
-        })}
+        })() : null}
       </section>
 
       <FloatingTafseerNavigator

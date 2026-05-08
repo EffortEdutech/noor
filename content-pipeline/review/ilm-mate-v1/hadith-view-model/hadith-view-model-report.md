@@ -1,6 +1,6 @@
 # Sprint 27.9.2 — Hadith View Model Normalization
 
-Generated: 2026-05-02T08:14:05.406Z
+Generated: 2026-05-08T02:05:43.350Z
 Source root: `C:\Users\user\Documents\00 Combo3\muslim-companion-poc\content`
 Output root: `C:\Users\user\Documents\00 Combo3\Noor\content-pipeline\imported\ilm-mate-v1\noor-cdn`
 

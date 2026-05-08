@@ -9,9 +9,10 @@ type HadithActionButtonsProps = {
   copyText: string;
   referenceText: string;
   topicHref?: string;
+  compact?: boolean;
 };
 
-export function HadithActionButtons({ bookmarkItem, copyText, referenceText, topicHref }: HadithActionButtonsProps) {
+export function HadithActionButtons({ bookmarkItem, copyText, referenceText, topicHref, compact = false }: HadithActionButtonsProps) {
   const [status, setStatus] = useState<string | null>(null);
 
   async function copyToClipboard(value: string, label: string) {
@@ -35,8 +36,8 @@ export function HadithActionButtons({ bookmarkItem, copyText, referenceText, top
         <button className="noor-button secondary" type="button" onClick={() => copyToClipboard(referenceText, 'Reference')}>
           Copy reference
         </button>
-        {topicHref ? <a className="noor-button secondary" href={topicHref}>Explore topic</a> : null}
-        <a className="noor-button secondary" href="/studio">Create share card</a>
+        {!compact && topicHref ? <a className="noor-button secondary" href={topicHref}>Explore topic</a> : null}
+        {!compact ? <a className="noor-button secondary" href="/studio">Create share card</a> : null}
       </div>
       {status ? <p className="noor-copy-status">{status}</p> : null}
     </div>

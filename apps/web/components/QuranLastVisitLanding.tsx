@@ -2,9 +2,8 @@
 
 import type { SurahIndexEntry } from '@noor/content';
 import { useEffect, useMemo, useState } from 'react';
+import { QURAN_LAST_VISIT_KEY } from '../lib/knowledge-last-visit';
 import { FloatingQuranNavigator } from './FloatingQuranNavigator';
-
-export const QURAN_LAST_VISIT_KEY = 'noor.quran.lastVisit.v1';
 
 type LastVisit = {
   surah: number;

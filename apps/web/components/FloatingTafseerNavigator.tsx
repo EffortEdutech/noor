@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { LanguageCode, SurahIndexEntry } from '@noor/content';
+import { TAFSEER_LAST_VISIT_KEY } from '../lib/knowledge-last-visit';
 import styles from './FloatingTafseerNavigator.module.css';
 
 type TafseerNavigatorBook = {
@@ -52,13 +53,14 @@ function languageLabel(language: string | undefined) {
   return language ? labels[language] ?? language.toUpperCase() : 'Language';
 }
 
-function buildTafseerHref(bookId: string, surah: number, language?: string, ayah?: number) {
+function buildTafseerHref(bookId: string, surah: number, language?: string, ayah?: number, page?: number) {
   const params = new URLSearchParams({
     book: bookId,
     surah: String(surah)
   });
 
   if (language) params.set('language', language);
+  if (page && page > 1) params.set('page', String(page));
 
   const hash = ayah ? `#ayah-${ayah}` : '';
   return `/learn/tafseer?${params.toString()}${hash}`;
@@ -66,6 +68,34 @@ function buildTafseerHref(bookId: string, surah: number, language?: string, ayah
 
 function uniqueLanguages(books: TafseerNavigatorBook[]) {
   return Array.from(new Set(books.map((book) => book.language))).sort();
+}
+
+function saveTafseerLastVisit({
+  bookId,
+  sourceLabel,
+  surahName,
+  surah,
+  language,
+  ayah
+}: {
+  bookId: string;
+  sourceLabel?: string;
+  surahName?: string;
+  surah: number;
+  language?: LanguageCode;
+  ayah: number;
+}) {
+  try {
+    const safeAyah = Math.max(Number(ayah) || 1, 1);
+    window.localStorage.setItem(TAFSEER_LAST_VISIT_KEY, JSON.stringify({
+      href: buildTafseerHref(bookId, surah, language, safeAyah),
+      title: `${surahName ?? `Surah ${surah}`} - Ayah ${safeAyah}`,
+      subtitle: sourceLabel,
+      updatedAt: new Date().toISOString()
+    }));
+  } catch {
+    // Ignore blocked storage.
+  }
 }
 
 export function FloatingTafseerNavigator({
@@ -138,7 +168,19 @@ export function FloatingTafseerNavigator({
   const coveredEntry = canUseVisibleEntries
     ? entries.find((entry) => selectedAyah >= entry.fromAyah && selectedAyah <= entry.toAyah)
     : undefined;
+  const coveredEntryIndex = coveredEntry ? entries.findIndex((entry) => entry.id === coveredEntry.id) : -1;
   const selectedRangeLabel = coveredEntry ? coverageLabel(coveredEntry) : `Ayah ${selectedAyah}`;
+
+  useEffect(() => {
+    saveTafseerLastVisit({
+      bookId: currentBookId,
+      sourceLabel: currentBook?.label,
+      surahName: surahs.find((surah) => surah.number === currentSurah)?.nameTransliteration,
+      surah: currentSurah,
+      language: currentLanguage,
+      ayah: clamp(getAyahFromHash(), 1, currentAyahCount || 1)
+    });
+  }, [currentAyahCount, currentBook?.label, currentBookId, currentLanguage, currentSurah, surahs]);
 
   function changeLanguage(language: LanguageCode) {
     setSelectedLanguage(language);
@@ -173,13 +215,18 @@ export function FloatingTafseerNavigator({
   }
 
   function closeAndScrollToAyah(ayah: number) {
+    const entryIndex = entries.findIndex((entry) => ayah >= entry.fromAyah && ayah <= entry.toAyah);
+    const page = entryIndex >= 0 ? entryIndex + 1 : undefined;
+    saveTafseerLastVisit({
+      bookId: currentBookId,
+      sourceLabel: currentBook?.label,
+      surahName: surahs.find((surah) => surah.number === currentSurah)?.nameTransliteration,
+      surah: currentSurah,
+      language: currentLanguage,
+      ayah
+    });
     setOpen(false);
-
-    const target = document.getElementById(`ayah-${ayah}`);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      window.history.replaceState(null, '', `#ayah-${ayah}`);
-    }
+    router.push(buildTafseerHref(currentBookId, currentSurah, currentLanguage, ayah, page));
   }
 
   function goToSelection() {
@@ -188,13 +235,27 @@ export function FloatingTafseerNavigator({
     const safeAyah = clamp(selectedAyah, 1, ayahCount);
     setSelectedAyah(safeAyah);
     setOpen(false);
+    saveTafseerLastVisit({
+      bookId: selectedBook.id,
+      sourceLabel: selectedBook.label,
+      surahName: selectedSurahInfo?.nameTransliteration,
+      surah: selectedSurah,
+      language: selectedBook.language,
+      ayah: coveredEntry?.fromAyah ?? safeAyah
+    });
 
     if (selectedBook.id === currentBookId && selectedSurah === currentSurah) {
       closeAndScrollToAyah(coveredEntry?.fromAyah ?? safeAyah);
       return;
     }
 
-    router.push(buildTafseerHref(selectedBook.id, selectedSurah, selectedBook.language, safeAyah));
+    router.push(buildTafseerHref(
+      selectedBook.id,
+      selectedSurah,
+      selectedBook.language,
+      safeAyah,
+      coveredEntryIndex >= 0 ? coveredEntryIndex + 1 : undefined
+    ));
   }
 
   function openQuranContext() {

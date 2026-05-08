@@ -1,7 +1,6 @@
 import type { HadithItem } from '@noor/content';
 import { HadithActionButtons } from './HadithActionButtons';
 import { NoorCard } from './NoorCard';
-import { SourceConnectionsPanel } from './SourceConnectionsPanel';
 
 type HadithReaderMode = 'read' | 'reflect' | 'practice';
 
@@ -27,23 +26,55 @@ function buildCopyText(hadith: HadithItem) {
     .join('\n\n');
 }
 
-function buildReflectionPrompt(mode: HadithReaderMode, hadith: HadithItem) {
-  if (mode === 'practice') {
-    return 'Practice: choose one small Sunnah action from this narration and write how you will apply it today.';
-  }
+function getNarratorText(hadith: HadithItem) {
+  if (!hadith.narrator) return undefined;
+  return hadith.narrator.replace(/^Narrated by\s+/iu, '').trim();
+}
 
+function isMeaningfulTopic(tag: string) {
+  const normalized = tag.trim().toLowerCase();
+  return (
+    Boolean(normalized) &&
+    normalized !== 'en' &&
+    normalized !== 'ar' &&
+    normalized !== 'ms' &&
+    normalized !== 'id' &&
+    normalized !== 'ur' &&
+    normalized !== 'zh' &&
+    normalized !== 'ta' &&
+    !normalized.startsWith('by_') &&
+    !normalized.includes('__') &&
+    !/^[a-z0-9-]+:\d+$/u.test(normalized)
+  );
+}
+
+function getMeaningfulTopics(hadith: HadithItem) {
+  return hadith.tags.filter(isMeaningfulTopic);
+}
+
+function getModePrompt(mode: HadithReaderMode) {
   if (mode === 'reflect') {
-    return 'Reflect: what character, intention or warning should I take from this narration?';
+    return {
+      label: 'Reflect',
+      text: 'What meaning, character trait, warning or encouragement should I carry from this narration?'
+    };
   }
 
-  const firstTag = hadith.tags[0];
-  return firstTag
-    ? `Read: notice how this Hadith relates to #${firstTag}, then save it if you want to return later.`
-    : 'Read: understand the reference, then save the narration if it is useful for your journey.';
+  if (mode === 'practice') {
+    return {
+      label: 'Practise',
+      text: 'Choose one small Sunnah action from this narration that can be lived today.'
+    };
+  }
+
+  return {
+    label: 'Read',
+    text: 'Read the Arabic, translation, narrator and reference as one focused source.'
+  };
 }
 
 function buildTopicHref(hadith: HadithItem) {
-  const topic = hadith.tags[0];
+  const topic = getMeaningfulTopics(hadith)[0];
   if (!topic) return undefined;
   const params = new URLSearchParams({ topic: topic.toLowerCase() });
   return `/explore?${params.toString()}`;
@@ -54,7 +85,9 @@ export function HadithCard({ hadith, mode = 'read', index }: HadithCardProps) {
   const referenceText = hadith.sourceLabel;
   const copyText = buildCopyText(hadith);
   const topicHref = buildTopicHref(hadith);
-  const firstTopic = hadith.tags[0]?.toLowerCase();
+  const meaningfulTopics = getMeaningfulTopics(hadith);
+  const narratorText = getNarratorText(hadith);
+  const modePrompt = getModePrompt(mode);
 
   return (
     <NoorCard className="noor-hadith-card noor-hadith-card-v1">
@@ -72,54 +105,29 @@ export function HadithCard({ hadith, mode = 'read', index }: HadithCardProps) {
         </p>
       ) : null}
 
-      {hadith.narrator ? <p className="noor-muted">Narrated by {hadith.narrator}</p> : null}
+      {narratorText ? <p className="noor-hadith-narrator">{narratorText}</p> : null}
       {hadith.arabic ? <div className="noor-arabic small noor-hadith-arabic">{hadith.arabic}</div> : null}
 
-      {hadith.translations.en ? <p className="noor-translation noor-hadith-primary-text">{hadith.translations.en}</p> : null}
+      {hadith.translations.en ? (
+        <div className="noor-hadith-translation-block" lang="en">
+          <span className="noor-kicker">English</span>
+          <p className="noor-translation noor-hadith-primary-text">{hadith.translations.en}</p>
+        </div>
+      ) : null}
       {hadith.translations.ms ? <p className="noor-subtitle">{hadith.translations.ms}</p> : null}
 
-      <div className="noor-hadith-guidance-note">
-        <span className="noor-kicker">{mode === 'practice' ? 'Practise' : mode === 'reflect' ? 'Reflect' : 'Read'}</span>
-        <p>{buildReflectionPrompt(mode, hadith)}</p>
+      <div className="noor-hadith-mode-note" data-mode={mode}>
+        <span className="noor-kicker">{modePrompt.label}</span>
+        <p>{modePrompt.text}</p>
       </div>
 
-      {hadith.tags.length > 0 ? (
+      {meaningfulTopics.length > 0 ? (
         <div className="noor-topic-chip-row">
-          {hadith.tags.slice(0, 6).map((tag) => (
+          {meaningfulTopics.slice(0, 6).map((tag) => (
             <span className="noor-badge" key={`${hadith.id}-${tag}`}>#{tag}</span>
           ))}
         </div>
       ) : null}
-
-      <SourceConnectionsPanel
-        compact
-        subtitle="This Hadith should not stand alone. Continue into topic, Quran/Tafseer context, or one practical action."
-        connections={[
-          {
-            label: 'Topic',
-            badge: 'Topic',
-            title: firstTopic ? `Explore #${firstTopic}` : 'Explore related topic',
-            description: firstTopic
-              ? 'Open a guided path that groups Quran, Tafseer and Hadith around this theme.'
-              : 'Use Explore to find the wider guidance path for this narration.',
-            href: topicHref ?? '/explore'
-          },
-          {
-            label: 'Quran',
-            badge: 'Quran',
-            title: 'Find Quran foundation',
-            description: 'Search for ayat and tafseer that connect with the meaning of this narration.',
-            href: firstTopic ? `/explore?topic=${encodeURIComponent(firstTopic)}` : '/explore'
-          },
-          {
-            label: 'Practise',
-            badge: 'Practise',
-            title: 'Turn into one action',
-            description: 'Save the narration, reflect on it, then practise one small Sunnah action today.',
-            href: '/library'
-          }
-        ]}
-      />
 
       <HadithActionButtons
         bookmarkItem={{
@@ -132,6 +140,7 @@ export function HadithCard({ hadith, mode = 'read', index }: HadithCardProps) {
         copyText={copyText}
         referenceText={referenceText}
         topicHref={topicHref}
+        compact={mode === 'read'}
       />
     </NoorCard>
   );

@@ -3,13 +3,9 @@
 import { NoorCard } from '@noor/ui';
 import { NOOR_CONTENT_SOURCE_LOCAL_STORAGE_KEY } from '../lib/runtime-content-source-constants';
 import {
-  getNoorSearchSuggestions,
   getNoorSearchTypeLabel,
-  NOOR_SEARCH_TOPICS,
   NOOR_SEARCH_TYPES,
-  searchNoorIndex,
   searchNoorLocal,
-  type NoorSearchIndexEntry,
   type NoorSearchResult,
   type NoorSearchType
 } from '@noor/search';
@@ -22,8 +18,6 @@ const activeButtonStyle = {
   background: 'linear-gradient(135deg, rgba(216, 183, 90, 0.22), rgba(47, 191, 155, 0.11))',
   color: 'var(--noor-ink)'
 };
-
-const DEFAULT_EXTERNAL_CDN_BASE = 'https://cdn.jsdelivr.net/gh/EffortEdutech/noor-cdn@main/noor-cdn';
 
 const NOOR_DISCOVERY_SOURCE_TYPES: NoorSearchType[] = ['quran', 'tafseer', 'hadith'];
 
@@ -46,65 +40,6 @@ const SOURCE_GROUPS: Array<{
     type: 'hadith',
     title: 'Hadith',
     helper: 'Reflect on Prophetic reminders connected to the topic.'
-  }
-];
-
-const GUIDANCE_TOPIC_PROMPTS = [
-  {
-    id: 'mercy',
-    icon: 'رحمة',
-    title: 'Mercy',
-    prompt: 'When I need hope in Allah’s mercy',
-    query: 'mercy',
-    description: 'For hope, compassion, forgiveness and returning to Allah.'
-  },
-  {
-    id: 'patience',
-    icon: 'صبر',
-    title: 'Patience',
-    prompt: 'When I am tested and need sabr',
-    query: 'patience',
-    description: 'For hardship, steadiness, trials and trust.'
-  },
-  {
-    id: 'rizq',
-    icon: 'رزق',
-    title: 'Rizq',
-    prompt: 'When I worry about provision',
-    query: 'rizq',
-    description: 'For sustenance, trust, gratitude and effort.'
-  },
-  {
-    id: 'intention',
-    icon: 'نية',
-    title: 'Intention',
-    prompt: 'When I want to purify my intention',
-    query: 'intention',
-    description: 'For sincerity, deeds, worship and the heart.'
-  },
-  {
-    id: 'protection',
-    icon: 'حفظ',
-    title: 'Protection',
-    prompt: 'When I seek refuge and safety',
-    query: 'protection',
-    description: 'For refuge, remembrance, evil and safety.'
-  },
-  {
-    id: 'prayer',
-    icon: 'صلاة',
-    title: 'Prayer',
-    prompt: 'When I want to return to prayer',
-    query: 'prayer',
-    description: 'For salah, du‘a, guidance and nearness.'
-  },
-  {
-    id: 'repentance',
-    icon: 'توبة',
-    title: 'Repentance',
-    prompt: 'When I want to come back to Allah',
-    query: 'repentance',
-    description: 'For tawbah, forgiveness, humility and renewal.'
   }
 ];
 
@@ -136,30 +71,25 @@ function readRuntimeSearchSource(): RuntimeSearchSource {
   return normalizeRuntimeSearchSource(process.env.NEXT_PUBLIC_NOOR_DATA_MODE);
 }
 
-function trimBase(value: string) {
-  return value.replace(/\/+$/, '');
-}
-
-function getSearchIndexEndpoint(source: RuntimeSearchSource) {
-  if (source === 'mock') return null;
-
-  if (source === 'local-cdn') {
-    const localBase = process.env.NEXT_PUBLIC_NOOR_LOCAL_CDN_BASE ?? '/noor-cdn';
-    return `${trimBase(localBase)}/search/search-index.json`;
-  }
-
-  const externalBase = process.env.NEXT_PUBLIC_NOOR_MANIFEST_CDN_BASE ?? DEFAULT_EXTERNAL_CDN_BASE;
-  return `${trimBase(externalBase)}/search/search-index.json`;
-}
-
-async function fetchSearchIndex(endpoint: string): Promise<NoorSearchIndexEntry[]> {
-  const response = await fetch(endpoint, { cache: 'no-store' });
+async function fetchCdnSearchResults({
+  query,
+  selectedTypes
+}: {
+  query: string;
+  selectedTypes: NoorSearchType[];
+}): Promise<NoorSearchResult[]> {
+  const params = new URLSearchParams({
+    q: query,
+    types: selectedTypes.join(','),
+    limit: '36'
+  });
+  const response = await fetch(`/api/explore/search?${params.toString()}`, { cache: 'no-store' });
   if (!response.ok) {
-    throw new Error(`Failed to load search index: ${response.status} ${response.statusText}`);
+    throw new Error(`Failed to search CDN index: ${response.status} ${response.statusText}`);
   }
 
   const data = await response.json();
-  return Array.isArray(data) ? (data as NoorSearchIndexEntry[]) : [];
+  return Array.isArray(data.results) ? (data.results as NoorSearchResult[]) : [];
 }
 
 function readRecentSearches() {
@@ -200,6 +130,8 @@ function buildQuranReaderHref(result: NoorSearchResult) {
 }
 
 function buildTafseerHref(result: NoorSearchResult) {
+  if (result.href?.startsWith('/learn/tafseer')) return result.href;
+
   const parsed = parseReference(result);
   if (!parsed) return '/learn/tafseer';
 
@@ -208,6 +140,8 @@ function buildTafseerHref(result: NoorSearchResult) {
 }
 
 function buildHadithReaderHref(result: NoorSearchResult) {
+  if (result.href?.startsWith('/learn/hadith')) return result.href;
+
   const firstTag = result.tags.find((tag) => tag.length > 1);
   const params = new URLSearchParams({ mode: 'reflect' });
   if (firstTag) params.set('topic', firstTag.toLowerCase());
@@ -293,12 +227,135 @@ function SearchTypeToggle({
   );
 }
 
+const KNOWLEDGE_PATH_STEPS: Array<{
+  type: NoorSearchType;
+  label: string;
+  title: string;
+  empty: string;
+  actionFallback: string;
+}> = [
+  {
+    type: 'quran',
+    label: '1. Quran',
+    title: 'Foundation',
+    empty: 'No Quran foundation found yet for this query.',
+    actionFallback: 'Open Quran'
+  },
+  {
+    type: 'tafseer',
+    label: '2. Tafseer',
+    title: 'Understanding',
+    empty: 'No tafseer explanation found yet for this query.',
+    actionFallback: 'Open Tafseer'
+  },
+  {
+    type: 'hadith',
+    label: '3. Hadith',
+    title: 'Guidance',
+    empty: 'No Hadith guidance found yet for this query.',
+    actionFallback: 'Open Hadith'
+  }
+];
+
+function getPathResultAction(result: NoorSearchResult) {
+  if (result.type === 'quran') {
+    return {
+      label: 'Read Quran',
+      href: buildQuranReaderHref(result)
+    };
+  }
+
+  if (result.type === 'tafseer') {
+    return {
+      label: 'Understand Tafseer',
+      href: buildTafseerHref(result)
+    };
+  }
+
+  return {
+    label: 'Reflect Hadith',
+    href: buildHadithReaderHref(result)
+  };
+}
+
+function getTopicPrompt(query: string) {
+  const trimmed = query.trim();
+  return trimmed ? `Knowledge related to "${trimmed}"` : 'Search for a topic, question or reference';
+}
+
+function KnowledgePathCard({
+  query,
+  results,
+  onRemember,
+}: {
+  query: string;
+  results: NoorSearchResult[];
+  onRemember: () => void;
+}) {
+  const pathResults = KNOWLEDGE_PATH_STEPS.map((step) => ({
+    ...step,
+    result: results.find((result) => result.type === step.type)
+  }));
+  const hasPathResult = pathResults.some((step) => step.result);
+
+  return (
+    <NoorCard className="noor-knowledge-path-card">
+      <div className="noor-knowledge-path-head">
+        <div>
+          <span className="noor-badge emerald">Knowledge Path</span>
+          <h2>{getTopicPrompt(query)}</h2>
+          <p className="noor-subtitle">
+            Study in order: begin with Quran, continue into tafseer, then reflect with Hadith.
+          </p>
+        </div>
+        <span className="noor-badge gold">{hasPathResult ? 'Ready to study' : 'Choose a wider word'}</span>
+      </div>
+
+      <div className="noor-knowledge-path-grid">
+        {pathResults.map((step) => {
+          const result = step.result;
+          const action = result ? getPathResultAction(result) : undefined;
+
+          return (
+            <article className="noor-knowledge-path-step" key={step.type} data-empty={!result}>
+              <span className="noor-kicker">{step.label}</span>
+              <h3>{step.title}</h3>
+              {result ? (
+                <>
+                  <strong>{result.title}</strong>
+                  <span className="noor-reference">{result.reference}</span>
+                  <p>{result.excerpt}</p>
+                  {result.sourceLabel ? <small>{result.sourceLabel}</small> : null}
+                  <a className="noor-button secondary" href={action?.href} onClick={onRemember}>
+                    {action?.label}
+                  </a>
+                </>
+              ) : (
+                <>
+                  <p>{step.empty}</p>
+                  <span className="noor-muted">Try a broader topic or remove a source filter.</span>
+                </>
+              )}
+            </article>
+          );
+        })}
+      </div>
+
+      <div className="noor-knowledge-path-footer">
+        <div>
+          <span className="noor-kicker">Continue</span>
+          <p className="noor-subtitle">After reading, save one reflection or continue through the linked source pages.</p>
+        </div>
+      </div>
+    </NoorCard>
+  );
+}
+
 export function SearchPanel() {
   const [query, setQuery] = useState('mercy');
   const [selectedTypes, setSelectedTypes] = useState<NoorSearchType[]>(NOOR_DISCOVERY_SOURCE_TYPES);
-  const [selectedTopic, setSelectedTopic] = useState<string | undefined>('mercy');
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
-  const [cdnSearchIndex, setCdnSearchIndex] = useState<NoorSearchIndexEntry[] | null>(null);
+  const [cdnResults, setCdnResults] = useState<NoorSearchResult[]>([]);
   const [searchReadyLabel, setSearchReadyLabel] = useState('Guidance search ready');
 
   useEffect(() => {
@@ -307,56 +364,44 @@ export function SearchPanel() {
     const params = new URLSearchParams(window.location.search);
     const topic = params.get('topic')?.trim();
     if (topic) {
-      const matchingTopic = NOOR_SEARCH_TOPICS.find(
-        (item) => item.id === topic.toLowerCase() || item.label.toLowerCase() === topic.toLowerCase()
-      );
-      setSelectedTopic(matchingTopic?.id);
-      setQuery(matchingTopic?.label ?? topic);
+      setQuery(topic);
     }
   }, []);
 
   useEffect(() => {
     let cancelled = false;
     const source = readRuntimeSearchSource();
-    const endpoint = getSearchIndexEndpoint(source);
 
-    if (!endpoint) {
-      setCdnSearchIndex(null);
+    if (source === 'mock') {
+      setCdnResults([]);
       setSearchReadyLabel('Guidance search ready');
       return;
     }
 
-    setSearchReadyLabel('Preparing guidance search…');
+    setSearchReadyLabel('Searching CDN knowledge index...');
 
-    fetchSearchIndex(endpoint)
-      .then((index) => {
+    fetchCdnSearchResults({ query, selectedTypes })
+      .then((results) => {
         if (cancelled) return;
-        if (index.length > 0) {
-          setCdnSearchIndex(index);
-          setSearchReadyLabel('Guidance search ready');
-        } else {
-          setCdnSearchIndex(null);
-          setSearchReadyLabel('Guidance search ready');
-        }
+        setCdnResults(results);
+        setSearchReadyLabel('CDN knowledge search ready');
       })
       .catch(() => {
         if (cancelled) return;
-        setCdnSearchIndex(null);
-        setSearchReadyLabel('Guidance search ready');
+        setCdnResults([]);
+        setSearchReadyLabel('CDN search unavailable');
       });
 
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [query, selectedTypes]);
 
-  const suggestions = useMemo(() => getNoorSearchSuggestions(query), [query]);
   const results = useMemo(() => {
-    const options = { types: selectedTypes, topic: selectedTopic, limit: 36 };
-    return cdnSearchIndex
-      ? searchNoorIndex(query, cdnSearchIndex, options)
-      : searchNoorLocal(query, options);
-  }, [cdnSearchIndex, query, selectedTypes, selectedTopic]);
+    if (readRuntimeSearchSource() !== 'mock') return cdnResults;
+    const options = { types: selectedTypes, limit: 36 };
+    return searchNoorLocal(query, options);
+  }, [cdnResults, query, selectedTypes]);
 
   const groupedResults = useMemo(
     () =>
@@ -385,11 +430,6 @@ export function SearchPanel() {
     });
   }
 
-  function applyTopic(topicId: string, topicQuery: string) {
-    setSelectedTopic((current) => (current === topicId ? undefined : topicId));
-    setQuery(topicQuery);
-    rememberSearch(topicQuery);
-  }
 
   return (
     <div className="noor-stack">
@@ -412,7 +452,6 @@ export function SearchPanel() {
               value={query}
               onChange={(event) => {
                 setQuery(event.target.value);
-                setSelectedTopic(undefined);
               }}
               onKeyDown={(event) => {
                 if (event.key === 'Enter') rememberSearch();
@@ -425,27 +464,6 @@ export function SearchPanel() {
             Search guidance
           </button>
         </div>
-
-        <div className="noor-stack" style={{ gap: 10, marginTop: 18 }}>
-          <span className="noor-kicker">Choose a guidance prompt</span>
-          <div className="noor-topic-prompt-grid">
-            {GUIDANCE_TOPIC_PROMPTS.map((topic) => (
-              <button
-                key={topic.id}
-                className="noor-topic-prompt-card"
-                data-active={selectedTopic === topic.id}
-                type="button"
-                onClick={() => applyTopic(topic.id, topic.query)}
-              >
-                <span className="noor-topic-prompt-icon">{topic.icon}</span>
-                <strong>{topic.title}</strong>
-                <span>{topic.prompt}</span>
-                <small>{topic.description}</small>
-              </button>
-            ))}
-          </div>
-        </div>
-
         <div className="noor-stack" style={{ gap: 10, marginTop: 16 }}>
           <span className="noor-kicker">Show me</span>
           <div className="noor-row" style={{ justifyContent: 'flex-start' }}>
@@ -471,7 +489,6 @@ export function SearchPanel() {
                   type="button"
                   onClick={() => {
                     setQuery(item);
-                    setSelectedTopic(undefined);
                   }}
                 >
                   {item}
@@ -482,29 +499,21 @@ export function SearchPanel() {
         ) : null}
       </NoorCard>
 
+      <KnowledgePathCard
+        query={query}
+        results={results}
+        onRemember={() => rememberSearch()}
+      />
+
       <div className="noor-result-summary">
         <div>
-          <span className="noor-kicker">Guidance results</span>
+          <span className="noor-kicker">All matching sources</span>
           <p className="noor-subtitle">
             {results.length > 0
-              ? `${results.length} reminder${results.length === 1 ? '' : 's'} found, grouped by Quran, Tafseer and Hadith.`
+              ? `${results.length} reminder${results.length === 1 ? '' : 's'} found. The strongest matches are arranged above as a knowledge path.`
               : 'No result yet for the current search and filters.'}
           </p>
         </div>
-        {suggestions.length > 0 ? (
-          <div className="noor-suggestion-row" aria-label="Suggested searches">
-            {suggestions.map((item) => (
-              <button
-                key={item.id}
-                className="noor-badge gold"
-                type="button"
-                onClick={() => applyTopic(item.id, item.label)}
-              >
-                Try {item.label}
-              </button>
-            ))}
-          </div>
-        ) : null}
       </div>
 
       {groupedResults.map((group) => (
@@ -573,20 +582,8 @@ export function SearchPanel() {
           <span className="noor-badge gold">No result yet</span>
           <h3>Try a wider doorway into guidance</h3>
           <p className="noor-subtitle">
-            Use a broader word, remove one filter, or begin from a topic prompt. Good starting points are mercy, patience, rizq, intention, protection, prayer and repentance.
+            Use a broader word, remove one filter, or try another search term from the source index.
           </p>
-          <div className="noor-card-actions">
-            {GUIDANCE_TOPIC_PROMPTS.slice(0, 5).map((topic) => (
-              <button
-                key={`empty-${topic.id}`}
-                className="noor-button secondary"
-                type="button"
-                onClick={() => applyTopic(topic.id, topic.query)}
-              >
-                {topic.title}
-              </button>
-            ))}
-          </div>
         </NoorCard>
       ) : null}
     </div>

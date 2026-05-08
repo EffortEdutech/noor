@@ -58,6 +58,14 @@ function normalizeWhitespace(value) {
   return String(value ?? '').replace(/\s+/g, ' ').trim();
 }
 
+function firstText(...values) {
+  for (const value of values) {
+    const normalized = normalizeWhitespace(value);
+    if (normalized) return normalized;
+  }
+  return '';
+}
+
 function slugify(value) {
   return String(value ?? '')
     .toLowerCase()
@@ -210,8 +218,10 @@ function buildHadithViewModel() {
   const sourceRoot = resolveSourceRoot();
   const outputRoot = OUTPUT_ROOT;
   const hadithOut = join(outputRoot, 'hadith');
+  const displayMetadata = readJson(join(hadithOut, 'collection-display-metadata.json'), null);
   rmSync(hadithOut, { recursive: true, force: true });
   mkdirSync(hadithOut, { recursive: true });
+  if (displayMetadata) writeJson(join(hadithOut, 'collection-display-metadata.json'), displayMetadata);
 
   const files = findHadithFiles(sourceRoot);
   const collections = [];
@@ -251,8 +261,9 @@ function buildHadithViewModel() {
     for (const [index, item] of hadiths.entries()) {
       const number = String(item.number ?? item.hadithnumber ?? item.hadithNumber ?? item.id ?? index + 1);
       const normalizedNumber = slugify(number);
-      const arabic = normalizeWhitespace(item.arab ?? item.arabic ?? item.ar ?? '');
-      const text = normalizeWhitespace(item.text ?? item.translation ?? item.body ?? item.en ?? '');
+      const arabic = firstText(item.arab, item.arabic, item.ar);
+      const englishText = firstText(item.english?.text, item.eng?.text, item.en?.text);
+      const text = firstText(item.text, item.translation, item.body, item.en, englishText);
       const translations = {};
       if (lang !== 'ar' && text) translations[lang] = text;
 
@@ -271,7 +282,7 @@ function buildHadithViewModel() {
         book: meta.book ?? payload?.metadata?.name ?? collectionName,
         chapter: item.chapter ?? item.bookName ?? item.chapterName ?? undefined,
         number,
-        narrator: item.narrator ?? item.by ?? undefined,
+        narrator: firstText(item.narrator, item.by, item.english?.narrator, item.eng?.narrator) || undefined,
         arabic: arabic || (lang === 'ar' ? text : undefined),
         translations,
         sourceLabel: `${collectionName} · ${sourceView === 'by_book' ? 'By book' : 'By chapter'} · ${edition}`,

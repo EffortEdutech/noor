@@ -1,7 +1,9 @@
-import Link from 'next/link';
 import { getHadithCollections, getHadithItems } from '@noor/data';
-import { HadithCard, NoorCard, PageHeader } from '@noor/ui';
+import { HadithCard, NoorCard } from '@noor/ui';
+import { HadithNavigationControls } from '../../../components/HadithNavigationControls';
+import { HadithSingleReader } from '../../../components/HadithSingleReader';
 import { getServerNoorContentSource } from '../../../lib/runtime-content-source';
+import styles from './HadithPage.module.css';
 
 export const dynamic = 'force-dynamic';
 
@@ -55,6 +57,20 @@ function normalizeTopic(value: SearchParamValue) {
   return firstValue(value)?.trim().toLowerCase();
 }
 
+function parsePage(value: SearchParamValue) {
+  const parsed = Number.parseInt(firstValue(value) ?? '1', 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
+}
+
+function prettifySegment(value: string | undefined) {
+  if (!value) return 'Collection';
+  return value
+    .replace(/^by-(book|chapter)__/u, '')
+    .replace(/__/gu, ' / ')
+    .replace(/[-_]+/gu, ' ')
+    .replace(/\b\w/gu, (character) => character.toUpperCase());
+}
+
 function inferCollectionView(collection: HadithCollectionWithView): HadithViewMode | 'legacy' {
   if (collection.sourceView === 'by_book' || collection.viewMode === 'by_book') return 'by_book';
   if (collection.sourceView === 'by_chapter' || collection.viewMode === 'by_chapter') return 'by_chapter';
@@ -93,21 +109,41 @@ function inferCollectionView(collection: HadithCollectionWithView): HadithViewMo
   return 'legacy';
 }
 
+function getGroupKey(collection: HadithCollectionResolved, view: HadithViewMode) {
+  if (view === 'by_chapter') {
+    return collection.sourceBook ?? collection.sourceScope ?? collection.id.split('__')[1] ?? 'chapters';
+  }
+
+  return collection.sourceScope ?? collection.sourceBook ?? collection.id.split('__')[1] ?? 'books';
+}
+
+function getCollectionLabel(collection: HadithCollectionResolved, view: HadithViewMode) {
+  const lastSegment = collection.id.split('__').at(-1);
+  if (view === 'by_chapter') return lastSegment ? `Chapter ${prettifySegment(lastSegment)}` : collection.name;
+  return lastSegment ? prettifySegment(lastSegment) : collection.name;
+}
+
 function buildHadithHref({
   view,
   collectionId,
   mode,
-  topic
+  topic,
+  group,
+  page
 }: {
   view: HadithViewMode;
   collectionId?: string;
   mode?: HadithReaderMode;
   topic?: string;
+  group?: string;
+  page?: number;
 }) {
   const params = new URLSearchParams({ view });
   if (collectionId) params.set('collection', collectionId);
   if (mode && mode !== 'read') params.set('mode', mode);
   if (topic) params.set('topic', topic);
+  if (group) params.set('group', group);
+  if (page && page > 1) params.set('page', String(page));
   return `/learn/hadith?${params.toString()}`;
 }
 
@@ -125,46 +161,21 @@ function dedupeHadithItems(items: HadithItemWithCanonical[]) {
   return deduped;
 }
 
-function collectionBadgeLabel(view: HadithCollectionResolved['resolvedView']) {
-  if (view === 'by_chapter') return 'By chapter';
-  if (view === 'by_book') return 'By book';
-  return 'Collection';
-}
-
-function modeCopy(mode: HadithReaderMode) {
-  if (mode === 'reflect') {
-    return {
-      label: 'Reflect',
-      title: 'Read with the heart awake',
-      body: 'Pause after each narration. Ask what it teaches about intention, character, worship or dealing with people.',
-      prompt: 'What quality does this Hadith ask me to strengthen today?'
-    };
-  }
-
-  if (mode === 'practice') {
-    return {
-      label: 'Practise',
-      title: 'Turn Sunnah into one small action',
-      body: 'Choose one narration and convert it into a practical action you can try today.',
-      prompt: 'What is one small action I can practise before the day ends?'
-    };
-  }
-
-  return {
-    label: 'Read',
-    title: 'Read slowly and understand the reference',
-    body: 'Browse a collection, read a few narrations, and save reminders you want to return to.',
-    prompt: 'Which Hadith should I save and revisit later?'
-  };
-}
-
 function collectTopics(items: HadithItemWithCanonical[]) {
   const counts = new Map<string, number>();
 
   for (const item of items) {
     for (const tag of item.tags ?? []) {
       const normalized = tag.trim().toLowerCase();
-      if (!normalized) continue;
+      if (
+        !normalized ||
+        ['ar', 'en', 'ms', 'id', 'ur', 'zh', 'ta'].includes(normalized) ||
+        normalized.startsWith('by_') ||
+        normalized.includes('__') ||
+        /^[a-z0-9-]+:\d+$/u.test(normalized)
+      ) {
+        continue;
+      }
       counts.set(normalized, (counts.get(normalized) ?? 0) + 1);
     }
   }
@@ -186,7 +197,8 @@ export default async function HadithPage({ searchParams }: HadithPageProps) {
   const activeMode = normalizeMode(params.mode);
   const selectedTopic = normalizeTopic(params.topic);
   const selectedCollectionId = firstValue(params.collection);
-  const currentMode = modeCopy(activeMode);
+  const requestedGroup = firstValue(params.group);
+  const currentPage = parsePage(params.page);
   const contentSource = await getServerNoorContentSource();
   const collections = (await getHadithCollections({ source: contentSource })) as HadithCollectionWithView[];
 
@@ -200,17 +212,45 @@ export default async function HadithPage({ searchParams }: HadithPageProps) {
   const byChapterCollections = collectionsWithView.filter((collection) => collection.resolvedView === 'by_chapter');
   const legacyCollections = collectionsWithView.filter((collection) => collection.resolvedView === 'legacy');
   const activeCollections = activeView === 'by_chapter' ? byChapterCollections : byBookCollections;
+  const visibleCollections = activeCollections.length > 0 ? activeCollections : activeView === 'by_book' ? legacyCollections : [];
+  const navigationCollections = [
+    ...byBookCollections,
+    ...legacyCollections.map((collection) => ({ ...collection, resolvedView: 'by_book' as const })),
+    ...byChapterCollections
+  ];
 
-  const visibleCollections =
-    activeCollections.length > 0
-      ? activeCollections
-      : activeView === 'by_book'
-        ? legacyCollections
-        : [];
+  const navigationGroupSummaries = [
+    ...navigationCollections
+      .reduce((groups, collection) => {
+        const view = collection.resolvedView === 'by_chapter' ? 'by_chapter' : 'by_book';
+        const key = getGroupKey(collection, view);
+        const existing = groups.get(key);
 
+        if (existing) {
+          existing.collections += 1;
+          existing.items += collection.itemCount ?? 0;
+          return groups;
+        }
+
+        groups.set(key, {
+          key,
+          label: prettifySegment(key),
+          collections: 1,
+          items: collection.itemCount ?? 0,
+          sortView: view
+        });
+        return groups;
+      }, new Map<string, { key: string; label: string; collections: number; items: number; sortView: HadithViewMode }>())
+      .values()
+  ].sort((a, b) => b.items - a.items || a.label.localeCompare(b.label));
+  const groupSummaries = navigationGroupSummaries.filter((group) => group.sortView === activeView);
+
+  const activeGroup = groupSummaries.some((group) => group.key === requestedGroup) ? requestedGroup : groupSummaries[0]?.key;
+  const groupedCollections = activeGroup
+    ? visibleCollections.filter((collection) => getGroupKey(collection, activeView) === activeGroup)
+    : visibleCollections;
   const selectedCollection =
-    visibleCollections.find((collection) => collection.id === selectedCollectionId) ??
-    visibleCollections[0];
+    groupedCollections.find((collection) => collection.id === selectedCollectionId) ?? groupedCollections[0] ?? visibleCollections[0];
 
   const rawItems = selectedCollection
     ? ((await getHadithItems(selectedCollection.id, { source: contentSource })) as HadithItemWithCanonical[])
@@ -218,158 +258,89 @@ export default async function HadithPage({ searchParams }: HadithPageProps) {
   const items = dedupeHadithItems(rawItems);
   const topics = collectTopics(items);
   const visibleItems = filterItemsByTopic(items, selectedTopic);
+  const itemsPerPage = 1;
+  const totalPages = Math.max(1, Math.ceil(visibleItems.length / itemsPerPage));
+  const safePage = Math.min(currentPage, totalPages);
+  const pageStart = (safePage - 1) * itemsPerPage;
+  const pageItems = visibleItems.slice(pageStart, pageStart + itemsPerPage);
+  const currentHadith = pageItems[0];
+  const selectedGroupLabel = activeGroup ? prettifySegment(activeGroup) : 'Collections';
+  const selectedCollectionLabel = selectedCollection ? getCollectionLabel(selectedCollection, activeView) : 'Reader';
+  const previousHref = safePage > 1
+    ? buildHadithHref({ view: activeView, collectionId: selectedCollection?.id, mode: activeMode, topic: selectedTopic, group: activeGroup, page: safePage - 1 })
+    : undefined;
+  const nextHref = safePage < totalPages
+    ? buildHadithHref({ view: activeView, collectionId: selectedCollection?.id, mode: activeMode, topic: selectedTopic, group: activeGroup, page: safePage + 1 })
+    : undefined;
+  const navigatorCollections = navigationCollections.map((collection) => {
+    const view: HadithViewMode = collection.resolvedView === 'by_chapter' ? 'by_chapter' : 'by_book';
+    const groupKey = getGroupKey(collection, view);
+
+    return {
+      id: collection.id,
+      label: getCollectionLabel(collection, view),
+      view,
+      groupKey,
+      groupLabel: prettifySegment(groupKey),
+      itemCount: collection.itemCount
+    };
+  });
 
   return (
-    <main className="noor-page">
-      <PageHeader
-        kicker="Hadith"
-        title="Read the Sunnah as guidance for today."
-        subtitle="Browse Hadith by book or chapter with a Read → Reflect → Practise flow, then save reminders, copy references and turn what you read into action."
+    <main className={`noor-page ${styles.page}`} id="hadith-top">
+      <HadithNavigationControls
+        groups={navigationGroupSummaries.map(({ sortView, ...group }) => group)}
+        collections={navigatorCollections}
+        topics={topics}
+        currentView={activeView}
+        currentMode={activeMode}
+        currentGroup={activeGroup}
+        currentCollectionId={selectedCollection?.id}
+        currentTopic={selectedTopic}
+        currentPage={safePage}
+        totalPages={totalPages}
+        selectedCollectionLabel={selectedCollectionLabel}
+        selectedGroupLabel={selectedGroupLabel}
       />
 
-      <section className="noor-hero-grid noor-hadith-hero-grid">
-        <NoorCard variant="gold" className="noor-link-card noor-hadith-reader-hero">
-          <span className="noor-badge emerald">Hadith reader</span>
-          <h2>{currentMode.title}</h2>
-          <p className="noor-subtitle">{currentMode.body}</p>
-          <div className="noor-reader-mode-preview noor-hadith-mode-tabs">
-            {(['read', 'reflect', 'practice'] as HadithReaderMode[]).map((mode) => (
-              <Link
-                key={mode}
-                className={`noor-button ${activeMode === mode ? 'primary' : 'secondary'}`}
-                href={buildHadithHref({ view: activeView, collectionId: selectedCollection?.id, mode, topic: selectedTopic })}
+      <section className={styles.readerMain} aria-label="Hadith reading surface">
+          {activeView === 'by_chapter' && byChapterCollections.length === 0 ? (
+            <NoorCard>
+              <span className="noor-badge">No chapter view yet</span>
+              <p className="noor-subtitle">This content source does not currently expose chapter navigation. Use the book view for now.</p>
+            </NoorCard>
+          ) : null}
+
+          <section className={styles.singleStack} id="hadith-reader">
+            {visibleItems.length === 0 ? (
+              <NoorCard>
+                <h2>No Hadith items found</h2>
+                <p className="noor-subtitle">Try another collection, view or topic.</p>
+              </NoorCard>
+            ) : null}
+
+            {currentHadith ? (
+              <HadithSingleReader
+                lastVisit={{
+                  href: buildHadithHref({ view: activeView, collectionId: selectedCollection?.id, mode: activeMode, topic: selectedTopic, group: activeGroup, page: safePage }),
+                  title: `Hadith ${currentHadith.number}`,
+                  subtitle: selectedCollectionLabel
+                }}
+                previousHref={previousHref}
+                nextHref={nextHref}
+                position={safePage}
+                total={visibleItems.length}
               >
-                {modeCopy(mode).label}
-              </Link>
-            ))}
-          </div>
-          <p className="noor-reflection-prompt">{currentMode.prompt}</p>
-        </NoorCard>
+                <HadithCard
+                  key={currentHadith.viewItemId ?? `${currentHadith.collectionId}-${currentHadith.id}`}
+                  hadith={currentHadith}
+                  mode={activeMode}
+                  index={pageStart + 1}
+                />
+              </HadithSingleReader>
+            ) : null}
+          </section>
 
-        <NoorCard variant="soft" className="noor-hadith-session-card">
-          <span className="noor-kicker">Selected collection</span>
-          <h2>{selectedCollection?.name ?? 'No Hadith collection found'}</h2>
-          <p className="noor-subtitle">
-            Showing {visibleItems.length} of {items.length} item{items.length === 1 ? '' : 's'} from the current view.
-          </p>
-          <div className="noor-reader-facts">
-            <span>{collections.length} collections</span>
-            <span>{byBookCollections.length || legacyCollections.length} by book</span>
-            <span>{byChapterCollections.length} by chapter</span>
-          </div>
-          <div className="noor-card-actions">
-            <Link className={`noor-button ${activeView === 'by_book' ? 'primary' : 'secondary'}`} href={buildHadithHref({ view: 'by_book', mode: activeMode })}>
-              By book
-            </Link>
-            <Link className={`noor-button ${activeView === 'by_chapter' ? 'primary' : 'secondary'}`} href={buildHadithHref({ view: 'by_chapter', mode: activeMode })}>
-              By chapter
-            </Link>
-          </div>
-        </NoorCard>
-      </section>
-
-      <section className="noor-hadith-guidance-grid">
-        <NoorCard>
-          <span className="noor-kicker">Reader flow</span>
-          <div className="noor-hadith-flow">
-            <div>
-              <strong>Read</strong>
-              <span>Know the source, narrator, book and chapter.</span>
-            </div>
-            <div>
-              <strong>Reflect</strong>
-              <span>Notice the value, warning or encouragement.</span>
-            </div>
-            <div>
-              <strong>Practise</strong>
-              <span>Choose one Sunnah action to live today.</span>
-            </div>
-          </div>
-        </NoorCard>
-
-        <NoorCard>
-          <span className="noor-kicker">Topics in this collection</span>
-          {topics.length > 0 ? (
-            <div className="noor-topic-chip-row">
-              <Link className={`noor-badge ${selectedTopic ? '' : 'gold'}`} href={buildHadithHref({ view: activeView, collectionId: selectedCollection?.id, mode: activeMode })}>
-                All
-              </Link>
-              {topics.map(({ topic, count }) => (
-                <Link
-                  key={topic}
-                  className={`noor-badge ${selectedTopic === topic ? 'gold' : 'emerald'}`}
-                  href={buildHadithHref({ view: activeView, collectionId: selectedCollection?.id, mode: activeMode, topic })}
-                >
-                  #{topic} ({count})
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <p className="noor-subtitle">This collection does not expose topic tags yet.</p>
-          )}
-        </NoorCard>
-      </section>
-
-      {activeView === 'by_chapter' && byChapterCollections.length === 0 ? (
-        <NoorCard>
-          <span className="noor-badge">No chapter view yet</span>
-          <p className="noor-subtitle">
-            This content source does not currently expose chapter navigation. Use the book view for now.
-          </p>
-        </NoorCard>
-      ) : null}
-
-      <section className="noor-section-heading">
-        <div>
-          <span className="noor-kicker">Choose collection</span>
-          <h2>{activeView === 'by_chapter' ? 'Browse by chapter' : 'Browse by book'}</h2>
-        </div>
-        <Link className="noor-button secondary" href="/explore">Search by topic</Link>
-      </section>
-
-      <section className="noor-grid">
-        {visibleCollections.map((collection) => (
-          <NoorCard key={collection.renderKey} className="noor-link-card">
-            <span className="noor-badge emerald">{collectionBadgeLabel(collection.resolvedView)}</span>
-            <h2>{collection.name}</h2>
-            <p className="noor-subtitle">{collection.description}</p>
-            {collection.sourceScope ? <p className="noor-subtitle">Scope: {collection.sourceScope}</p> : null}
-            {typeof collection.itemCount === 'number' ? <p className="noor-subtitle">Items: {collection.itemCount}</p> : null}
-            <Link className="noor-button secondary" href={buildHadithHref({ view: activeView, collectionId: collection.id, mode: activeMode })}>
-              Open collection
-            </Link>
-          </NoorCard>
-        ))}
-      </section>
-
-      <section className="noor-section-heading" id="hadith-reader">
-        <div>
-          <span className="noor-kicker">Hadith reminders</span>
-          <h2>{selectedCollection?.name ?? 'Reader'}</h2>
-        </div>
-        {selectedTopic ? (
-          <Link className="noor-button secondary" href={buildHadithHref({ view: activeView, collectionId: selectedCollection?.id, mode: activeMode })}>
-            Clear topic #{selectedTopic}
-          </Link>
-        ) : null}
-      </section>
-
-      <section className="noor-stack">
-        {visibleItems.length === 0 ? (
-          <NoorCard>
-            <h2>No Hadith items found</h2>
-            <p className="noor-subtitle">Try another collection, view or topic.</p>
-          </NoorCard>
-        ) : null}
-
-        {visibleItems.map((hadith, index) => (
-          <HadithCard
-            key={hadith.viewItemId ?? `${hadith.collectionId}-${hadith.id}-${index}`}
-            hadith={hadith}
-            mode={activeMode}
-            index={index + 1}
-          />
-        ))}
       </section>
     </main>
   );

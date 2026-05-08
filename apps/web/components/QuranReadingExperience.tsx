@@ -9,7 +9,7 @@ import { getDisplayArabicForAyah } from '../lib/quran-bismillah';
 import { getArabicFontSize, useReaderPreferences } from '../lib/reader-preferences';
 import { AiSourceAssistant } from './AiSourceAssistant';
 import { FloatingQuranNavigator, type QuranNavigatorSurah } from './FloatingQuranNavigator';
-import { QURAN_LAST_VISIT_KEY } from './QuranLastVisitLanding';
+import { QURAN_LAST_VISIT_KEY } from '../lib/knowledge-last-visit';
 
 const READER_MODE_STORAGE_KEY = 'noor.quran.readerMode.v4';
 
@@ -83,11 +83,13 @@ async function copyText(value: string) {
 function QuranAyahLine({
   ayah,
   tafseer,
+  tafseerPage,
   surahTitle,
   mode
 }: {
   ayah: QuranAyah;
   tafseer?: TafseerEntry;
+  tafseerPage?: number;
   surahTitle: string;
   mode: ReaderMode;
 }) {
@@ -100,6 +102,7 @@ function QuranAyahLine({
   const showEnglish = showMeaning && (preferences.languageMode === 'both' || preferences.languageMode === 'en');
   const showMalay = showMeaning && (preferences.languageMode === 'both' || preferences.languageMode === 'ms');
   const href = `/learn/quran/${ayah.surah}#ayah-${ayah.ayah}`;
+  const tafseerHref = `/learn/tafseer?book=demo-tafseer&surah=${ayah.surah}${tafseerPage && tafseerPage > 1 ? `&page=${tafseerPage}` : ''}#ayah-${ayah.ayah}`;
 
   const aiContext = useMemo<AiSourceContext>(() => buildQuranAyahAiContext({
     ayah,
@@ -141,6 +144,9 @@ function QuranAyahLine({
 
       {showEnglish ? <p className="noor-quran-v2-translation">{english}</p> : null}
       {showMalay ? <p className="noor-quran-v2-translation noor-quran-v2-translation-secondary">{malay}</p> : null}
+      <div className="noor-quran-v2-actions">
+        <a className="noor-button secondary" href={tafseerHref}>Open tafseer for this ayah</a>
+      </div>
 
       {mode === 'study' ? (
         <details className="noor-quran-v2-study">
@@ -174,12 +180,17 @@ export function QuranReadingExperience({
   const [modeSlot, setModeSlot] = useState<HTMLElement | null>(null);
 
   function saveLastVisit(nextAyah: number) {
+    const ayah = clampAyah(nextAyah, totalAyahs);
+
     try {
       window.localStorage.setItem(QURAN_LAST_VISIT_KEY, JSON.stringify({
         surah: content.surah.number,
-        ayah: clampAyah(nextAyah, totalAyahs),
+        ayah,
         surahName: content.surah.nameTransliteration,
         surahEnglish: content.surah.nameEnglish,
+        href: `/learn/quran/${content.surah.number}#ayah-${ayah}`,
+        title: `${content.surah.nameTransliteration} - Ayah ${ayah}`,
+        subtitle: content.surah.nameEnglish,
         updatedAt: new Date().toISOString()
       }));
     } catch {
@@ -279,6 +290,7 @@ export function QuranReadingExperience({
               key={ayah.key}
               ayah={ayah}
               tafseer={getTafseerForAyah(tafseer, ayah.ayah)}
+              tafseerPage={tafseer.findIndex((entry) => ayah.ayah >= entry.fromAyah && ayah.ayah <= entry.toAyah) + 1}
               surahTitle={content.surah.nameTransliteration}
               mode={mode}
             />
